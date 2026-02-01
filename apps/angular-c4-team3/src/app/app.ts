@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcome } from './nx-welcome';
+import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
 
 @Component({
-  imports: [NxWelcome, RouterModule],
+  imports: [RouterModule, TranslocoPipe],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-  protected title = 'angular-c4-team3';
+  translocoService = inject(TranslocoService);
+  lang = signal(this.translocoService.getActiveLang());
+
+  changeLanguage(lang: string) {
+    this.translocoService.setActiveLang(lang);
+    this.lang.set(lang);
+  }
 }

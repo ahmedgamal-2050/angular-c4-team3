@@ -17,7 +17,8 @@
           {
             "glob": "**/*",
             "input": "apps/angular-c4-team3/public"
-          }
+          },
+          "apps/angular-c4-team3/src/assets"
         ],
         "styles": ["apps/angular-c4-team3/src/styles.css"]
       },

@@ -1,2 +1,13 @@
-<app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet>
+<div class="ms-6">
+  <button
+    (click)="changeLanguage(lang() === 'en' ? 'ar' : 'en')"
+    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors mt-4"
+  >
+    {{ lang() }}
+  </button>
+
+  <p class="text-3xl font-bold underline text-blue-600 mt-10">
+    Welcome, {{ 'hello' | transloco }}
+  </p>
+</div>
+<router-outlet />
