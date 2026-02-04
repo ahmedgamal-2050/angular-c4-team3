@@ -9,5 +9,52 @@
   <p class="text-3xl font-bold underline text-blue-600 mt-10">
     Welcome, {{ 'hello' | transloco }}
   </p>
+
+  <form
+    class="mt-10 max-w-md space-y-4"
+    [formGroup]="loginForm"
+    (ngSubmit)="submitLogin()"
+    novalidate
+  >
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-gray-700" for="email">
+        Email
+      </label>
+      <app-input
+        id="email"
+        type="email"
+        placeholder="user@example.com"
+        [required]="true"
+        fieldControlName="email"
+      />
+      @if (emailErrors().length) {
+        <p class="text-sm text-red-600">{{ emailErrors()[0] }}</p>
+      }
+    </div>
+
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-gray-700" for="password">
+        Password
+      </label>
+      <app-input
+        id="password"
+        type="password"
+        placeholder="********"
+        [required]="true"
+        fieldControlName="password"
+      />
+      @if (passwordErrors().length) {
+        <p class="text-sm text-red-600">{{ passwordErrors()[0] }}</p>
+      }
+    </div>
+
+    <button
+      type="submit"
+      class="w-full rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 disabled:opacity-60"
+      [disabled]="loginForm.invalid"
+    >
+      Sign in
+    </button>
+  </form>
 </div> -->
 <router-outlet />
