@@ -1,13 +1,50 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="text" pInputText formControlName="email" placeholder="user@example.com">
+<section class="min-h-screen flex flex-col items-center justify-center">
+  <div class="flex justify-end w-[40%]">
+    <button (click)="changeLanguage(lang() === 'English' ? 'العربيه' : 'English')"
+      class="my-7 text-zinc-700 font-normal text-[16px] flex justify-end">
+      {{ lang() }}
+    </button>
+  </div>
+  <img src="assets/images/separator.svg" alt="">
+  <p class="my-7 text-maroon-700 text-5xl pb-4 border-b border-zinc-200">Welcome back!</p>
+  <form class=" max-w-md space-y-4" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="space-y-2">
+      <label class=" text-zinc-800 font-medium text-sm" for="email">
+        Email
+      </label>
+      <app-input id="email" type="email" placeholder="user@example.com" fieldControlName="email" />
+      @if (emailErrors().length) {
+      <p class="text-sm text-red-600">{{ emailErrors()[0] }}</p>
+      }
     </div>
 
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" pInputText pInputText formControlName="password" placeholder="Enter password">
+    <div class="space-y-2">
+      <label class=" text-zinc-800 font-medium text-sm" for="password">
+        Password
+      </label>
+      <app-input id="password" type="password" placeholder="********" fieldControlName="password" />
+      @if (passwordErrors().length) {
+      <p class="text-sm text-red-600">{{ passwordErrors()[0] }}</p>
+      }
     </div>
+    <p class="text-maroon-700 text-sm  font-semibold flex justify-end">Forgot your password?</p>
+    <label class="flex items-center gap-2 cursor-pointer">
+      <input type="checkbox" class="hidden" id="rememberMe"
+        onchange="this.nextElementSibling.querySelector('span').classList.toggle('hidden')" />
 
-    <button (click)="submit()" type="submit" [disabled]="form.invalid">Login</button>
-</form>
+      <div class="w-6 h-6 border-2 border-maroon-700 rounded-lg flex items-center justify-center">
+        <span class="text-maroon-700 text-xl font-bold hidden leading-none">✓</span>
+      </div>
+      <span class="text-zinc-800 text-sm">Remember me</span>
+    </label>
+    <button type="submit" class="w-full rounded-xl bg-maroon-600 px-4 py-3 text-white transition-colors"
+      >
+      LogIn
+    </button>
+  </form>
+  <div class="flex my-5">
+    <p class="text-zinc-800 font-bold text-sm">Don’t have an account yet?</p>
+    <span class="text-maroon-700 font-bold text-sm">Create one now!</span>
+  </div>
+  <img class="img_footer" src="assets/images/separator.svg" alt="">
+</section>

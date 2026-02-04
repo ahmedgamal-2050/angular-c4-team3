@@ -1,12 +1,11 @@
 import { Component, computed, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { InputComponent } from './layout/components/form-components/input/input.component';
+import { TranslocoService } from '@jsverse/transloco';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  imports: [RouterModule, ReactiveFormsModule, TranslocoPipe, InputComponent],
+  imports: [RouterModule, ReactiveFormsModule],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
