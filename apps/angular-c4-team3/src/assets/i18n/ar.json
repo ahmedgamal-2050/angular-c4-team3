@@ -1,3 +1,15 @@
 {
-  "hello": "مرحبا بالعالم"
+  "hello": "مرحبا بالعالم",
+  "AUTH": {
+    "WELCOME_BACK": "مرحباً بعودتك!",
+    "EMAIL": "البريد الإلكتروني",
+    "EMAIL_PLACEHOLDER": "user@example.com",
+    "PASSWORD": "كلمة المرور",
+    "PASSWORD_PLACEHOLDER": "********",
+    "FORGOT_PASSWORD": "نسيت كلمة المرور؟",
+    "REMEMBER_ME": "تذكرني",
+    "LOGIN": "تسجيل الدخول",
+    "NO_ACCOUNT": "ليس لديك حساب؟",
+    "CREATE_ACCOUNT": "أنشئ حساب الآن!"
+  }
 }

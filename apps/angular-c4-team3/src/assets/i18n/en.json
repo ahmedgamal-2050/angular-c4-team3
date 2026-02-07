@@ -1,3 +1,15 @@
 {
-  "hello": "Hello World"
+  "hello": "Hello World",
+  "AUTH": {
+    "WELCOME_BACK": "Welcome back!",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "user@example.com",
+    "PASSWORD": "Password",
+    "PASSWORD_PLACEHOLDER": "********",
+    "FORGOT_PASSWORD": "Forgot your password?",
+    "REMEMBER_ME": "Remember me",
+    "LOGIN": "Log In",
+    "NO_ACCOUNT": "Don’t have an account yet?",
+    "CREATE_ACCOUNT": "Create one now!"
+  }
 }

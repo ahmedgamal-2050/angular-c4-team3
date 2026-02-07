@@ -1,13 +1,15 @@
 <section class="grid grid-cols-12 h-screen">
   <div class="col-span-12 lg:col-span-6 ">
-    <router-outlet />
+    <div class="min-h-screen flex flex-col items-center justify-center">
+      <div class="flex justify-end w-[45%] mb-3">
+        <button (click)="changeLanguage()"  class="my-7 text-zinc-700 font-normal  text-base flex justify-end">
+          {{ lang() === 'en' ? 'English' : 'العربية' }}
+        </button>
+      </div>
+      <router-outlet />
+    </div>
   </div>
-
   <div class="col-span-6 h-screen hidden lg:block">
-    <img
-      src="assets/images/Cover.svg"
-      alt=""
-      class="w-full h-full object-cover"
-    />
+    <img src="assets/images/Cover.svg" alt="" class="w-full h-full object-cover" />
   </div>
 </section>

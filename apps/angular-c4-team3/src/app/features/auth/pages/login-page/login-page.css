@@ -1,13 +1,5 @@
-.img_footer{
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    -o-transform: rotate(180deg);
-}
-
-::ng-deep .app-input::placeholder {
+/* ::ng-deep .app-input::placeholder {
     color: #A1A1AA; 
     font-size: 14px;
     font-weight: 400;
-}
+} */
