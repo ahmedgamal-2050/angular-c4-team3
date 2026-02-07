@@ -1,1 +1,121 @@
-<p>register-page works!</p>
+<section class="min-h-screen flex flex-col items-center justify-center">
+    <img src="assets/images/separator.svg" alt="" />
+    <p class="my-7 text-maroon-700 text-5xl pb-4 border-b border-zinc-200">
+        {{ 'AUTH.REGISTER_BACK' | transloco }}
+    </p>
+    <form class="max-w-md space-y-4 " [formGroup]="form" (ngSubmit)="submit()" novalidate>
+        <!-- First Name and Last Name -->
+        <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-2">
+                <label class="text-zinc-800 font-medium text-sm" for="firstName">
+                    {{ 'AUTH.FIRST_NAME' | transloco }}
+                </label>
+                <app-input id="firstName" type="text" [placeholder]="'AUTH.FIRST_NAME_PLACEHOLDER' | transloco"
+                    fieldControlName="firstName" />
+                @if (firstNameErrors().length) {
+                <p class="text-sm text-red-600">{{ firstNameErrors()[0] }}</p>
+                }
+            </div>
+
+            <div class="space-y-2">
+                <label class="text-zinc-800 font-medium text-sm" for="lastName">
+                    {{ 'AUTH.LAST_NAME' | transloco }}
+                </label>
+                <app-input id="lastName" type="text" [placeholder]="'AUTH.LAST_NAME_PLACEHOLDER' | transloco"
+                    fieldControlName="lastName" />
+                @if (lastNameErrors().length) {
+                <p class="text-sm text-red-600">{{ lastNameErrors()[0] }}</p>
+                }
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div class="space-y-2">
+            <label class="text-zinc-800 font-medium text-sm" for="email">
+                {{ 'AUTH.EMAIL' | transloco }}
+            </label>
+            <app-input id="email" type="email" [placeholder]="'AUTH.EMAIL_PLACEHOLDER' | transloco"
+                fieldControlName="email" />
+            @if (emailErrors().length) {
+            <p class="text-sm text-red-600">{{ emailErrors()[0] }}</p>
+            }
+        </div>
+
+        <!-- Phone -->
+        <div class="space-y-2">
+            <label class="text-zinc-800 font-medium text-sm" for="phone">
+                {{ 'AUTH.PHONE' | transloco }}
+            </label>
+            <div class="flex gap-2">
+                <div class="flex items-center gap-2 border border-zinc-300 rounded-lg px-3 py-2 bg-white min-w-[120px]">
+                    <img src="https://flagcdn.com/w40/eg.png" alt="Egypt flag" class="w-5 h-4" />
+                    <span class="text-sm text-zinc-700">
+                        EG(+20)
+                    </span>
+                </div>
+                <app-input id="phone" type="tel" [placeholder]="'AUTH.PHONE_PLACEHOLDER' | transloco"
+                    fieldControlName="phone" class="flex-1" />
+            </div>
+            @if (phoneErrors().length) {
+            <p class="text-sm text-red-600">{{ phoneErrors()[0] }}</p>
+            }
+        </div>
+
+        <!-- Gender -->
+        <div class="space-y-2">
+            <label class="text-zinc-800 font-medium text-sm" for="gender">
+                {{ 'AUTH.GENDER' | transloco }}
+            </label>
+            <select id="gender" formControlName="gender"
+                class="w-full border border-zinc-300 rounded-lg px-3 py-2.5 text-sm text-zinc-700 bg-white focus:outline-none focus:ring-2 focus:ring-maroon-500">
+                <option value="" disabled selected>{{ 'AUTH.SELECT_GENDER' | transloco }}</option>
+                <option value="male">{{ 'AUTH.MALE' | transloco }}</option>
+                <option value="female">{{ 'AUTH.FEMALE' | transloco }}</option>
+                <option value="other">{{ 'AUTH.OTHER' | transloco }}</option>
+            </select>
+            @if (genderErrors().length) {
+            <p class="text-sm text-red-600">{{ genderErrors()[0] }}</p>
+            }
+        </div>
+
+        <!-- Password -->
+        <div class="space-y-2">
+            <label class="text-zinc-800 font-medium text-sm" for="password">
+                {{ 'AUTH.PASSWORD' | transloco }}
+            </label>
+            <app-input id="password" type="password" [placeholder]="'AUTH.PASSWORD_PLACEHOLDER' | transloco"
+                fieldControlName="password" />
+            @if (passwordErrors().length) {
+            <p class="text-sm text-red-600">{{ passwordErrors()[0] }}</p>
+            }
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="space-y-2">
+            <label class="text-zinc-800 font-medium text-sm" for="confirmPassword">
+                {{ 'AUTH.CONFIRM_PASSWORD' | transloco }}
+            </label>
+            <app-input id="confirmPassword" type="password"
+                [placeholder]="'AUTH.CONFIRM_PASSWORD_PLACEHOLDER' | transloco" fieldControlName="confirmPassword" />
+            @if (confirmPasswordErrors().length) {
+            <p class="text-sm text-red-600">{{ confirmPasswordErrors()[0] }}</p>
+            }
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit"
+            class="w-full my-6 rounded-xl bg-maroon-600 px-4 py-3 text-white font-medium transition-colors hover:bg-maroon-700">
+            {{ 'AUTH.CREATE_ACCOUNT' | transloco }}
+        </button>
+    </form>
+    <div class="border-b py-3 border-zinc-200"></div>
+    <div class="flex mb-8 gap-1 ">
+        <p class="text-zinc-800 font-bold text-sm">
+            {{ 'AUTH.Already_account' | transloco }}
+        </p>
+        <a [routerLink]="'/auth/login'" class="text-maroon-700 font-bold text-sm">
+            {{ 'AUTH.LOGIN' | transloco }}
+        </a>
+    </div>
+    <img class="rotate-180" src="assets/images/separator.svg" alt="" />
+</section>
