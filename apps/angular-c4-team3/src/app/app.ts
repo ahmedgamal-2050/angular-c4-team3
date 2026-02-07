@@ -1,12 +1,20 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { InputComponent } from './layout/components/form-components/input/input.component';
+import { InputComponent } from './shared/components/form-components/input/input.component';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ThemeSwitcherComponent } from './shared/components/theme-switcher/theme-switcher.component';
+import { FormErrorService } from './shared/services/form-error.service';
 
 @Component({
-  imports: [RouterModule, ReactiveFormsModule, TranslocoPipe, InputComponent],
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    TranslocoPipe,
+    InputComponent,
+    ThemeSwitcherComponent,
+  ],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
@@ -19,43 +27,23 @@ export class App {
   loginForm = this.fb.group({
     email: this.fb.control('', {
       validators: [Validators.required, Validators.email],
-      nonNullable: true,
     }),
     password: this.fb.control('', {
       validators: [Validators.required, Validators.minLength(8)],
-      nonNullable: true,
     }),
   });
 
-  emailErrors = computed(() => {
-    const control = this.loginForm.controls.email;
-    if (!(control.touched || control.dirty)) {
-      return [];
-    }
-    const errors: string[] = [];
-    if (control.hasError('required')) {
-      errors.push('Email is required.');
-    }
-    if (control.hasError('email')) {
-      errors.push('Enter a valid email address.');
-    }
-    return errors;
-  });
+  private readonly formErrorService = inject(FormErrorService);
 
-  passwordErrors = computed(() => {
-    const control = this.loginForm.controls.password;
-    if (!(control.touched || control.dirty)) {
-      return [];
-    }
-    const errors: string[] = [];
-    if (control.hasError('required')) {
-      errors.push('Password is required.');
-    }
-    if (control.hasError('minlength')) {
-      errors.push('Password must be at least 8 characters.');
-    }
-    return errors;
-  });
+  emailErrors = this.formErrorService.getErrorMessage(
+    this.loginForm.controls.email,
+    'Email',
+  );
+
+  passwordErrors = this.formErrorService.getErrorMessage(
+    this.loginForm.controls.password,
+    'Password',
+  );
 
   changeLanguage(lang: string) {
     this.translocoService.setActiveLang(lang);

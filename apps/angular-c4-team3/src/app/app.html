@@ -1,56 +1,46 @@
 <div class="ms-6">
   <button
     (click)="changeLanguage(lang() === 'en' ? 'ar' : 'en')"
-    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors mt-4"
+    class="px-4 py-2 bg-blue-500 dark:bg-blue-600 text-white dark:text-white rounded hover:bg-blue-600 dark:hover:bg-blue-700 transition-colors mt-4"
   >
     {{ lang() }}
   </button>
+  <app-theme-switcher class="ms-4" />
 
-  <p class="text-3xl font-bold underline text-blue-600 mt-10">
+  <p
+    class="text-3xl font-bold underline text-blue-600 dark:text-blue-400 mt-10"
+  >
     Welcome, {{ 'hello' | transloco }}
   </p>
 
   <form
-    class="mt-10 max-w-md space-y-4"
+    class="mt-10 max-w-md flex flex-col gap-4"
     [formGroup]="loginForm"
     (ngSubmit)="submitLogin()"
-    novalidate
   >
-    <div class="space-y-2">
-      <label class="block text-sm font-medium text-gray-700" for="email">
-        Email
-      </label>
-      <app-input
-        id="email"
-        type="email"
-        placeholder="user@example.com"
-        [required]="true"
-        fieldControlName="email"
-      />
-      @if (emailErrors().length) {
-        <p class="text-sm text-red-600">{{ emailErrors()[0] }}</p>
-      }
-    </div>
+    <app-input
+      id="email"
+      type="email"
+      label="Email"
+      placeholder="user@example.com"
+      [required]="true"
+      fieldControlName="email"
+      [errorMessages]="emailErrors()"
+    />
 
-    <div class="space-y-2">
-      <label class="block text-sm font-medium text-gray-700" for="password">
-        Password
-      </label>
-      <app-input
-        id="password"
-        type="password"
-        placeholder="********"
-        [required]="true"
-        fieldControlName="password"
-      />
-      @if (passwordErrors().length) {
-        <p class="text-sm text-red-600">{{ passwordErrors()[0] }}</p>
-      }
-    </div>
+    <app-input
+      id="password"
+      type="password"
+      label="Password"
+      placeholder="********"
+      [required]="true"
+      fieldControlName="password"
+      [errorMessages]="passwordErrors()"
+    />
 
     <button
       type="submit"
-      class="w-full rounded bg-blue-600 px-4 py-2 text-white transition-colors hover:bg-blue-700 disabled:opacity-60"
+      class="w-full rounded bg-blue-600 px-4 py-2 text-white dark:text-white transition-colors hover:bg-blue-700 dark:hover:bg-blue-700 disabled:opacity-60"
       [disabled]="loginForm.invalid"
     >
       Sign in
