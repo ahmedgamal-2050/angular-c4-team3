@@ -28,7 +28,19 @@
       [errorMessages]="emailErrors()"
     />
 
-    <app-input
+    <app-select
+      id="country"
+      label="Country"
+      [options]="countries()"
+      optionLabel="name"
+      optionValue="code"
+      placeholder="Select a country"
+      [required]="true"
+      fieldControlName="country"
+      [errorMessages]="countryErrors()"
+    />
+
+    <app-password
       id="password"
       type="password"
       label="Password"
@@ -36,6 +48,15 @@
       [required]="true"
       fieldControlName="password"
       [errorMessages]="passwordErrors()"
+    />
+
+    <app-phone
+      id="phone"
+      label="Phone"
+      placeholder="01000000000"
+      [required]="true"
+      fieldControlName="phone"
+      [errorMessages]="phoneErrors()"
     />
 
     <button

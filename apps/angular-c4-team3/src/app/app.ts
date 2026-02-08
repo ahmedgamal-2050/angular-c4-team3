@@ -6,7 +6,10 @@ import { InputComponent } from './shared/components/form-components/input/input.
 import { FormBuilder, Validators } from '@angular/forms';
 import { ThemeSwitcherComponent } from './shared/components/theme-switcher/theme-switcher.component';
 import { FormErrorService } from './shared/services/form-error.service';
-
+import { PasswordComponent } from './shared/components/form-components/password/password.component';
+import { SelectComponent } from './shared/components/form-components/select/select.component';
+import { PhoneComponent } from './shared/components/form-components/phone/phone.component';
+import { COUNTRIES } from './shared/constants/countries';
 @Component({
   imports: [
     RouterModule,
@@ -14,6 +17,9 @@ import { FormErrorService } from './shared/services/form-error.service';
     TranslocoPipe,
     InputComponent,
     ThemeSwitcherComponent,
+    PasswordComponent,
+    SelectComponent,
+    PhoneComponent,
   ],
   selector: 'app-root',
   templateUrl: './app.html',
@@ -23,6 +29,7 @@ export class App {
   translocoService = inject(TranslocoService);
   private fb = inject(FormBuilder);
   lang = signal(this.translocoService.getActiveLang());
+  countries = signal(COUNTRIES);
 
   loginForm = this.fb.group({
     email: this.fb.control('', {
@@ -30,6 +37,12 @@ export class App {
     }),
     password: this.fb.control('', {
       validators: [Validators.required, Validators.minLength(8)],
+    }),
+    country: this.fb.control('', {
+      validators: [Validators.required],
+    }),
+    phone: this.fb.control('', {
+      validators: [Validators.required],
     }),
   });
 
@@ -43,6 +56,16 @@ export class App {
   passwordErrors = this.formErrorService.getErrorMessage(
     this.loginForm.controls.password,
     'Password',
+  );
+
+  countryErrors = this.formErrorService.getErrorMessage(
+    this.loginForm.controls.country,
+    'Country',
+  );
+
+  phoneErrors = this.formErrorService.getErrorMessage(
+    this.loginForm.controls.phone,
+    'Phone',
   );
 
   changeLanguage(lang: string) {
