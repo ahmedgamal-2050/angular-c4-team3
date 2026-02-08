@@ -1,4 +1,11 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  input,
+  linkedSignal,
+  signal,
+} from '@angular/core';
 import {
   ControlContainer,
   FormControl,
@@ -11,7 +18,7 @@ import { LabelComponent } from '../label/label.component';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { SelectModule, SelectPassThrough } from 'primeng/select';
 import { FormDefaultClasses, PhonePT } from '../form-default-classes';
-import { COUNTRIES } from '../../../constants/countries';
+import { COUNTRIES, CountryCode } from '../../../constants/countries';
 
 @Component({
   selector: 'app-phone',
@@ -44,8 +51,13 @@ export class PhoneComponent {
 
   defaultClass = signal<string>(FormDefaultClasses.input.default);
   errorClass = signal<string>(FormDefaultClasses.input.error);
+  defaultCountry = input<CountryCode>();
   countries = signal(COUNTRIES);
-  selectedCountry = signal(this.countries()[0]);
+  selectedCountry = linkedSignal(
+    () =>
+      this.countries().find((c) => c.code === this.defaultCountry()) ??
+      this.countries()[0],
+  );
   pt = signal<SelectPassThrough>(PhonePT);
 
   get parentFormGroup() {

@@ -38,7 +38,7 @@ export class App {
     password: this.fb.control('', {
       validators: [Validators.required, Validators.minLength(8)],
     }),
-    country: this.fb.control('', {
+    country: this.fb.control(COUNTRIES[0].code, {
       validators: [Validators.required],
     }),
     phone: this.fb.control('', {

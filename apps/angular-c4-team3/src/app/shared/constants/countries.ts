@@ -1,3 +1,6 @@
+import { Country } from '../models/countries';
+export type { Country };
+
 export const COUNTRIES = [
   {
     name: 'Egypt',
@@ -17,4 +20,6 @@ export const COUNTRIES = [
     phone: '+44',
     flag: 'https://flagcdn.com/w20/gb.png',
   },
-];
+] as const satisfies Country[];
+
+export type CountryCode = (typeof COUNTRIES)[number]['code'];

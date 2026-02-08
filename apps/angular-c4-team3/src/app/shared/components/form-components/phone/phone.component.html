@@ -20,6 +20,7 @@
       [class]="dropdownClass()"
       placeholder="Select"
       [pt]="pt()"
+      [ngModelOptions]="{ standalone: true }"
     >
       <ng-template pTemplate="selectedItem" let-country>
         <div class="flex items-center gap-2">
