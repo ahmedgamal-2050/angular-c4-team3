@@ -1,3 +1,5 @@
+import { SelectPassThrough } from 'primeng/select';
+
 export const inputClasses = {
   core: 'rounded-lg! border! placeholder:text-zinc-400! p-4! text-sm! w-full!',
   light: 'border-zinc-300! text-zinc-800! bg-white!',
@@ -38,4 +40,26 @@ export const FormDefaultClasses = {
       labelClasses.disabled,
     error: labelClasses.core + ' ' + labelClasses.error,
   },
+};
+
+export const PhonePT: SelectPassThrough = {
+  pcOverlay: {
+    content: 'bg-white dark:bg-zinc-800 p-2! rounded-sm! shadow-sm!',
+  },
+  pcFilter: {
+    root: 'p-2! rounded-sm! border! border-zinc-200! dark:border-zinc-600!',
+  },
+  pcFilterIconContainer: {
+    root: 'end-3! -translate-y-2/5!',
+  },
+  listContainer: 'pt-2!',
+  option:
+    'p-2! rounded-sm! hover:bg-zinc-100! dark:hover:bg-zinc-700! selected:p-0!',
+};
+
+export const SelectPT: SelectPassThrough = {
+  pcOverlay: {
+    content: 'bg-white dark:bg-zinc-800 shadow-lg rounded-sm p-2',
+  },
+  option: 'p-2! rounded-sm! hover:bg-zinc-100! dark:hover:bg-zinc-700!',
 };

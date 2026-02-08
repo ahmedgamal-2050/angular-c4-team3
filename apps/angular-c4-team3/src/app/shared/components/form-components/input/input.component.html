@@ -8,23 +8,25 @@
     />
   }
 
-  <input
-    pInputText
-    [type]="type()"
-    [id]="id()"
-    [name]="name()"
-    [placeholder]="placeholder()"
-    [value]="value()"
-    [disabled]="disabled()"
-    [required]="required()"
-    [formControlName]="fieldControlName()"
-    [autocomplete]="autocomplete()"
-    [class]="inputClass() ?? defaultInputClass()"
-  />
+  <div class="relative">
+    <input
+      pInputText
+      [type]="type()"
+      [id]="id()"
+      [name]="name()"
+      [placeholder]="placeholder()"
+      [value]="value()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [formControlName]="fieldControlName()"
+      [autocomplete]="autocomplete()"
+      [class]="inputClass() ?? defaultInputClass()"
+    />
 
-  @if (endIconTemplate()) {
-    <ng-container [ngTemplateOutlet]="endIconTemplate()" />
-  }
+    @if (endIconTemplate()) {
+      <ng-container [ngTemplateOutlet]="endIconTemplate()" />
+    }
+  </div>
 
   @if (errorMessages()?.length) {
     <p class="text-red-500 text-xs font-normal">{{ errorMessages()?.[0] }}</p>
