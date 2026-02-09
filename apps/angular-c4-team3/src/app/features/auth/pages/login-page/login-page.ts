@@ -1,25 +1,55 @@
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { ButtonComponent } from './../../../../../../../../shared-design/src/lib/button/button.component';
-import { Component, computed, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AuthResponse } from '../../auth.modal';
-import { AuthService } from '../../services/auth';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { InputComponent } from 'apps/angular-c4-team3/src/app/layout/components/form-components/input/input.component';
-import { TranslocoPipe } from '@jsverse/transloco';
+/* eslint-disable @nx/enforce-module-boundaries */
+import { Component, computed, OnInit, OnDestroy } from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  Validators,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { RouterLink } from "@angular/router";
+
+// Services & Models
+import { AuthService } from '../../services/auth';
+import { AuthResponse } from '../../auth.modal';
 import { FormValidationService } from '../../services/FormValidationService';
+
+// Shared UI Components
+import { ButtonComponent } from './../../../../../../../../shared-design/src/lib/button/button.component';
+import { InputComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/input/input.component';
+import { PasswordComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/password/password.component';
+
+// Pipes
+import { TranslocoPipe } from '@jsverse/transloco';
+
+// RxJS
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, FormsModule, InputComponent, RouterLink, TranslocoPipe,ButtonComponent],
   templateUrl: './login-page.html',
-  styleUrl: './login-page.css',
+  styleUrls: ['./login-page.css'],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    InputComponent,
+    PasswordComponent,
+    RouterLink,
+    TranslocoPipe,
+    ButtonComponent
+  ],
+  standalone: true
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
+
+  // Reactive form
   form!: FormGroup;
 
-  emailErrors = computed(() => 
+  // Subscription container
+  private subscriptions = new Subscription();
+
+  // Computed properties for form errors
+  emailErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['email'], {
       required: 'Email is required.',
       email: 'Enter a valid email address.',
@@ -34,38 +64,50 @@ export class LoginPage implements OnInit {
   );
 
   constructor(
-    // eslint-disable-next-line @angular-eslint/prefer-inject
     private _AuthService: AuthService,
-    // eslint-disable-next-line @angular-eslint/prefer-inject
-    private _FormValidationService: FormValidationService // <-- inject service
+    private _FormValidationService: FormValidationService
   ) {}
 
   ngOnInit() {
-    this.initialForm();
+    // Initialize the login form
+    this.initializeForm();
   }
 
-  initialForm() {
+  ngOnDestroy() {
+    // Unsubscribe from all subscriptions to avoid memory leaks
+    this.subscriptions.unsubscribe();
+  }
+
+  /** Initialize reactive form with validators */
+  initializeForm() {
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      password: new FormControl('', [Validators.required]),
     });
   }
 
+  /** Submit login form */
   submit() {
     if (this.form.invalid) {
-      this.form.markAsTouched();
+      // Mark all fields as touched to show validation errors
+      this.form.markAllAsTouched();
       return;
     }
 
     const payload = { ...this.form.value };
-    this._AuthService.login(payload).subscribe({
+
+    // Subscribe to login observable and add it to the subscription container
+    const sub = this._AuthService.login(payload).subscribe({
       next: (res: AuthResponse) => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('userEmail', res.email);
+        console.log('Login successful:', res);
       },
       error: (err) => {
         console.error('Login failed:', err);
       },
     });
+
+    this.subscriptions.add(sub);
   }
 }
