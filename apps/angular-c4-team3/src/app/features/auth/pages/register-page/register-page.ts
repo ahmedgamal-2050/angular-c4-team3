@@ -7,10 +7,11 @@ import { InputComponent } from 'apps/angular-c4-team3/src/app/layout/components/
 import { TranslocoPipe } from '@jsverse/transloco';
 import { RouterLink } from "@angular/router";
 import { FormValidationService } from '../../services/FormValidationService';
+import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
 
 @Component({
   selector: 'app-register-page',
-  imports: [ReactiveFormsModule, FormsModule, InputComponent, RouterLink, TranslocoPipe],
+  imports: [ReactiveFormsModule, FormsModule, InputComponent, RouterLink, TranslocoPipe,ButtonComponent],
   templateUrl: './register-page.html',
   styleUrl: './register-page.css',
 })

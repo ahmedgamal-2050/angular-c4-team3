@@ -1,3 +1,5 @@
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { ButtonComponent } from './../../../../../../../../shared-design/src/lib/button/button.component';
 import { Component, computed, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthResponse } from '../../auth.modal';
@@ -10,7 +12,7 @@ import { FormValidationService } from '../../services/FormValidationService';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, FormsModule, InputComponent, RouterLink, TranslocoPipe],
+  imports: [ReactiveFormsModule, FormsModule, InputComponent, RouterLink, TranslocoPipe,ButtonComponent],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css',
 })
