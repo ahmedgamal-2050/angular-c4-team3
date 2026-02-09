@@ -1,9 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import 'tailwindcss';
-@import "tailwindcss-primeui";
+@import 'tailwindcss-primeui';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: 'Edwardian Script ITC';
+  src:
+    local('Edwardian Script ITC'),
+    url('/assets/fonts/edwardian_script_itc.ttf') format('truetype');
+  font-display: swap;
+}
 
 @theme {
   --font-tajawal: 'Tajawal', monospace;
+  --font-edwardian: 'Edwardian Script ITC', cursive;
   --font-inter: 'Inter', sans-serif;
 
   --color-maroon-50: #fbeaea;
@@ -101,7 +112,7 @@
   --color-zinc-800: #27272a;
   --color-zinc-900: #18181b;
   --color-zinc-950: #09090b;
-  
+
   --color-white: #ffffff;
   --color-black: #000000;
 }
@@ -109,6 +120,7 @@
 body {
   font-family: var(--font-inter);
   overflow-x: hidden;
+  @apply bg-white text-zinc-800 dark:bg-zinc-800 dark:text-white;
 }
 
 input {
