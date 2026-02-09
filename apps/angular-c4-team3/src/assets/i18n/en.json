@@ -1,3 +1,31 @@
 {
-  "hello": "Hello World"
+  "hello": "Hello World",
+  "AUTH": {
+     "WELCOME_BACK": "Welcome Back",
+    "FIRST_NAME": "First name",
+    "FIRST_NAME_PLACEHOLDER": "Enter First name",
+    "LAST_NAME": "Last name",
+    "LAST_NAME_PLACEHOLDER": "Enter Last name",
+    "EMAIL": "Email",
+    "EMAIL_PLACEHOLDER": "user@example.com",
+    "PHONE": "Phone",
+    "PHONE_PLACEHOLDER": "1012345678",
+    "GENDER": "Gender",
+    "SELECT_GENDER": "Select gender",
+    "MALE": "Male",
+    "FEMALE": "Female",
+    "OTHER": "Other",
+    "PASSWORD": "Password",
+    "PASSWORD_PLACEHOLDER": "********",
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "CONFIRM_PASSWORD_PLACEHOLDER": "********",
+    "REGISTER": "Register",
+    "LOGIN": "Login",
+    "FORGOT_PASSWORD": "Forgot Password?",
+    "REMEMBER_ME": "Remember me",
+    "NO_ACCOUNT": "Don't have an account?",
+    "CREATE_ACCOUNT": "Create Account",
+    "REGISTER_BACK":"Become part of our family!",
+    "Already_account":"Already have an account? "
+}
 }

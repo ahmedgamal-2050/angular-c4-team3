@@ -1,0 +1,89 @@
+<section class="">
+  <!-- Top separator image -->
+  <img src="assets/images/separator.svg" alt="" />
+
+  <!-- Page title -->
+  <p class="my-7 text-maroon-700 text-5xl pb-4 border-b border-zinc-200">
+    {{ 'AUTH.WELCOME_BACK' | transloco }}
+  </p>
+
+  <!-- Login form -->
+  <form class="max-w-md space-y-2" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+    <!-- Email field -->
+    <div class="space-y-2">
+      <app-input
+        id="email"
+        type="email"
+        label="{{ 'AUTH.EMAIL' | transloco }}"
+        placeholder="{{ 'AUTH.EMAIL_PLACEHOLDER' | transloco }}"
+        [required]="true"
+        fieldControlName="email"
+        [errorMessages]="emailErrors()"
+      />
+    </div>
+
+    <!-- Password field -->
+    <div class="space-y-2">
+      <app-password
+        id="password"
+        type="password"
+        label="{{ 'AUTH.PASSWORD' | transloco }}"
+        placeholder="{{ 'AUTH.PASSWORD_PLACEHOLDER' | transloco }}"
+        [required]="true"
+        fieldControlName="password"
+        [errorMessages]="passwordErrors()"
+      />
+    </div>
+
+    <!-- Forgot password link -->
+    <p class="text-maroon-700 text-sm font-semibold flex justify-end">
+      {{ 'AUTH.FORGOT_PASSWORD' | transloco }}
+    </p>
+
+    <!-- Remember me checkbox -->
+    <label class="flex items-center gap-2 cursor-pointer">
+      <input
+        type="checkbox"
+        class="hidden"
+        id="rememberMe"
+        onchange="this.nextElementSibling.querySelector('span').classList.toggle('hidden')"
+      />
+
+      <!-- Custom checkbox visual -->
+      <div class="w-6 h-6 border-2 border-maroon-700 rounded-lg flex items-center justify-center">
+        <span class="text-maroon-700 text-xl font-bold hidden leading-none">✓</span>
+      </div>
+
+      <!-- Remember me text -->
+      <span class="text-zinc-800 text-sm">
+        {{ 'AUTH.REMEMBER_ME' | transloco }}
+      </span>
+    </label>
+
+    <!-- Submit button -->
+    <div class="w-full mt-5">
+      <shared-ui-button
+        [label]="'AUTH.LOGIN' | transloco"
+        [type]="'submit'"
+        [disabled]="!form.valid"
+      ></shared-ui-button>
+    </div>
+  </form>
+
+  <!-- Divider -->
+  <div class="border-b py-3 border-zinc-200"></div>
+
+  <!-- No account / Create account link -->
+  <div class="flex my-5 gap-1">
+    <p class="text-zinc-800 font-bold text-sm">
+      {{ 'AUTH.NO_ACCOUNT' | transloco }}
+    </p>
+    <a [routerLink]="'/auth/register'" class="text-maroon-700 font-bold text-sm">
+      {{ 'AUTH.CREATE_ACCOUNT' | transloco }}
+    </a>
+  </div>
+
+  <!-- Bottom separator image -->
+  <img class="rotate-180" src="assets/images/separator.svg" alt="" />
+</section>

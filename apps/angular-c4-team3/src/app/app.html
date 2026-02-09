@@ -1,13 +1,19 @@
-<div class="ms-6">
-  <button
-    (click)="changeLanguage(lang() === 'en' ? 'ar' : 'en')"
-    class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors mt-4"
-  >
-    {{ lang() }}
-  </button>
+<section class="grid grid-cols-12 h-screen">
+  <!-- Left side -->
+  <div class="col-span-12 lg:col-span-6">
+    <div class="min-h-screen flex flex-col items-center justify-center">
+      <div class="flex justify-end w-[45%] mb-3">
+        <button (click)="changeLanguage()"  class="my-7 text-zinc-700 font-normal text-base flex justify-end">
+          {{ lang() === 'en' ? 'English' : 'العربية' }}
+        </button>
+      </div>
+      <router-outlet />
+    </div>
+  </div>
 
-  <p class="text-3xl font-bold underline text-blue-600 mt-10">
-    Welcome, {{ 'hello' | transloco }}
-  </p>
+  <!-- Right side image -->
+<div class="col-span-12 lg:col-span-6" [ngClass]="activeRouter === 'login' ? 'h-screen' : ''">
+  <img src="assets/images/Cover.svg" alt="" class="w-full h-full object-cover" />
 </div>
-<router-outlet />
+
+</section>

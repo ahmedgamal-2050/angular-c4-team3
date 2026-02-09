@@ -1,0 +1,122 @@
+<section class="min-h-screen flex flex-col items-center justify-center">
+
+  <!-- Top Separator -->
+  <img src="assets/images/separator.svg" alt="" />
+
+  <!-- Page Title -->
+  <p class="my-7 text-maroon-700 text-5xl pb-4 border-b border-zinc-200">
+    {{ 'AUTH.REGISTER_BACK' | transloco }}
+  </p>
+
+  <!-- Registration Form -->
+  <form
+    class="mt-10 max-w-md flex flex-col gap-4"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+
+    <!-- First Name -->
+    <app-input
+      id="firstName"
+      type="text"
+      label="{{ 'AUTH.FIRST_NAME' | transloco }}"
+      placeholder="{{ 'AUTH.FIRST_NAME_PLACEHOLDER' | transloco }}"
+      [required]="true"
+      fieldControlName="firstName"
+      [errorMessages]="firstNameErrors()"
+    />
+
+    <!-- Last Name -->
+    <app-input
+      id="lastName"
+      type="text"
+      label="{{ 'AUTH.LAST_NAME' | transloco }}"
+      placeholder="{{ 'AUTH.LAST_NAME_PLACEHOLDER' | transloco }}"
+      [required]="true"
+      fieldControlName="lastName"
+      [errorMessages]="lastNameErrors()"
+    />
+
+    <!-- Email -->
+    <app-input
+      id="email"
+      type="email"
+      label="{{ 'AUTH.EMAIL' | transloco }}"
+      placeholder="{{ 'AUTH.EMAIL_PLACEHOLDER' | transloco }}"
+      [required]="true"
+      fieldControlName="email"
+      [errorMessages]="emailErrors()"
+    />
+
+    <!-- Phone -->
+    <app-phone
+      id="phone"
+      label="{{ 'AUTH.PHONE' | transloco }}"
+      placeholder="{{ 'AUTH.PHONE_PLACEHOLDER' | transloco }}"
+      [required]="true"
+      fieldControlName="phone"
+      defaultCountry="EG"
+      [errorMessages]="phoneErrors()"
+    />
+
+    <!-- Gender -->
+    <app-select
+      id="gender"
+      label="{{ 'AUTH.GENDER' | transloco }}"
+      [options]="genderOptions"
+      optionLabel="name"
+      optionValue="code"
+      placeholder="{{ 'AUTH.SELECT_GENDER' | transloco }}"
+      [required]="true"
+      fieldControlName="gender"
+      [errorMessages]="genderErrors()"
+    />
+
+    <!-- Password -->
+    <app-password
+      id="password"
+      type="password"
+      label="{{ 'AUTH.PASSWORD' | transloco }}"
+      placeholder="{{ 'AUTH.PASSWORD_PLACEHOLDER' | transloco }}"
+      [required]="true"
+      fieldControlName="password"
+      [errorMessages]="passwordErrors()"
+    />
+
+    <!-- Confirm Password -->
+    <app-password
+      id="confirmPassword"
+      type="password"
+      label="{{ 'AUTH.CONFIRM_PASSWORD' | transloco }}"
+      placeholder="{{ 'AUTH.CONFIRM_PASSWORD_PLACEHOLDER' | transloco }}"
+      [required]="true"
+      fieldControlName="confirmPassword"
+      [errorMessages]="confirmPasswordErrors()"
+    />
+
+    <!-- Submit Button -->
+    <shared-ui-button
+      [label]="'AUTH.CREATE_ACCOUNT' | transloco"
+      [type]="'submit'"
+      [disabled]="!form.valid"
+    ></shared-ui-button>
+
+  </form>
+
+  <!-- Divider -->
+  <div class="border-b py-3 border-zinc-200"></div>
+
+  <!-- Already have account -->
+  <div class="flex mb-8 gap-1">
+    <p class="text-zinc-800 font-bold text-sm">
+      {{ 'AUTH.Already_account' | transloco }}
+    </p>
+    <a [routerLink]="'/auth/login'" class="text-maroon-700 font-bold text-sm">
+      {{ 'AUTH.LOGIN' | transloco }}
+    </a>
+  </div>
+
+  <!-- Bottom Separator -->
+  <img class="rotate-180" src="assets/images/separator.svg" alt="" />
+
+</section>

@@ -1,19 +1,33 @@
+import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { TranslocoService } from '@jsverse/transloco';
 
 @Component({
-  imports: [RouterModule, TranslocoPipe],
+  imports: [RouterModule, ReactiveFormsModule, CommonModule],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
   translocoService = inject(TranslocoService);
-  lang = signal(this.translocoService.getActiveLang());
+  lang = signal<string>(this.translocoService.getActiveLang());
+  router = inject(Router);
 
-  changeLanguage(lang: string) {
-    this.translocoService.setActiveLang(lang);
-    this.lang.set(lang);
+  get activeRouter(): string {
+    const urlSegments = this.router.url.split('/');
+    return urlSegments[urlSegments.length - 1];
+  }
+
+  changeLanguage() {
+    const newLang = this.lang() === 'en' ? 'ar' : 'en';
+    this.translocoService.setActiveLang(newLang);
+    this.lang.set(newLang);
+    if (newLang === 'ar') {
+      document.documentElement.dir = 'rtl';
+    } else {
+      document.documentElement.dir = 'ltr';
+    }
   }
 }
