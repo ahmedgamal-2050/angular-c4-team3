@@ -1,21 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+import { Component, output, input } from '@angular/core';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'shared-ui-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.component.css'],
-  standalone: true,          
-  imports: [CommonModule]    
+  styleUrl: './button.component.css',
+  standalone: true,
+  imports: [],
 })
 export class ButtonComponent {
-  @Input() label = 'Click me';
-  @Input() type: 'button' | 'submit' | 'reset' = 'button';
-  @Input() disabled = false;
-  @Input() size: 'small' | 'medium' | 'large' = 'medium';
+  label = input('Click me');
+  type = input<'button' | 'submit' | 'reset'>('button');
+  disabled = input(false);
+  size = input<'small' | 'medium' | 'large'>('medium');
 
-  @Output() clicked = new EventEmitter<void>();
+  clicked = output<void>();
 
   onClick() {
     this.clicked.emit();

@@ -1,5 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { Component, computed, OnInit, OnDestroy } from '@angular/core';
+import { Component, computed, OnInit, OnDestroy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -7,9 +7,9 @@ import {
   FormsModule,
   ReactiveFormsModule,
   AbstractControl,
-  ValidationErrors
+  ValidationErrors,
 } from '@angular/forms';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 // Services & Models
 import { AuthService } from '../../services/auth';
@@ -28,6 +28,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 // RxJS
 import { Subscription } from 'rxjs';
+import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/components/decorated-title/decorated-title.component';
 
 @Component({
   selector: 'app-register-page',
@@ -43,10 +44,13 @@ import { Subscription } from 'rxjs';
     PasswordComponent,
     SelectComponent,
     PhoneComponent,
+    DecoratedTitleComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class RegisterPage implements OnInit, OnDestroy {
+  private _AuthService = inject(AuthService);
+  private _FormValidationService = inject(FormValidationService);
 
   // Form Group
   form!: FormGroup;
@@ -65,40 +69,40 @@ export class RegisterPage implements OnInit, OnDestroy {
   firstNameErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['firstName'], {
       required: 'First name is required.',
-    })
+    }),
   );
 
   lastNameErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['lastName'], {
       required: 'Last name is required.',
-    })
+    }),
   );
 
   emailErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['email'], {
       required: 'Email is required.',
       email: 'Enter a valid email address.',
-    })
+    }),
   );
 
   phoneErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['phone'], {
       required: 'Phone number is required.',
       pattern: 'Enter a valid phone number.',
-    })
+    }),
   );
 
   genderErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['gender'], {
       required: 'Gender is required.',
-    })
+    }),
   );
 
   passwordErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['password'], {
       required: 'Password is required.',
       minlength: 'Password must be at least 8 characters.',
-    })
+    }),
   );
 
   confirmPasswordErrors = computed(() => {
@@ -114,11 +118,6 @@ export class RegisterPage implements OnInit, OnDestroy {
 
     return errors;
   });
-
-  constructor(
-    private _AuthService: AuthService,
-    private _FormValidationService: FormValidationService
-  ) {}
 
   ngOnInit() {
     // Initialize the reactive form
@@ -136,7 +135,10 @@ export class RegisterPage implements OnInit, OnDestroy {
       firstName: new FormControl('', [Validators.required]),
       lastName: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phone: new FormControl('', [Validators.required, Validators.pattern(/^\d{10,}$/)]),
+      phone: new FormControl('', [
+        Validators.required,
+        Validators.pattern(/^\d{10,}$/),
+      ]),
       countryCode: new FormControl('EG(+20)'),
       gender: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),

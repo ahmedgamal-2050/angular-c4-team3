@@ -1,13 +1,13 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { Component, computed, OnInit, OnDestroy } from '@angular/core';
+import { Component, computed, OnInit, OnDestroy, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
   Validators,
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
 } from '@angular/forms';
-import { RouterLink } from "@angular/router";
+import { RouterLink } from '@angular/router';
 
 // Services & Models
 import { AuthService } from '../../services/auth';
@@ -24,6 +24,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 // RxJS
 import { Subscription } from 'rxjs';
+import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/components/decorated-title/decorated-title.component';
 
 @Component({
   selector: 'app-login-page',
@@ -36,11 +37,14 @@ import { Subscription } from 'rxjs';
     PasswordComponent,
     RouterLink,
     TranslocoPipe,
-    ButtonComponent
+    ButtonComponent,
+    DecoratedTitleComponent,
   ],
-  standalone: true
+  standalone: true,
 })
 export class LoginPage implements OnInit, OnDestroy {
+  private _AuthService = inject(AuthService);
+  private _FormValidationService = inject(FormValidationService);
 
   // Reactive form
   form!: FormGroup;
@@ -53,20 +57,15 @@ export class LoginPage implements OnInit, OnDestroy {
     this._FormValidationService.getErrors(this.form.controls['email'], {
       required: 'Email is required.',
       email: 'Enter a valid email address.',
-    })
+    }),
   );
 
   passwordErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['password'], {
       required: 'Password is required.',
       minlength: 'Password must be at least 8 characters.',
-    })
+    }),
   );
-
-  constructor(
-    private _AuthService: AuthService,
-    private _FormValidationService: FormValidationService
-  ) {}
 
   ngOnInit() {
     // Initialize the login form
