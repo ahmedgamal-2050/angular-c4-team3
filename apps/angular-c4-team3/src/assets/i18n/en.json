@@ -26,6 +26,13 @@
     "NO_ACCOUNT": "Don't have an account?",
     "CREATE_ACCOUNT": "Create Account",
     "REGISTER_BACK":"Become part of our family!",
-    "Already_account":"Already have an account? "
+    "Already_account":"Already have an account? ",
+    "forget-paragraph":"Worry not, we’ll send you instructions to help you reset it.",
+    "CONTINUE":"Continue",
+    "CREATE_PASSWORD":"Create a new password",
+    "password-paragraph":"Set a strong password to secure your account.",
+    "RESET_PASSWORD":"Reset Password",
+    "Need_help":"Need help?",
+    "Contact_us":"Contact us"
 }
 }
