@@ -31,11 +31,12 @@
   />
 
   <!-- Forgot password link -->
-  <p
+  <a
     class="text-maroon-700 dark:text-soft-pink-300 text-sm font-semibold flex justify-end"
+    [routerLink]="'/auth/forget-password'"
   >
     {{ 'AUTH.FORGOT_PASSWORD' | transloco }}
-  </p>
+  </a>
 
   <!-- Remember me checkbox -->
   <label class="flex items-center gap-2 cursor-pointer">

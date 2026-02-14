@@ -1,7 +1,7 @@
 {
   "hello": "مرحبا بالعالم",
   "AUTH": {
-      "WELCOME_BACK": "مرحباً بعودتك",
+    "WELCOME_BACK": "مرحباً بعودتك",
     "FIRST_NAME": "الاسم الأول",
     "FIRST_NAME_PLACEHOLDER": "الاسم الاول",
     "LAST_NAME": "اسم العائلة",
@@ -25,7 +25,14 @@
     "REMEMBER_ME": "تذكرني",
     "NO_ACCOUNT": "ليس لديك حساب؟",
     "CREATE_ACCOUNT": "إنشاء حساب",
-    "REGISTER_BACK":"انضم إلى عائلتنا!",
-    "Already_account":"هل انت لديك بالفعل حساب؟"
+    "REGISTER_BACK": "انضم إلى عائلتنا!",
+    "Already_account": "هل انت لديك بالفعل حساب؟",
+    "forget-paragraph": "لا تقلق، سنرسل لك تعليمات لمساعدتك على إعادة تعيينها.",
+    "CONTINUE": "متابعة",
+    "CREATE_PASSWORD": "إنشاء كلمة مرور جديدة",
+    "password-paragraph": "قم بتعيين كلمة مرور قوية لتأمين حسابك.",
+    "RESET_PASSWORD": "إعادة تعيين كلمة المرور",
+    "Need_help": "هل تحتاج إلى مساعدة؟",
+    "Contact_us": "تواصل معنا"
   }
 }
