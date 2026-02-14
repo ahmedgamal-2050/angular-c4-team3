@@ -1,0 +1,49 @@
+<section class="grid grid-cols-12 h-screen">
+  <!-- Left side -->
+  <div class="col-span-12 lg:col-span-6">
+    <div
+      class="min-h-screen w-full flex flex-col items-center justify-center py-[7.25rem] px-[9.125rem]"
+    >
+      <div class="flex items-center gap-2 justify-end mb-3 w-full">
+        <app-lang-switcher />
+
+        <app-theme-switcher />
+      </div>
+
+      <!-- top decorative image -->
+      <ng-container
+        [ngTemplateOutlet]="decorativeImage"
+        [ngTemplateOutletContext]="{ $implicit: 'top' }"
+      />
+
+      <!-- content -->
+      <router-outlet />
+
+      <!-- bottom decorative image -->
+      <ng-container
+        [ngTemplateOutlet]="decorativeImage"
+        [ngTemplateOutletContext]="{ $implicit: 'bottom' }"
+      />
+    </div>
+  </div>
+
+  <!-- Right side image -->
+  <div
+    class="col-span-12 lg:col-span-6 hidden lg:block bg-[url(/assets/images/auth-cover.png)] h-full bg-cover bg-center"
+  ></div>
+</section>
+
+<ng-template #decorativeImage let-position>
+  <img
+    [src]="
+      isDarkMode()
+        ? '/assets/images/decorator-dark-mode.png'
+        : '/assets/images/decorator-light-mode.png'
+    "
+    alt=""
+    class="w-[17.5rem] h-[2.875rem]"
+    [class.rotate-180]="position === 'bottom'"
+    [class.mt-10]="position === 'bottom'"
+    [class.mb-10]="position === 'top'"
+  />
+</ng-template>

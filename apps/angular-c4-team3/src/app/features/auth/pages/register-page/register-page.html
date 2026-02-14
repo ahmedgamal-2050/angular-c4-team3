@@ -1,20 +1,13 @@
 <section class="min-h-screen flex flex-col items-center justify-center">
-
-  <!-- Top Separator -->
-  <img src="assets/images/separator.svg" alt="" />
-
   <!-- Page Title -->
-  <p class="my-7 text-maroon-700 text-5xl pb-4 border-b border-zinc-200">
-    {{ 'AUTH.REGISTER_BACK' | transloco }}
-  </p>
+  <app-decorated-title [title]="'AUTH.REGISTER_BACK' | transloco" />
 
   <!-- Registration Form -->
   <form
-    class="mt-10 max-w-md flex flex-col gap-4"
+    class="mt-10 w-full flex flex-col gap-4"
     [formGroup]="form"
     (ngSubmit)="submit()"
   >
-
     <!-- First Name -->
     <app-input
       id="firstName"
@@ -100,23 +93,22 @@
       [type]="'submit'"
       [disabled]="!form.valid"
     ></shared-ui-button>
-
   </form>
 
   <!-- Divider -->
-  <div class="border-b py-3 border-zinc-200"></div>
+  <div class="border-b py-3 border-zinc-200 dark:border-zinc-700"></div>
 
   <!-- Already have account -->
   <div class="flex mb-8 gap-1">
-    <p class="text-zinc-800 font-bold text-sm">
+    <p class="text-zinc-800 dark:text-zinc-200 font-bold text-sm">
       {{ 'AUTH.Already_account' | transloco }}
     </p>
-    <a [routerLink]="'/auth/login'" class="text-maroon-700 font-bold text-sm">
+
+    <a
+      [routerLink]="'/auth/login'"
+      class="text-maroon-700 dark:text-soft-pink-300 font-bold text-sm"
+    >
       {{ 'AUTH.LOGIN' | transloco }}
     </a>
   </div>
-
-  <!-- Bottom Separator -->
-  <img class="rotate-180" src="assets/images/separator.svg" alt="" />
-
 </section>

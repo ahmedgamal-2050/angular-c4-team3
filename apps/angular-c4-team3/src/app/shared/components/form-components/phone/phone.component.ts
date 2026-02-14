@@ -76,13 +76,13 @@ export class PhoneComponent {
     const base = this.errorMessages()?.length
       ? this.errorClass()
       : this.defaultClass();
-    return `${base.replace('rounded-lg!', 'rounded-r-lg!')} w-[calc(100%-8.75rem)] border-l-0 rounded-l-none!`;
+    return `${base.replace('rounded-lg!', 'rounded-s-lg!')} w-[calc(100%-8.75rem)] border-e-0 rounded-e-none!`;
   });
 
   dropdownClass = computed(() => {
     const base = this.errorMessages()?.length
       ? this.errorClass()
       : this.defaultClass();
-    return `${base.replace('rounded-lg!', 'rounded-l-lg!').replace('w-full!', 'w-[8.75rem]!')} border-r-0! rounded-r-none! focus:ring-0`;
+    return `${base.replace('rounded-lg!', 'rounded-s-lg!').replace('w-full!', 'w-[8.75rem]!')} border-e-0! rounded-e-none! focus:ring-0`;
   });
 }
