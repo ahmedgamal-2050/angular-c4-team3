@@ -7,7 +7,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 // Services & Models
 import { AuthService } from '../../services/auth';
@@ -39,6 +39,7 @@ import { Subscription } from 'rxjs';
 export class ForgetPasswordComponent implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
+  private _Router = inject(Router);
 
   // Reactive form
   form!: FormGroup;
@@ -87,6 +88,8 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
         localStorage.setItem('token', res.token);
         localStorage.setItem('userEmail', res.email);
         console.log('Login successful:', res);
+        localStorage.setItem('passedForgetPassword', 'true');
+        this._Router.navigate(['/auth/set-password'])
       },
       error: (err) => {
         console.error('Login failed:', err);

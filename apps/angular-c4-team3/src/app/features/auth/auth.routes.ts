@@ -1,4 +1,5 @@
 import { Route } from '@angular/router';
+import { forgetPasswordGuard } from '../../core/guards/forgetPassword.guard';
 
 export const authRoutes: Route[] = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -25,5 +26,6 @@ export const authRoutes: Route[] = [
       import('./pages/set-password/set-password.component').then(
         (m) => m.SetPasswordComponent,
       ),
+    canActivate: [forgetPasswordGuard],
   },
 ];
