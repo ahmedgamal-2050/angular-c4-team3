@@ -33,6 +33,12 @@
     "password-paragraph":"Set a strong password to secure your account.",
     "RESET_PASSWORD":"Reset Password",
     "Need_help":"Need help?",
-    "Contact_us":"Contact us"
+    "Contact_us":"Contact us",
+    "OTP_title":"Enter the OTP Code",
+    "OTP_paragraph":"We have sent a 6-digit code to user@example.com ",
+    "OTP_resend":"Send a new code",
+    "OTP_verify":"Verify OTP",
+    "OTP_need_help":"Need help?",
+    "OTP_contact":"Contact us"
 }
 }

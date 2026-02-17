@@ -33,6 +33,8 @@
     "password-paragraph": "قم بتعيين كلمة مرور قوية لتأمين حسابك.",
     "RESET_PASSWORD": "إعادة تعيين كلمة المرور",
     "Need_help": "هل تحتاج إلى مساعدة؟",
-    "Contact_us": "تواصل معنا"
+    "Contact_us": "تواصل معنا",
+     "OTP_title":"أدخل رمز التحقق",
+    "OTP_paragraph":"لقد أرسلنا رمزًا مكونًا من 6 أرقام إلى user@example.com"
   }
 }
