@@ -28,4 +28,9 @@ export const authRoutes: Route[] = [
       ),
     canActivate: [forgetPasswordGuard],
   },
+  {
+    path:'otp',
+    loadComponent:()=>
+      import('./pages/otp-page/otp-page.component').then(m=>m.OtpPageComponent),
+  }
 ];

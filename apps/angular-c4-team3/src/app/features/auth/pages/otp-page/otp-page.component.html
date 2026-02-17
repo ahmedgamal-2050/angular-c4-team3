@@ -1,0 +1,39 @@
+<!-- Page title -->
+<p class="text-zinc-800 font-semibold text-2xl dark:text-white">
+  {{ 'AUTH.OTP_title' | transloco }}
+</p>
+
+<!-- Description -->
+<p class="text-zinc-800 font-normal text-base dark:text-white">
+  {{ 'AUTH.OTP_paragraph' | transloco }}
+</p>
+
+<!-- Divider -->
+<div class="border-b py-1 border-zinc-200"></div>
+
+<!-- OTP input fields -->
+<form [formGroup]="otpForm" (ngSubmit)="verifyOtp()" class="mt-5 flex flex-col gap-5">
+  <div class="flex gap-2 justify-center">
+    <input type="text" maxlength="" formControlName="digit1" (input)="moveFocus($event, 'digit2')" class="otp-input">
+    <input type="text" maxlength="1" formControlName="digit2" (input)="moveFocus($event, 'digit3')" class="otp-input">
+    <input type="text" maxlength="1" formControlName="digit3" (input)="moveFocus($event, 'digit4')" class="otp-input">
+    <input type="text" maxlength="1" formControlName="digit4" (input)="moveFocus($event, 'digit5')" class="otp-input">
+    <input type="text" maxlength="1" formControlName="digit5" (input)="moveFocus($event, 'digit6')" class="otp-input">
+    <input type="text" maxlength="1" formControlName="digit6" (input)="moveFocus($event)" class="otp-input">
+  </div>
+
+  <!-- Resend OTP -->
+  <p class="text-sm text-right text-zinc-800 cursor-pointer" (click)="resendOtp()">
+    {{ 'AUTH.OTP_resend' | transloco }}
+  </p>
+
+  <!-- Verify Button -->
+  <button type="submit" [disabled]="otpForm.invalid" class="bg-maroon-700 text-white py-2 rounded-lg mt-4">
+    {{ 'AUTH.OTP_verify' | transloco }}
+  </button>
+</form>
+
+<!-- Support -->
+<p class="text-sm text-center mt-3">
+  {{ 'AUTH.OTP_need_help' | transloco }} <a href="/contact" class="text-maroon-700 font-semibold"> {{ 'AUTH.OTP_contact' | transloco }} </a>
+</p>
