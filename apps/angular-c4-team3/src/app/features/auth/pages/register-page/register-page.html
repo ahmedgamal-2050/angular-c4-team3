@@ -57,8 +57,8 @@
       id="gender"
       label="{{ 'AUTH.GENDER' | transloco }}"
       [options]="genderOptions"
-      optionLabel="name"
-      optionValue="code"
+      optionLabel="label"
+      optionValue="value"
       placeholder="{{ 'AUTH.SELECT_GENDER' | transloco }}"
       [required]="true"
       fieldControlName="gender"
@@ -78,13 +78,13 @@
 
     <!-- Confirm Password -->
     <app-password
-      id="confirmPassword"
+      id="rePassword"
       type="password"
       label="{{ 'AUTH.CONFIRM_PASSWORD' | transloco }}"
       placeholder="{{ 'AUTH.CONFIRM_PASSWORD_PLACEHOLDER' | transloco }}"
       [required]="true"
-      fieldControlName="confirmPassword"
-      [errorMessages]="confirmPasswordErrors()"
+      fieldControlName="rePassword"
+      [errorMessages]="rePasswordErrors()"
     />
 
     <!-- Submit Button -->

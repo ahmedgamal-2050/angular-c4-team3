@@ -7,7 +7,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 // Services & Models
 import { AuthService } from '../../services/auth';
@@ -45,6 +45,7 @@ import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/co
 export class LoginPage implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
+  private _router=inject(Router)
 
   // Reactive form
   form!: FormGroup;
@@ -101,6 +102,7 @@ export class LoginPage implements OnInit, OnDestroy {
         localStorage.setItem('token', res.token);
         localStorage.setItem('userEmail', res.email);
         console.log('Login successful:', res);
+        this._router.navigate(['/home'])
       },
       error: (err) => {
         console.error('Login failed:', err);

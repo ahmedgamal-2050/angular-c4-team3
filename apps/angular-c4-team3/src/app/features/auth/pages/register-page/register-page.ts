@@ -101,12 +101,13 @@ export class RegisterPage implements OnInit, OnDestroy {
   passwordErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['password'], {
       required: 'Password is required.',
-      minlength: 'Password must be at least 8 characters.',
+      pattern:
+        'Password must contain uppercase, lowercase, number and special character.',
     }),
   );
 
-  confirmPasswordErrors = computed(() => {
-    const control = this.form.controls['confirmPassword'];
+  rePasswordErrors = computed(() => {
+    const control = this.form.controls['rePassword'];
     const errors = this._FormValidationService.getErrors(control, {
       required: 'Confirm password is required.',
     });
@@ -139,47 +140,53 @@ export class RegisterPage implements OnInit, OnDestroy {
         Validators.required,
         Validators.pattern(/^\d{10,}$/),
       ]),
-      countryCode: new FormControl('EG(+20)'),
       gender: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
+      password: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+        ),
+      ]),
+      rePassword: new FormControl('', [
+        Validators.required,
+        Validators.pattern(
+          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
+        ),
+      ]),
     });
 
     // Apply custom validator for password matching
     this.form.setValidators(this.passwordMatchValidator);
   }
 
-  /** Custom validator to check if password and confirmPassword match */
+  /** Custom validator to check if password and rePassword match */
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const formGroup = control as FormGroup;
     const password = formGroup.get('password')?.value;
-    const confirmPassword = formGroup.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordMismatch: true };
+    const rePassword = formGroup.get('rePassword')?.value;
+    return password === rePassword ? null : { passwordMismatch: true };
   }
 
   /** Submit form data to the backend */
   submit() {
     if (this.form.invalid) {
-      // Mark all fields as touched to show validation errors
       this.form.markAllAsTouched();
       return;
     }
 
     const payload = { ...this.form.value };
 
-    // Subscribe to the registration observable and add to subscription container
-    const sub = this._AuthService.register(payload).subscribe({
-      next: (res: AuthResponse) => {
-        // Store token and email in localStorage
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userEmail', res.email);
-        console.log('Registration successful:', res);
+    if (payload.phone && payload.phone.startsWith('01')) {
+      payload.phone = '+20' + payload.phone.substring(1);
+    }
+
+    this._AuthService.register(payload).subscribe({
+      next: (res) => {
+        console.log('Success');
       },
       error: (err) => {
-        console.error('Registration failed:', err);
+        console.log(err);
       },
     });
-
-    this.subscriptions.add(sub);
   }
 }

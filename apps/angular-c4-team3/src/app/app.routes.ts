@@ -5,11 +5,13 @@ export const appRoutes: Route[] = [
 
   {
     path: 'auth',
-    loadComponent: () =>
-      import('./layout/auth-wrapper/auth-wrapper.component').then(
-        (m) => m.AuthWrapperComponent,
-      ),
     loadChildren: () =>
       import('./features/auth/auth.routes').then((m) => m.authRoutes),
+  },
+
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./features/home/home.routes').then((m) => m.HomeRoutes),
   },
 ];
