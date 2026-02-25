@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "@angular-c4-team3/shared-ui": ["shared-ui/src/index.ts"],
-      "@angular-c4-team3/shared-design": ["shared-design/src/index.ts"]
+      "@angular-c4-team3/shared-design": ["shared-design/src/index.ts"],
+      "@angular-c4-team3/auth": ["auth/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
