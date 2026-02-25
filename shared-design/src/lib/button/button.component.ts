@@ -15,6 +15,8 @@ export class ButtonComponent {
   size = input<'small' | 'medium' | 'large'>('medium');
 
   clicked = output<void>();
+  icon = input<string | null>(null);
+  iconPosition = input<'left' | 'right'>('left');
 
   onClick() {
     this.clicked.emit();

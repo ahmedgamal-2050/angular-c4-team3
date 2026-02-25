@@ -1,7 +1,7 @@
 {
   "hello": "Hello World",
   "AUTH": {
-     "WELCOME_BACK": "Welcome Back",
+    "WELCOME_BACK": "Welcome Back",
     "FIRST_NAME": "First name",
     "FIRST_NAME_PLACEHOLDER": "Enter First name",
     "LAST_NAME": "Last name",
@@ -25,14 +25,30 @@
     "REMEMBER_ME": "Remember me",
     "NO_ACCOUNT": "Don't have an account?",
     "CREATE_ACCOUNT": "Create Account",
-    "REGISTER_BACK":"Become part of our family!",
-    "Already_account":"Already have an account? ",
-    "forget-paragraph":"Worry not, we’ll send you instructions to help you reset it.",
-    "CONTINUE":"Continue",
-    "CREATE_PASSWORD":"Create a new password",
-    "password-paragraph":"Set a strong password to secure your account.",
-    "RESET_PASSWORD":"Reset Password",
-    "Need_help":"Need help?",
-    "Contact_us":"Contact us"
-}
+    "REGISTER_BACK": "Become part of our family!",
+    "Already_account": "Already have an account? ",
+    "forget-paragraph": "Worry not, we’ll send you instructions to help you reset it.",
+    "CONTINUE": "Continue",
+    "CREATE_PASSWORD": "Create a new password",
+    "password-paragraph": "Set a strong password to secure your account.",
+    "RESET_PASSWORD": "Reset Password",
+    "Need_help": "Need help?",
+    "Contact_us": "Contact us"
+  },
+  "about": {
+    "title": "About",
+
+    "part1": "Delivering the",
+    "highlight1": "Finest",
+    "part2": "Gift Boxes for Your",
+    "highlight2": "Special",
+    "part3": "Moments",
+    "description": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it's for a birthday, wedding, or a simple \"thank you,\" our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
+    "discover": "Discover",
+
+    "price": "Competitive Prices & Easy Shopping",
+    "quality": "Premium Quality & Elegant Packaging",
+    "occasion": "Perfect for Every Occasion",
+    "delivery": "Fast & Reliable Delivery"
+  }
 }

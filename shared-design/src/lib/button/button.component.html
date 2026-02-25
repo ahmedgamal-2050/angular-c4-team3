@@ -5,5 +5,16 @@
   (click)="onClick()"
   class="shared-button bg-maroon-600 dark:bg-soft-pink-300 rounded-xl text-white rtl:text-zinc-800 rounded-lg w-full disabled:bg-zinc-300 disabled:text-zinc-600 disabled:dark:bg-zinc-700 disabled:dark:text-zinc-600"
 >
-  {{ label() }}
+  <div class="flex items-center justify-between">
+      @if (icon() && iconPosition() === 'left') {
+  <i [class]="icon()"></i>
+  }
+
+  <span>{{ label() }}</span>
+
+  <!-- Icon Right -->
+  @if (icon() && iconPosition() === 'right') {
+  <i [class]="icon()"></i>
+  }
+  </div>
 </button>

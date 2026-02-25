@@ -10,10 +10,15 @@ import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
   standalone: true,
 })
 export class AboutHomeComponent {
-  features = [
-    'Competitive Prices & Easy Shopping',
-    'Premium Quality & Elegant Packaging',
-    'Perfect for Every Occasion',
-    'Fast & Reliable Delivery',
+  description = `Make every moment memorable with our premium gift boxes. Carefully curated and
+  beautifully packaged, each box is filled with handpicked items designed to impress.
+  Whether it's for a birthday, wedding, or a simple "thank you," our gift boxes are crafted to
+  leave a lasting impression — because thoughtful gifting starts here.`;
+
+    featuresKeys = [
+    'about.price',
+    'about.quality',
+    'about.occasion',
+    'about.delivery',
   ];
 }
