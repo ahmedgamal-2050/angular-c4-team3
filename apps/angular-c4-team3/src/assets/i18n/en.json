@@ -43,5 +43,11 @@
   "landing_main_navbar_section_categories": "Categories",
   "landing_main_navbar_section_occasions": "Occasions",
   "landing_main_navbar_section_contact": "Contact",
-  "landing_main_navbar_section_about": "About"
+  "landing_main_navbar_section_about": "About",
+  "user_dropdown_my_profile_label": "My Profile",
+  "user_dropdown_my_addresses_label": "My Addresses",
+  "user_dropdown_my_orders_label": "My Orders",
+  "user_dropdown_dashboard_label": "Dashboard",
+  "user_dropdown_logout_label": "Log out",
+  "user_dropdown_login_label": "Login"
 }
