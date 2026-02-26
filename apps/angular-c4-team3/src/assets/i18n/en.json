@@ -34,5 +34,14 @@
     "RESET_PASSWORD":"Reset Password",
     "Need_help":"Need help?",
     "Contact_us":"Contact us"
-}
+  },
+  "landing_top_navbar_section_deliver_to": "Deliver to",
+  "landing_top_navbar_section_search_placeholder": "What awesome gift are you looking for?",
+  "landing_top_navbar_section_hello": "Hello",
+  "landing_main_navbar_section_home": "Home",
+  "landing_main_navbar_section_products": "Products",
+  "landing_main_navbar_section_categories": "Categories",
+  "landing_main_navbar_section_occasions": "Occasions",
+  "landing_main_navbar_section_contact": "Contact",
+  "landing_main_navbar_section_about": "About"
 }

@@ -34,5 +34,14 @@
     "RESET_PASSWORD": "إعادة تعيين كلمة المرور",
     "Need_help": "هل تحتاج إلى مساعدة؟",
     "Contact_us": "تواصل معنا"
-  }
+  },
+  "landing_top_navbar_section_deliver_to": "التسليم إلى",
+  "landing_top_navbar_section_search_placeholder": "ما هي الهدية الرائعة التي تبحث عنها؟",
+  "landing_top_navbar_section_hello": "مرحبا",
+  "landing_main_navbar_section_home": "الرئيسية",
+  "landing_main_navbar_section_products": "المنتجات",
+  "landing_main_navbar_section_categories": "التصنيفات",
+  "landing_main_navbar_section_occasions": "المناسبات",
+  "landing_main_navbar_section_contact": "اتصل بنا",
+  "landing_main_navbar_section_about": "من نحن"
 }

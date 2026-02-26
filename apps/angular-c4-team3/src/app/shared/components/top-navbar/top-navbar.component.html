@@ -9,7 +9,7 @@
 
     <!-- Location -->
     <div class="hidden lg:flex flex-col gap-1 text-sm">
-      <div class="text-zinc-400 dark:text-zinc-500">Deliver to:</div>
+      <div class="text-zinc-400 dark:text-zinc-500">{{ 'landing_top_navbar_section_deliver_to' | transloco }}:</div>
       <div class="flex items-center gap-1 font-semibold text-maroon-700 dark:text-soft-pink-200">
         <lucide-icon [name]="MapPin" size="18"/>
         <span>{{ location() }}</span>
@@ -20,7 +20,7 @@
     <div class="flex-1 max-w-2xl relative">
       <input
         type="text"
-        placeholder="What awesome gift are you looking for?"
+        [placeholder]="'landing_top_navbar_section_search_placeholder' | transloco"
         class="w-full ps-12 pe-4 py-2 bg-zinc-50 border border-zinc-200 dark:border-zinc-600 rounded-lg focus:border-maroon-300 transition-colors dark:placeholder:text-zinc-500 dark:bg-zinc-700"
         (input)="updateSearch($event)"
       />
@@ -35,7 +35,7 @@
     <div class="flex items-center gap-6">
       <!-- User Profile -->
       <div class="hidden md:flex flex-col text-start leading-tight">
-        <span class="text-xs text-zinc-400 dark:text-zinc-500">Hello</span>
+        <span class="text-xs text-zinc-400 dark:text-zinc-500">{{ 'landing_top_navbar_section_hello' | transloco }}</span>
         <div class="flex items-center gap-1 font-bold text-maroon-800 dark:text-soft-pink-200">
           <span>{{ userName() }}</span>
           <lucide-icon [name]="ChevronDown" size="14"/>
