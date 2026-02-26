@@ -12,4 +12,14 @@ export const appRoutes: Route[] = [
     loadChildren: () =>
       import('./features/auth/auth.routes').then((m) => m.authRoutes),
   },
+
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('./layout/landing-wrapper/landing-wrapper.component').then(
+        (m) => m.LandingWrapperComponent,
+      ),
+    loadChildren: () =>
+      import('./features/landing/landing.routes').then((m) => m.landingRoutes),
+  },
 ];

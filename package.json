@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start": "npx nx serve angular-c4-team3 -o",
+    "start": "npx nx serve angular-c4-team3 --port 4201 -o",
     "build": "npx nx build angular-c4-team3 --skip-nx-cache",
     "test": "npx nx test angular-c4-team3",
     "lint": "npx nx lint angular-c4-team3"

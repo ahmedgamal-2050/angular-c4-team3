@@ -9,7 +9,6 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 
 // Services & Models
 import { AuthService } from '../../services/auth';
@@ -32,7 +31,6 @@ import { Subscription } from 'rxjs';
     ReactiveFormsModule,
     FormsModule,
     PasswordComponent,
-    RouterLink,
     TranslocoPipe,
     ButtonComponent,
   ],
