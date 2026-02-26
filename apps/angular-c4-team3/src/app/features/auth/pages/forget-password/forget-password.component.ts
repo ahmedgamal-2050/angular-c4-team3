@@ -85,10 +85,7 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
     // Subscribe to login observable and add it to the subscription container
     const sub = this._AuthService.login(payload).subscribe({
       next: (res: AuthResponse) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userEmail', res.email);
         console.log('Login successful:', res);
-        localStorage.setItem('passedForgetPassword', 'true');
         this._Router.navigate(['/auth/set-password'])
       },
       error: (err) => {

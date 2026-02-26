@@ -24,6 +24,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 // RxJS
 import { Subscription } from 'rxjs';
+import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-storage';
 
 @Component({
   selector: 'app-set-password',
@@ -111,8 +112,8 @@ export class SetPasswordComponent implements OnInit, OnDestroy {
     // Subscribe to login observable and add it to the subscription container
     const sub = this._AuthService.login(payload).subscribe({
       next: (res: AuthResponse) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userEmail', res.email);
+        localStorage.setItem(APP_STORAGE.token, res.token);
+        localStorage.setItem(APP_STORAGE.user, JSON.stringify(res.user));
         console.log('Login successful:', res);
       },
       error: (err) => {

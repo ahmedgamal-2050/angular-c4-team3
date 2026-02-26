@@ -7,12 +7,12 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 // Services & Models
-import { AuthService } from '../../services/auth';
 import { AuthResponse } from '../../auth.modal';
 import { FormValidationService } from '../../services/FormValidationService';
+import { AuthService } from '@angular-c4-team3/auth';
 
 // Shared UI Components
 import { ButtonComponent } from './../../../../../../../../shared-design/src/lib/button/button.component';
@@ -25,6 +25,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 // RxJS
 import { Subscription } from 'rxjs';
 import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/components/decorated-title/decorated-title.component';
+import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-storage';
 
 @Component({
   selector: 'app-login-page',
@@ -45,6 +46,7 @@ import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/co
 export class LoginPage implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
+  private _Router = inject(Router);
 
   // Reactive form
   form!: FormGroup;
@@ -98,9 +100,9 @@ export class LoginPage implements OnInit, OnDestroy {
     // Subscribe to login observable and add it to the subscription container
     const sub = this._AuthService.login(payload).subscribe({
       next: (res: AuthResponse) => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userEmail', res.email);
-        console.log('Login successful:', res);
+        localStorage.setItem(APP_STORAGE.token, res.token);
+        localStorage.setItem(APP_STORAGE.user, JSON.stringify(res.user));
+        this._Router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Login failed:', err);

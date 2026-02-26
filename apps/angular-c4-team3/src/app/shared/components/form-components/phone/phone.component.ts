@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  effect,
   inject,
   input,
   linkedSignal,
@@ -59,6 +60,18 @@ export class PhoneComponent {
       this.countries()[0],
   );
   pt = signal<SelectPassThrough>(PhonePT);
+  phoneNumber = signal<string>('');
+
+  constructor() {
+    effect(() => {
+      const country = this.selectedCountry();
+      const number = this.phoneNumber();
+      if (this.control) {
+        this.control.setValue(`${country.phone}${number}`, { emitEvent: true });
+        this.control.markAsDirty();
+      }
+    });
+  }
 
   get parentFormGroup() {
     return this.controlContainer.control as FormGroup;
