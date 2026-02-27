@@ -1,5 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { Component, computed, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, computed, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,12 +9,12 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 // Services & Models
-import { AuthService } from '../../services/auth';
 import { AuthResponse } from '../../auth.modal';
 import { FormValidationService } from '../../services/FormValidationService';
+import { AuthService } from '@angular-c4-team3/auth';
 
 // Shared UI Components
 import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
@@ -29,6 +29,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
 // RxJS
 import { Subscription } from 'rxjs';
 import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/components/decorated-title/decorated-title.component';
+import { REGEX_PATTERNS } from '../../../../shared/constants/regex-patterns';
+import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-storage';
 
 @Component({
   selector: 'app-register-page',
@@ -51,6 +53,7 @@ import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/co
 export class RegisterPage implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
+  private _Router = inject(Router);
 
   // Form Group
   form!: FormGroup;
@@ -59,11 +62,11 @@ export class RegisterPage implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   // Gender options for dropdown
-  genderOptions = [
+  genderOptions = signal([
     { label: 'Male', value: 'male' },
     { label: 'Female', value: 'female' },
     { label: 'Other', value: 'other' },
-  ];
+  ]);
 
   // Computed properties for form errors
   firstNameErrors = computed(() =>
@@ -138,21 +141,11 @@ export class RegisterPage implements OnInit, OnDestroy {
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^\d{10,}$/),
+        Validators.pattern(REGEX_PATTERNS.PHONE),
       ]),
       gender: new FormControl('', [Validators.required]),
-      password: new FormControl('', [
-        Validators.required,
-        Validators.pattern(
-          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-        ),
-      ]),
-      rePassword: new FormControl('', [
-        Validators.required,
-        Validators.pattern(
-          /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-        ),
-      ]),
+      password: new FormControl('', [Validators.required, Validators.pattern(REGEX_PATTERNS.PASSWORD)]),
+      rePassword: new FormControl('', [Validators.required]),
     });
 
     // Apply custom validator for password matching
@@ -176,13 +169,12 @@ export class RegisterPage implements OnInit, OnDestroy {
 
     const payload = { ...this.form.value };
 
-    if (payload.phone && payload.phone.startsWith('01')) {
-      payload.phone = '+20' + payload.phone.substring(1);
-    }
-
-    this._AuthService.register(payload).subscribe({
-      next: (res) => {
-        console.log('Success');
+    // Subscribe to the registration observable and add to subscription container
+    const sub = this._AuthService.register(payload).subscribe({
+      next: (res: AuthResponse) => {
+        localStorage.setItem(APP_STORAGE.token, res.token);
+        localStorage.setItem(APP_STORAGE.user, JSON.stringify(res.user));
+        this._Router.navigate(['/home']);
       },
       error: (err) => {
         console.log(err);

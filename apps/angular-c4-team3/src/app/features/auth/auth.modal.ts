@@ -11,7 +11,19 @@ export interface RegisterRequest {
 
 export interface AuthResponse {
   token: string;
-  userId: string;
+  user: User;
+}
+
+export interface User {
+  _id: string;
   email: string;
-  fullName: string;
+  addresses: unknown[];
+  firstName: string;
+  gender: string;
+  lastName: string;
+  phone: string;
+  photo: string;
+  role: string;
+  wishlist: unknown[];
+  createdAt: string;
 }

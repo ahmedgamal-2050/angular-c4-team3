@@ -56,7 +56,7 @@
     <app-select
       id="gender"
       label="{{ 'AUTH.GENDER' | transloco }}"
-      [options]="genderOptions"
+      [options]="genderOptions()"
       optionLabel="label"
       optionValue="value"
       placeholder="{{ 'AUTH.SELECT_GENDER' | transloco }}"
@@ -91,8 +91,7 @@
     <shared-ui-button
       [label]="'AUTH.CREATE_ACCOUNT' | transloco"
       [type]="'submit'"
-      [disabled]="!form.valid"
-    ></shared-ui-button>
+      [disabled]="form.invalid" />
   </form>
 
   <!-- Divider -->

@@ -15,7 +15,11 @@ export const appRoutes: Route[] = [
 
   {
     path: 'home',
+    loadComponent: () =>
+      import('./layout/landing-wrapper/landing-wrapper.component').then(
+        (m) => m.LandingWrapperComponent,
+      ),
     loadChildren: () =>
-      import('./features/home/home.routes').then((m) => m.HomeRoutes),
+      import('./features/landing/landing.routes').then((m) => m.landingRoutes),
   },
 ];
