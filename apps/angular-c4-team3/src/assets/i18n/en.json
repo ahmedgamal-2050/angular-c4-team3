@@ -59,5 +59,13 @@
   "user_dropdown_dashboard_label": "Dashboard",
   "user_dropdown_logout_label": "Log out",
   "user_dropdown_login_label": "Login",
-  "description_about": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it's for a birthday, wedding, or a simple thank you, our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here."
+  "description_about": "Make every moment memorable with our premium gift boxes. Carefully curated and beautifully packaged, each box is filled with handpicked items designed to impress. Whether it's for a birthday, wedding, or a simple thank you, our gift boxes are crafted to leave a lasting impression — because thoughtful gifting starts here.",
+  "product_reviews":"Product Reviews",
+  "general_rating":"General rating:",
+  "ratings":"ratings",
+  "Title":"Title",
+  "Title_placeholder":"Enter review title",
+  "add_review":"Add Review",
+  "review":"Review",
+  "review_paragraph":"What do you think of this product?"
 }
