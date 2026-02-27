@@ -1,0 +1,21 @@
+<nav class="bg-maroon-700 dark:bg-soft-pink-200 text-white dark:text-zinc-800 py-3">
+  <div class="container mx-auto px-4">
+    <ul class="flex items-center justify-center gap-8 md:gap-12">
+      @for (item of navItems(); track item.label) {
+        <li>
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="text-soft-pink-300"
+            class="flex items-center gap-2 group transition-all duration-300 hover:text-soft-pink-200 dark:hover:text-maroon-700"
+          >
+            <lucide-icon
+              [name]="item.icon"
+              size="20"
+              class="group-hover:scale-110 transition-transform" />
+            <span class="font-medium tracking-wide">{{ item.label | transloco }}</span>
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+</nav>

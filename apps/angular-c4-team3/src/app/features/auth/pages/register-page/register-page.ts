@@ -1,5 +1,5 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { Component, computed, OnInit, OnDestroy, inject } from '@angular/core';
+import { Component, computed, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -9,12 +9,12 @@ import {
   AbstractControl,
   ValidationErrors,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 // Services & Models
-import { AuthService } from '../../services/auth';
 import { AuthResponse } from '../../auth.modal';
 import { FormValidationService } from '../../services/FormValidationService';
+import { AuthService } from '@angular-c4-team3/auth';
 
 // Shared UI Components
 import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
@@ -29,6 +29,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
 // RxJS
 import { Subscription } from 'rxjs';
 import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/components/decorated-title/decorated-title.component';
+import { REGEX_PATTERNS } from '../../../../shared/constants/regex-patterns';
+import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-storage';
 
 @Component({
   selector: 'app-register-page',
@@ -51,6 +53,7 @@ import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/co
 export class RegisterPage implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
+  private _Router = inject(Router);
 
   // Form Group
   form!: FormGroup;
@@ -59,11 +62,11 @@ export class RegisterPage implements OnInit, OnDestroy {
   private subscriptions = new Subscription();
 
   // Gender options for dropdown
-  genderOptions = [
+  genderOptions = signal([
     { label: 'Male', value: 'male' },
     { label: 'Female', value: 'female' },
     { label: 'Other', value: 'other' },
-  ];
+  ]);
 
   // Computed properties for form errors
   firstNameErrors = computed(() =>
@@ -105,8 +108,8 @@ export class RegisterPage implements OnInit, OnDestroy {
     }),
   );
 
-  confirmPasswordErrors = computed(() => {
-    const control = this.form.controls['confirmPassword'];
+  rePasswordErrors = computed(() => {
+    const control = this.form.controls['rePassword'];
     const errors = this._FormValidationService.getErrors(control, {
       required: 'Confirm password is required.',
     });
@@ -137,24 +140,23 @@ export class RegisterPage implements OnInit, OnDestroy {
       email: new FormControl('', [Validators.required, Validators.email]),
       phone: new FormControl('', [
         Validators.required,
-        Validators.pattern(/^\d{10,}$/),
+        Validators.pattern(REGEX_PATTERNS.PHONE),
       ]),
-      countryCode: new FormControl('EG(+20)'),
       gender: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
-      confirmPassword: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.pattern(REGEX_PATTERNS.PASSWORD)]),
+      rePassword: new FormControl('', [Validators.required]),
     });
 
     // Apply custom validator for password matching
     this.form.setValidators(this.passwordMatchValidator);
   }
 
-  /** Custom validator to check if password and confirmPassword match */
+  /** Custom validator to check if password and rePassword match */
   passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
     const formGroup = control as FormGroup;
     const password = formGroup.get('password')?.value;
-    const confirmPassword = formGroup.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { passwordMismatch: true };
+    const rePassword = formGroup.get('rePassword')?.value;
+    return password === rePassword ? null : { passwordMismatch: true };
   }
 
   /** Submit form data to the backend */
@@ -170,10 +172,9 @@ export class RegisterPage implements OnInit, OnDestroy {
     // Subscribe to the registration observable and add to subscription container
     const sub = this._AuthService.register(payload).subscribe({
       next: (res: AuthResponse) => {
-        // Store token and email in localStorage
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('userEmail', res.email);
-        console.log('Registration successful:', res);
+        localStorage.setItem(APP_STORAGE.token, res.token);
+        localStorage.setItem(APP_STORAGE.user, JSON.stringify(res.user));
+        this._Router.navigate(['/home']);
       },
       error: (err) => {
         console.error('Registration failed:', err);
