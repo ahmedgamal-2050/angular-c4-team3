@@ -1,5 +1,5 @@
 <!-- Page title -->
-<app-decorated-title [title]="'AUTH.WELCOME_BACK' | transloco" />
+<app-decorated-title [title]="'welcome_back' | transloco" />
 
 <!-- Login form -->
 <form
@@ -12,8 +12,8 @@
   <app-input
     id="email"
     type="email"
-    label="{{ 'AUTH.EMAIL' | transloco }}"
-    placeholder="{{ 'AUTH.EMAIL_PLACEHOLDER' | transloco }}"
+    label="{{ 'email' | transloco }}"
+    placeholder="{{ 'email_placeholder' | transloco }}"
     [required]="true"
     fieldControlName="email"
     [errorMessages]="emailErrors()"
@@ -23,8 +23,8 @@
   <app-password
     id="password"
     type="password"
-    label="{{ 'AUTH.PASSWORD' | transloco }}"
-    placeholder="{{ 'AUTH.PASSWORD_PLACEHOLDER' | transloco }}"
+    label="{{ 'password' | transloco }}"
+    placeholder="{{ 'password_placeholder' | transloco }}"
     [required]="true"
     fieldControlName="password"
     [errorMessages]="passwordErrors()"
@@ -35,7 +35,7 @@
     class="text-maroon-700 dark:text-soft-pink-300 text-sm font-semibold flex justify-end"
     [routerLink]="'/auth/forget-password'"
   >
-    {{ 'AUTH.FORGOT_PASSWORD' | transloco }}
+    {{ 'forgot_password' | transloco }}
   </a>
 
   <!-- Remember me checkbox -->
@@ -59,14 +59,14 @@
 
     <!-- Remember me text -->
     <span class="text-zinc-800 dark:text-zinc-200 text-sm">
-      {{ 'AUTH.REMEMBER_ME' | transloco }}
+      {{ 'remember_me' | transloco }}
     </span>
   </label>
 
   <!-- Submit button -->
   <div class="w-full mt-5">
     <shared-ui-button
-      [label]="'AUTH.LOGIN' | transloco"
+      [label]="'login' | transloco"
       [type]="'submit'"
       [disabled]="!form.valid"
     ></shared-ui-button>
@@ -79,12 +79,12 @@
 <!-- No account / Create account link -->
 <div class="flex my-5 gap-1">
   <p class="text-zinc-800 dark:text-zinc-200 font-bold text-sm">
-    {{ 'AUTH.NO_ACCOUNT' | transloco }}
+    {{ 'no_account' | transloco }}
   </p>
   <a
     [routerLink]="'/auth/register'"
     class="text-maroon-700 dark:text-soft-pink-300 font-bold text-sm"
   >
-    {{ 'AUTH.CREATE_ACCOUNT' | transloco }}
+    {{ 'create_account' | transloco }}
   </a>
 </div>

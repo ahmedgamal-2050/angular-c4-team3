@@ -17,30 +17,30 @@
   <div class="flex-1">
 
     <p class="text-sm font-bold tracking-[3px] text-soft-pink-500 uppercase mb-3.5">
-      {{ 'about.title' | transloco }}
+      {{ 'title' | transloco }}
     </p>
 
     <h2 class="font-serif text-3xl leading-[100%] text-maroon-700">
-      {{ 'about.part1' | transloco }}
+      {{ 'part_1' | transloco }}
       <span class="text-soft-pink-500">
-        {{ 'about.highlight1' | transloco }}
+        {{ 'highlight_1' | transloco }}
       </span>
-      {{ 'about.part2' | transloco }}
+      {{ 'part_2' | transloco }}
       <span class="text-soft-pink-500">
-        {{ 'about.highlight2' | transloco }}
+        {{ 'highlight_2' | transloco }}
       </span>
-      {{ 'about.part3' | transloco }}
+      {{ 'part_3' | transloco }}
     </h2>
 
     <p class="text-base leading-[100%] text-zinc-500 my-2">
-      {{ 'about.description' | transloco }}
+      {{ 'description_about' | transloco }}
     </p>
 
     <div class="my-6 w-1/5">
       <shared-ui-button
-        [label]="'about.discover' | transloco"
+        [label]="'discover' | transloco"
         [type]="'submit'"
-        [icon]="'fa-solid fa-arrow-right'"
+        [icon]="arrow_right"
         [iconPosition]="'right'">
       </shared-ui-button>
     </div>
@@ -49,7 +49,7 @@
       @for (feature of featuresKeys; track $index) {
         <div class="flex items-center gap-2 text-base text-zinc-800 font-normal py-3">
           <span class="text-maroon-700 text-base shrink-0">
-            <i class="fa-solid fa-check"></i>
+            <lucide-icon  [name]="check" alt="check"> </lucide-icon>
           </span>
           {{ feature | transloco }}
         </div>

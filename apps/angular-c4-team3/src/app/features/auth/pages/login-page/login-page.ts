@@ -8,7 +8,6 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { Router, RouterLink } from '@angular/router';
 
 // Services & Models
 import { AuthResponse } from '../../auth.modal';
