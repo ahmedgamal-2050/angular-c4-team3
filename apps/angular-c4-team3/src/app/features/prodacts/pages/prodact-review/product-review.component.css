@@ -1,5 +1,5 @@
 .blur-form {
-  pointer-events: none; /* تمنع التفاعل */
+  pointer-events: none;
   filter: blur(3px);
-  opacity: 0.6; /* خيار لجعلها أكثر وضوحًا */
+  opacity: 0.6;
 }
