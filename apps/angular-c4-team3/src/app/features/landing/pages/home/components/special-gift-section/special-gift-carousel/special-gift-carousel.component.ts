@@ -1,12 +1,11 @@
 import { Component, inject, signal } from '@angular/core';
-import { SpecialGiftOverlayComponent } from '../special-gift-overlay/special-gift-overlay.component';
 import { CarouselModule, CarouselPassThrough } from 'primeng/carousel';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-special-gift-carousel',
-  imports: [SpecialGiftOverlayComponent, CarouselModule, ButtonComponent],
+  imports: [CarouselModule, ButtonComponent],
   templateUrl: './special-gift-carousel.component.html',
   host: {
     class: 'col-span-3'
