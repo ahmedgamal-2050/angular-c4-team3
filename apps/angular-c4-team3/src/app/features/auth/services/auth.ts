@@ -8,16 +8,16 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'https://your-api.com/api/auth'; 
+  private baseUrl = 'https://flower.elevateegy.com/api/v1/auth';
 
   // eslint-disable-next-line @angular-eslint/prefer-inject
   constructor(private http: HttpClient) {}
 
   login(payload: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/login`, payload);
+    return this.http.post<AuthResponse>(`${this.baseUrl}/signin`, payload);
   }
 
   register(payload: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/register`, payload);
+    return this.http.post<AuthResponse>(`${this.baseUrl}/signup`, payload);
   }
 }

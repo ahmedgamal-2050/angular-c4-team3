@@ -3,10 +3,12 @@ import { HomeService } from './services/home.service';
 import { Subscription } from 'rxjs';
 import { CategoryElement, HomeResponse, Product } from './home.model';
 import { SpecialGiftSectionComponent } from "./components/special-gift-section/special-gift-section.component";
+import { AboutHomeComponent } from '../about-home/about-home.component';
+import { ProductReviewComponent } from '../../../prodacts/pages/prodact-review/product-review.component';
 
 @Component({
   selector: 'app-home',
-  imports: [SpecialGiftSectionComponent],
+  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
