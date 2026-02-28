@@ -2,12 +2,11 @@ import { Component, OnInit, OnDestroy, inject, signal } from '@angular/core';
 import { HomeService } from './services/home.service';
 import { Subscription } from 'rxjs';
 import { CategoryElement, HomeResponse, Product } from './home.model';
-import { ButtonComponent } from "shared-design/src/lib/button/button.component";
-import { CarouselModule } from 'primeng/carousel';
+import { SpecialGiftSectionComponent } from "./components/special-gift-section/special-gift-section.component";
 
 @Component({
   selector: 'app-home',
-  imports: [ButtonComponent, CarouselModule],
+  imports: [SpecialGiftSectionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

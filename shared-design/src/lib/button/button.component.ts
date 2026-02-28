@@ -1,7 +1,6 @@
 import { Component, output, input } from '@angular/core';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'shared-ui-button',
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',

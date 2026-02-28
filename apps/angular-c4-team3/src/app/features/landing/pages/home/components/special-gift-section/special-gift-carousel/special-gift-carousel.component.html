@@ -1,0 +1,32 @@
+<p-carousel
+  [value]="carouselData()"
+  [numVisible]="1"
+  [numScroll]="1"
+  styleClass="h-full!"
+  [pt]="pt()"
+>
+  <ng-template pTemplate="item" let-data>
+    <div
+      class="bg-cover bg-center rounded-2xl relative h-full"
+      [class]="data.containerClass"
+    >
+      <div
+        class="absolute inset-0 bg-linear-to-r from-black/75 to-black/10 flex flex-col justify-end p-6 gap-2 rounded-2xl"
+      >
+        <h2 class="text-white text-4xl font-semibold">{{ data.title }}</h2>
+
+        <p class="text-white text-base font-normal h-12">
+          {{ data.description }}
+        </p>
+
+        <div class="w-[8.125rem]">
+          <shared-ui-button
+            [label]="'I’m buying!'"
+            type="button"
+            (clicked)="shopNow(data.url)"
+          />
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</p-carousel>
