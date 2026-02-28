@@ -6,11 +6,12 @@ import {
   inject,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideTransloco, TranslocoService } from '@jsverse/transloco';
 import { appRoutes } from './app.routes';
 import { TranslocoHttpLoader } from './transloco-loader';
 import { APP_STORAGE, DEFAULT_LANGUAGE } from './shared/constants/app-storage';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export function preloadTranslation(transloco: TranslocoService) {
   return function () {
@@ -26,7 +27,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(appRoutes),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([authInterceptor])),
     provideTransloco({
       config: {
         availableLangs: ['en', 'ar'],

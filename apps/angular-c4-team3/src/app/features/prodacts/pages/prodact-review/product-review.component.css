@@ -1,0 +1,5 @@
+.blur-form {
+  pointer-events: none;
+  filter: blur(3px);
+  opacity: 0.6;
+}

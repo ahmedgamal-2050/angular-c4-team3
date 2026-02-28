@@ -104,7 +104,8 @@ export class RegisterPage implements OnInit, OnDestroy {
   passwordErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['password'], {
       required: 'Password is required.',
-      minlength: 'Password must be at least 8 characters.',
+      pattern:
+        'Password must contain uppercase, lowercase, number and special character.',
     }),
   );
 
@@ -162,7 +163,6 @@ export class RegisterPage implements OnInit, OnDestroy {
   /** Submit form data to the backend */
   submit() {
     if (this.form.invalid) {
-      // Mark all fields as touched to show validation errors
       this.form.markAllAsTouched();
       return;
     }
@@ -177,10 +177,8 @@ export class RegisterPage implements OnInit, OnDestroy {
         this._Router.navigate(['/home']);
       },
       error: (err) => {
-        console.error('Registration failed:', err);
+        console.log(err);
       },
     });
-
-    this.subscriptions.add(sub);
   }
 }

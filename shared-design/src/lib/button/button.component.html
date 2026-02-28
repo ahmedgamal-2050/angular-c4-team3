@@ -1,9 +1,17 @@
-<button
-  [type]="type()"
-  [disabled]="disabled()"
-  [class]="size()"
-  (click)="onClick()"
-  class="shared-button bg-maroon-600 dark:bg-soft-pink-300 rounded-xl text-white rtl:text-zinc-800 rounded-lg w-full disabled:bg-zinc-300 disabled:text-zinc-600 disabled:dark:bg-zinc-700 disabled:dark:text-zinc-600"
->
-  {{ label() }}
+<button [type]="type()" [disabled]="disabled()" [class]="size()" (click)="onClick()"
+  class="shared-button bg-maroon-600 dark:bg-soft-pink-300 text-white rtl:text-zinc-800 rounded-lg w-full disabled:bg-zinc-300 disabled:text-zinc-600 disabled:dark:bg-zinc-700 disabled:dark:text-zinc-600">
+
+  <div class="flex items-center" [ngClass]="icon() ? 'justify-between' : 'justify-center'">
+
+    <!-- Icon Left -->
+    @if(icon() && iconPosition() === 'left'){
+    <lucide-icon [img]="icon()"></lucide-icon>
+    }
+    <span>{{ label() }}</span>
+
+    <!-- Icon Right -->
+    @if(icon() && iconPosition() === 'right'){
+    <lucide-icon [img]="icon()"></lucide-icon>
+    }
+  </div>
 </button>
