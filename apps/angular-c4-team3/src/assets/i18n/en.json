@@ -105,5 +105,13 @@
   "footer_terms_conditions": "Terms & Conditions",
   "footer_privacy_policy": "Privacy Policy",
   "footer_faqs": "FAQs",
-  "footer_invalid_email": "Please enter a valid email address"
+  "footer_invalid_email": "Please enter a valid email address",
+  "features_bar_section_feature_1_title": "Free Delivery",
+  "features_bar_section_feature_1_description": "For orders above 120 EGP",
+  "features_bar_section_feature_2_title": "Get Refund",
+  "features_bar_section_feature_2_description": "Get refund within 30 days",
+  "features_bar_section_feature_3_title": "Safe Payment",
+  "features_bar_section_feature_3_description": "100% secure payment",
+  "features_bar_section_feature_4_title": "24/7 Support",
+  "features_bar_section_feature_4_description": "Contact us at any time"
 }

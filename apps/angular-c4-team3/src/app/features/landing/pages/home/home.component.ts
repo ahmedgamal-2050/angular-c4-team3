@@ -6,12 +6,13 @@ import { SpecialGiftSectionComponent } from "./components/special-gift-section/s
 import { AboutHomeComponent } from './components/about-home/about-home.component';
 import { ProductReviewComponent } from '../../../prodacts/pages/prodact-review/product-review.component';
 import { MostPopularSectionComponent } from './components/most-popular-section/most-popular-section.component';
+import { LucideAngularModule } from "lucide-angular";
+import { FeaturesBarSectionComponent } from './components/features-bar-section/features-bar-section.component';
 
 @Component({
   selector: 'app-home',
-  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent, MostPopularSectionComponent],
+  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent, MostPopularSectionComponent, LucideAngularModule, FeaturesBarSectionComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit, OnDestroy {
   private _homeService = inject(HomeService);

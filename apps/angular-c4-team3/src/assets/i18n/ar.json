@@ -105,5 +105,13 @@
   "footer_terms_conditions": "الشروط والأحكام",
   "footer_privacy_policy": "سياسة الخصوصية",
   "footer_faqs": "الأسئلة الشائعة",
-  "footer_invalid_email": "يرجى إدخال بريد إلكتروني صالح"
+  "footer_invalid_email": "يرجى إدخال بريد إلكتروني صالح",
+  "features_bar_section_feature_1_title": "توصيل مجاني",
+  "features_bar_section_feature_1_description": "لطلبات أكثر من 120 جنيه",
+  "features_bar_section_feature_2_title": "إرجاع المنتج",
+  "features_bar_section_feature_2_description": "إرجاع المنتجات خلال 30 يوماً",
+  "features_bar_section_feature_3_title": "دفع آمن",
+  "features_bar_section_feature_3_description": "100% دفع آمن",
+  "features_bar_section_feature_4_title": "دعم 24/7",
+  "features_bar_section_feature_4_description": "اتصل بنا في أي وقت"
 }
