@@ -1,1 +1,1 @@
-export * from './lib/shared-design/shared-design';
+export * from './lib/button/button.component';
