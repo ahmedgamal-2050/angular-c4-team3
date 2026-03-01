@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
+import { APP_STORAGE } from '../../constants/app-storage';
 
 @Component({
   selector: 'app-lang-switcher',
@@ -20,5 +21,6 @@ export class LangSwitcherComponent {
     } else {
       document.documentElement.dir = 'ltr';
     }
+    localStorage.setItem(APP_STORAGE.language, newLang);
   }
 }
