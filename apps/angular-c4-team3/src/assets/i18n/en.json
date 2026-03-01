@@ -96,5 +96,14 @@
   "no_products_found": "No products found for this category",
   "out_of_stock": "Out of Stock",
   "hot": "Hot",
-  "new": "New"
+  "new": "New",
+  "footer_discover_title": "Discover our website",
+  "footer_newsletter_title": "Get 20% Off Discount Coupon",
+  "footer_newsletter_desc": "By subscribing to our newsletter",
+  "footer_email_placeholder": "Enter Your Email",
+  "footer_subscribe_button": "Subscribe",
+  "footer_terms_conditions": "Terms & Conditions",
+  "footer_privacy_policy": "Privacy Policy",
+  "footer_faqs": "FAQs",
+  "footer_invalid_email": "Please enter a valid email address"
 }

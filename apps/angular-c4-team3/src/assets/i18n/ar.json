@@ -96,5 +96,14 @@
   "no_products_found": "لم يتم العثور على منتجات لهذه الفئة",
   "out_of_stock": "نفذت الكمية",
   "hot": "جديد وحار",
-  "new": "جديد"
+  "new": "جديد",
+  "footer_discover_title": "اكتشف موقعنا",
+  "footer_newsletter_title": "احصل على كوبون خصم 20%",
+  "footer_newsletter_desc": "عن طريق الاشتراك في نشرتنا الإخبارية",
+  "footer_email_placeholder": "أدخل بريدك الإلكتروني",
+  "footer_subscribe_button": "اشتراك",
+  "footer_terms_conditions": "الشروط والأحكام",
+  "footer_privacy_policy": "سياسة الخصوصية",
+  "footer_faqs": "الأسئلة الشائعة",
+  "footer_invalid_email": "يرجى إدخال بريد إلكتروني صالح"
 }
