@@ -19,6 +19,8 @@ import { ProductsService } from '../../services/prodacts.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-storage';
+import { StyledHomeTitleComponent } from '../../../../shared/components/styled-home-title/styled-home-title.component'; 
+
 @Component({
   selector: 'app-product-review',
   standalone: true,
@@ -32,6 +34,7 @@ import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-
     ButtonComponent,
     TextareaComponent,
     ProgressSpinnerModule,
+    StyledHomeTitleComponent,
   ],
   templateUrl: './product-review.component.html',
   styleUrls: ['./product-review.component.css'],

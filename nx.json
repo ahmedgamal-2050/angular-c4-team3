@@ -64,7 +64,6 @@
       "type": "component"
     },
     "@schematics/angular:component": {
-      "style": "css",
       "type": "component"
     },
     "@nx/angular:directive": {

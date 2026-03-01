@@ -1,13 +1,11 @@
 import { Component, input, output } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { LucideIconData, LucideAngularModule } from 'lucide-angular';
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'shared-ui-button',
   templateUrl: './button.component.html',
   styleUrl: './button.component.css',
   standalone: true,
-  imports: [CommonModule,LucideAngularModule],
+  imports: [LucideAngularModule],
 })
 
 export class ButtonComponent {
@@ -17,6 +15,8 @@ export class ButtonComponent {
   size = input<'small' | 'medium' | 'large'>('medium');
   icon = input<LucideIconData | undefined>(undefined);
   iconPosition = input<'left' | 'right'>('left');
+  buttonClass = input<string>('bg-maroon-600 dark:bg-soft-pink-300 text-white dark:text-zinc-800');
+  iconSize = input<number>(16);
 
   clicked = output<void>();
 

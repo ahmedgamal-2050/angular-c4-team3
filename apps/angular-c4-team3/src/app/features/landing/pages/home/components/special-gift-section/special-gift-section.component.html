@@ -1,0 +1,36 @@
+<section class="flex flex-col gap-6">
+  <div class="grid grid-cols-4 gap-6 h-[27.5rem]">
+    <app-special-gift-overlay
+      [containerClass]="giftTopSectionData().containerClass"
+    >
+      <app-special-gift-content
+        [tagLabel]="giftTopSectionData().tagLabel | transloco"
+        [title]="giftTopSectionData().title | transloco"
+        [titleClass]="giftTopSectionData().titleClass"
+      />
+
+      <shared-ui-button
+        [label]="giftTopSectionData().buttonLabel | transloco"
+        type="button"
+        buttonClass="bg-maroon-50 text-maroon-700 px-4! w-[8.125rem]!"
+        iconPosition="right"
+        [icon]="ArrowRight"
+        (clicked)="shopNow()"
+      />
+    </app-special-gift-overlay>
+
+    <app-special-gift-carousel />
+  </div>
+
+  <div class="grid grid-cols-3 gap-6 h-[17rem]">
+    @for (gift of giftBottomSectionData(); track gift.id) {
+      <app-special-gift-overlay [containerClass]="gift.containerClass">
+        <app-special-gift-content
+          [tagLabel]="gift.tagLabel | transloco"
+          [title]="gift.title | transloco"
+          [titleClass]="gift.titleClass"
+        />
+      </app-special-gift-overlay>
+    }
+  </div>
+</section>
