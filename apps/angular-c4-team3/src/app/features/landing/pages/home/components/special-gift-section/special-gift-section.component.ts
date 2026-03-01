@@ -1,8 +1,9 @@
 import { Component, signal } from '@angular/core';
-import { ButtonComponent } from "shared-design/src/lib/button/button.component";
+import { ButtonComponent } from "@angular-c4-team3/shared-design";
 import { SpecialGiftOverlayComponent } from './special-gift-overlay/special-gift-overlay.component';
 import { SpecialGiftContentComponent } from './special-gift-content/special-gift-content.component';
 import { SpecialGiftCarouselComponent } from './special-gift-carousel/special-gift-carousel.component';
+import { ArrowRight } from 'lucide-angular';
 
 @Component({
   selector: 'app-special-gift-section',
@@ -10,6 +11,8 @@ import { SpecialGiftCarouselComponent } from './special-gift-carousel/special-gi
   templateUrl: './special-gift-section.component.html',
 })
 export class SpecialGiftSectionComponent {
+  ArrowRight = ArrowRight;
+
   giftTopSectionData = signal({
     tagLabel: 'Staring from 10.99 EGP',
     title: 'Special Gifts For The People You Love',
