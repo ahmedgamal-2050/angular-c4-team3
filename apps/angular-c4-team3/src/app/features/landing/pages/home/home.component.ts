@@ -3,12 +3,13 @@ import { HomeService } from './services/home.service';
 import { Subscription } from 'rxjs';
 import { CategoryElement, HomeResponse, Product } from './home.model';
 import { SpecialGiftSectionComponent } from "./components/special-gift-section/special-gift-section.component";
-import { AboutHomeComponent } from '../about-home/about-home.component';
+import { AboutHomeComponent } from './components/about-home/about-home.component';
 import { ProductReviewComponent } from '../../../prodacts/pages/prodact-review/product-review.component';
+import { MostPopularSectionComponent } from './components/most-popular-section/most-popular-section.component';
 
 @Component({
   selector: 'app-home',
-  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent],
+  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent, MostPopularSectionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -23,7 +24,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   occasions = signal<CategoryElement[]>([]);
 
   ngOnInit(): void {
-    // this.getHeroData();
+    this.getHeroData();
   }
 
   getHeroData() {
