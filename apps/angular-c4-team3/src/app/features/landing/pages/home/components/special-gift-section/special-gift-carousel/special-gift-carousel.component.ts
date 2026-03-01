@@ -46,7 +46,7 @@ export class SpecialGiftCarouselComponent {
   ]);
   pt = signal<CarouselPassThrough>({
     contentContainer: {
-      class: 'h-full'
+      class: 'h-full relative'
     },
     content: {
       class: 'h-full'
@@ -57,8 +57,24 @@ export class SpecialGiftCarouselComponent {
     itemList: {
       class: 'h-full'
     },
+    indicatorList: {
+      class: 'absolute! top-6 end-6 z-1 gap-2!'
+    },
+    indicator: {
+      class: 'group'
+    },
     indicatorButton: {
-      class: 'size-2 rounded-full bg-maroon-50!'
+      class: 'size-3! rounded-full! bg-maroon-50! group-[.p-carousel-indicator-active]:bg-maroon-700! group-[.p-carousel-indicator-active]:w-8!',
+    },
+    pcPrevButton: {
+      root: {
+        class: 'bg-maroon-50! rounded-e-none! text-maroon-700! absolute! bottom-2 end-14 -translate-y-1/2 size-8! z-1'
+      }
+    },
+    pcNextButton: {
+      root: {
+        class: 'bg-maroon-50! rounded-s-none! text-maroon-700! absolute! bottom-2 end-6 -translate-y-1/2 size-8! z-1'
+      }
     }
   })
 
