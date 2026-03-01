@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { CarouselModule, CarouselPassThrough } from 'primeng/carousel';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { Router } from '@angular/router';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-special-gift-carousel',
-  imports: [CarouselModule, ButtonComponent],
+  imports: [CarouselModule, ButtonComponent, TranslocoPipe],
   templateUrl: './special-gift-carousel.component.html',
   host: {
     class: 'col-span-3'
@@ -18,29 +19,33 @@ export class SpecialGiftCarouselComponent {
     {
       id: 1,
       containerClass: "bg-[url('assets/images/special-gift-2.png')]",
-      title: 'Say It with Flowers',
-      description: 'Elegant gifts for every special moment.',
+      title: 'special_gift_carousel_title_1',
+      description: 'special_gift_carousel_description_1',
+      buttonLabel: 'special_gift_carousel_button_1',
       url: 'products'
     },
     {
       id: 2,
       containerClass: "bg-[url('assets/images/special-gift-3.png')]",
-      title: 'Say It with Flowers',
-      description: 'Elegant gifts for every special moment.',
+      title: 'special_gift_carousel_title_2',
+      description: 'special_gift_carousel_description_2',
+      buttonLabel: 'special_gift_carousel_button_2',
       url: 'products'
     },
     {
       id: 3,
       containerClass: "bg-[url('assets/images/special-gift-4.png')]",
-      title: 'Say It with Flowers',
-      description: 'Elegant gifts for every special moment.',
+      title: 'special_gift_carousel_title_3',
+      description: 'special_gift_carousel_description_3',
+      buttonLabel: 'special_gift_carousel_button_3',
       url: 'products'
     },
     {
       id: 4,
       containerClass: "bg-[url('assets/images/special-gift-5.png')]",
-      title: 'Say It with Flowers',
-      description: 'Elegant gifts for every special moment.',
+      title: 'special_gift_carousel_title_4',
+      description: 'special_gift_carousel_description_4',
+      buttonLabel: 'special_gift_carousel_button_4',
       url: 'products'
     },
   ]);

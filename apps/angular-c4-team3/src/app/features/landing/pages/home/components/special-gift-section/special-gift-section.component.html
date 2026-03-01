@@ -4,13 +4,13 @@
       [containerClass]="giftTopSectionData().containerClass"
     >
       <app-special-gift-content
-        [tagLabel]="giftTopSectionData().tagLabel"
-        [title]="giftTopSectionData().title"
+        [tagLabel]="giftTopSectionData().tagLabel | transloco"
+        [title]="giftTopSectionData().title | transloco"
         [titleClass]="giftTopSectionData().titleClass"
       />
 
       <shared-ui-button
-        [label]="'Shop Now'"
+        [label]="giftTopSectionData().buttonLabel | transloco"
         type="button"
         buttonClass="bg-maroon-50 text-maroon-700 px-4! w-[8.125rem]!"
         iconPosition="right"
@@ -26,8 +26,8 @@
     @for (gift of giftBottomSectionData(); track gift.id) {
       <app-special-gift-overlay [containerClass]="gift.containerClass">
         <app-special-gift-content
-          [tagLabel]="gift.tagLabel"
-          [title]="gift.title"
+          [tagLabel]="gift.tagLabel | transloco"
+          [title]="gift.title | transloco"
           [titleClass]="gift.titleClass"
         />
       </app-special-gift-overlay>
