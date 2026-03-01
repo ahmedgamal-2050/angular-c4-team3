@@ -73,12 +73,12 @@ export class SpecialGiftCarouselComponent {
     },
     pcPrevButton: {
       root: {
-        class: 'bg-maroon-50! rounded-e-none! text-maroon-700! absolute! bottom-2 end-14 -translate-y-1/2 size-8! z-1'
+        class: 'bg-maroon-50! rounded-e-none! text-maroon-700! absolute! bottom-2 end-14 -translate-y-1/2 size-8! z-1 rtl:end-6 rtl:rounded-s-none! rtl:rounded-e-full!'
       }
     },
     pcNextButton: {
       root: {
-        class: 'bg-maroon-50! rounded-s-none! text-maroon-700! absolute! bottom-2 end-6 -translate-y-1/2 size-8! z-1'
+        class: 'bg-maroon-50! rounded-s-none! text-maroon-700! absolute! bottom-2 end-6 -translate-y-1/2 size-8! z-1 rtl:end-14 rtl:rounded-e-none! rtl:rounded-s-full!'
       }
     }
   })
