@@ -68,5 +68,7 @@
   "add_review": "إضافة تقييم",
   "review": "التقييم",
   "review_paragraph": "ما رأيك في هذا المنتج؟",
-  "login_paragraph": "يرجى تسجيل الدخول لتتمكن من تقييم المنتج"
+  "login_paragraph": "يرجى تسجيل الدخول لتتمكن من تقييم المنتج",
+  "product_related":"Product Related",
+  "no_rated":"No Rate Count"
 }

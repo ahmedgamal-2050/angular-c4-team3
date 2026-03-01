@@ -5,6 +5,7 @@ import { Review, ReviewsResponse } from '../product';
 import { environment } from './../../../../../../../shared-design/src/environments/environments.dev';
 import { Observable } from 'rxjs';
 import { CreateReview } from '../createReview';
+import { RelatedProductsResponse } from '../related-product';
 
 @Injectable({
   providedIn: 'root',
@@ -27,5 +28,9 @@ export class ProductsService {
 
   createReview(data?: string):Observable<CreateReview>{
     return this.http.post<CreateReview>(`${this.baseUrl}/reviews` , data)
+  }
+
+   getRelatedProdacts(productId?: string):Observable<RelatedProductsResponse>{
+    return this.http.get<RelatedProductsResponse>(`${this.baseUrl}/related/category/${productId}`)
   }
 }
