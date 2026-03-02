@@ -113,5 +113,8 @@
   "features_bar_section_feature_3_title": "Safe Payment",
   "features_bar_section_feature_3_description": "100% secure payment",
   "features_bar_section_feature_4_title": "24/7 Support",
-  "features_bar_section_feature_4_description": "Contact us at any time"
+  "features_bar_section_feature_4_description": "Contact us at any time",
+  "product_related": "Product Related",
+  "no_rated": "No Rate Count",
+  "your_rating":"Your rating"
 }

@@ -1,0 +1,15 @@
+::ng-deep .slider .p-carousel-prev-button, ::ng-deep  .slider .p-carousel-next-button{
+  background-color: #a6252a;
+  color: white;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+      width: 33px;
+    height: 33px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
