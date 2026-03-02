@@ -1,4 +1,4 @@
-<div class="">
+<div class="slider">
   <p-carousel [value]="products()" [numVisible]="4" [numScroll]="1" [responsiveOptions]="responsiveOptions"
     [circular]="true">
     <ng-template let-product pTemplate="item">
@@ -43,10 +43,10 @@
               <div [innerHTML]="star"></div>
               }
             </div>
-          }
-          @else{
+            }
+            @else{
             <p class="text-zinc-600 text-base font-normal">{{'no_rated' | transloco}}</p>
-          }
+            }
           </div>
 
           <!-- PRICE -->
@@ -62,10 +62,12 @@
           </div>
         </div>
 
-        <!-- CART BUTTON -->
-        <button
-          class="absolute bottom-4 right-4 w-12 h-12 bg-maroon-600 hover:bg-text-maroon-700 hover:bg-zinc-50 dark:hover:bg-zinc-800/50  text-white rounded-full flex items-center justify-center shadow-lg transition-colors"
-          style="z-index: 10;">
+        <button class="absolute bottom-4 ltr:right-4 rtl:left-4
+         w-12 h-12 bg-maroon-600
+         hover:bg-text-maroon-700 hover:bg-zinc-50
+         dark:hover:bg-zinc-800/50 text-white
+         rounded-full flex items-center justify-center
+         shadow-lg transition-colors">
           <lucide-icon [name]="ShoppingCart" [size]="22" color="white"></lucide-icon>
         </button>
       </div>
