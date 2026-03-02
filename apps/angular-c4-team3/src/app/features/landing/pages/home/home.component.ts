@@ -8,11 +8,11 @@ import { ProductReviewComponent } from '../../../prodacts/pages/prodact-review/p
 import { MostPopularSectionComponent } from './components/most-popular-section/most-popular-section.component';
 import { LucideAngularModule } from "lucide-angular";
 import { FeaturesBarSectionComponent } from './components/features-bar-section/features-bar-section.component';
+import { GallerySectionComponent } from "./components/gallery-section/gallery-section";
 import { ProductRelatedComponent } from '../../../prodacts/pages/product-related/product-related.component';
-
 @Component({
   selector: 'app-home',
-  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent, MostPopularSectionComponent, LucideAngularModule, FeaturesBarSectionComponent,ProductRelatedComponent],
+  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent, MostPopularSectionComponent, LucideAngularModule, FeaturesBarSectionComponent, ProductRelatedComponent, GallerySectionComponent],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit, OnDestroy {
