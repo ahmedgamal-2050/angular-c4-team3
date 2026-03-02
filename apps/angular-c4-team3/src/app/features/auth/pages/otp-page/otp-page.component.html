@@ -14,18 +14,18 @@
 <!-- OTP input fields -->
 <form [formGroup]="otpForm" (ngSubmit)="verifyOtp()" class="mt-5 flex flex-col gap-5">
   <div class="flex gap-2 justify-center">
-    <input type="text" maxlength="" formControlName="digit1" (input)="moveFocus($event, 'digit2')" class="otp-input">
-    <input type="text" maxlength="1" formControlName="digit2" (input)="moveFocus($event, 'digit3')" class="otp-input">
-    <input type="text" maxlength="1" formControlName="digit3" (input)="moveFocus($event, 'digit4')" class="otp-input">
-    <input type="text" maxlength="1" formControlName="digit4" (input)="moveFocus($event, 'digit5')" class="otp-input">
-    <input type="text" maxlength="1" formControlName="digit5" (input)="moveFocus($event, 'digit6')" class="otp-input">
-    <input type="text" maxlength="1" formControlName="digit6" (input)="moveFocus($event)" class="otp-input">
+    <input type="text" maxlength="" formControlName="digit1" (input)="moveFocus($event, 'digit2')" class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-lg">
+    <input type="text" maxlength="1" formControlName="digit2" (input)="moveFocus($event, 'digit3')" class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-lg">
+    <input type="text" maxlength="1" formControlName="digit3" (input)="moveFocus($event, 'digit4')" class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-lg">
+    <input type="text" maxlength="1" formControlName="digit4" (input)="moveFocus($event, 'digit5')" class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-lg">
+    <input type="text" maxlength="1" formControlName="digit5" (input)="moveFocus($event, 'digit6')" class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-lg">
+    <input type="text" maxlength="1" formControlName="digit6" (input)="moveFocus($event)" class="w-12 h-12 text-center text-2xl border border-gray-300 rounded-lg">
   </div>
 
   <!-- Resend OTP -->
-  <p class="text-sm text-right text-zinc-800 cursor-pointer" (click)="resendOtp()">
+  <button class="text-sm text-right text-zinc-800 cursor-pointer" (click)="resendOtp()">
     {{ 'AUTH.OTP_resend' | transloco }}
-  </p>
+  </button>
 
   <!-- Verify Button -->
   <button type="submit" [disabled]="otpForm.invalid" class="bg-maroon-700 text-white py-2 rounded-lg mt-4">

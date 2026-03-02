@@ -5,7 +5,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 
 @Component({
-  selector: 'angular-c4-team3-otp-page',
+  selector: 'app-otp-page',
   templateUrl: './otp-page.component.html',
   styleUrls: ['./otp-page.component.css'],
   imports:[TranslocoPipe,
