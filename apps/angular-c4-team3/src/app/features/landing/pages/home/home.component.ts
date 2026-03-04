@@ -9,10 +9,11 @@ import { MostPopularSectionComponent } from './components/most-popular-section/m
 import { LucideAngularModule } from "lucide-angular";
 import { FeaturesBarSectionComponent } from './components/features-bar-section/features-bar-section.component';
 import { GallerySectionComponent } from "./components/gallery-section/gallery-section";
+import { TrustedSectionComponent } from "./components/truted-section/trusted-section";
 import { ProductRelatedComponent } from '../../../prodacts/pages/product-related/product-related.component';
 @Component({
   selector: 'app-home',
-  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent, MostPopularSectionComponent, LucideAngularModule, FeaturesBarSectionComponent, ProductRelatedComponent, GallerySectionComponent],
+  imports: [SpecialGiftSectionComponent, AboutHomeComponent, ProductReviewComponent, MostPopularSectionComponent, LucideAngularModule, FeaturesBarSectionComponent, GallerySectionComponent, TrustedSectionComponent, GallerySectionComponent],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit, OnDestroy {
