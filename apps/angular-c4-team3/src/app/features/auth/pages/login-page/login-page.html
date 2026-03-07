@@ -33,7 +33,7 @@
   <!-- Forgot password link -->
   <a
     class="text-maroon-700 dark:text-soft-pink-300 text-sm font-semibold flex justify-end"
-    [routerLink]="'/auth/forget-password'"
+    [routerLink]="['/', APP_ROUTES.AUTH.ROOT, APP_ROUTES.AUTH.FORGET_PASSWORD]"
   >
     {{ 'forgot_password' | transloco }}
   </a>
@@ -82,7 +82,7 @@
     {{ 'no_account' | transloco }}
   </p>
   <a
-    [routerLink]="'/auth/register'"
+    [routerLink]="['/', APP_ROUTES.AUTH.ROOT, APP_ROUTES.AUTH.REGISTER]"
     class="text-maroon-700 dark:text-soft-pink-300 font-bold text-sm"
   >
     {{ 'create_account' | transloco }}

@@ -3,6 +3,7 @@ import { catchError, throwError } from 'rxjs';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { APP_STORAGE } from '../../shared/constants/app-storage';
+import { APP_ROUTES } from '../../shared/constants/app-routes';
 
 /**
  * Error Interceptor
@@ -32,7 +33,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
             console.error('Unauthorized (401):', errorMessage);
             // Clear token and redirect to login
             localStorage.removeItem(APP_STORAGE.token);
-            _router.navigate(['/auth/login']);
+            _router.navigate([`/${APP_ROUTES.AUTH.ROOT}/${APP_ROUTES.AUTH.LOGIN}`]);
             break;
 
           case 403:

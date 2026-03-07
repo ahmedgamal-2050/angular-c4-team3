@@ -31,6 +31,7 @@ import { Subscription } from 'rxjs';
 import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/components/decorated-title/decorated-title.component';
 import { REGEX_PATTERNS } from '../../../../shared/constants/regex-patterns';
 import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-storage';
+import { APP_ROUTES } from 'apps/angular-c4-team3/src/app/shared/constants/app-routes';
 
 @Component({
   selector: 'app-register-page',
@@ -54,6 +55,8 @@ export class RegisterPage implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
   private _Router = inject(Router);
+    
+  protected readonly APP_ROUTES = APP_ROUTES;
 
   // Form Group
   form!: FormGroup;
@@ -174,11 +177,13 @@ export class RegisterPage implements OnInit, OnDestroy {
       next: (res: AuthResponse) => {
         localStorage.setItem(APP_STORAGE.token, res.token);
         localStorage.setItem(APP_STORAGE.user, JSON.stringify(res.user));
-        this._Router.navigate(['/home']);
+        this._Router.navigate(['/', APP_ROUTES.LANDING.ROOT, APP_ROUTES.LANDING.HOME]);
       },
       error: (err) => {
         console.log(err);
       },
     });
+
+    this.subscriptions.add(sub);
   }
 }
