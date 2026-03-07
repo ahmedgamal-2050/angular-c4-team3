@@ -1,6 +1,6 @@
-import { Component, input } from '@angular/core';
-import { LucideAngularModule, X, RefreshCcw, Image as ImageIcon, Gift, Flower2 } from 'lucide-angular';
-import { RatingModule } from 'primeng/rating';
+import { Component, input, signal } from '@angular/core';
+import { LucideAngularModule, X, RefreshCcw, Image as ImageIcon, Gift, Flower2, Star } from 'lucide-angular';
+import { RatingModule, RatingPassThrough } from 'primeng/rating';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 
@@ -16,6 +16,7 @@ export class ProductFiltersComponent {
   readonly ImageIcon = ImageIcon;
   readonly Gift = Gift;
   readonly Flower2 = Flower2;
+  readonly Star = Star;
 
   categories = input([
     { id: 1, name: 'Cards', icon: this.ImageIcon, selected: true },
@@ -38,4 +39,10 @@ export class ProductFiltersComponent {
   ratingValue = input(0);
   priceFrom = input<number | null>(null);
   priceTo = input<number | null>(null);
+
+  ratingPassThrough = signal<RatingPassThrough>({
+    root: {
+      class: 'gap-1!'
+    },
+  })
 }
