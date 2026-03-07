@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { Component, OnDestroy, OnInit, computed, inject, signal } from '@angular/core';
+import { Component, OnDestroy, OnInit, computed, inject, input, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LucideAngularModule, Star } from 'lucide-angular';
 import { ICONS_SVG } from '../../../../../../shared/constants/icons-svg';
@@ -45,6 +45,8 @@ export class ProductReviewComponent implements OnInit, OnDestroy {
   private _productDetailsService = inject(ProductDetailsService);
   private sanitizer = inject(DomSanitizer);
 
+  productId = input<string>('');
+
   reviews = signal<Review[]>([]);
   rating = signal(0);
   totalRatings = signal(0);
@@ -88,7 +90,7 @@ export class ProductReviewComponent implements OnInit, OnDestroy {
   getProductReviewById() {
     this.loading.set(true);
     const sub = this._productDetailsService.getProductReviewById(
-      '673e2e1f1159920171828153',
+      this.productId(),
     ).subscribe({
       next: (res) => {
         this.reviews.set(res?.reviews);

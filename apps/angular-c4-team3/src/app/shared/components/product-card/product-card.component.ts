@@ -4,11 +4,13 @@ import { Star, ShoppingCart, HeartPlus, Eye } from 'lucide-angular';
 import { LucideAngularModule } from 'lucide-angular';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { CurrencyPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { APP_ROUTES } from '../../constants/app-routes';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [LucideAngularModule, TranslocoPipe, CurrencyPipe],
+  imports: [LucideAngularModule, TranslocoPipe, CurrencyPipe, RouterLink],
   templateUrl: './product-card.component.html',
 })
 export class ProductCardComponent {
@@ -18,10 +20,11 @@ export class ProductCardComponent {
   wishlist = output<Product>();
   quickView = output<Product>();
 
-  Star = Star;
-  ShoppingCart = ShoppingCart;
-  HeartPlus = HeartPlus;
-  Eye = Eye;
+  readonly Star = Star;
+  readonly ShoppingCart = ShoppingCart;
+  readonly HeartPlus = HeartPlus;
+  readonly Eye = Eye;
+  readonly ROUTES = APP_ROUTES;
 
   get ratingArray() {
     return Array(5).fill(0).map((_, i) => i < Math.floor(this.product().rateAvg));

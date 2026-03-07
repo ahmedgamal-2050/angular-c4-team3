@@ -3,6 +3,7 @@ export const APP_ROUTES = {
         ROOT: 'landing',
         HOME: 'home',
         PRODUCTS: 'products',
+        PRODUCT_DETAILS: 'products',
         CATEGORIES: 'categories',
         OCCASIONS: 'occasions',
         CONTACT: 'contact',

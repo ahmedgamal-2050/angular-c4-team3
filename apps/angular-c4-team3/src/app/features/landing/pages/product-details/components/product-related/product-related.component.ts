@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
+import { Component, inject, input, OnDestroy, OnInit, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { ProductDetailsService } from '../../services/product-details.service';
 import { RelatedProduct, RelatedProductsResponse } from '../../related-product';
@@ -15,12 +15,14 @@ import { Subscription } from 'rxjs';
 export class ProductRelatedComponent implements OnInit, OnDestroy {
   private _productDetailsService = inject(ProductDetailsService);
 
+  productId = input<string>('');
+
   products = signal<RelatedProduct[]>([]);
 
   subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.getRelatedProdacts('673e2e1f1159920171828153');
+    this.getRelatedProdacts(this.productId());
   }
 
   getRelatedProdacts(id: string) {
