@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { ReviewsResponse } from '../product';
 import { Observable } from 'rxjs';
 import { CreateReview } from '../create-review';
-import { RelatedProduct, RelatedProductsResponse } from '../related-product';
+import { RelatedProductsResponse } from '../related-product';
 import { ENDPOINTS } from '../../../../../shared/constants/endpoints';
 
 @Injectable({
@@ -29,9 +29,5 @@ export class ProductDetailsService {
     return this._http.get<RelatedProductsResponse>(
       `${ENDPOINTS.CATEGORY_PRODUCT}/${productId}`,
     );
-  }
-
-  getBestSellingProducts(): Observable<RelatedProduct> {
-    return this._http.get<RelatedProduct>(`${ENDPOINTS.GET_REVIEW_BY_ID}`);
   }
 }

@@ -36,9 +36,12 @@
   </div>
 
   <div class="col-span-12 lg:col-span-9">
-    @if (specialProduct()) {
+    @if (bestSellingProducts().length > 0) {
       <div class="slider">
-        <app-slider [products]="specialProduct()" [numVisible]="3"></app-slider>
+        <app-slider
+          [products]="bestSellingProducts()"
+          [numVisible]="3"
+        ></app-slider>
       </div>
     }
   </div>
