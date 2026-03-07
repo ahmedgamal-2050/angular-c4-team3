@@ -6,6 +6,7 @@ import { LucideAngularModule, ShoppingCart, Heart } from 'lucide-angular';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICONS_SVG } from '../../constants/icons-svg';
 import { TranslocoModule } from '@jsverse/transloco';
+import { Product } from '../../../features/prodacts/specialProduct';
 
 @Component({
   selector: 'app-slider',
@@ -17,6 +18,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 export class SliderComponent {
   // ✅ Input Signal
   products = input<RelatedProduct[]>([]);
+  numVisible = input(4);
   Heart = Heart;
   ShoppingCart = ShoppingCart;
   responsiveOptions: CarouselResponsiveOptions[] = [
