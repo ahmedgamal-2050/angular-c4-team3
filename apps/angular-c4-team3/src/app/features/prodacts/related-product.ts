@@ -13,4 +13,5 @@ export interface RelatedProduct {
   priceAfterDiscount: number;
   rateAvg: number;
   rateCount: number;
+  products?:any
 }
