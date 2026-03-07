@@ -4,13 +4,13 @@ import { Subscription } from 'rxjs';
 import { CategoryElement, HomeResponse, Product } from './home.model';
 import { SpecialGiftSectionComponent } from "./components/special-gift-section/special-gift-section.component";
 import { AboutHomeComponent } from './components/about-home/about-home.component';
-import { ProductReviewComponent } from '../../../prodacts/pages/prodact-review/product-review.component';
+import { ProductReviewComponent } from '../product-details/components/product-review/product-review.component';
 import { MostPopularSectionComponent } from './components/most-popular-section/most-popular-section.component';
 import { LucideAngularModule } from "lucide-angular";
 import { FeaturesBarSectionComponent } from './components/features-bar-section/features-bar-section.component';
 import { GallerySectionComponent } from "./components/gallery-section/gallery-section";
 import { TrustedSectionComponent } from "./components/truted-section/trusted-section";
-import { ProductRelatedComponent } from '../../../prodacts/pages/product-related/product-related.component';
+import { ProductRelatedComponent } from '../product-details/components/product-related/product-related.component';
 import { BestSellingComponent } from './components/best-selling/best-selling.component';
 @Component({
   selector: 'app-home',

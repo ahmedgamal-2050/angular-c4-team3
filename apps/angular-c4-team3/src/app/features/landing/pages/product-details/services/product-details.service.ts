@@ -1,0 +1,37 @@
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { ReviewsResponse } from '../product';
+import { Observable } from 'rxjs';
+import { CreateReview } from '../create-review';
+import { RelatedProduct, RelatedProductsResponse } from '../related-product';
+import { ENDPOINTS } from '../../../../../shared/constants/endpoints';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ProductDetailsService {
+  private _http = inject(HttpClient);
+
+  getProductReviews(): Observable<ReviewsResponse> {
+    return this._http.get<ReviewsResponse>(`${ENDPOINTS.REVIEWS}`);
+  }
+
+  getProductReviewById(productId?: string): Observable<ReviewsResponse> {
+    const url = ENDPOINTS.GET_REVIEW_BY_ID.replace('{productId}', productId ?? '');
+    return this._http.get<ReviewsResponse>(url);
+  }
+
+  createReview(data?: string): Observable<CreateReview> {
+    return this._http.post<CreateReview>(`${ENDPOINTS.REVIEWS}`, data);
+  }
+
+  getRelatedProdacts(productId?: string): Observable<RelatedProductsResponse> {
+    return this._http.get<RelatedProductsResponse>(
+      `${ENDPOINTS.CATEGORY_PRODUCT}/${productId}`,
+    );
+  }
+
+  getBestSellingProducts(): Observable<RelatedProduct> {
+    return this._http.get<RelatedProduct>(`${ENDPOINTS.GET_REVIEW_BY_ID}`);
+  }
+}

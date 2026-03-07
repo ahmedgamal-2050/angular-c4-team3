@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, input } from '@angular/core';
 import { CarouselModule, CarouselResponsiveOptions } from 'primeng/carousel';
-import { RelatedProduct } from '../../../features/prodacts/related-product';
+import { RelatedProduct } from '../../../features/landing/pages/product-details/related-product';
 import { LucideAngularModule, ShoppingCart, Heart } from 'lucide-angular';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICONS_SVG } from '../../constants/icons-svg';
 import { TranslocoModule } from '@jsverse/transloco';
-import { Product } from '../../../features/prodacts/specialProduct';
+import { Product } from '../../../features/landing/pages/product-details/special-product';
 
 @Component({
   selector: 'app-slider',

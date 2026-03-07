@@ -1,16 +1,22 @@
 <section class="px-6 py-10 grid grid-cols-12 items-center">
-
   <div class="col-span-12 lg:col-span-3">
-
-    <p class="text-sm font-bold tracking-[3px] text-soft-pink-500 uppercase mb-3.5">
+    <p
+      class="text-sm font-bold tracking-[3px] text-soft-pink-500 uppercase mb-3.5"
+    >
       {{ 'title_best' | transloco }}
     </p>
 
-    <h2 class="font-serif text-3xl leading-[100%] text-maroon-700 dark:text-white">
+    <h2
+      class="font-serif text-3xl leading-[100%] text-maroon-700 dark:text-white"
+    >
       {{ 'part_best1' | transloco }}
-      <span class="text-soft-pink-500">{{ 'highlight_best1' | transloco }}</span>
+      <span class="text-soft-pink-500">{{
+        'highlight_best1' | transloco
+      }}</span>
       {{ 'part_best2' | transloco }}
-      <span class="text-soft-pink-500">{{ 'highlight_best2' | transloco }}</span>
+      <span class="text-soft-pink-500">{{
+        'highlight_best2' | transloco
+      }}</span>
       {{ 'part_best3' | transloco }}
     </h2>
 
@@ -19,17 +25,21 @@
     </p>
 
     <div class="w-1/2">
-      <shared-ui-button [label]="'explore_gifts' | transloco" [type]="'submit'" [icon]="arrow_right"
-        [iconPosition]="'right'">
+      <shared-ui-button
+        [label]="'explore_gifts' | transloco"
+        [type]="'submit'"
+        [icon]="arrow_right"
+        [iconPosition]="'right'"
+      >
       </shared-ui-button>
     </div>
-
   </div>
+
   <div class="col-span-12 lg:col-span-9">
-    @if(specialProduct){
-    <div class="slider">
-      <app-slider [products]="specialProduct" [numVisible]="3"></app-slider>
-    </div>
-  }
+    @if (specialProduct()) {
+      <div class="slider">
+        <app-slider [products]="specialProduct()" [numVisible]="3"></app-slider>
+      </div>
+    }
   </div>
 </section>

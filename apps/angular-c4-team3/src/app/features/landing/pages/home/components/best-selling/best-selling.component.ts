@@ -1,13 +1,12 @@
 /* eslint-disable @nx/enforce-module-boundaries */
-import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { TranslocoModule } from '@jsverse/transloco';
 import { SliderComponent } from 'apps/angular-c4-team3/src/app/shared/components/slider/slider.component';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { ProductsService } from './../../../../../prodacts/services/prodacts.service';
+import { ProductDetailsService } from 'apps/angular-c4-team3/src/app/features/landing/pages/product-details/services/product-details.service';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { LucideAngularModule, ArrowRight } from 'lucide-angular';
-import { Product, SpecialProduct } from 'apps/angular-c4-team3/src/app/features/prodacts/specialProduct';
-import { RelatedProduct } from 'apps/angular-c4-team3/src/app/features/prodacts/related-product';
+import { RelatedProduct } from 'apps/angular-c4-team3/src/app/features/landing/pages/product-details/related-product';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-best-selling',
@@ -21,22 +20,31 @@ import { RelatedProduct } from 'apps/angular-c4-team3/src/app/features/prodacts/
   templateUrl: './best-selling.component.html',
   styleUrl: './best-selling.component.css',
 })
-export class BestSellingComponent implements OnInit {
-  specialProduct: RelatedProduct[] = [];
-  ProductsService = inject(ProductsService);
-  cdr = inject(ChangeDetectorRef);
+export class BestSellingComponent implements OnInit, OnDestroy {
   readonly arrow_right = ArrowRight;
+
+  specialProduct = signal<RelatedProduct[]>([]);
+
+  _productDetailsService = inject(ProductDetailsService);
+
+  subscription: Subscription = new Subscription();
+
   ngOnInit(): void {
     this.getBestSellingProducts();
   }
 
  getBestSellingProducts() {
-  this.ProductsService.getBestSellingProducts().subscribe(
-    (res: RelatedProduct) => {
-      this.specialProduct = res.products;
-      this.cdr.detectChanges();
-    },
-    (err) => console.error(err)
-  );
-}
+    const sub = this._productDetailsService.getBestSellingProducts().subscribe(
+      (res: RelatedProduct) => {
+        this.specialProduct.set(res.products);
+      },
+      (err) => console.error(err)
+    );
+
+    this.subscription.add(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }
