@@ -8,14 +8,14 @@ import {
   Headset,
   Info,
 } from 'lucide-angular';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { APP_ROUTES } from '../../constants/app-routes';
 
 @Component({
   selector: 'app-main-navbar',
   standalone: true,
-  imports: [LucideAngularModule, RouterLink, TranslocoPipe],
+  imports: [LucideAngularModule, RouterLink, TranslocoPipe, RouterLinkActive],
   templateUrl: './main-navbar.component.html',
   styleUrl: './main-navbar.component.css',
 })
