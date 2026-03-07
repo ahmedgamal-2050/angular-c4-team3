@@ -70,9 +70,12 @@
       @for (filled of ratingArray; track $index) {
         <lucide-icon
           [img]="Star"
-          [size]="14"
+          [size]="16"
+          [strokeWidth]="1.5"
           [class]="
-            filled ? 'text-yellow-400 fill-yellow-400' : 'text-yellow-400'
+            filled
+              ? 'text-yellow-500 fill-yellow-500 dark:text-yellow-600 dark:fill-yellow-600'
+              : 'text-yellow-500 dark:text-yellow-600'
           "
         ></lucide-icon>
       }
