@@ -27,6 +27,7 @@ export interface Product {
   rateCount: number;
   id: string;
   discount?: number;
+  isInWishlist?: boolean;
 }
 
 export interface CategoryElement {

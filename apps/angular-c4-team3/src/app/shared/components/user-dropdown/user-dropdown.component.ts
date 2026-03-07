@@ -2,9 +2,10 @@ import { Component, inject } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LucideAngularModule, ChevronDown, User, MapPin, ClipboardList, Settings, LogOut } from 'lucide-angular';
 import { LoggedInService } from '../../services/logged-in.service';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { MenuModule } from 'primeng/menu';
+import { APP_ROUTES } from '../../constants/app-routes';
 
 @Component({
   selector: 'app-user-dropdown',
@@ -19,9 +20,10 @@ export class UserDropdownComponent {
   readonly ClipboardList = ClipboardList;
   readonly Settings = Settings;
   readonly LogOut = LogOut;
+    
+  protected readonly APP_ROUTES = APP_ROUTES;
 
   private _LoggedInService = inject(LoggedInService);
-  private _Router = inject(Router);
 
   isLoggedIn = this._LoggedInService.isLoggedIn;
   user = this._LoggedInService.user;

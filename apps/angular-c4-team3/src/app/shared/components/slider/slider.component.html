@@ -1,5 +1,5 @@
 <div class="slider">
-  <p-carousel [value]="products()" [numVisible]="4" [numScroll]="1" [responsiveOptions]="responsiveOptions"
+  <p-carousel [value]="products()" [numVisible]="numVisible()" [numScroll]="1" [responsiveOptions]="responsiveOptions"
     [circular]="true">
     <ng-template let-product pTemplate="item">
       <div class="px-2">

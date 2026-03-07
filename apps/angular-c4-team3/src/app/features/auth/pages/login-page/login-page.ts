@@ -26,6 +26,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { Subscription } from 'rxjs';
 import { DecoratedTitleComponent } from 'apps/angular-c4-team3/src/app/shared/components/decorated-title/decorated-title.component';
 import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-storage';
+import { APP_ROUTES } from 'apps/angular-c4-team3/src/app/shared/constants/app-routes';
 
 @Component({
   selector: 'app-login-page',
@@ -47,6 +48,8 @@ export class LoginPage implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
   private _Router = inject(Router);
+  
+  protected readonly APP_ROUTES = APP_ROUTES;
 
   // Reactive form
   form!: FormGroup;
@@ -102,7 +105,7 @@ export class LoginPage implements OnInit, OnDestroy {
       next: (res: AuthResponse) => {
         localStorage.setItem(APP_STORAGE.token, res.token);
         localStorage.setItem(APP_STORAGE.user, JSON.stringify(res.user));
-        this._Router.navigate(['/home']);
+        this._Router.navigate(['/', APP_ROUTES.LANDING.ROOT, APP_ROUTES.LANDING.HOME]);
       },
       error: (err) => {
         console.error('Login failed:', err);

@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ReviewsResponse } from '../product';
-// eslint-disable-next-line @nx/enforce-module-boundaries
 import { Observable } from 'rxjs';
 import { CreateReview } from '../createReview';
-import { RelatedProductsResponse } from '../related-product';
+import { RelatedProduct, RelatedProductsResponse } from '../related-product';
 import { ENDPOINTS } from '../../../shared/constants/endpoints';
 
 @Injectable({
@@ -20,7 +19,7 @@ export class ProductsService {
 
   getProductReviewById(productId?: string): Observable<ReviewsResponse> {
     return this.http.get<ReviewsResponse>(
-      `${ENDPOINTS.GETREVIEWID}/${productId}/reviews`,
+      `${ENDPOINTS.GET_REVIEW_BY_ID}/${productId}/reviews`,
     );
   }
 
@@ -32,5 +31,9 @@ export class ProductsService {
     return this.http.get<RelatedProductsResponse>(
       `${ENDPOINTS.CATEGORY_PRODUCT}/${productId}`,
     );
+  }
+
+  getBestSellingProducts(): Observable<RelatedProduct> {
+    return this.http.get<RelatedProduct>(`${ENDPOINTS.GET_REVIEW_BY_ID}`);
   }
 }

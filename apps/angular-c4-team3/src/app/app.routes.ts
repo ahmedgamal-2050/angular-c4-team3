@@ -1,10 +1,11 @@
 import { Route } from '@angular/router';
+import { APP_ROUTES } from './shared/constants/app-routes';
 
 export const appRoutes: Route[] = [
-  { path: '', redirectTo: 'auth', pathMatch: 'full' },
+  { path: '', redirectTo: APP_ROUTES.AUTH.ROOT, pathMatch: 'full' },
 
   {
-    path: 'auth',
+    path: APP_ROUTES.AUTH.ROOT,
     loadComponent: () =>
       import('./layout/auth-wrapper/auth-wrapper.component').then(
         (m) => m.AuthWrapperComponent,
@@ -14,7 +15,7 @@ export const appRoutes: Route[] = [
   },
 
   {
-    path: 'home',
+    path: APP_ROUTES.LANDING.ROOT,
     loadComponent: () =>
       import('./layout/landing-wrapper/landing-wrapper.component').then(
         (m) => m.LandingWrapperComponent,
