@@ -1,5 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { APP_ROUTES } from '../../shared/constants/app-routes';
 
 export const forgetPasswordGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
@@ -8,7 +9,7 @@ export const forgetPasswordGuard: CanActivateFn = (route, state) => {
   if (passedForgetPassword === 'true') {
     return true;
   } else {
-    router.navigate(['/auth/forget-password']);
+    router.navigate([`/${APP_ROUTES.AUTH.ROOT}/${APP_ROUTES.AUTH.FORGET_PASSWORD}`]);
     return false;
   }
 };

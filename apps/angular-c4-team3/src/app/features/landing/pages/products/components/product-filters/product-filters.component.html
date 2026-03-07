@@ -1,0 +1,150 @@
+<!-- Sidebar Filters -->
+<aside class="w-full md:w-[280px] flex-shrink-0 flex flex-col gap-6">
+  <!-- Category Filter -->
+  <div class="filter-section">
+    <div class="flex justify-between items-center mb-3">
+      <h3 class="font-bold text-zinc-800 text-lg">Category</h3>
+      <button
+        class="flex items-center gap-1 text-maroon-500 text-sm hover:text-maroon-600 transition-colors"
+      >
+        <lucide-icon [img]="X" size="14"></lucide-icon> Reset
+      </button>
+    </div>
+
+    <div class="flex flex-col gap-2">
+      @for (cat of categories(); track cat.id) {
+        <button
+          class="flex items-center gap-3 px-3 py-2 rounded-md transition-colors text-sm font-medium w-full"
+          [class]="
+            cat.selected
+              ? 'bg-zinc-800 text-white'
+              : 'bg-zinc-100 text-zinc-700 hover:bg-zinc-200'
+          "
+        >
+          <lucide-icon [img]="cat.icon" size="18"></lucide-icon>
+          {{ cat.name }}
+        </button>
+      }
+    </div>
+  </div>
+
+  <!-- Occasion Filter -->
+  <div class="filter-section">
+    <div class="flex justify-between items-center mb-3">
+      <h3 class="font-bold text-zinc-800 text-lg">Occasion</h3>
+      <button
+        class="flex items-center gap-1 text-maroon-500 text-sm hover:text-maroon-600 transition-colors"
+      >
+        <lucide-icon [img]="X" size="14"></lucide-icon> Reset
+      </button>
+    </div>
+
+    <div class="grid grid-cols-2 gap-2">
+      @for (occ of occasions(); track occ.id) {
+        <div
+          class="relative h-[60px] rounded-lg overflow-hidden cursor-pointer group bg-zinc-600"
+          [style.background-image]="'url(' + occ.image + ')'"
+          style="background-size: cover; background-position: center"
+        >
+          <div
+            class="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors z-10"
+          ></div>
+          <div class="absolute inset-0 flex items-center justify-center z-20">
+            <span
+              class="text-white text-xs font-semibold px-1 text-center truncate w-full"
+              >{{ occ.name }}</span
+            >
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Rating Filter -->
+  <div class="filter-section">
+    <div class="flex justify-between items-center mb-3">
+      <h3 class="font-bold text-zinc-800 text-lg">Rating</h3>
+      <button
+        class="flex items-center gap-1 text-maroon-500 text-sm hover:text-maroon-600 transition-colors"
+      >
+        <lucide-icon [img]="X" size="14"></lucide-icon> Reset
+      </button>
+    </div>
+
+    <div class="flex items-center text-yellow-500 gap-1">
+      <p-rating
+        [(ngModel)]="ratingValue"
+        [stars]="5"
+        [pt]="ratingPassThrough()"
+      >
+        <ng-template #onicon>
+          <lucide-icon
+            [img]="Star"
+            [size]="25"
+            [strokeWidth]="1.5"
+            class="text-yellow-500 fill-yellow-500 dark:text-yellow-600 dark:fill-yellow-600"
+          />
+        </ng-template>
+        <ng-template #officon>
+          <lucide-icon
+            [img]="Star"
+            [size]="25"
+            [strokeWidth]="1.5"
+            class="text-yellow-500 dark:text-yellow-600"
+          />
+        </ng-template>
+      </p-rating>
+    </div>
+  </div>
+
+  <!-- Price Filter -->
+  <div class="filter-section mb-2">
+    <div class="flex justify-between items-center mb-3">
+      <h3 class="font-bold text-zinc-800 text-lg">Price</h3>
+
+      <button
+        class="flex items-center gap-1 text-maroon-500 text-sm hover:text-maroon-600 transition-colors"
+      >
+        <lucide-icon [img]="X" size="14"></lucide-icon> Reset
+      </button>
+    </div>
+
+    <div class="flex items-center gap-4">
+      <div class="flex-1">
+        <label for="priceFrom" class="block text-zinc-600 text-sm mb-1"
+          >from</label
+        >
+
+        <input
+          id="priceFrom"
+          type="number"
+          pInputText
+          [(ngModel)]="priceFrom"
+          placeholder="0"
+          class="w-full border border-zinc-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-maroon-500 focus:border-maroon-500 outline-none"
+        />
+      </div>
+
+      <div class="flex-1">
+        <label for="priceTo" class="block text-zinc-600 text-sm mb-1">to</label>
+
+        <input
+          id="priceTo"
+          type="number"
+          pInputText
+          [(ngModel)]="priceTo"
+          placeholder="100000"
+          class="w-full border border-zinc-300 rounded-md p-2 text-sm focus:ring-1 focus:ring-maroon-500 focus:border-maroon-500 outline-none"
+        />
+      </div>
+    </div>
+  </div>
+
+  <!-- Reset All Button -->
+  <button
+    class="w-full flex justify-center items-center gap-2 bg-maroon-50 text-maroon-500 hover:bg-maroon-100 font-medium py-3 rounded-md transition-colors"
+  >
+    <lucide-icon [img]="RefreshCcw" size="18"></lucide-icon>
+    Reset All
+  </button>
+</aside>

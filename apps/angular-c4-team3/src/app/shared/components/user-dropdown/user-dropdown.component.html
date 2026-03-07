@@ -1,48 +1,82 @@
-@if(isLoggedIn() && user()) {
-  <button 
-    class="hidden md:flex flex-col text-start leading-tight cursor-pointer bg-transparent border-none p-0 appearance-none focus-visible:outline-maroon-300" 
+@if (isLoggedIn() && user()) {
+  <button
+    class="hidden md:flex flex-col text-start leading-tight cursor-pointer bg-transparent border-none p-0 appearance-none focus-visible:outline-maroon-300"
     (click)="menu.toggle($event)"
     type="button"
     aria-haspopup="true"
     aria-controls="menu"
   >
-      <span class="text-xs text-zinc-400 dark:text-zinc-500">{{ 'landing_top_navbar_section_hello' | transloco }}</span>
-      <div class="flex items-center gap-1 font-bold text-maroon-800 dark:text-soft-pink-200">
-          <span>{{ user()!.firstName }}</span>
-          <lucide-icon [name]="ChevronDown" size="14"/>
-      </div>
+    <span class="text-xs text-zinc-400 dark:text-zinc-500">{{
+      'landing_top_navbar_section_hello' | transloco
+    }}</span>
+    <div
+      class="flex items-center gap-1 font-bold text-maroon-800 dark:text-soft-pink-200"
+    >
+      <span>{{ user()!.firstName }}</span>
+      <lucide-icon [name]="ChevronDown" size="14" />
+    </div>
   </button>
 
-  <p-menu #menu id="menu" [model]="items" [popup]="true" styleClass="w-72 !rounded-3xl !border-zinc-100 dark:!border-zinc-800 !bg-white dark:!bg-zinc-800 !shadow-xl">
-      <ng-template pTemplate="start">
-          <div class="p-4 border-b border-zinc-100 dark:border-zinc-800">
-              <span class="font-bold text-maroon-700 dark:text-soft-pink-100 text-xl tracking-tight">
-                  {{ user()!.firstName }} {{ user()!.lastName }}
-              </span>
-          </div>
-      </ng-template>
+  <p-menu
+    #menu
+    id="menu"
+    [model]="items"
+    [popup]="true"
+    styleClass="w-72 !rounded-3xl !border-zinc-100 dark:!border-zinc-800 !bg-white dark:!bg-zinc-800 !shadow-xl"
+  >
+    <ng-template pTemplate="start">
+      <div class="p-4 border-b border-zinc-100 dark:border-zinc-800">
+        <span
+          class="font-bold text-maroon-700 dark:text-soft-pink-100 text-xl tracking-tight"
+        >
+          {{ user()!.firstName }} {{ user()!.lastName }}
+        </span>
+      </div>
+    </ng-template>
 
-      <ng-template pTemplate="item" let-item>
-          <a [routerLink]="item.routerLink" class="flex items-center gap-4 p-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-all duration-200 group">
-              <lucide-icon [name]="item.data.icon" size="22" class="text-zinc-500 group-hover:text-maroon-700 dark:group-hover:text-soft-pink-200 transition-colors" />
-              <span class="font-bold text-zinc-700 dark:text-zinc-300 group-hover:text-maroon-900 dark:group-hover:text-zinc-100 text-[17px]">
-                  {{ item.label | transloco }}
-              </span>
-          </a>
-      </ng-template>
+    <ng-template pTemplate="item" let-item>
+      <a
+        [routerLink]="item.routerLink"
+        class="flex items-center gap-4 p-3 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-all duration-200 group"
+      >
+        <lucide-icon
+          [name]="item.data.icon"
+          size="22"
+          class="text-zinc-500 group-hover:text-maroon-700 dark:group-hover:text-soft-pink-200 transition-colors"
+        />
+        <span
+          class="font-bold text-zinc-700 dark:text-zinc-300 group-hover:text-maroon-900 dark:group-hover:text-zinc-100 text-[17px]"
+        >
+          {{ item.label | transloco }}
+        </span>
+      </a>
+    </ng-template>
 
-      <ng-template pTemplate="end">
-          <button type="button" (click)="logout()" class="border-t border-zinc-100 dark:border-zinc-800 flex w-full items-center gap-4 p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-all duration-200 group">
-              <lucide-icon [name]="LogOut" size="22" class="text-zinc-500 group-hover:text-maroon-700 dark:group-hover:text-soft-pink-200 transition-colors" />
-              <span class="font-bold text-zinc-700 dark:text-zinc-300 group-hover:text-maroon-900 dark:group-hover:text-zinc-100 text-[17px]">
-                {{ 'user_dropdown_logout_label' | transloco }}
-              </span>
-          </button>
-      </ng-template>
+    <ng-template pTemplate="end">
+      <button
+        type="button"
+        (click)="logout()"
+        class="border-t border-zinc-100 dark:border-zinc-800 flex w-full items-center gap-4 p-4 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 transition-all duration-200 group"
+      >
+        <lucide-icon
+          [name]="LogOut"
+          size="22"
+          class="text-zinc-500 group-hover:text-maroon-700 dark:group-hover:text-soft-pink-200 transition-colors"
+        />
+        <span
+          class="font-bold text-zinc-700 dark:text-zinc-300 group-hover:text-maroon-900 dark:group-hover:text-zinc-100 text-[17px]"
+        >
+          {{ 'user_dropdown_logout_label' | transloco }}
+        </span>
+      </button>
+    </ng-template>
   </p-menu>
 } @else {
-  <a routerLink="/auth/login" class="flex items-center gap-1 font-bold text-zinc-700 dark:text-zinc-50">
-      <lucide-icon [name]="User" size="20"/>
-      {{ 'user_dropdown_login_label' | transloco }}
+  <a
+    [routerLink]="['/', APP_ROUTES.AUTH.ROOT, APP_ROUTES.AUTH.LOGIN]"
+    class="flex items-center gap-1 font-bold text-zinc-700 dark:text-zinc-50"
+  >
+    <lucide-icon [name]="User" size="20" />
+    {{ 'user_dropdown_login_label' | transloco }}
   </a>
 }

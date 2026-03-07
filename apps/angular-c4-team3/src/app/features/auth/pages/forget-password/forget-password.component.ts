@@ -23,6 +23,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 
 // RxJS
 import { Subscription } from 'rxjs';
+import { APP_ROUTES } from 'apps/angular-c4-team3/src/app/shared/constants/app-routes';
 
 @Component({
   selector: 'app-forget-password',
@@ -40,6 +41,8 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
   private _Router = inject(Router);
+    
+    protected readonly APP_ROUTES = APP_ROUTES;
 
   // Reactive form
   form!: FormGroup;
@@ -86,7 +89,7 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
     const sub = this._AuthService.login(payload).subscribe({
       next: (res: AuthResponse) => {
         console.log('Login successful:', res);
-        this._Router.navigate(['/auth/set-password'])
+        this._Router.navigate(['/', APP_ROUTES.AUTH.ROOT, APP_ROUTES.AUTH.SET_PASSWORD])
       },
       error: (err) => {
         console.error('Login failed:', err);
