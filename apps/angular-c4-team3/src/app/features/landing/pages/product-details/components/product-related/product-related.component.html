@@ -1,12 +1,11 @@
 <section class="px-6 py-10">
-
   <div class="my-4">
     <div class="mb-2.5">
       <app-styled-home-title [title]="'product_related' | transloco" />
     </div>
-    </div>
+  </div>
 
-    <div class="slider">
-      <app-slider [products]="products"></app-slider>
-    </div>
+  <div class="slider">
+    <app-slider [products]="products()"></app-slider>
+  </div>
 </section>
