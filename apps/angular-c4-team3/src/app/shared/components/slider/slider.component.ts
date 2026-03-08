@@ -7,17 +7,18 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICONS_SVG } from '../../constants/icons-svg';
 import { TranslocoModule } from '@jsverse/transloco';
 import { Product } from '../../../features/prodacts/specialProduct';
+import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
   selector: 'app-slider',
   standalone: true,
-  imports: [CommonModule, CarouselModule, LucideAngularModule, TranslocoModule],
+  imports: [CommonModule, CarouselModule, LucideAngularModule, TranslocoModule,ProductCardComponent],
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.css'],
 })
 export class SliderComponent {
   // ✅ Input Signal
-  products = input<RelatedProduct[]>([]);
+  products  = input<Product[]>([]);
   numVisible = input(4);
   Heart = Heart;
   ShoppingCart = ShoppingCart;
