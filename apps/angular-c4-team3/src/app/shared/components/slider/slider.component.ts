@@ -1,6 +1,5 @@
 import { Component, inject, input } from '@angular/core';
 import { CarouselModule, CarouselResponsiveOptions } from 'primeng/carousel';
-import { RelatedProduct } from '../../../features/landing/pages/product-details/related-product';
 import { LucideAngularModule, ShoppingCart, Heart } from 'lucide-angular';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { ICONS_SVG } from '../../constants/icons-svg';
@@ -8,6 +7,7 @@ import { TranslocoModule } from '@jsverse/transloco';
 import { RouterLink } from "@angular/router";
 import { APP_ROUTES } from '../../constants/app-routes';
 import { ProductCardComponent } from '../product-card/product-card.component';
+import { Product } from '../../../features/landing/pages/home/home.model';
 
 @Component({
   selector: 'app-slider',
