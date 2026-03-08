@@ -4,17 +4,15 @@ import { Subscription } from 'rxjs';
 import { CategoryElement, HomeResponse, Product } from './home.model';
 import { SpecialGiftSectionComponent } from "./components/special-gift-section/special-gift-section.component";
 import { AboutHomeComponent } from './components/about-home/about-home.component';
-import { ProductReviewComponent } from '../../../prodacts/pages/prodact-review/product-review.component';
 import { MostPopularSectionComponent } from './components/most-popular-section/most-popular-section.component';
 import { LucideAngularModule } from "lucide-angular";
 import { FeaturesBarSectionComponent } from './components/features-bar-section/features-bar-section.component';
 import { GallerySectionComponent } from "./components/gallery-section/gallery-section";
-import { TrustedSectionComponent } from "./components/truted-section/trusted-section";
-import { ProductRelatedComponent } from '../../../prodacts/pages/product-related/product-related.component';
+import { TrustedSectionComponent } from "./components/trusted-section/trusted-section";
 import { BestSellingComponent } from './components/best-selling/best-selling.component';
 @Component({
   selector: 'app-home',
-  imports: [SpecialGiftSectionComponent,BestSellingComponent,GallerySectionComponent, AboutHomeComponent, ProductReviewComponent, MostPopularSectionComponent, LucideAngularModule, FeaturesBarSectionComponent, ProductRelatedComponent, TrustedSectionComponent, GallerySectionComponent],
+  imports: [SpecialGiftSectionComponent,BestSellingComponent,GallerySectionComponent, AboutHomeComponent, MostPopularSectionComponent, LucideAngularModule, FeaturesBarSectionComponent, TrustedSectionComponent, GallerySectionComponent],
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit, OnDestroy {

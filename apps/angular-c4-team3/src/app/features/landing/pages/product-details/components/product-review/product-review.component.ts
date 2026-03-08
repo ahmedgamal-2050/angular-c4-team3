@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, OnInit, computed, inject } from '@angular/core';
-import { TranslocoModule } from '@jsverse/transloco';
+import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit, computed, inject, input, signal } from '@angular/core';
+import { TranslocoPipe } from '@jsverse/transloco';
 import { LucideAngularModule, Star } from 'lucide-angular';
-import { ICONS_SVG } from '../../../../shared/constants/icons-svg';
+import { ICONS_SVG } from '../../../../../../shared/constants/icons-svg';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Review } from '../../product';
-import { InputComponent } from '../../../../shared/components/form-components/input/input.component';
+import { InputComponent } from '../../../../../../shared/components/form-components/input/input.component';
 import {
   FormControl,
   FormGroup,
@@ -14,19 +14,18 @@ import {
   Validators,
 } from '@angular/forms';
 import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
-import { TextareaComponent } from '../../../../shared/components/form-components/textarea/textarea.component';
-import { ProductsService } from '../../services/prodacts.service';
+import { TextareaComponent } from '../../../../../../shared/components/form-components/textarea/textarea.component';
+import { ProductDetailsService } from '../../services/product-details.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { APP_STORAGE } from 'apps/angular-c4-team3/src/app/shared/constants/app-storage';
-import { StyledHomeTitleComponent } from '../../../../shared/components/styled-home-title/styled-home-title.component'; 
+import { APP_STORAGE } from '../../../../../../shared/constants/app-storage';
+import { StyledHomeTitleComponent } from '../../../../../../shared/components/styled-home-title/styled-home-title.component'; 
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-product-review',
   standalone: true,
   imports: [
-    CommonModule,
-    TranslocoModule,
+    TranslocoPipe,
     LucideAngularModule,
     InputComponent,
     ReactiveFormsModule,
@@ -35,22 +34,28 @@ import { StyledHomeTitleComponent } from '../../../../shared/components/styled-h
     TextareaComponent,
     ProgressSpinnerModule,
     StyledHomeTitleComponent,
+    DatePipe,
   ],
   templateUrl: './product-review.component.html',
   styleUrls: ['./product-review.component.css'],
 })
-export class ProductReviewComponent implements OnInit {
-  REVIEWS: Review[] = [];
-  rating = 0;
-  totalRatings = 0;
+export class ProductReviewComponent implements OnInit, OnDestroy {
   readonly single_star = Star;
-  form!: FormGroup;
-  loading = false;
-  isLoggedIn = computed<boolean>(() => localStorage.getItem(APP_STORAGE.token) !== null);
 
-  private ProductsService = inject(ProductsService);
+  private _productDetailsService = inject(ProductDetailsService);
   private sanitizer = inject(DomSanitizer);
-  private cdr = inject(ChangeDetectorRef);
+
+  productId = input<string>('');
+
+  reviews = signal<Review[]>([]);
+  rating = signal(0);
+  totalRatings = signal(0);
+  loading = signal(false);
+
+  isLoggedIn = computed<boolean>(() => localStorage.getItem(APP_STORAGE.token) !== null);
+  
+  form!: FormGroup;
+  subscription = new Subscription();
 
   ngOnInit(): void {
     this.initializeForm();
@@ -83,30 +88,30 @@ export class ProductReviewComponent implements OnInit {
   }
 
   getProductReviewById() {
-    this.loading = true;
-    this.ProductsService.getProductReviewById(
-      '673e2e1f1159920171828153',
+    this.loading.set(true);
+    const sub = this._productDetailsService.getProductReviewById(
+      this.productId(),
     ).subscribe({
       next: (res) => {
-        this.REVIEWS = res?.reviews;
-        this.totalRatings = this.REVIEWS.length;
+        this.reviews.set(res?.reviews);
+        this.totalRatings.set(this.reviews().length);
 
-        if (this.totalRatings > 0) {
-          const total = this.REVIEWS.reduce((sum, r) => sum + r.rating, 0);
-          this.rating = +(total / this.totalRatings).toFixed(1);
+        if (this.totalRatings() > 0) {
+          const total = this.reviews().reduce((sum, r) => sum + r.rating, 0);
+          this.rating.set(+(total / this.totalRatings()).toFixed(1));
         } else {
-          this.rating = 0;
+          this.rating.set(0);
         }
-        this.cdr.detectChanges();
       },
       error: (err) => {
         console.error(err);
       },
       complete: () => {
-        this.loading = false;
-        this.cdr.detectChanges();
+        this.loading.set(false);
       },
     });
+
+    this.subscription.add(sub);
   }
 
   createReview() {
@@ -119,11 +124,16 @@ export class ProductReviewComponent implements OnInit {
     const payload = { ...this.form.value };
 
     // Subscribe to login observable and add it to the subscription container
-    this.ProductsService.createReview(payload).subscribe({
-      next: (res) => {
+    const sub = this._productDetailsService.createReview(payload).subscribe({
+      next: () => {
         this.getProductReviewById();
       },
     });
+
+    this.subscription.add(sub);
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
 }
