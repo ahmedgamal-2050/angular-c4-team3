@@ -1,5 +1,5 @@
 <section class="flex flex-col gap-6">
-  <div class="grid grid-cols-4 gap-6 h-[27.5rem]">
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-110">
     <app-special-gift-overlay
       [containerClass]="giftTopSectionData().containerClass"
     >
@@ -22,7 +22,7 @@
     <app-special-gift-carousel />
   </div>
 
-  <div class="grid grid-cols-3 gap-6 h-[17rem]">
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 h-140 lg:h-68">
     @for (gift of giftBottomSectionData(); track gift.id) {
       <app-special-gift-overlay [containerClass]="gift.containerClass">
         <app-special-gift-content
