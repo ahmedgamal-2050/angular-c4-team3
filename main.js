@@ -54,7 +54,8 @@ var appRoutes = [
 var TranslocoHttpLoader = class _TranslocoHttpLoader {
   http = inject(HttpClient);
   getTranslation(lang) {
-    return this.http.get(`./assets/i18n/${lang}.json`);
+    const url = isDevMode() ? `/assets/i18n/${lang}.json` : `/angular-c4-team3/assets/i18n/${lang}.json`;
+    return this.http.get(url);
   }
   static \u0275fac = function TranslocoHttpLoader_Factory(__ngFactoryType__) {
     return new (__ngFactoryType__ || _TranslocoHttpLoader)();
