@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["shared-design/src/lib/button/button.component.css"],
+  "sourcesContent": [".shared-button.small {\n  padding: 5px 10px;\n  font-size: 14px;\n}\n\n.shared-button.medium {\n  padding: 10px 20px;\n  font-size: 16px;\n}\n\n.shared-button.large {\n  padding: 12px 16px;\n  font-size: 18px;\n}\n"],
+  "mappings": ";AAAA,CAAA,aAAA,CAAA;AACE,WAAA,IAAA;AACA,aAAA;AACF;AAEA,CALA,aAKA,CAAA;AACE,WAAA,KAAA;AACA,aAAA;AACF;AAEA,CAVA,aAUA,CAAA;AACE,WAAA,KAAA;AACA,aAAA;AACF;",
+  "names": []
+}

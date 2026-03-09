@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/angular-c4-team3/src/app/shared/components/slider/slider.component.css"],
+  "sourcesContent": ["::ng-deep .slider .p-carousel-prev-button, ::ng-deep  .slider .p-carousel-next-button{\n  background-color: #a6252a;\n  color: white;\n  border-radius: 50%;\n  -webkit-border-radius: 50%;\n  -moz-border-radius: 50%;\n  -ms-border-radius: 50%;\n  -o-border-radius: 50%;\n      width: 33px;\n    height: 33px;\n    text-align: center;\n    align-items: center;\n    display: flex;\n    justify-content: center;\n}\n"],
+  "mappings": ";AAAA,UAAA,CAAA,OAAA,CAAA;AAAA,UAAA,CAAA,OAAA,CAAA;AACE,oBAAA;AACA,SAAA;AACA,iBAAA;AACA,yBAAA;AACA,sBAAA;AACA,qBAAA;AACA,oBAAA;AACI,SAAA;AACF,UAAA;AACA,cAAA;AACA,eAAA;AACA,WAAA;AACA,mBAAA;AACJ;",
+  "names": []
+}

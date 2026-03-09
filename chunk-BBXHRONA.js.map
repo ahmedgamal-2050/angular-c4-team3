@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/angular-c4-team3/src/app/features/auth/services/auth.ts"],
+  "sourcesContent": ["import { Injectable } from '@angular/core';\nimport { Observable } from 'rxjs';\nimport { AuthResponse, LoginRequest, RegisterRequest } from '../auth.modal';\nimport { HttpClient } from '@angular/common/http';\n\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class AuthService {\n  private baseUrl = 'https://flower.elevateegy.com/api/v1/auth';\n\n  // eslint-disable-next-line @angular-eslint/prefer-inject\n  constructor(private http: HttpClient) {}\n\n  login(payload: LoginRequest): Observable<AuthResponse> {\n    return this.http.post<AuthResponse>(`${this.baseUrl}/signin`, payload);\n  }\n\n  register(payload: RegisterRequest): Observable<AuthResponse> {\n    return this.http.post<AuthResponse>(`${this.baseUrl}/signup`, payload);\n  }\n}\n"],
+  "mappings": ";;;;;;;;;AASM,IAAO,cAAP,MAAO,aAAW;EAIF;EAHZ,UAAU;;EAGlB,YAAoB,MAAgB;AAAhB,SAAA,OAAA;EAAmB;EAEvC,MAAM,SAAqB;AACzB,WAAO,KAAK,KAAK,KAAmB,GAAG,KAAK,OAAO,WAAW,OAAO;EACvE;EAEA,SAAS,SAAwB;AAC/B,WAAO,KAAK,KAAK,KAAmB,GAAG,KAAK,OAAO,WAAW,OAAO;EACvE;;qCAZW,cAAW,mBAAA,UAAA,CAAA;EAAA;4EAAX,cAAW,SAAX,aAAW,WAAA,YAFV,OAAM,CAAA;;;sEAEP,aAAW,CAAA;UAHvB;WAAW;MACV,YAAY;KACb;;;",
+  "names": []
+}

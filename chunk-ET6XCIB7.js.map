@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["apps/angular-c4-team3/src/app/shared/constants/app-storage.ts"],
+  "sourcesContent": ["export const APP_STORAGE = {\n    language: 'language',\n    theme: 'theme',\n    user: 'user',\n    token: 'token',\n    rememberMe: 'rememberMe',\n} as const;\n\nexport const DEFAULT_LANGUAGE = 'en';"],
+  "mappings": ";AAAO,IAAM,cAAc;EACvB,UAAU;EACV,OAAO;EACP,MAAM;EACN,OAAO;EACP,YAAY;;AAGT,IAAM,mBAAmB;",
+  "names": []
+}
