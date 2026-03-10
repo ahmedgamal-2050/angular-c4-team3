@@ -8,9 +8,8 @@ export class TranslocoHttpLoader implements TranslocoLoader {
   private http = inject(HttpClient);
 
   getTranslation(lang: string) {
-    const url = isDevMode()
-      ? `/assets/i18n/${lang}.json`
-      : `/angular-c4-team3/assets/i18n/${lang}.json`;
+    const mainPath = `/assets/i18n/${lang}.json`;
+    const url = isDevMode() ? mainPath : `/angular-c4-team3/${mainPath}`;
     return this.http.get<Translation>(url);
   }
 }
