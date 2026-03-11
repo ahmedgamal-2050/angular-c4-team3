@@ -1,10 +1,10 @@
 import { Component, inject, input, OnDestroy, OnInit, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { ProductDetailsService } from '../../services/product-details.service';
-import { RelatedProduct, RelatedProductsResponse } from '../../related-product';
 import { SliderComponent } from '../../../../../../shared/components/slider/slider.component';
 import { StyledHomeTitleComponent } from '../../../../../../shared/components/styled-home-title/styled-home-title.component';
 import { Subscription } from 'rxjs';
+import { Product } from '../../../home/home.model';
 
 @Component({
   selector: 'app-product-related',
@@ -17,7 +17,7 @@ export class ProductRelatedComponent implements OnInit, OnDestroy {
 
   productId = input<string>('');
 
-  products = signal<RelatedProduct[]>([]);
+  products = signal<Product[]>([]);
 
   subscription: Subscription = new Subscription();
 
@@ -26,8 +26,8 @@ export class ProductRelatedComponent implements OnInit, OnDestroy {
   }
 
   getRelatedProdacts(id: string) {
-    const sub = this._productDetailsService.getRelatedProdacts(id).subscribe((res: RelatedProductsResponse) => {
-      this.products.set(res.relatedProducts);
+    const sub = this._productDetailsService.getRelatedProdacts(id).subscribe((res: Product) => {
+      this.products.set([res]);
     });
 
     this.subscription.add(sub);
