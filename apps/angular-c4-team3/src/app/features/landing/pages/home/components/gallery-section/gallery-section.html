@@ -1,29 +1,39 @@
 <section class="py-16">
-    <div class="flex flex-col items-center justify-center mb-12">
-        <p class="text-sm font-bold tracking-[3px] text-soft-pink-500 uppercase mb-2">
-            {{ 'title_gallery' | transloco }}
-        </p>
+  <div class="flex flex-col items-center justify-center mb-12">
+    <p
+      class="text-sm font-bold tracking-[3px] text-soft-pink-500 uppercase mb-2"
+    >
+      {{ 'title_gallery' | transloco }}
+    </p>
 
-        <app-styled-home-title [title]="'gallery_desc' | transloco"></app-styled-home-title>
-    </div>
+    <app-styled-home-title [title]="'gallery_desc' | transloco" />
+  </div>
 
-    <div class="grid grid-cols-3 grid-rows-3 gap-4 h-screen ">
+  <div
+    class="grid grid-cols-1 grid-rows-6 lg:grid-cols-3 lg:grid-rows-3 gap-4 h-screen"
+  >
+    <div
+      class="lg:row-span-2 bg-[url('/assets/images/gallery-gifts.png')] bg-cover bg-center"
+    ></div>
 
+    <div
+      class="bg-[url('/assets/images/gallery-gift-ring.png')] bg-cover bg-center"
+    ></div>
 
-        <div class=" row-span-2 bg-[url('/assets/images/gallery-gifts.png')] bg-cover bg-center "></div>
+    <div
+      class="bg-[url('/assets/images/gallery-ring2.png')] bg-cover bg-center"
+    ></div>
 
+    <div
+      class="lg:row-span-2 bg-[url('/assets/images/gallery-ring1.png')] bg-cover bg-center"
+    ></div>
 
-        <div class="bg-[url('/assets/images/gallery-gift-ring.png')] bg-cover bg-center"></div>
+    <div
+      class="lg:row-span-2 bg-[url('/assets/images/04941e524774f784d8769dd9ac1bc377bb92732e.png')] bg-cover bg-center"
+    ></div>
 
-        <div class="bg-[url('/assets/images/gallery-ring2.png')] bg-cover bg-center "></div>
-
-        <div class=" row-span-2 bg-[url('/assets/images/gallery-ring1.png')] bg-cover bg-center"></div>
-
-        <div
-            class=" row-span-2 bg-[url('/assets/images/04941e524774f784d8769dd9ac1bc377bb92732e.png')] bg-cover bg-center ">
-        </div>
-
-        <div class="bg-[url('/assets/images/gallery-chocolate.png')] bg-cover bg-center "></div>
-
-    </div>
+    <div
+      class="bg-[url('/assets/images/gallery-chocolate.png')] bg-cover bg-center"
+    ></div>
+  </div>
 </section>
