@@ -9,8 +9,8 @@ import { TranslocoPipe } from '@jsverse/transloco';
   imports: [CarouselModule, ButtonComponent, TranslocoPipe],
   templateUrl: './special-gift-carousel.component.html',
   host: {
-    class: 'col-span-3'
-  }
+    class: 'col-span-1 lg:col-span-3',
+  },
 })
 export class SpecialGiftCarouselComponent {
   private _router = inject(Router);
@@ -22,7 +22,7 @@ export class SpecialGiftCarouselComponent {
       title: 'special_gift_carousel_title_1',
       description: 'special_gift_carousel_description_1',
       buttonLabel: 'special_gift_carousel_button_1',
-      url: 'products'
+      url: 'products',
     },
     {
       id: 2,
@@ -30,7 +30,7 @@ export class SpecialGiftCarouselComponent {
       title: 'special_gift_carousel_title_2',
       description: 'special_gift_carousel_description_2',
       buttonLabel: 'special_gift_carousel_button_2',
-      url: 'products'
+      url: 'products',
     },
     {
       id: 3,
@@ -38,7 +38,7 @@ export class SpecialGiftCarouselComponent {
       title: 'special_gift_carousel_title_3',
       description: 'special_gift_carousel_description_3',
       buttonLabel: 'special_gift_carousel_button_3',
-      url: 'products'
+      url: 'products',
     },
     {
       id: 4,
@@ -46,42 +46,45 @@ export class SpecialGiftCarouselComponent {
       title: 'special_gift_carousel_title_4',
       description: 'special_gift_carousel_description_4',
       buttonLabel: 'special_gift_carousel_button_4',
-      url: 'products'
+      url: 'products',
     },
   ]);
   pt = signal<CarouselPassThrough>({
     contentContainer: {
-      class: 'h-full relative'
+      class: 'h-full relative',
     },
     content: {
-      class: 'h-full'
+      class: 'h-full',
     },
     viewport: {
-      class: 'h-full'
+      class: 'h-full',
     },
     itemList: {
-      class: 'h-full'
+      class: 'h-full',
     },
     indicatorList: {
-      class: 'absolute! top-6 end-6 z-1 gap-2!'
+      class: 'absolute! top-6 end-6 z-1 gap-2!',
     },
     indicator: {
-      class: 'group'
+      class: 'group',
     },
     indicatorButton: {
-      class: 'size-3! rounded-full! bg-maroon-50! group-[.p-carousel-indicator-active]:bg-maroon-700! group-[.p-carousel-indicator-active]:w-8!',
+      class:
+        'size-3! rounded-full! bg-maroon-50! group-[.p-carousel-indicator-active]:bg-maroon-700! group-[.p-carousel-indicator-active]:w-8!',
     },
     pcPrevButton: {
       root: {
-        class: 'bg-maroon-50! rounded-e-none! text-maroon-700! absolute! bottom-2 end-14 -translate-y-1/2 size-8! z-1 rtl:end-6 rtl:rounded-s-none! rtl:rounded-e-full!'
-      }
+        class:
+          'bg-maroon-50! rounded-e-none! text-maroon-700! absolute! bottom-2 end-14 -translate-y-1/2 size-8! z-1 rtl:end-6 rtl:rounded-s-none! rtl:rounded-e-full!',
+      },
     },
     pcNextButton: {
       root: {
-        class: 'bg-maroon-50! rounded-s-none! text-maroon-700! absolute! bottom-2 end-6 -translate-y-1/2 size-8! z-1 rtl:end-14 rtl:rounded-e-none! rtl:rounded-s-full!'
-      }
-    }
-  })
+        class:
+          'bg-maroon-50! rounded-s-none! text-maroon-700! absolute! bottom-2 end-6 -translate-y-1/2 size-8! z-1 rtl:end-14 rtl:rounded-e-none! rtl:rounded-s-full!',
+      },
+    },
+  });
 
   shopNow(url: string) {
     this._router.navigate([url]);

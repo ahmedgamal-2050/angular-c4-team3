@@ -12,16 +12,16 @@
     <!-- Favorite Button -->
     <button
       (click)="onWishlist($event)"
-      class="absolute top-3 start-3 size-[1.875rem] rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md"
+      class="absolute top-3 inset-s-3 size-10 rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md z-2"
     >
       <lucide-icon [img]="HeartPlus" [size]="18"></lucide-icon>
     </button>
 
     <!-- Badges -->
-    <div class="absolute top-3 end-3 flex gap-2">
+    <div class="absolute top-3 inset-e-3 flex gap-2">
       @if (product().discount) {
         <span
-          class="bg-maroon-50 text-maroon-600 text-xs font-medium px-2 py-[0.125rem] rounded-full uppercase"
+          class="bg-maroon-50 text-maroon-600 text-xs font-medium px-2 py-0.5 rounded-full uppercase"
         >
           {{ 'hot' | transloco }}
         </span>
@@ -29,7 +29,7 @@
 
       @if (product().sold < 100) {
         <span
-          class="bg-zinc-100 text-zinc-700 text-xs font-medium px-2 py-[0.125rem] rounded-full uppercase"
+          class="bg-zinc-100 text-zinc-700 text-xs font-medium px-2 py-0.5 rounded-full uppercase"
         >
           {{ 'new' | transloco }}
         </span>
@@ -37,7 +37,7 @@
 
       @if (product().quantity > 0) {
         <span
-          class="bg-red-600 text-soft-pink-50 text-xs font-medium px-2 py-[0.125rem] rounded-full uppercase"
+          class="bg-red-600 text-soft-pink-50 text-xs font-medium px-2 py-0.5 rounded-full uppercase"
         >
           {{ 'out_of_stock' | transloco }}
         </span>
@@ -55,7 +55,7 @@
           ROUTES.LANDING.PRODUCT_DETAILS,
           product()._id,
         ]"
-        class="size-[1.875rem] rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md"
+        class="size-7.5 rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md"
       >
         <lucide-icon [img]="Eye" [size]="20"></lucide-icon>
       </a>
@@ -63,7 +63,7 @@
   </div>
 
   <!-- Content -->
-  <div class="flex flex-col flex-grow">
+  <div class="flex flex-col grow">
     <a
       class="text-maroon-700 dark:text-soft-pink-200 text-sm font-semibold truncate transition-colors"
       [routerLink]="[
