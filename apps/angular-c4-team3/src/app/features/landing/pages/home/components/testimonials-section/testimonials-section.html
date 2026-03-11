@@ -1,0 +1,43 @@
+<section class="py-12 ">
+    <div class="flex flex-col items-center justify-center mb-12">
+        <p class="text-sm font-bold tracking-[3px] text-soft-pink-500 uppercase mb-2">
+            {{ 'testimonials_title' | transloco }}
+        </p>
+        <app-styled-home-title [title]="'description_testimonials' | transloco"></app-styled-home-title>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-8 bg-maroon-50 dark:bg-zinc-700 p-12 px-10">
+        @for(testimonial of testimonials(); track testimonial._id) {
+        <div class="bg-white rounded-xl shadow-md p-6 max-w-xs flex flex-col items-center">
+           
+            <img [src]="testimonial.user.photo" [alt]="testimonial.user.firstName + ' ' + testimonial.user.lastName"
+                class="w-24 h-24 rounded-full -mt-12 mb-4 border-4 border-white object-cover">
+
+           
+            <h4 class="font-semibold text-lg mb-2 text-center">
+                {{ testimonial.user.firstName }} {{ testimonial.user.lastName }}
+            </h4>
+
+            
+            <div class="flex mb-4">
+                @for(i of [0,1,2,3,4]; track i) {
+                <span class="text-sm" [class.text-yellow-400]="i < testimonial.rating"
+                    [class.text-gray-300]="i >= testimonial.rating">
+                    ★
+                </span>
+                }
+            </div>
+
+            
+            <p class="text-center text-gray-600 mb-4">
+                {{ testimonial.content }}
+            </p>
+
+           
+            <span class="text-xs text-gray-400">
+                {{ testimonial.createdAt| date:'longDate' }}
+            </span>
+        </div>
+        }
+    </div>
+</section>
