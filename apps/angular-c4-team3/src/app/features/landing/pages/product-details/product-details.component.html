@@ -1,2 +1,115 @@
+@if(product()) {
+
+<section class="max-w-7xl mx-auto p-6">
+
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+    <!-- Product Images -->
+    <div>
+
+      <!-- Main Image -->
+      <div class="rounded-xl overflow-hidden">
+        <img
+          [src]="product()?.imgCover"
+          [alt]="product()?.title"
+          class="w-full h-[420px] object-cover"
+        />
+      </div>
+
+      <!-- Thumbnails -->
+      <div class="flex gap-3 mt-4">
+        @for(img of product()?.images ?? []; track $index) {
+          <div class="w-20 h-20 rounded-lg overflow-hidden cursor-pointer hover:scale-105 transition">
+            <img
+              [src]="img"
+              class="w-full h-full object-cover"
+              alt="product image"
+            />
+          </div>
+        }
+      </div>
+
+    </div>
+
+    <!-- Product Info -->
+    <div class="flex flex-col justify-between">
+
+      <div>
+
+        <!-- Title -->
+        <h1 class="text-3xl font-bold mb-4 text-zinc-800 dark:text-zinc-50">
+          {{ product()?.title }}
+        </h1>
+
+        <!-- Price -->
+        <div class="flex items-center gap-3 mb-4">
+
+          <span class="text-zinc-300 dark:text-zinc-700  line-through text-lg">
+            {{ (product()?.price ?? 0) + 100 }} EGP
+          </span>
+
+          <span class="text-2xl font-semibold text-gray-900">
+            {{ product()?.price }} EGP
+          </span>
+
+          <span class="bg-gray-100 bg-zinc-100 dark:bg-zinc-700 text-sm px-3 py-1 rounded-full">
+            265 left in stock
+          </span>
+
+        </div>
+
+        <!-- Rating -->
+        <div class="flex items-center gap-2 mb-4">
+
+          <i class="fa-solid fa-star text-yellow-500"></i>
+
+          <span class="text-zinc-700 dark:text-zinc-50">
+            Rating: {{ product()?.rateAvg }}/5
+          </span>
+
+          <span class="text-blue-400 text-sm cursor-pointer">
+            ({{ product()?.rateAvg }} ratings)
+          </span>
+
+        </div>
+
+        <!-- Description -->
+        <p class="text-zinc-600 dark:text-zinc-400 leading-relaxed">
+          {{ product()?.description }}
+        </p>
+
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center gap-4 mt-8">
+
+        <!-- Wishlist -->
+        <button
+          class="border p-3 rounded-lg hover:bg-gray-100 transition"
+        >
+          <i class="fa-regular fa-heart text-lg"></i>
+        </button>
+
+        <!-- Add to Cart -->
+        <button
+          class="flex-1 bg-maroon-600 dark:bg-soft-pink-300 text-zinc-50 dark:text-zinc-800 py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2"
+        >
+          <i class="fa-solid fa-cart-shopping"></i>
+          Add to Cart
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+}
+
+<!-- Reviews -->
 <app-product-review [productId]="productId()" />
+
+<!-- Related Products -->
 <app-product-related [productId]="productId()" />

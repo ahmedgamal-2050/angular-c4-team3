@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CreateReview } from '../create-review';
 import { RelatedProductsResponse } from '../related-product';
 import { ENDPOINTS } from '../../../../../shared/constants/endpoints';
+import { ProductDetailsResponse } from '../../products/product.model';
 import { Product } from '../../home/home.model';
 
 @Injectable({
@@ -31,4 +32,9 @@ export class ProductDetailsService {
       `${ENDPOINTS.CATEGORY_PRODUCT}/${productId}`,
     );
   }
+
+    getProductById(id: string): Observable<ProductDetailsResponse> {
+  const url = ENDPOINTS.GET_PRODUCT_BY_ID.replace('{productId}', id);
+  return this._http.get<ProductDetailsResponse>(url);
+}
 }

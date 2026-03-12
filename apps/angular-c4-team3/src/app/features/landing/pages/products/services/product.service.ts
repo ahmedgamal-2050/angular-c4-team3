@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ENDPOINTS } from '../../../../../shared/constants/endpoints';
 import { Observable } from 'rxjs';
-import { ProductListResponse } from '../product.model';
+import { ProductDetailsResponse, ProductListResponse } from '../product.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,4 +16,6 @@ export class ProductService {
     const url = ENDPOINTS.GET_ALL_PRODUCTS;
     return this.http.get<ProductListResponse>(url, { params });
   }
+
+
 }
