@@ -6,6 +6,7 @@ import { CreateReview } from '../create-review';
 import { RelatedProductsResponse } from '../related-product';
 import { ENDPOINTS } from '../../../../../shared/constants/endpoints';
 import { ProductDetailsResponse } from '../../products/product.model';
+import { Product } from '../../home/home.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,8 +27,8 @@ export class ProductDetailsService {
     return this._http.post<CreateReview>(`${ENDPOINTS.REVIEWS}`, data);
   }
 
-  getRelatedProdacts(productId?: string): Observable<RelatedProductsResponse> {
-    return this._http.get<RelatedProductsResponse>(
+  getRelatedProdacts(productId?: string): Observable<Product> {
+    return this._http.get<Product>(
       `${ENDPOINTS.CATEGORY_PRODUCT}/${productId}`,
     );
   }
