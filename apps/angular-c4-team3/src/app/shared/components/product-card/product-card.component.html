@@ -1,62 +1,50 @@
-<div
-  class="group relative rounded-2xl cursor-pointer flex flex-col gap-4 h-full"
->
+<div class="group relative rounded-2xl cursor-pointer flex flex-col gap-4 h-full">
   <!-- Image Container -->
   <div class="relative aspect-square overflow-hidden rounded-xl bg-zinc-50">
-    <img
-      [src]="product().imgCover"
-      [alt]="product().title"
-      class="w-full h-full object-cover transition-transform duration-500"
-    />
+    <img [src]="product().imgCover" [alt]="product().title"
+      class="w-full h-full object-cover transition-transform duration-500" />
 
     <!-- Favorite Button -->
-    <button
-      (click)="onWishlist($event)"
-      class="absolute top-3 inset-s-3 size-10 rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md z-2"
-    >
-      <lucide-icon [img]="HeartPlus" [size]="18"></lucide-icon>
+    <button (click)="toggleWishlist(product()._id); $event.stopPropagation()" class="absolute top-3 inset-s-3 size-10 rounded-full transition-colors shadow-md z-2
+             flex items-center justify-center
+             hover:bg-maroon-600 hover:text-white" [ngClass]="!isInWishlist() 
+        ? 'bg-black text-white' 
+        : 'bg-white text-maroon-600'">
+      <lucide-icon [img]="!isInWishlist() ? HeartMinus : HeartPlus" [size]="18">
+      </lucide-icon>
     </button>
 
     <!-- Badges -->
     <div class="absolute top-3 inset-e-3 flex gap-2">
       @if (product().discount) {
-        <span
-          class="bg-maroon-50 text-maroon-600 text-xs font-medium px-2 py-0.5 rounded-full uppercase"
-        >
-          {{ 'hot' | transloco }}
-        </span>
+      <span class="bg-maroon-50 text-maroon-600 text-xs font-medium px-2 py-0.5 rounded-full uppercase">
+        {{ 'hot' | transloco }}
+      </span>
       }
 
-      @if (product().sold < 100) {
-        <span
-          class="bg-zinc-100 text-zinc-700 text-xs font-medium px-2 py-0.5 rounded-full uppercase"
-        >
-          {{ 'new' | transloco }}
+      @if (product().sold < 100) { <span
+        class="bg-zinc-100 text-zinc-700 text-xs font-medium px-2 py-0.5 rounded-full uppercase">
+        {{ 'new' | transloco }}
         </span>
-      }
+        }
 
-      @if (product().quantity > 0) {
-        <span
-          class="bg-red-600 text-soft-pink-50 text-xs font-medium px-2 py-0.5 rounded-full uppercase"
-        >
+        @if (product().quantity > 0) {
+        <span class="bg-red-600 text-soft-pink-50 text-xs font-medium px-2 py-0.5 rounded-full uppercase">
           {{ 'out_of_stock' | transloco }}
         </span>
-      }
+        }
     </div>
 
     <!-- Hover Actions -->
     <div
-      class="absolute inset-0 bg-soft-pink-600/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3"
-    >
-      <a
-        [routerLink]="[
+      class="absolute inset-0 bg-soft-pink-600/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+      <a [routerLink]="[
           '/',
           ROUTES.LANDING.ROOT,
           ROUTES.LANDING.PRODUCT_DETAILS,
           product()._id,
         ]"
-        class="size-7.5 rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md"
-      >
+        class="size-7.5 rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md">
         <lucide-icon [img]="Eye" [size]="20"></lucide-icon>
       </a>
     </div>
@@ -64,63 +52,49 @@
 
   <!-- Content -->
   <div class="flex flex-col grow">
-    <a
-      class="text-maroon-700 dark:text-soft-pink-200 text-sm font-semibold truncate transition-colors"
-      [routerLink]="[
+    <a class="text-maroon-700 dark:text-soft-pink-200 text-sm font-semibold truncate transition-colors" [routerLink]="[
         '/',
         ROUTES.LANDING.ROOT,
         ROUTES.LANDING.PRODUCT_DETAILS,
         product()._id,
-      ]"
-    >
+      ]">
       {{ product().title }}
     </a>
 
     <!-- Rating -->
     <div class="flex items-center gap-1 mt-3">
       @for (filled of ratingArray; track $index) {
-        <lucide-icon
-          [img]="Star"
-          [size]="16"
-          [strokeWidth]="1.5"
-          [class]="
+      <lucide-icon [img]="Star" [size]="16" [strokeWidth]="1.5" [class]="
             filled
               ? 'text-yellow-500 fill-yellow-500 dark:text-yellow-600 dark:fill-yellow-600'
               : 'text-yellow-500 dark:text-yellow-600'
-          "
-        ></lucide-icon>
+          "></lucide-icon>
       }
     </div>
 
     <!-- Price and Add to Cart -->
     <div class="mt-auto pt-3 flex items-center justify-between">
       <div class="flex gap-1">
-        <span
-          class="text-maroon-700 dark:text-soft-pink-200 font-medium lg:text-base text-sm"
-        >
+        <span class="text-maroon-700 dark:text-soft-pink-200 font-medium lg:text-base text-sm">
           {{
-            product().priceAfterDiscount || product().price
-              | currency: 'EGP ' : 'code'
+          product().priceAfterDiscount || product().price
+          | currency: 'EGP ' : 'code'
           }}
         </span>
 
         @if (
-          product().priceAfterDiscount &&
-          product().priceAfterDiscount !== product().price
+        product().priceAfterDiscount &&
+        product().priceAfterDiscount !== product().price
         ) {
-          <span
-            class="text-zinc-400 dark:text-zinc-500 font-medium lg:text-base text-sm line-through"
-          >
-            {{ product().price | currency: 'EGP ' : 'code' }}
-          </span>
+        <span class="text-zinc-400 dark:text-zinc-500 font-medium lg:text-base text-sm line-through">
+          {{ product().price | currency: 'EGP ' : 'code' }}
+        </span>
         }
       </div>
 
-      <button
-        (click)="onAddToCart($event)"
+      <button (click)="onAddToCart($event)"
         class="size-10 rounded-full bg-maroon-600 dark:bg-maroon-500 text-white flex items-center justify-center hover:bg-maroon-800 transition-colors shadow-md"
-        [disabled]="product().quantity === 0"
-      >
+        [disabled]="product().quantity === 0">
         <lucide-icon [img]="ShoppingCart" [size]="18"></lucide-icon>
       </button>
     </div>

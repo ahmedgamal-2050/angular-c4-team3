@@ -5,7 +5,7 @@ import { ThemeSwitcherComponent } from "../theme-switcher/theme-switcher.compone
 import { NavbarActionButtonComponent } from "./navbar-action-button/navbar-action-button.component";
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LoggedInService } from '../../services/logged-in.service';
-import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component'; 
+import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component';
 
 @Component({
   selector: 'app-top-navbar',

@@ -8,4 +8,5 @@ export const ENDPOINTS = {
   GET_REVIEW_BY_ID: `${BASE_URL}/products/{productId}/reviews`,
   CATEGORY_PRODUCT: `${BASE_URL}/related/category`,
   Get_All_Testimonials: `${BASE_URL}/testimonials`,
+  WISHLIST:`${BASE_URL}/wishlist`,
 } as const;

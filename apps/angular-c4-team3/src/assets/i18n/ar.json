@@ -118,7 +118,12 @@
   "title_gallery": "المعرض",
   "product_related": "منتجات ذات صلة",
   "no_rated": "لا يوجد تقييم",
-  "your_rating":"رايك",
-  "testimonials_title":"اراء العملاء",
-  "description_testimonials":"اراء حقيقية من عملاء سعداء"
+  "your_rating": "رايك",
+  "testimonials_title": "اراء العملاء",
+  "description_testimonials": "اراء حقيقية من عملاء سعداء",
+  "WishList": "عربة التسوق",
+  "ClearWishList": "مسح العربة",
+  "Remove": "حذف",
+  "no_data_to_display": "لا يوجد بيانات للعرض",
+  "EGP":"جنيه مصري"
 }
