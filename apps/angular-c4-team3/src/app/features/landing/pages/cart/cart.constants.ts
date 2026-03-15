@@ -1,0 +1,58 @@
+import { CartItem } from './cart.model';
+
+export const initialCartItems: CartItem[] = [
+  {
+    id: '1',
+    name: 'Dreamy White Roses Bouquet',
+    price: 199.5,
+    quantity: 1,
+    imageUrl: 'assets/images/placeholder.jpg',
+    rating: 4.5,
+    ratingCount: 8,
+  },
+  {
+    id: '2',
+    name: 'Dreamy White Roses Bouquet',
+    price: 199.5,
+    quantity: 1,
+    imageUrl: 'assets/images/placeholder.jpg',
+    rating: 4.5,
+    ratingCount: 8,
+  },
+  {
+    id: '3',
+    name: 'Moko Chocolate Set | Esperance Rose',
+    price: 1800,
+    quantity: 2,
+    imageUrl: 'assets/images/placeholder.jpg',
+    rating: 5,
+    ratingCount: 4,
+  },
+  {
+    id: '4',
+    name: 'Fuchsia Brilliance Vase',
+    price: 2860,
+    quantity: 13,
+    imageUrl: 'assets/images/placeholder.jpg',
+    rating: 3,
+    ratingCount: 16,
+  },
+  {
+    id: '5',
+    name: 'Moko Chocolate Set | Esperance Rose',
+    price: 1800,
+    quantity: 2,
+    imageUrl: 'assets/images/placeholder.jpg',
+    rating: 5,
+    ratingCount: 4,
+  },
+  {
+    id: '6',
+    name: 'Fuchsia Brilliance Vase',
+    price: 2860,
+    quantity: 13,
+    imageUrl: 'assets/images/placeholder.jpg',
+    rating: 3,
+    ratingCount: 16,
+  },
+];

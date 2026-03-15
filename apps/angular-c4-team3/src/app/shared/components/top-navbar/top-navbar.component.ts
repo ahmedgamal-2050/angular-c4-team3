@@ -6,6 +6,7 @@ import { NavbarActionButtonComponent } from "./navbar-action-button/navbar-actio
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LoggedInService } from '../../services/logged-in.service';
 import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component'; 
+import { APP_ROUTES } from '../../constants/app-routes';
 
 @Component({
   selector: 'app-top-navbar',
@@ -28,6 +29,8 @@ export class TopNavbarComponent {
   cartCount = signal(8);
   notificationCount = signal(8);
   searchQuery = signal('');
+  cartLink = signal<string[] | string>(`/${APP_ROUTES.LANDING.ROOT}/${APP_ROUTES.LANDING.CART}`);
+
   isLoggedIn = this._LoggedInService.isLoggedIn;
   user = this._LoggedInService.user;
 

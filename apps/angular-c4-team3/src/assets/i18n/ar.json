@@ -120,5 +120,21 @@
   "no_rated": "لا يوجد تقييم",
   "your_rating":"رايك",
   "testimonials_title":"اراء العملاء",
-  "description_testimonials":"اراء حقيقية من عملاء سعداء"
+  "description_testimonials":"اراء حقيقية من عملاء سعداء",
+  "cart_title": "عربة التسوق",
+  "cart_products_count": "{{count}} منتجات",
+  "clear_cart": "تفريغ العربة",
+  "cart_remove": "إزالة",
+  "cart_summary_title": "الملخص",
+  "cart_coupon_placeholder": "رمز الخصم",
+  "cart_apply_coupon": "تطبيق الخصم",
+  "cart_no_coupons": "لم يتم تطبيق أي كوبونات",
+  "cart_subtotal": "المجموع الفرعي",
+  "cart_discount": "خصم {{discount}}%",
+  "cart_total": "المجموع",
+  "cart_checkout": "إتمام الطلب",
+  "cart_continue_shopping": "متابعة التسوق",
+  "cart_currency": "جنيه مصري",
+  "cart_rating": "التقييم",
+  "cart_rating_count": "تقييمات"
 }

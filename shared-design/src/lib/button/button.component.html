@@ -6,23 +6,22 @@
     buttonClass()
   }} rounded-lg w-full disabled:bg-zinc-300 disabled:text-zinc-600 disabled:dark:bg-zinc-700 disabled:dark:text-zinc-600 {{
     size()
-  }}"
->
+  }}">
   <div
     class="flex items-center"
-    [class.justify-between]="icon()"
-    [class.justify-center]="!icon()"
-  >
+    [class.justify-between]="icon() && !gap()"
+    [class.justify-center]="!icon() || gap()"
+    [class]="gap()">
     <!-- Icon Left -->
     @if (icon() && iconPosition() === 'left') {
-      <lucide-icon [img]="icon()" [size]="iconSize()"></lucide-icon>
+      <lucide-icon [img]="icon()" [size]="iconSize()" class="rtl:rotate-180" />
     }
 
     <span>{{ label() }}</span>
 
     <!-- Icon Right -->
     @if (icon() && iconPosition() === 'right') {
-      <lucide-icon [img]="icon()" [size]="iconSize()"></lucide-icon>
+      <lucide-icon [img]="icon()" [size]="iconSize()" class="rtl:rotate-180" />
     }
   </div>
 </button>

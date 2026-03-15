@@ -74,9 +74,9 @@
 } @else {
   <a
     [routerLink]="['/', APP_ROUTES.AUTH.ROOT, APP_ROUTES.AUTH.LOGIN]"
-    class="flex items-center gap-1 font-bold text-zinc-700 dark:text-zinc-50"
+    class="flex items-center gap-1 font-bold lg:text-base text-sm text-zinc-700 dark:text-zinc-50"
   >
-    <lucide-icon [name]="User" size="20" />
+    <lucide-icon [name]="User" class="size-5 lg:size-6" />
     {{ 'user_dropdown_login_label' | transloco }}
   </a>
 }

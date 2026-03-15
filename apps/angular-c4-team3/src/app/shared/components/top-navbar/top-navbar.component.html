@@ -10,7 +10,7 @@
         <img
           src="assets/images/rose-app-logo.webp"
           alt="logo"
-          class="h-20 w-22"
+          class="h-16 w-18 lg:h-20 lg:w-22"
         />
       </div>
     </div>
@@ -60,7 +60,7 @@
       <div class="flex items-center gap-2 sm:gap-3 md:gap-5">
         <app-navbar-action-button [icon]="Heart" />
 
-        <app-navbar-action-button [icon]="ShoppingCart" [count]="cartCount()" />
+        <app-navbar-action-button [icon]="ShoppingCart" [count]="cartCount()" type="link" [link]="cartLink()" />
 
         <app-navbar-action-button [icon]="Bell" [count]="notificationCount()" />
       </div>
