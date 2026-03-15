@@ -14,14 +14,14 @@
     [class]="gap()">
     <!-- Icon Left -->
     @if (icon() && iconPosition() === 'left') {
-      <lucide-icon [img]="icon()" [size]="iconSize()" class="rtl:rotate-180" />
+      <lucide-icon [img]="icon()" [size]="iconSize()" class="rtl:rotate-270" />
     }
 
     <span>{{ label() }}</span>
 
     <!-- Icon Right -->
     @if (icon() && iconPosition() === 'right') {
-      <lucide-icon [img]="icon()" [size]="iconSize()" class="rtl:rotate-180" />
+      <lucide-icon [img]="icon()" [size]="iconSize()" class="rtl:rotate-270" />
     }
   </div>
 </button>

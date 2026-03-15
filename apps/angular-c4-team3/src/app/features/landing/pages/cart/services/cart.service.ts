@@ -10,14 +10,14 @@ export class CartService {
 
   // Computed values
   cartCount = computed(() => this.cartItems().length);
-  subtotal = computed(() =>
+  subtotal = computed<number>(() =>
     this.cartItems().reduce((sum, item) => sum + item.price * item.quantity, 0)
   );
 
   // Example discount logic (as in the design: Subtotal 250, Total 125 with "50% Discount")
   discountPercentage = signal<number>(0.5); // 50%
 
-  total = computed(() => {
+  total = computed<number>(() => {
     const sub = this.subtotal();
     return sub - sub * this.discountPercentage();
   });

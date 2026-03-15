@@ -1,44 +1,31 @@
 import { Component, inject } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import {
-  LucideAngularModule,
-  Ticket,
-  BrushCleaning,
-  MoveLeft,
-} from 'lucide-angular';
+import { LucideAngularModule, BrushCleaning, MoveLeft } from 'lucide-angular';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
-import { InputComponent } from '../../../../shared/components/form-components/input/input.component';
 import { CartService } from './services/cart.service';
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../../../shared/constants/app-routes';
+import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 
 @Component({
   selector: 'app-cart',
   imports: [
     TranslocoPipe,
-    ReactiveFormsModule,
     LucideAngularModule,
     ButtonComponent,
-    InputComponent,
     CartItemComponent,
     RouterLink,
+    CartSummaryComponent,
   ],
   templateUrl: './cart.component.html',
 })
 export class CartComponent {
   readonly BrushCleaning = BrushCleaning;
-  readonly Ticket = Ticket;
   readonly MoveLeft = MoveLeft;
   readonly APP_ROUTES = APP_ROUTES;
 
   cartService = inject(CartService);
-  fb = inject(FormBuilder);
-
-  couponForm: FormGroup = this.fb.group({
-    couponCode: [''],
-  });
 
   get cartItems() {
     return this.cartService.cartItems;
@@ -80,11 +67,9 @@ export class CartComponent {
     this.cartService.clearCart();
   }
 
-  applyCoupon() {
-    if (this.couponForm.valid) {
-      console.log('Apply coupon:', this.couponForm.value.couponCode);
-      // Logic to apply coupon would go here
-    }
+  applyCoupon(couponCode: string) {
+    console.log('Apply coupon:', couponCode);
+    // Logic to apply coupon would go here
   }
 
   checkout() {
