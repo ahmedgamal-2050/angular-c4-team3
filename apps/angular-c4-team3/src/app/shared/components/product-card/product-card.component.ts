@@ -1,4 +1,4 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, OnDestroy, output } from '@angular/core';
 import { Product } from '../../../features/landing/pages/home/home.model';
 import { Star, ShoppingCart, HeartPlus, Eye } from 'lucide-angular';
 import { LucideAngularModule } from 'lucide-angular';
@@ -8,6 +8,7 @@ import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../constants/app-routes';
 import { CartService } from '../../../features/landing/pages/cart/services/cart.service';
 import { CartResponse } from '../../../features/landing/pages/cart/cart.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-card',
@@ -15,7 +16,7 @@ import { CartResponse } from '../../../features/landing/pages/cart/cart.model';
   imports: [LucideAngularModule, TranslocoPipe, CurrencyPipe, RouterLink],
   templateUrl: './product-card.component.html',
 })
-export class ProductCardComponent {
+export class ProductCardComponent implements OnDestroy {
   readonly Star = Star;
   readonly ShoppingCart = ShoppingCart;
   readonly HeartPlus = HeartPlus;
@@ -30,6 +31,8 @@ export class ProductCardComponent {
   wishlist = output<Product>();
   quickView = output<Product>();
 
+  subscription = new Subscription();
+
   get ratingArray() {
     return Array(5)
       .fill(0)
@@ -37,7 +40,7 @@ export class ProductCardComponent {
   }
 
   onAddToCart() {
-    this._cartService.addToCart(this.product()._id, 1).subscribe({
+    const sub = this._cartService.addToCart(this.product()._id, 1).subscribe({
       next: (response: CartResponse) => {
         this._cartService.cartItems.set(response.cart.cartItems);
         this._cartService.discountPercentage.set(response.cart.discount || 0);
@@ -46,6 +49,8 @@ export class ProductCardComponent {
         console.log(err);
       },
     });
+
+    this.subscription.add(sub);
   }
 
   onWishlist(event: Event) {
@@ -53,8 +58,7 @@ export class ProductCardComponent {
     this.wishlist.emit(this.product());
   }
 
-  onQuickView(event: Event) {
-    event.stopPropagation();
-    this.quickView.emit(this.product());
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

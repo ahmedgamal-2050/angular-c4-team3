@@ -5,7 +5,9 @@
     </div>
   </div>
 
-  <div class="slider">
-    <app-slider [products]="products()"></app-slider>
-  </div>
+  @if (products().length > 0) {
+    <div class="slider">
+      <app-slider [products]="products()"></app-slider>
+    </div>
+  }
 </section>

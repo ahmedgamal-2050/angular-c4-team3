@@ -4,6 +4,7 @@ import { ProductRelatedComponent } from './components/product-related/product-re
 import { ProductDetailsService } from './services/product-details.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../home/home.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -12,24 +13,30 @@ import { Product } from '../home/home.model';
   styleUrl: './product-details.component.css',
 })
 export class ProductDetailsComponent implements OnInit {
-
   private _route = inject(ActivatedRoute);
   private _productService = inject(ProductDetailsService);
 
   productId = signal('');
   product = signal<Product | null>(null);
 
-  ngOnInit(): void {
+  subscription = new Subscription();
 
+  ngOnInit(): void {
     const id = this._route.snapshot.params['id'];
     this.productId.set(id);
 
     if (id) {
-      this._productService.getProductById(id).subscribe({
-        next: (res) => {
-          this.product.set(res.product);
-        }
-      });
+      this.getProductById(id);
     }
+  }
+
+  getProductById(id: string) {
+    const sub = this._productService.getProductById(id).subscribe({
+      next: res => {
+        this.product.set(res.product);
+      },
+    });
+
+    this.subscription.add(sub);
   }
 }

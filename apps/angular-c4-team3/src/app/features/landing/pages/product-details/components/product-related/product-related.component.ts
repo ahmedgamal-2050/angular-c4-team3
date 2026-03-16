@@ -1,4 +1,11 @@
-import { Component, inject, input, OnDestroy, OnInit, signal } from '@angular/core';
+import {
+  Component,
+  inject,
+  input,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { ProductDetailsService } from '../../services/product-details.service';
 import { SliderComponent } from '../../../../../../shared/components/slider/slider.component';
@@ -22,13 +29,17 @@ export class ProductRelatedComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
 
   ngOnInit(): void {
-    this.getRelatedProdacts(this.productId());
+    if (this.productId()) {
+      this.getRelatedProducts(this.productId());
+    }
   }
 
-  getRelatedProdacts(id: string) {
-    const sub = this._productDetailsService.getRelatedProdacts(id).subscribe((res: Product) => {
-      this.products.set([res]);
-    });
+  getRelatedProducts(id: string) {
+    const sub = this._productDetailsService
+      .getRelatedProdacts(id)
+      .subscribe((res: any) => {
+        this.products.set(res.relatedProducts);
+      });
 
     this.subscription.add(sub);
   }
