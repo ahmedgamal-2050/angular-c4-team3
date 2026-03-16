@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, computed } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LucideAngularModule, BrushCleaning, MoveLeft } from 'lucide-angular';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
@@ -7,6 +7,9 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../../../shared/constants/app-routes';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
+import { Subscription } from 'rxjs';
+import { LoggedInService } from '../../../../shared/services/logged-in.service';
+import { CartResponse } from './cart.model';
 
 @Component({
   selector: 'app-cart',
@@ -20,31 +23,44 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
   ],
   templateUrl: './cart.component.html',
 })
-export class CartComponent {
+export class CartComponent implements OnInit, OnDestroy {
   readonly BrushCleaning = BrushCleaning;
   readonly MoveLeft = MoveLeft;
   readonly APP_ROUTES = APP_ROUTES;
 
-  cartService = inject(CartService);
+  private _cartService = inject(CartService);
+  private _loggedInService = inject(LoggedInService);
 
-  get cartItems() {
-    return this.cartService.cartItems;
+  isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
+  cartItems = computed(() => this._cartService.cartItems());
+  cartCount = computed(() => this._cartService.cartCount());
+  subtotal = computed(() => this._cartService.subtotal());
+  total = computed(() => this._cartService.total());
+  discountPercentage = computed(() => this._cartService.discountPercentage());
+
+  subscription = new Subscription();
+
+  ngOnInit(): void {
+    if (this.isLoggedIn()) {
+      this.getCart();
+    }
   }
 
-  get cartCount() {
-    return this.cartService.cartCount;
+  getCart() {
+    const sub = this._cartService.getCart().subscribe({
+      next: (response: CartResponse) => {
+        this._cartService.cartItems.set(response.cart.cartItems);
+        this._cartService.discountPercentage.set(response.cart.discount || 0);
+      },
+      error: err => {
+        console.log(err);
+      },
+    });
+    this.subscription.add(sub);
   }
 
-  get subtotal() {
-    return this.cartService.subtotal;
-  }
-
-  get total() {
-    return this.cartService.total;
-  }
-
-  get discountPercentage() {
-    return this.cartService.discountPercentage;
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   updateQuantity({
@@ -56,15 +72,60 @@ export class CartComponent {
     currentQty: number;
     change: number;
   }) {
-    this.cartService.updateQuantity(id, currentQty + change);
+    const newQuantity = currentQty + change;
+    console.log(id, newQuantity);
+    if (newQuantity < 1) {
+      this.removeItem(id);
+    } else if (this.isLoggedIn()) {
+      const sub = this._cartService.updateCartItem(id, newQuantity).subscribe({
+        next: (response: CartResponse) => {
+          this._cartService.cartItems.set(response.cart.cartItems);
+          this._cartService.discountPercentage.set(response.cart.discount || 0);
+        },
+        error: err => {
+          console.log(err);
+        },
+      });
+      this.subscription.add(sub);
+    } else {
+      this._cartService.updateQuantity(id, newQuantity);
+    }
   }
 
   removeItem(id: string) {
-    this.cartService.removeItem(id);
+    if (this.isLoggedIn()) {
+      const sub = this._cartService.removeCartItem(id).subscribe({
+        next: (response: CartResponse) => {
+          this._cartService.cartItems.set(response.cart.cartItems);
+          this._cartService.discountPercentage.set(response.cart.discount || 0);
+        },
+        error: err => {
+          console.log(err);
+        },
+      });
+      this.subscription.add(sub);
+    } else {
+      this._cartService.cartItems.update(items =>
+        items.filter(item => item._id !== id)
+      );
+    }
   }
 
   clearCart() {
-    this.cartService.clearCart();
+    if (this.isLoggedIn()) {
+      const sub = this._cartService.clearCart().subscribe({
+        next: () => {
+          this._cartService.cartItems.set([]);
+          this._cartService.discountPercentage.set(0);
+        },
+        error: err => {
+          console.log(err);
+        },
+      });
+      this.subscription.add(sub);
+    } else {
+      this._cartService.cartItems.set([]);
+    }
   }
 
   applyCoupon(couponCode: string) {

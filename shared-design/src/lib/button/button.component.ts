@@ -19,6 +19,7 @@ export class ButtonComponent {
     'bg-maroon-600 dark:bg-soft-pink-300 text-white dark:text-zinc-800'
   );
   iconSize = input<number>(16);
+  hideLabelOnMobile = input<boolean>(false);
 
   clicked = output<void>();
 

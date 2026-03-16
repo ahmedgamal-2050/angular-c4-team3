@@ -1,12 +1,15 @@
-import { Injectable, signal, computed } from '@angular/core';
-import { CartItem } from '../cart.model';
-import { initialCartItems } from '../cart.constants';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { CartItem, CartResponse } from '../cart.model';
+import { HttpClient } from '@angular/common/http';
+import { ENDPOINTS } from '../../../../../shared/constants/endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  cartItems = signal<CartItem[]>(initialCartItems);
+  private _http = inject(HttpClient);
+
+  cartItems = signal<CartItem[]>([]);
 
   // Computed values
   cartCount = computed(() => this.cartItems().length);
@@ -14,8 +17,7 @@ export class CartService {
     this.cartItems().reduce((sum, item) => sum + item.price * item.quantity, 0)
   );
 
-  // Example discount logic (as in the design: Subtotal 250, Total 125 with "50% Discount")
-  discountPercentage = signal<number>(0.5); // 50%
+  discountPercentage = signal<number>(0);
 
   total = computed<number>(() => {
     const sub = this.subtotal();
@@ -26,16 +28,33 @@ export class CartService {
     if (newQuantity < 1) return;
     this.cartItems.update(items =>
       items.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
+        item._id === id ? { ...item, quantity: newQuantity } : item
       )
     );
   }
 
-  removeItem(id: string) {
-    this.cartItems.update(items => items.filter(item => item.id !== id));
+  getCart() {
+    const url = ENDPOINTS.GET_CART;
+    return this._http.get<CartResponse>(url);
+  }
+
+  addToCart(productId: string, quantity: number) {
+    const url = ENDPOINTS.ADD_TO_CART;
+    return this._http.post<CartResponse>(url, { product: productId, quantity });
+  }
+
+  updateCartItem(cartItemId: string, quantity: number) {
+    const url = ENDPOINTS.UPDATE_CART.replace('{cartItemId}', cartItemId);
+    return this._http.put<CartResponse>(url, { quantity });
+  }
+
+  removeCartItem(cartItemId: string) {
+    const url = ENDPOINTS.DELETE_CART.replace('{cartItemId}', cartItemId);
+    return this._http.delete<CartResponse>(url);
   }
 
   clearCart() {
-    this.cartItems.set([]);
+    const url = ENDPOINTS.CLEAR_CART;
+    return this._http.delete(url);
   }
 }

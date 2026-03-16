@@ -17,10 +17,11 @@
         </div>
 
         <button
-          class="flex items-center gap-1 px-8 py-3 text-sm font-semibold text-maroon-600 bg-maroon-50 rounded-md hover:bg-maroon-100 transition-colors dark:bg-zinc-700 dark:text-soft-pink-200 dark:hover:bg-zinc-600"
+          class="flex items-center gap-1 px-3 lg:px-8 py-3 text-sm font-semibold text-maroon-600 bg-maroon-50 rounded-md hover:bg-maroon-100 transition-colors dark:bg-zinc-700 dark:text-soft-pink-200 dark:hover:bg-zinc-600"
           (click)="clearCart()">
           <lucide-icon [img]="BrushCleaning" size="20" />
-          {{ 'clear_cart' | transloco }}
+
+          <span class="hidden lg:block">{{ 'clear_cart' | transloco }}</span>
         </button>
       </div>
 
@@ -29,7 +30,7 @@
         class="border border-zinc-200 dark:border-zinc-700 rounded-lg p-2 md:p-6 bg-white dark:bg-zinc-900 flex flex-col gap-6">
         @for (
           item of cartItems();
-          track item.id;
+          track item._id;
           let i = $index;
           let last = $last
         ) {
@@ -41,9 +42,7 @@
           @if (!last) {
             <hr class="border-zinc-200 dark:border-zinc-700" />
           }
-        }
-
-        @if (cartItems().length === 0) {
+        } @empty {
           <div class="text-center py-12 text-zinc-500">
             {{ 'cart_products_count' | transloco: { count: 0 } }}
           </div>
