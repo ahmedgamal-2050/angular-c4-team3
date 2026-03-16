@@ -10,12 +10,12 @@
     <!-- Favorite Button -->
     <button
       (click)="onWishlist($event)"
-      class="absolute top-3 inset-s-3 size-10 rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md z-2">
+      class="absolute top-3 start-3 size-10 rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md z-2">
       <lucide-icon [img]="HeartPlus" [size]="18"></lucide-icon>
     </button>
 
     <!-- Badges -->
-    <div class="absolute top-3 inset-e-3 flex gap-2">
+    <div class="absolute top-3 end-3 flex gap-2">
       @if (product().discount) {
         <span
           class="bg-maroon-50 text-maroon-600 text-xs font-medium px-2 py-0.5 rounded-full uppercase">

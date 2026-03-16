@@ -3,10 +3,12 @@ import { CarouselModule, CarouselPassThrough } from 'primeng/carousel';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { Router } from '@angular/router';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { APP_ROUTES } from '../../../../../../../shared/constants/app-routes';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-special-gift-carousel',
-  imports: [CarouselModule, ButtonComponent, TranslocoPipe],
+  imports: [CarouselModule, ButtonComponent, TranslocoPipe, RouterLink],
   templateUrl: './special-gift-carousel.component.html',
   host: {
     class: 'col-span-1 lg:col-span-3',
@@ -15,6 +17,12 @@ import { TranslocoPipe } from '@jsverse/transloco';
 export class SpecialGiftCarouselComponent {
   private _router = inject(Router);
 
+  productsRoute = signal([
+    '/',
+    APP_ROUTES.LANDING.ROOT,
+    APP_ROUTES.LANDING.PRODUCTS,
+  ]);
+
   carouselData = signal([
     {
       id: 1,
@@ -22,7 +30,7 @@ export class SpecialGiftCarouselComponent {
       title: 'special_gift_carousel_title_1',
       description: 'special_gift_carousel_description_1',
       buttonLabel: 'special_gift_carousel_button_1',
-      url: 'products',
+      url: this.productsRoute(),
     },
     {
       id: 2,
@@ -30,7 +38,7 @@ export class SpecialGiftCarouselComponent {
       title: 'special_gift_carousel_title_2',
       description: 'special_gift_carousel_description_2',
       buttonLabel: 'special_gift_carousel_button_2',
-      url: 'products',
+      url: this.productsRoute(),
     },
     {
       id: 3,
@@ -38,7 +46,7 @@ export class SpecialGiftCarouselComponent {
       title: 'special_gift_carousel_title_3',
       description: 'special_gift_carousel_description_3',
       buttonLabel: 'special_gift_carousel_button_3',
-      url: 'products',
+      url: this.productsRoute(),
     },
     {
       id: 4,
@@ -46,7 +54,7 @@ export class SpecialGiftCarouselComponent {
       title: 'special_gift_carousel_title_4',
       description: 'special_gift_carousel_description_4',
       buttonLabel: 'special_gift_carousel_button_4',
-      url: 'products',
+      url: this.productsRoute(),
     },
   ]);
   pt = signal<CarouselPassThrough>({

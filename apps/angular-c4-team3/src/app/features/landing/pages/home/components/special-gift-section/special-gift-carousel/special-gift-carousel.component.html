@@ -4,16 +4,13 @@
   [numScroll]="1"
   [circular]="true"
   styleClass="h-full!"
-  [pt]="pt()"
->
+  [pt]="pt()">
   <ng-template pTemplate="item" let-data>
     <div
       class="bg-cover bg-center rounded-2xl relative h-full"
-      [class]="data.containerClass"
-    >
+      [class]="data.containerClass">
       <div
-        class="absolute inset-0 bg-linear-to-r from-black/75 to-black/10 flex flex-col justify-end p-6 gap-2 rounded-2xl"
-      >
+        class="absolute inset-0 bg-linear-to-r from-black/75 to-black/10 flex flex-col justify-end p-6 gap-2 rounded-2xl">
         <h2 class="text-white text-2xl lg:text-4xl font-semibold">
           {{ data.title | transloco }}
         </h2>
@@ -22,14 +19,12 @@
           {{ data.description | transloco }}
         </p>
 
-        <div class="w-32.5">
+        <a [routerLink]="data.url" class="w-32.5">
           <shared-ui-button
             [label]="data.buttonLabel | transloco"
             type="button"
-            buttonClass="bg-maroon-50 text-maroon-700"
-            (clicked)="shopNow(data.url)"
-          />
-        </div>
+            buttonClass="bg-maroon-50 text-maroon-700" />
+        </a>
       </div>
     </div>
   </ng-template>

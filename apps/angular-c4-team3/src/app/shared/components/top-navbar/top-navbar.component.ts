@@ -15,6 +15,7 @@ import { LoggedInService } from '../../services/logged-in.service';
 import { UserDropdownComponent } from '../user-dropdown/user-dropdown.component';
 import { APP_ROUTES } from '../../constants/app-routes';
 import { CartService } from '../../../features/landing/pages/cart/services/cart.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-top-navbar',
@@ -26,6 +27,7 @@ import { CartService } from '../../../features/landing/pages/cart/services/cart.
     NavbarActionButtonComponent,
     TranslocoPipe,
     UserDropdownComponent,
+    RouterLink,
   ],
   templateUrl: './top-navbar.component.html',
   styleUrl: './top-navbar.component.css',
@@ -36,6 +38,7 @@ export class TopNavbarComponent {
   readonly Heart = Heart;
   readonly ShoppingCart = ShoppingCart;
   readonly Bell = Bell;
+  readonly APP_ROUTES = APP_ROUTES;
 
   private _LoggedInService = inject(LoggedInService);
   private _cartService = inject(CartService);
