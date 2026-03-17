@@ -7,10 +7,16 @@ import { CartResponse } from './cart.model';
 import { MessageService } from 'primeng/api';
 import { ProductItemsSectionComponent } from './components/product-items-section/product-items-section.component';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { ProductRelatedComponent } from '../product-details/components/product-related/product-related.component';
 
 @Component({
   selector: 'app-cart',
-  imports: [TranslocoPipe, CartSummaryComponent, ProductItemsSectionComponent],
+  imports: [
+    TranslocoPipe,
+    CartSummaryComponent,
+    ProductItemsSectionComponent,
+    ProductRelatedComponent,
+  ],
   templateUrl: './cart.component.html',
 })
 export class CartComponent implements OnInit, OnDestroy {
@@ -19,6 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private _messageService = inject(MessageService);
 
   isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
+  userId = computed(() => this._loggedInService.user()?._id || '');
   cartItems = computed(() => this._cartService.cartItems());
   cartCount = computed(() => this._cartService.cartCount());
   subtotal = computed(() => this._cartService.subtotal());

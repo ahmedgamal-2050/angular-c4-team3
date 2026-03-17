@@ -5,9 +5,11 @@
     </div>
   </div>
 
-  @if (products().length > 0) {
+  @if (products() && products().length) {
     <div class="slider">
-      <app-slider [products]="products()"></app-slider>
+      <app-slider [products]="products()" />
     </div>
+  } @else {
+    <p>{{ 'no_products_found' | transloco }}</p>
   }
 </section>

@@ -21,4 +21,8 @@
         (applyCoupon)="applyCoupon($event)" />
     </div>
   </div>
+
+  @if (isLoggedIn() && userId()) {
+    <app-product-related [userId]="userId()" />
+  }
 </div>

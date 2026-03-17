@@ -17,12 +17,12 @@ import { Product } from '../../../home/home.model';
   selector: 'app-product-related',
   imports: [TranslocoPipe, SliderComponent, StyledHomeTitleComponent],
   templateUrl: './product-related.component.html',
-  styleUrl: './product-related.component.css',
 })
 export class ProductRelatedComponent implements OnInit, OnDestroy {
   private _productDetailsService = inject(ProductDetailsService);
 
   productId = input<string>('');
+  userId = input<string>('');
 
   products = signal<Product[]>([]);
 
@@ -30,15 +30,27 @@ export class ProductRelatedComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.productId()) {
-      this.getRelatedProducts(this.productId());
+      this.getRelatedProducts();
+    } else if (this.userId()) {
+      this.getRelatedProductsByUserId();
     }
   }
 
-  getRelatedProducts(id: string) {
+  getRelatedProducts() {
     const sub = this._productDetailsService
-      .getRelatedProdacts(id)
+      .getRelatedProducts(this.productId())
       .subscribe((res: any) => {
         this.products.set(res.relatedProducts);
+      });
+
+    this.subscription.add(sub);
+  }
+
+  getRelatedProductsByUserId() {
+    const sub = this._productDetailsService
+      .getRelatedProductsByUserId(this.userId())
+      .subscribe((res: any) => {
+        this.products.set(res.recommendations);
       });
 
     this.subscription.add(sub);

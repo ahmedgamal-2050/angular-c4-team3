@@ -28,12 +28,20 @@ export class ProductDetailsService {
     return this._http.post<CreateReview>(`${ENDPOINTS.REVIEWS}`, data);
   }
 
-  getRelatedProdacts(productId?: string) {
+  getRelatedProducts(productId?: string) {
     return this._http.get(`${ENDPOINTS.CATEGORY_PRODUCT}/${productId}`);
   }
 
   getProductById(id: string): Observable<ProductDetailsResponse> {
     const url = ENDPOINTS.GET_PRODUCT_BY_ID.replace('{productId}', id);
     return this._http.get<ProductDetailsResponse>(url);
+  }
+
+  getRelatedProductsByUserId(userId: string) {
+    const url = ENDPOINTS.GET_RELATED_PRODUCTS_BY_USER_ID.replace(
+      '{userId}',
+      userId
+    );
+    return this._http.get(url);
   }
 }
