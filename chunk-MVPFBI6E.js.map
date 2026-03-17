@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/angular-c4-team3/src/app/features/landing/landing.routes.ts"],
-  "sourcesContent": ["import { Route } from '@angular/router';\nimport { APP_ROUTES } from '../../shared/constants/app-routes';\n\nexport const landingRoutes: Route[] = [\n  { path: '', redirectTo: APP_ROUTES.LANDING.HOME, pathMatch: 'full' },\n  { path: APP_ROUTES.LANDING.HOME, loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent) },\n  { path: APP_ROUTES.LANDING.PRODUCTS, loadComponent: () => import('./pages/products/products.component').then((m) => m.ProductsComponent) },\n  { path: `${APP_ROUTES.LANDING.PRODUCT_DETAILS}/:id`, loadComponent: () => import('./pages/product-details/product-details.component').then((m) => m.ProductDetailsComponent) },\n];"],
-  "mappings": ";;;;;;AAGO,IAAM,gBAAyB;EACpC,EAAE,MAAM,IAAI,YAAY,WAAW,QAAQ,MAAM,WAAW,OAAM;EAClE,EAAE,MAAM,WAAW,QAAQ,MAAM,eAAe,MAAM,OAAO,qBAA6B,EAAE,KAAK,CAAC,MAAM,EAAE,aAAa,EAAC;EACxH,EAAE,MAAM,WAAW,QAAQ,UAAU,eAAe,MAAM,OAAO,qBAAqC,EAAE,KAAK,CAAC,MAAM,EAAE,iBAAiB,EAAC;EACxI,EAAE,MAAM,GAAG,WAAW,QAAQ,eAAe,QAAQ,eAAe,MAAM,OAAO,qBAAmD,EAAE,KAAK,CAAC,MAAM,EAAE,uBAAuB,EAAC;;",
-  "names": []
-}

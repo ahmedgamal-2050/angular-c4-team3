@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/angular-c4-team3/src/app/features/auth/services/FormValidationService.ts"],
-  "sourcesContent": ["// file: form-validation.service.ts\nimport { Injectable } from '@angular/core';\nimport { AbstractControl, ValidationErrors } from '@angular/forms';\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class FormValidationService {\n\n  /**\n   * Get error messages for a form control\n   * @param control - AbstractControl (FormControl)\n   * @param messages - Object with error keys and messages\n   * @returns string[]\n   */\n  getErrors(control: AbstractControl | null, messages: { [key: string]: string }): string[] {\n    if (!control || !(control.touched || control.dirty)) {\n      return [];\n    }\n\n    const errors: string[] = [];\n    const controlErrors: ValidationErrors | null = control.errors;\n\n    if (!controlErrors) return errors;\n\n    for (const key in controlErrors) {\n      if (messages[key]) {\n        errors.push(messages[key]);\n      }\n    }\n    return errors;\n  }\n}\n"],
-  "mappings": ";;;;;;;AAOM,IAAO,wBAAP,MAAO,uBAAqB;;;;;;;EAQhC,UAAU,SAAiC,UAAmC;AAC5E,QAAI,CAAC,WAAW,EAAE,QAAQ,WAAW,QAAQ,QAAQ;AACnD,aAAO,CAAA;IACT;AAEA,UAAM,SAAmB,CAAA;AACzB,UAAM,gBAAyC,QAAQ;AAEvD,QAAI,CAAC;AAAe,aAAO;AAE3B,eAAW,OAAO,eAAe;AAC/B,UAAI,SAAS,GAAG,GAAG;AACjB,eAAO,KAAK,SAAS,GAAG,CAAC;MAC3B;IACF;AACA,WAAO;EACT;;qCAxBW,wBAAqB;EAAA;4EAArB,wBAAqB,SAArB,uBAAqB,WAAA,YAFpB,OAAM,CAAA;;;sEAEP,uBAAqB,CAAA;UAHjC;WAAW;MACV,YAAY;KACb;;;",
-  "names": []
-}

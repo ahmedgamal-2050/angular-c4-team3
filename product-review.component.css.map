@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/angular-c4-team3/src/app/features/landing/pages/product-details/components/product-review/product-review.component.css"],
-  "sourcesContent": [".blur-form {\n  pointer-events: none;\n  filter: blur(3px);\n  opacity: 0.6;\n}\n"],
-  "mappings": ";AAAA,CAAA;AACE,kBAAA;AACA,UAAA,KAAA;AACA,WAAA;AACF;",
-  "names": []
-}

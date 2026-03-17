@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/angular-c4-team3/src/app/shared/constants/endpoints.ts"],
-  "sourcesContent": ["export const BASE_URL = 'https://flower.elevateegy.com/api/v1';\n\nexport const ENDPOINTS = {\n    HOME: `${BASE_URL}/home`,\n    REVIEWS:`${BASE_URL}/reviews`,\n    GET_ALL_PRODUCTS:`${BASE_URL}/products`,\n    GET_REVIEW_BY_ID:`${BASE_URL}/products/{productId}/reviews`,\n    CATEGORY_PRODUCT:`${BASE_URL}/related/category`,\n    Get_All_Testimonials:`${BASE_URL}/testimonials`,\n} as const;\n"],
-  "mappings": ";AAAO,IAAM,WAAW;AAEjB,IAAM,YAAY;EACrB,MAAM,GAAG,QAAQ;EACjB,SAAQ,GAAG,QAAQ;EACnB,kBAAiB,GAAG,QAAQ;EAC5B,kBAAiB,GAAG,QAAQ;EAC5B,kBAAiB,GAAG,QAAQ;EAC5B,sBAAqB,GAAG,QAAQ;;",
-  "names": []
-}

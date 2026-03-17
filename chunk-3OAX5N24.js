@@ -1,0 +1,1 @@
+import{I as s}from"./chunk-Q3JZCB6R.js";var a=class o{getErrors(r,t){if(!r||!(r.touched||r.dirty))return[];let n=[],i=r.errors;if(!i)return n;for(let e in i)t[e]&&n.push(t[e]);return n}static \u0275fac=function(t){return new(t||o)};static \u0275prov=s({token:o,factory:o.\u0275fac,providedIn:"root"})};export{a};

@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["apps/angular-c4-team3/src/app/shared/constants/app-routes.ts"],
-  "sourcesContent": ["export const APP_ROUTES = {\n    LANDING: {\n        ROOT: 'landing',\n        HOME: 'home',\n        PRODUCTS: 'products',\n        PRODUCT_DETAILS: 'products',\n        CATEGORIES: 'categories',\n        OCCASIONS: 'occasions',\n        CONTACT: 'contact',\n        ABOUT: 'about',\n    },\n    AUTH: {\n        ROOT: 'auth',\n        LOGIN: 'login',\n        REGISTER: 'register',\n        FORGET_PASSWORD: 'forget-password',\n        SET_PASSWORD: 'set-password',\n        RESET_PASSWORD: 'reset-password',\n    }\n}"],
-  "mappings": ";AAAO,IAAM,aAAa;EACtB,SAAS;IACL,MAAM;IACN,MAAM;IACN,UAAU;IACV,iBAAiB;IACjB,YAAY;IACZ,WAAW;IACX,SAAS;IACT,OAAO;;EAEX,MAAM;IACF,MAAM;IACN,OAAO;IACP,UAAU;IACV,iBAAiB;IACjB,cAAc;IACd,gBAAgB;;;",
-  "names": []
-}
