@@ -10,6 +10,7 @@ import { CartSummaryComponent } from './components/cart-summary/cart-summary.com
 import { Subscription } from 'rxjs';
 import { LoggedInService } from '../../../../shared/services/logged-in.service';
 import { CartResponse } from './cart.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cart',
@@ -30,6 +31,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   private _cartService = inject(CartService);
   private _loggedInService = inject(LoggedInService);
+  private _messageService = inject(MessageService);
 
   isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
   cartItems = computed(() => this._cartService.cartItems());
@@ -49,11 +51,10 @@ export class CartComponent implements OnInit, OnDestroy {
   getCart() {
     const sub = this._cartService.getCart().subscribe({
       next: (response: CartResponse) => {
-        this._cartService.cartItems.set(response.cart.cartItems);
-        this._cartService.discountPercentage.set(response.cart.discount || 0);
+        this.handleCartSuccess(response);
       },
       error: err => {
-        console.log(err);
+        this.handleCartError(err);
       },
     });
     this.subscription.add(sub);
@@ -73,22 +74,10 @@ export class CartComponent implements OnInit, OnDestroy {
     change: number;
   }) {
     const newQuantity = currentQty + change;
-    console.log(id, newQuantity);
     if (newQuantity < 1) {
       this.removeItem(id);
-    } else if (this.isLoggedIn()) {
-      const sub = this._cartService.updateCartItem(id, newQuantity).subscribe({
-        next: (response: CartResponse) => {
-          this._cartService.cartItems.set(response.cart.cartItems);
-          this._cartService.discountPercentage.set(response.cart.discount || 0);
-        },
-        error: err => {
-          console.log(err);
-        },
-      });
-      this.subscription.add(sub);
     } else {
-      this._cartService.updateQuantity(id, newQuantity);
+      this.updateCartItem(id, newQuantity);
     }
   }
 
@@ -96,11 +85,10 @@ export class CartComponent implements OnInit, OnDestroy {
     if (this.isLoggedIn()) {
       const sub = this._cartService.removeCartItem(id).subscribe({
         next: (response: CartResponse) => {
-          this._cartService.cartItems.set(response.cart.cartItems);
-          this._cartService.discountPercentage.set(response.cart.discount || 0);
+          this.handleCartSuccess(response);
         },
         error: err => {
-          console.log(err);
+          this.handleCartError(err);
         },
       });
       this.subscription.add(sub);
@@ -108,6 +96,23 @@ export class CartComponent implements OnInit, OnDestroy {
       this._cartService.cartItems.update(items =>
         items.filter(item => item._id !== id)
       );
+    }
+  }
+
+  updateCartItem(id: string, quantity: number) {
+    if (this.isLoggedIn()) {
+      const sub = this._cartService.updateCartItem(id, quantity).subscribe({
+        next: (response: CartResponse) => {
+          this.handleCartSuccess(response);
+        },
+        error: err => {
+          this.handleCartError(err);
+        },
+      });
+
+      this.subscription.add(sub);
+    } else {
+      this._cartService.updateQuantity(id, quantity);
     }
   }
 
@@ -119,13 +124,26 @@ export class CartComponent implements OnInit, OnDestroy {
           this._cartService.discountPercentage.set(0);
         },
         error: err => {
-          console.log(err);
+          this.handleCartError(err);
         },
       });
       this.subscription.add(sub);
     } else {
       this._cartService.cartItems.set([]);
     }
+  }
+
+  handleCartSuccess(response: CartResponse) {
+    this._cartService.cartItems.set(response.cart.cartItems);
+    this._cartService.discountPercentage.set(response.cart.discount || 0);
+  }
+
+  handleCartError(err: { originalError: { error: { error: string } } }) {
+    this._messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: err.originalError.error.error,
+    });
   }
 
   applyCoupon(couponCode: string) {

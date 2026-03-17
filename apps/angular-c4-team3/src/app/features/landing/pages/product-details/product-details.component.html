@@ -29,23 +29,23 @@
       <div class="flex flex-col justify-between">
         <div>
           <!-- Title -->
-          <h1 class="text-3xl font-bold mb-4 text-zinc-800 dark:text-zinc-50">
+          <h1 class="text-3xl font-bold mb-4 text-zinc-800 dark:text-white">
             {{ product()?.title }}
           </h1>
 
           <!-- Price -->
           <div class="flex items-center gap-3 mb-4">
-            <span class="text-zinc-300 dark:text-zinc-700 line-through text-lg">
+            <span class="text-zinc-300 dark:text-zinc-500 line-through text-lg">
               {{ (product()?.price ?? 0) + 100 }} EGP
             </span>
 
-            <span class="text-2xl font-semibold text-gray-900">
+            <span class="text-2xl font-semibold text-zinc-800 dark:text-white">
               {{ product()?.price }} EGP
             </span>
 
             <span
               class="bg-gray-100 bg-zinc-100 dark:bg-zinc-700 text-sm px-3 py-1 rounded-full">
-              265 left in stock
+              {{ product()?.quantity }} left in stock
             </span>
           </div>
 
@@ -71,15 +71,32 @@
         <!-- Actions -->
         <div class="flex items-center gap-4 mt-8">
           <!-- Wishlist -->
-          <button class="border p-3 rounded-lg hover:bg-gray-100 transition">
+          <button
+            class="border p-3 rounded-lg hover:bg-gray-100 transition"
+            type="button">
             <i class="fa-regular fa-heart text-lg"></i>
           </button>
 
           <!-- Add to Cart -->
           <button
-            class="flex-1 bg-maroon-600 dark:bg-soft-pink-300 text-zinc-50 dark:text-zinc-800 py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2">
-            <i class="fa-solid fa-cart-shopping"></i>
-            Add to Cart
+            class="flex-1 bg-maroon-600 dark:bg-soft-pink-300 text-zinc-50 dark:text-zinc-800 py-3 rounded-lg font-semibold transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed!"
+            type="button"
+            (click)="addToCart()"
+            [disabled]="
+              !product() ||
+              product()!.quantity < 1 ||
+              maxQuantity() === product()!.quantity ||
+              isCartLoading()
+            ">
+            @if (isCartLoading()) {
+              <app-loading
+                loadingColor="stroke-zinc-50! dark:stroke-zinc-800!"
+                loadingSize="size-6!" />
+            } @else {
+              <lucide-icon [img]="ShoppingCart" [size]="18" />
+
+              Add to Cart
+            }
           </button>
         </div>
       </div>
