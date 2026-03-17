@@ -9,7 +9,13 @@ import { CartService } from '../cart/services/cart.service';
 import { CartResponse } from '../cart/cart.model';
 import { MessageService } from 'primeng/api';
 import { LoadingComponent } from '../../../../shared/components/loading/loading.component';
-import { LucideAngularModule, ShoppingCart } from 'lucide-angular';
+import {
+  HeartPlus,
+  LucideAngularModule,
+  ShoppingCart,
+  Star,
+} from 'lucide-angular';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-product-details',
@@ -18,12 +24,15 @@ import { LucideAngularModule, ShoppingCart } from 'lucide-angular';
     ProductRelatedComponent,
     LoadingComponent,
     LucideAngularModule,
+    TranslocoPipe,
   ],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
 })
 export class ProductDetailsComponent implements OnInit {
   readonly ShoppingCart = ShoppingCart;
+  readonly Star = Star;
+  readonly HeartPlus = HeartPlus;
 
   private _route = inject(ActivatedRoute);
   private _productService = inject(ProductDetailsService);
