@@ -2,70 +2,13 @@
   <div class="flex flex-col lg:flex-row gap-8">
     <!-- Left Side: Cart Items -->
     <div class="flex-1">
-      <!-- Header -->
-      <div class="flex justify-between items-end mb-4">
-        <div class="flex items-baseline gap-2">
-          <h1 class="text-5xl font-bold text-zinc-800 dark:text-white">
-            {{ 'cart_title' | transloco }}
-          </h1>
-          <span
-            class="text-base font-medium text-zinc-400 dark:text-zinc-500"
-            >{{
-              'cart_products_count' | transloco: { count: cartCount() }
-            }}</span
-          >
-        </div>
-
-        @if (cartCount() > 0) {
-          <button
-            class="flex items-center gap-1 px-3 lg:px-8 py-3 text-sm font-semibold text-maroon-600 bg-maroon-50 rounded-md hover:bg-maroon-100 transition-colors dark:bg-zinc-700 dark:text-soft-pink-200 dark:hover:bg-zinc-600"
-            (click)="clearCart()">
-            <lucide-icon [img]="BrushCleaning" size="20" />
-
-            <span class="hidden lg:block">{{ 'clear_cart' | transloco }}</span>
-          </button>
-        }
-      </div>
-
-      <!-- Items Container -->
-      <div
-        class="border border-zinc-200 dark:border-zinc-700 rounded-lg p-2 md:p-6 bg-white dark:bg-zinc-900 flex flex-col gap-6">
-        @for (
-          item of cartItems();
-          track item._id;
-          let i = $index;
-          let last = $last
-        ) {
-          <app-cart-item
-            [cartItem]="item"
-            (removeItem)="removeItem($event)"
-            (updateQuantity)="updateQuantity($event)" />
-
-          @if (!last) {
-            <hr class="border-zinc-200 dark:border-zinc-700" />
-          }
-        } @empty {
-          <div class="text-center py-12 text-zinc-500">
-            {{ 'cart_products_count' | transloco: { count: 0 } }}
-          </div>
-        }
-      </div>
-
-      <!-- Continue Shopping Button -->
-      <a
-        [routerLink]="[
-          '/',
-          APP_ROUTES.LANDING.ROOT,
-          APP_ROUTES.LANDING.PRODUCTS,
-        ]"
-        class="mt-6 w-53 block">
-        <shared-ui-button
-          [label]="'cart_continue_shopping' | transloco"
-          [icon]="MoveLeft"
-          [iconPosition]="'left'"
-          gap="gap-2"
-          buttonClass="bg-maroon-600 dark:bg-soft-pink-200 hover:bg-maroon-700 dark:hover:bg-soft-pink-300 text-white dark:text-zinc-800" />
-      </a>
+      <app-product-items-section
+        [title]="'cart_title' | transloco"
+        [cartItems]="cartItems()"
+        [cartCount]="cartCount()"
+        (removeItem)="removeItem($event)"
+        (updateQuantity)="updateQuantity($event)"
+        (clearCart)="clearCart()" />
     </div>
 
     <!-- Right Side: Summary -->

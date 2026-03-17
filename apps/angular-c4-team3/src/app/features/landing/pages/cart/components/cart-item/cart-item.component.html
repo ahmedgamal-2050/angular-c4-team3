@@ -64,32 +64,75 @@
       </div>
 
       <!-- Quantity Controls -->
-      <div class="flex items-center gap-1 lg:gap-2">
-        <button
-          class="flex items-center justify-center size-10 lg:size-12 rounded-md bg-maroon-50 dark:bg-zinc-700 text-maroon-600 dark:text-soft-pink-200 hover:bg-maroon-100 dark:hover:bg-zinc-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          (click)="
-            handleUpdateQuantity(
-              cartItem().product._id,
-              cartItem().quantity,
-              -1
-            )
-          ">
-          <lucide-icon [img]="Minus" class="size-4 lg:size-5" />
-        </button>
+      <div class="flex flex-col gap-1 items-center">
+        <div class="flex items-center gap-1 lg:gap-2">
+          <button
+            class="flex items-center justify-center size-10 lg:size-12 rounded-md bg-maroon-50 dark:bg-zinc-700 text-maroon-600 dark:text-soft-pink-200 hover:bg-maroon-100 dark:hover:bg-zinc-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            (click)="
+              handleUpdateQuantity(
+                cartItem().product._id,
+                cartItem().quantity,
+                -1
+              )
+            ">
+            <lucide-icon [img]="Minus" class="size-4 lg:size-5" />
+          </button>
 
-        <span
-          class="w-12 lg:w-25 py-2 lg:py-3 border border-zinc-300 dark:border-zinc-700 rounded-md text-center font-medium text-zinc-800 dark:text-white">
-          {{ cartItem().quantity }}
-        </span>
+          <input
+            pInputText
+            type="number"
+            [id]="'cartItemQuantityId_' + cartItem().product._id"
+            [name]="'cartItemQuantityId_' + cartItem().product._id"
+            #quantityInput="ngModel"
+            min="1"
+            [max]="cartItem().product.quantity"
+            required
+            [ngModel]="quantity()"
+            (ngModelChange)="
+              quantityInput.invalid &&
+              (quantityInput.dirty || quantityInput.touched)
+                ? null
+                : handleQuantityChange(cartItem().product._id, $event)
+            "
+            [class]="
+              'w-12 lg:w-25 py-2! lg:py-3! border! rounded-md! text-center! font-medium! text-zinc-800! dark:text-white! ' +
+              (quantityInput.invalid &&
+              (quantityInput.dirty || quantityInput.touched)
+                ? 'border-red-500! dark:border-red-500!'
+                : 'border-zinc-300! dark:border-zinc-700!')
+            " />
 
-        <button
-          class="flex items-center justify-center size-10 lg:size-12 rounded-md bg-maroon-50 dark:bg-zinc-700 text-maroon-600 dark:text-soft-pink-200 hover:bg-maroon-100 dark:hover:bg-zinc-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          (click)="
-            handleUpdateQuantity(cartItem().product._id, cartItem().quantity, 1)
-          "
-          [disabled]="cartItem().quantity >= 10">
-          <lucide-icon [img]="Plus" class="size-4 lg:size-5" />
-        </button>
+          <button
+            class="flex items-center justify-center size-10 lg:size-12 rounded-md bg-maroon-50 dark:bg-zinc-700 text-maroon-600 dark:text-soft-pink-200 hover:bg-maroon-100 dark:hover:bg-zinc-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            (click)="
+              handleUpdateQuantity(
+                cartItem().product._id,
+                cartItem().quantity,
+                1
+              )
+            "
+            [disabled]="quantity() >= cartItem().product.quantity">
+            <lucide-icon [img]="Plus" class="size-4 lg:size-5" />
+          </button>
+        </div>
+
+        @if (
+          quantityInput.invalid &&
+          (quantityInput.dirty || quantityInput.touched)
+        ) {
+          <div
+            class="text-xs font-medium text-red-500 dark:text-red-400 text-center max-w-32">
+            @if (quantityInput.errors?.['required']) {
+              <span>Required</span>
+            }
+            @if (quantityInput.errors?.['min']) {
+              <span>Min is 1</span>
+            }
+            @if (quantityInput.errors?.['max']) {
+              <span>Max is {{ cartItem().product.quantity }}</span>
+            }
+          </div>
+        }
       </div>
 
       <!-- Mobile remove -->

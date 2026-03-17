@@ -131,7 +131,7 @@
   "description_testimonials":"Real opinions from happy customers",
   "cart_title": "Cart",
   "cart_products_count": "{{count}} products",
-  "clear_cart": "Clear Cart",
+  "clear": "Clear",
   "cart_remove": "Remove",
   "cart_summary_title": "Summary",
   "cart_coupon_placeholder": "Coupon Code",

@@ -123,7 +123,7 @@
   "description_testimonials":"اراء حقيقية من عملاء سعداء",
   "cart_title": "عربة التسوق",
   "cart_products_count": "{{count}} منتجات",
-  "clear_cart": "تفريغ العربة",
+  "clear": "تفريغ",
   "cart_remove": "إزالة",
   "cart_summary_title": "الملخص",
   "cart_coupon_placeholder": "رمز الخصم",

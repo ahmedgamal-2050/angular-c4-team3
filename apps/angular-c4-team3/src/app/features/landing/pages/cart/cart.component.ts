@@ -1,34 +1,19 @@
 import { Component, inject, OnInit, OnDestroy, computed } from '@angular/core';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { LucideAngularModule, BrushCleaning, MoveLeft } from 'lucide-angular';
-import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { CartService } from './services/cart.service';
-import { CartItemComponent } from './components/cart-item/cart-item.component';
-import { RouterLink } from '@angular/router';
-import { APP_ROUTES } from '../../../../shared/constants/app-routes';
 import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
 import { Subscription } from 'rxjs';
 import { LoggedInService } from '../../../../shared/services/logged-in.service';
 import { CartResponse } from './cart.model';
 import { MessageService } from 'primeng/api';
+import { ProductItemsSectionComponent } from './components/product-items-section/product-items-section.component';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-cart',
-  imports: [
-    TranslocoPipe,
-    LucideAngularModule,
-    ButtonComponent,
-    CartItemComponent,
-    RouterLink,
-    CartSummaryComponent,
-  ],
+  imports: [TranslocoPipe, CartSummaryComponent, ProductItemsSectionComponent],
   templateUrl: './cart.component.html',
 })
 export class CartComponent implements OnInit, OnDestroy {
-  readonly BrushCleaning = BrushCleaning;
-  readonly MoveLeft = MoveLeft;
-  readonly APP_ROUTES = APP_ROUTES;
-
   private _cartService = inject(CartService);
   private _loggedInService = inject(LoggedInService);
   private _messageService = inject(MessageService);
