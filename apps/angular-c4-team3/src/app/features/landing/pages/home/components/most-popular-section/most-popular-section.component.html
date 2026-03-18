@@ -1,8 +1,7 @@
 <section class="mt-16 container mx-auto">
   <!-- Header -->
   <div
-    class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8"
-  >
+    class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
     <app-styled-home-title [title]="'most_popular_title' | transloco" />
 
     <!-- Filters -->
@@ -14,8 +13,7 @@
           selectedOccasion() === null
             ? 'text-maroon-600 dark:text-soft-pink-200'
             : 'text-zinc-700 dark:text-zinc-400'
-        "
-      >
+        ">
         All
       </button>
 
@@ -27,8 +25,7 @@
             selectedOccasion() === occasion._id
               ? 'text-maroon-600 dark:text-soft-pink-200'
               : 'text-zinc-700 dark:text-zinc-400'
-          "
-        >
+          ">
           {{ occasion.name }}
         </button>
       }
@@ -44,8 +41,7 @@
     </div>
   } @else {
     <div
-      class="flex flex-col items-center justify-center py-20 bg-zinc-50 rounded-2xl border-2 border-dashed border-zinc-200 text-zinc-400"
-    >
+      class="flex flex-col items-center justify-center py-20 bg-zinc-50 rounded-2xl border-2 border-dashed border-zinc-200 text-zinc-400">
       <p class="text-lg">{{ 'no_products_found' | transloco }}</p>
     </div>
   }
@@ -53,9 +49,8 @@
   <!-- Footer Link -->
   <div class="mt-10 flex justify-end">
     <a
-      routerLink="/products"
-      class="flex items-center gap-2 text-maroon-700 dark:text-soft-pink-200 font-semibold transition-all duration-300"
-    >
+      [routerLink]="['/', APP_ROUTES.LANDING.ROOT, APP_ROUTES.LANDING.PRODUCTS]"
+      class="flex items-center gap-2 text-maroon-700 dark:text-soft-pink-200 font-semibold transition-all duration-300">
       {{ 'view_more' | transloco }}
 
       <span class="rtl:rotate-180">

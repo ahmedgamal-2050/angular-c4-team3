@@ -18,8 +18,8 @@ export interface Product {
   quantity: number;
   category: string;
   occasion: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
   __v: number;
   isSuperAdmin: boolean;
   sold: number;

@@ -1,18 +1,28 @@
 import { Component, signal } from '@angular/core';
-import { ButtonComponent } from "@angular-c4-team3/shared-design";
+import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { SpecialGiftOverlayComponent } from './special-gift-overlay/special-gift-overlay.component';
 import { SpecialGiftContentComponent } from './special-gift-content/special-gift-content.component';
 import { SpecialGiftCarouselComponent } from './special-gift-carousel/special-gift-carousel.component';
 import { ArrowRight } from 'lucide-angular';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { APP_ROUTES } from '../../../../../../shared/constants/app-routes';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-special-gift-section',
-  imports: [ButtonComponent, SpecialGiftOverlayComponent, SpecialGiftContentComponent, SpecialGiftCarouselComponent, TranslocoPipe],
+  imports: [
+    ButtonComponent,
+    SpecialGiftOverlayComponent,
+    SpecialGiftContentComponent,
+    SpecialGiftCarouselComponent,
+    TranslocoPipe,
+    RouterLink,
+  ],
   templateUrl: './special-gift-section.component.html',
 })
 export class SpecialGiftSectionComponent {
-  ArrowRight = ArrowRight;
+  readonly ArrowRight = ArrowRight;
+  readonly APP_ROUTES = APP_ROUTES;
 
   giftTopSectionData = signal({
     tagLabel: 'special_gift_top_card_tag',
@@ -20,7 +30,7 @@ export class SpecialGiftSectionComponent {
     titleClass: 'h-20',
     containerClass: 'col-span-1 bg-[url("assets/images/special-gift-1.png")]',
     buttonLabel: 'special_gift_top_card_button',
-    url: 'products'
+    url: 'products',
   });
 
   giftBottomSectionData = signal([
@@ -46,8 +56,4 @@ export class SpecialGiftSectionComponent {
       containerClass: 'col-span-1 bg-[url("assets/images/special-gift-5.png")]',
     },
   ]);
-
-  shopNow() {
-    console.log('Shop Now');
-  }
 }

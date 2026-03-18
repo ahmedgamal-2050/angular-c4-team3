@@ -8,7 +8,8 @@ export const APP_ROUTES = {
         OCCASIONS: 'occasions',
         CONTACT: 'contact',
         ABOUT: 'about',
-        WISHLIST:'Wishlist'
+        WISHLIST:'Wishlist',
+        CART: 'cart',
     },
     AUTH: {
         ROOT: 'auth',

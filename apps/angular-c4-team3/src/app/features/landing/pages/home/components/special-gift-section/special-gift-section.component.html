@@ -1,22 +1,25 @@
 <section class="flex flex-col gap-6">
   <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 h-110">
     <app-special-gift-overlay
-      [containerClass]="giftTopSectionData().containerClass"
-    >
+      [containerClass]="giftTopSectionData().containerClass">
       <app-special-gift-content
         [tagLabel]="giftTopSectionData().tagLabel | transloco"
         [title]="giftTopSectionData().title | transloco"
-        [titleClass]="giftTopSectionData().titleClass"
-      />
+        [titleClass]="giftTopSectionData().titleClass" />
 
-      <shared-ui-button
-        [label]="giftTopSectionData().buttonLabel | transloco"
-        type="button"
-        buttonClass="bg-maroon-50 text-maroon-700 px-4! w-[8.125rem]!"
-        iconPosition="right"
-        [icon]="ArrowRight"
-        (clicked)="shopNow()"
-      />
+      <a
+        [routerLink]="[
+          '/',
+          APP_ROUTES.LANDING.ROOT,
+          APP_ROUTES.LANDING.PRODUCTS,
+        ]">
+        <shared-ui-button
+          [label]="giftTopSectionData().buttonLabel | transloco"
+          type="button"
+          buttonClass="bg-maroon-50 text-maroon-700 px-4! w-[8.125rem]!"
+          iconPosition="right"
+          [icon]="ArrowRight" />
+      </a>
     </app-special-gift-overlay>
 
     <app-special-gift-carousel />
@@ -28,8 +31,7 @@
         <app-special-gift-content
           [tagLabel]="gift.tagLabel | transloco"
           [title]="gift.title | transloco"
-          [titleClass]="gift.titleClass"
-        />
+          [titleClass]="gift.titleClass" />
       </app-special-gift-overlay>
     }
   </div>

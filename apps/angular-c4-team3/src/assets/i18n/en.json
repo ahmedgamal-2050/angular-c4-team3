@@ -134,6 +134,22 @@
   "remove":"Remove",
   "empty_wishlist": "Your wishlist is empty, wanna try shopping?",
   "egp":"EGP",
-  "add_cart":"add to cart"
-
+  "add_cart":"add to cart",
+  "cart_title": "Cart",
+  "cart_products_count": "{{count}} products",
+  "clear": "Clear",
+  "cart_remove": "Remove",
+  "cart_summary_title": "Summary",
+  "cart_coupon_placeholder": "Coupon Code",
+  "cart_apply_coupon": "Apply Coupon",
+  "cart_no_coupons": "No coupons applied",
+  "cart_subtotal": "Subtotal",
+  "cart_discount": "{{discount}}% Discount",
+  "cart_total": "Total",
+  "cart_checkout": "Checkout",
+  "cart_continue_shopping": "Continue Shopping",
+  "cart_currency": "EGP",
+  "cart_rating": "Rating",
+  "cart_rating_count": "ratings",
+  "add_to_cart": "Add to Cart"
 }

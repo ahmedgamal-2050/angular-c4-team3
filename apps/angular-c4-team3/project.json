@@ -20,7 +20,7 @@
           },
           "apps/angular-c4-team3/src/assets"
         ],
-        "styles": ["apps/angular-c4-team3/src/styles.css","node_modules/@fortawesome/fontawesome-free/css/all.min.css"]
+        "styles": ["apps/angular-c4-team3/src/styles.css"]
       },
       "configurations": {
         "production": {

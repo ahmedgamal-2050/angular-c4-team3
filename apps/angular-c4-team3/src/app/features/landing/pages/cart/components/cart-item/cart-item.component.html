@@ -1,0 +1,146 @@
+<div class="flex flex-col sm:flex-row gap-4">
+  <!-- Item Image -->
+  <div
+    class="w-29 h-35 bg-zinc-100 dark:bg-zinc-800 rounded-lg overflow-hidden shrink-0 relative">
+    @if (cartItem().product.imgCover) {
+      <img
+        [src]="cartItem().product.imgCover"
+        [alt]="cartItem().product.title"
+        class="w-full h-full object-cover" />
+    }
+  </div>
+
+  <!-- Item Details -->
+  <div class="flex-1 flex flex-col justify-between">
+    <div class="flex justify-between items-start gap-4">
+      <div>
+        <h3
+          class="font-semibold text-maroon-700 dark:text-soft-pink-200 text-base lg:text-lg">
+          {{ cartItem().product.title }}
+        </h3>
+
+        <div class="flex items-center gap-1 mt-1 text-sm lg:text-base">
+          <lucide-icon
+            [img]="Star"
+            size="20"
+            class="text-yellow-500 fill-yellow-500 dark:text-yellow-600 dark:fill-yellow-600" />
+
+          <span class="font-normal text-zinc-800 dark:text-white">
+            {{ 'cart_rating' | transloco }}: {{ cartItem().product.rateAvg }}/5
+          </span>
+
+          <span class="font-medium text-blue-600 dark:text-blue-500">
+            ({{ cartItem().product.rateCount }}
+            {{ 'cart_rating_count' | transloco }})</span
+          >
+        </div>
+      </div>
+
+      <button
+        class="hidden sm:flex items-center gap-1 p-2 lg:p-3 text-xs lg:text-sm font-medium text-white bg-red-600 dark:bg-red-500 rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors"
+        (click)="handleRemoveItem(cartItem().product._id)">
+        <lucide-icon [img]="Trash2" class="size-4 lg:size-5" />
+
+        {{ 'cart_remove' | transloco }}
+      </button>
+    </div>
+
+    <div class="flex items-center justify-between mt-4">
+      <!-- Price -->
+      <div class="flex items-baseline gap-1">
+        <span
+          class="text-maroon-600 dark:text-soft-pink-200 font-medium text-sm">
+          (x{{ cartItem().quantity }})
+        </span>
+
+        <span
+          class="font-bold text-lg lg:text-2xl text-zinc-800 dark:text-white">
+          {{ cartItem().price }}
+        </span>
+
+        <span class="text-base font-medium text-zinc-800 dark:text-white">
+          {{ 'cart_currency' | transloco }}
+        </span>
+      </div>
+
+      <!-- Quantity Controls -->
+      <div class="flex flex-col gap-1 items-center">
+        <div class="flex items-center gap-1 lg:gap-2">
+          <button
+            class="flex items-center justify-center size-10 lg:size-12 rounded-md bg-maroon-50 dark:bg-zinc-700 text-maroon-600 dark:text-soft-pink-200 hover:bg-maroon-100 dark:hover:bg-zinc-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            (click)="
+              handleUpdateQuantity(
+                cartItem().product._id,
+                cartItem().quantity,
+                -1
+              )
+            ">
+            <lucide-icon [img]="Minus" class="size-4 lg:size-5" />
+          </button>
+
+          <input
+            pInputText
+            type="number"
+            [id]="'cartItemQuantityId_' + cartItem().product._id"
+            [name]="'cartItemQuantityId_' + cartItem().product._id"
+            #quantityInput="ngModel"
+            min="1"
+            [max]="cartItem().product.quantity"
+            required
+            [ngModel]="quantity()"
+            (ngModelChange)="
+              quantityInput.invalid &&
+              (quantityInput.dirty || quantityInput.touched)
+                ? null
+                : handleQuantityChange(cartItem().product._id, $event)
+            "
+            [class]="
+              'w-12 lg:w-25 py-2! lg:py-3! border! rounded-md! text-center! font-medium! text-zinc-800! dark:text-white! ' +
+              (quantityInput.invalid &&
+              (quantityInput.dirty || quantityInput.touched)
+                ? 'border-red-500! dark:border-red-500!'
+                : 'border-zinc-300! dark:border-zinc-700!')
+            " />
+
+          <button
+            class="flex items-center justify-center size-10 lg:size-12 rounded-md bg-maroon-50 dark:bg-zinc-700 text-maroon-600 dark:text-soft-pink-200 hover:bg-maroon-100 dark:hover:bg-zinc-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            (click)="
+              handleUpdateQuantity(
+                cartItem().product._id,
+                cartItem().quantity,
+                1
+              )
+            "
+            [disabled]="quantity() >= cartItem().product.quantity">
+            <lucide-icon [img]="Plus" class="size-4 lg:size-5" />
+          </button>
+        </div>
+
+        @if (
+          quantityInput.invalid &&
+          (quantityInput.dirty || quantityInput.touched)
+        ) {
+          <div
+            class="text-xs font-medium text-red-500 dark:text-red-400 text-center max-w-32">
+            @if (quantityInput.errors?.['required']) {
+              <span>Required</span>
+            }
+            @if (quantityInput.errors?.['min']) {
+              <span>Min is 1</span>
+            }
+            @if (quantityInput.errors?.['max']) {
+              <span>Max is {{ cartItem().product.quantity }}</span>
+            }
+          </div>
+        }
+      </div>
+
+      <!-- Mobile remove -->
+      <button
+        class="sm:hidden flex items-center justify-center size-8 text-white bg-red-600 dark:bg-red-500 rounded-md hover:bg-red-700"
+        (click)="handleRemoveItem(cartItem().product._id)">
+        <lucide-icon [img]="Trash2" size="14" />
+      </button>
+    </div>
+  </div>
+</div>

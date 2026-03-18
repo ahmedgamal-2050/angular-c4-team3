@@ -1,0 +1,15 @@
+<button
+  (click)="themeService.toggleTheme()"
+  class="lg:ps-1"
+  [attr.aria-label]="
+    themeService.darkMode() ? 'Switch to light mode' : 'Switch to dark mode'
+  "
+>
+  @if (themeService.darkMode()) {
+    <!-- Sun Icon (for Dark Mode) -->
+    <lucide-icon [name]="Sun" class="size-5 lg:size-6 text-yellow-400" />
+  } @else {
+    <!-- Moon Icon (for Light Mode) -->
+    <lucide-icon [name]="Moon" class="size-5 lg:size-6 text-gray-700" />
+  }
+</button>
