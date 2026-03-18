@@ -3,12 +3,12 @@
   <div class="flex flex-wrap  items-center justify-between mb-6 gap-4">
 
     <div class="flex  items-end gap-1">
-      <p class="text-zinc-800 dark:text-soft-pink-500 font-bold text-4xl md:text-5xl">{{'WishList' | transloco}}</p>
+      <p class="text-zinc-800 dark:text-soft-pink-500 font-bold text-4xl md:text-5xl">{{'wishList' | transloco}}</p>
       <p class="text-zinc-400 text-base font-medium mt-2">{{wishListItem()?.length}}
         {{'landing_main_navbar_section_products' | transloco}}</p>
     </div>
 
-    <shared-ui-button (clicked)="clearAllWishListItem()" [label]="'ClearWishList' | transloco" [type]="'submit'"
+    <shared-ui-button (clicked)="clearAllWishListItem()" [label]="'clear_wishList' | transloco" [type]="'submit'"
       [icon]="BrushCleaning" [iconPosition]="'left'"
       [buttonClass]="'bg-maroon-50 dark:bg-soft-pink-300 text-maroon-600 dark:text-zinc-800'"></shared-ui-button>
 
@@ -57,11 +57,11 @@
 
           <div class="flex gap-2">
             <!-- Remove Button -->
-            <shared-ui-button [label]="'ADD_TO_CART' | transloco" [icon]="Plus" (click)="addToCart(item._id)"
+            <shared-ui-button [label]="'add_cart' | transloco" [icon]="Plus" (click)="addToCart(item._id)"
               [buttonClass]="'bg-blue-600 text-white text-xs sm:text-sm px-2 sm:px-3 flex-shrink-0'">
             </shared-ui-button>
             <!-- Remove Button -->
-            <shared-ui-button [label]="'Remove' | transloco" [icon]="Trash" (click)="deleteWishListItem(item._id)"
+            <shared-ui-button [label]="'remove' | transloco" [icon]="Trash" (click)="deleteWishListItem(item._id)"
               [buttonClass]="'bg-red-600 text-white text-xs sm:text-sm px-2 sm:px-3 flex-shrink-0'">
             </shared-ui-button>
           </div>
@@ -72,7 +72,7 @@
         <div class="flex items-center justify-between mt-2 sm:mt-3 gap-2">
 
           <p class="font-medium text-sm sm:text-base text-zinc-800 dark:text-white flex-shrink-0">
-            {{ item.price }} {{'EGP' | transloco}}
+            {{ item.price }} {{'egp' | transloco}}
           </p>
 
           <input type="text" value="1" disabled

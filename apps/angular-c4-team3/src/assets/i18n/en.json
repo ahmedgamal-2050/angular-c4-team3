@@ -129,11 +129,11 @@
   "descriptionbest": "Not sure what to choose? Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
   "testimonials_title":"testimonials",
   "description_testimonials":"Real opinions from happy customers",
-  "WishList":"WishList",
-  "ClearWishList":"Clear WishList",
-  "Remove":"Remove",
+  "wishList":"WishList",
+  "clear_wishList":"Clear WishList",
+  "remove":"Remove",
   "no_data_to_display": "No data to display",
-  "EGP":"EGP",
-  "ADD_TO_CART":"add to cart"
+  "egp":"EGP",
+  "add_cart":"add to cart"
 
 }

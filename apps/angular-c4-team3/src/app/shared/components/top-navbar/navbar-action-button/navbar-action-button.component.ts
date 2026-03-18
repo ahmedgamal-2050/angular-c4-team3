@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule, LucideIconData } from 'lucide-angular';
+import { APP_ROUTES } from '../../../constants/app-routes';
 
 @Component({
   selector: 'app-navbar-action-button',
@@ -12,4 +13,5 @@ import { LucideAngularModule, LucideIconData } from 'lucide-angular';
 export class NavbarActionButtonComponent {
   icon = input.required<LucideIconData>();
   count = input<number>(0);
+  protected readonly APP_ROUTES = APP_ROUTES;
 }

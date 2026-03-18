@@ -8,6 +8,7 @@ export const APP_ROUTES = {
         OCCASIONS: 'occasions',
         CONTACT: 'contact',
         ABOUT: 'about',
+        WISHLIST:'Wishlist'
     },
     AUTH: {
         ROOT: 'auth',
@@ -17,7 +18,4 @@ export const APP_ROUTES = {
         SET_PASSWORD: 'set-password',
         RESET_PASSWORD: 'reset-password',
     },
-    NAVBAR:{
-      Wishlist:'Wishlist'
-    }
 }

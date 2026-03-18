@@ -121,9 +121,10 @@
   "your_rating": "رايك",
   "testimonials_title": "اراء العملاء",
   "description_testimonials": "اراء حقيقية من عملاء سعداء",
-  "WishList": "عربة التسوق",
-  "ClearWishList": "مسح العربة",
-  "Remove": "حذف",
+  "wishList": "عربة التسوق",
+  "clear_wishList": "مسح العربة",
+  "remove": "حذف",
   "no_data_to_display": "لا يوجد بيانات للعرض",
-  "EGP":"جنيه مصري"
+  "egp":"جنيه مصري",
+  "add_cart":"اضف للعربهة"
 }

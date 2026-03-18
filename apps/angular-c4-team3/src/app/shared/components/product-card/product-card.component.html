@@ -5,10 +5,11 @@
       class="w-full h-full object-cover transition-transform duration-500" />
 
     <!-- Favorite Button -->
-    <button (click)="toggleWishlist(product()._id); $event.stopPropagation()" class="absolute top-3 inset-s-3 size-10 rounded-full transition-colors shadow-md z-2
+    <button type="button"
+  (click)="toggleWishlist(product()._id)" class="absolute top-3 inset-s-3 size-10 rounded-full transition-colors shadow-md z-2
              flex items-center justify-center
-             hover:bg-maroon-600 hover:text-white" [ngClass]="!isInWishlist() 
-        ? 'bg-black text-white' 
+             hover:bg-maroon-600 hover:text-white" [ngClass]="!isInWishlist()
+        ? 'bg-black text-white'
         : 'bg-white text-maroon-600'">
       <lucide-icon [img]="!isInWishlist() ? HeartMinus : HeartPlus" [size]="18">
       </lucide-icon>
