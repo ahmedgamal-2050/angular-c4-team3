@@ -13,8 +13,9 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { CurrencyPipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../constants/app-routes';
-import { NavbarRoutingService } from '../../../features/landing/pages/navbar-routing/services/navbar-routing.service';
-import { WishListResponse } from '../../../features/landing/pages/navbar-routing/modals/wishlist-item.interface';
+import { NavbarRoutingService } from '../../../features/landing/pages/wishlist/services/navbar-routing.service';
+import { WishListResponse } from '../../../features/landing/pages/wishlist/modals/wishlist-item.interface';
+
 
 @Component({
   selector: 'app-product-card',

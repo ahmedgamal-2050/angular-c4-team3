@@ -86,6 +86,6 @@ export class WishlistComponent implements OnInit {
   addToCart(id?: string): void {
     if (!id) return;
     console.log(id, 'id');
-   
+
   }
 }
