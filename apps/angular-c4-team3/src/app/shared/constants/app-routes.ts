@@ -8,6 +8,7 @@ export const APP_ROUTES = {
         OCCASIONS: 'occasions',
         CONTACT: 'contact',
         ABOUT: 'about',
+        WISHLIST:'Wishlist',
         CART: 'cart',
     },
     AUTH: {
@@ -17,5 +18,5 @@ export const APP_ROUTES = {
         FORGET_PASSWORD: 'forget-password',
         SET_PASSWORD: 'set-password',
         RESET_PASSWORD: 'reset-password',
-    }
+    },
 }

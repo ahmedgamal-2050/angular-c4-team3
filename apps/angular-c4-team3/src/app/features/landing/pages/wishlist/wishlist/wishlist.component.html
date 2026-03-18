@@ -1,0 +1,110 @@
+<section class="p-6 md:p-10">
+  <!-- Header -->
+  <div class="flex flex-wrap items-center justify-between mb-6 gap-4">
+    <div class="flex items-end gap-1">
+      <p
+        class="text-zinc-800 dark:text-soft-pink-500 font-bold text-4xl md:text-5xl">
+        {{ 'wishList' | transloco }}
+      </p>
+
+      <p class="text-zinc-400 text-base font-medium mt-2">
+        {{ wishListItem().length }}
+        {{ 'landing_main_navbar_section_products' | transloco }}
+      </p>
+    </div>
+
+    <shared-ui-button
+      (clicked)="clearAllWishListItem()"
+      [label]="'clear_wishList' | transloco"
+      [type]="'submit'"
+      [icon]="BrushCleaning"
+      [iconPosition]="'left'"
+      [buttonClass]="
+        'bg-maroon-50 dark:bg-soft-pink-300 text-maroon-600 dark:text-zinc-800'
+      "></shared-ui-button>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex justify-center items-center py-20">
+      <div
+        class="w-10 h-10 border-4 border-maroon-600 border-t-transparent rounded-full animate-spin"></div>
+    </div>
+  } @else if (wishListItem().length === 0) {
+    <app-empty-state />
+  } @else {
+    <div class="flex flex-col gap-4">
+      @for (item of wishListItem(); track item._id) {
+        <!-- WishList Item -->
+        <div
+          class="border border-zinc-200 rounded-xl p-3 sm:p-4 flex gap-3 sm:gap-4">
+          <!-- Image -->
+          <img
+            alt=""
+            [src]="item.imgCover"
+            class="w-20 h-24 sm:w-28 sm:h-32 object-cover rounded-lg flex-shrink-0" />
+
+          <!-- Content -->
+          <div class="flex flex-col justify-between w-full min-w-0">
+            <!-- Top Row -->
+            <div class="flex justify-between items-start gap-2">
+              <div class="min-w-0">
+                <p
+                  class="text-sm sm:text-lg font-semibold text-maroon-700 truncate">
+                  {{ item.title }}
+                </p>
+
+                <p
+                  class="text-xs sm:text-sm font-medium flex items-center gap-1 flex-wrap">
+                  <lucide-icon
+                    [img]="Star"
+                    [size]="16"
+                    class="text-yellow-500 fill-yellow-500 flex-shrink-0" />
+                  {{ item.rateAvg }}/5
+                  <span
+                    class="lowercase text-blue-600 text-xs sm:text-base font-medium">
+                    ({{ item.rateAvg }} {{ 'ratings' | transloco }})
+                  </span>
+                </p>
+              </div>
+
+              <div class="flex gap-2">
+                <!-- Remove Button -->
+                <shared-ui-button
+                  [label]="'add_cart' | transloco"
+                  [icon]="Plus"
+                  (click)="addToCart(item._id)"
+                  [buttonClass]="
+                    'bg-blue-600 text-white text-xs sm:text-sm px-2 sm:px-3 flex-shrink-0'
+                  ">
+                </shared-ui-button>
+                <!-- Remove Button -->
+                <shared-ui-button
+                  [label]="'remove' | transloco"
+                  [icon]="Trash"
+                  (click)="deleteWishListItem(item._id)"
+                  [buttonClass]="
+                    'bg-red-600 text-white text-xs sm:text-sm px-2 sm:px-3 flex-shrink-0'
+                  ">
+                </shared-ui-button>
+              </div>
+            </div>
+
+            <!-- Bottom Row -->
+            <div class="flex items-center justify-between mt-2 sm:mt-3 gap-2">
+              <p
+                class="font-medium text-sm sm:text-base text-zinc-800 dark:text-white flex-shrink-0">
+                {{ item.price }} {{ 'egp' | transloco }}
+              </p>
+
+              <input
+                type="text"
+                value="1"
+                disabled
+                class="w-16 sm:w-20 h-8 sm:h-10 text-center border border-zinc-300 rounded-lg py-1 text-zinc-400 text-xs sm:text-sm font-medium" />
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</section>

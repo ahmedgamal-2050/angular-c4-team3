@@ -1,19 +1,22 @@
 import {
   Component,
-  computed,
+  effect,
   inject,
   input,
+  computed,
   OnDestroy,
   output,
   signal,
 } from '@angular/core';
 import { Product } from '../../../features/landing/pages/home/home.model';
-import { Star, ShoppingCart, HeartPlus, Eye } from 'lucide-angular';
+import { Star, ShoppingCart, HeartPlus, Eye, HeartMinus } from 'lucide-angular';
 import { LucideAngularModule } from 'lucide-angular';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgClass } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { APP_ROUTES } from '../../constants/app-routes';
+import { NavbarRoutingService } from '../../../features/landing/pages/wishlist/services/navbar-routing.service';
+import { WishListResponse } from '../../../features/landing/pages/wishlist/modals/wishlist-item.interface';
 import { CartService } from '../../../features/landing/pages/cart/services/cart.service';
 import { CartResponse } from '../../../features/landing/pages/cart/cart.model';
 import { Subscription } from 'rxjs';
@@ -25,6 +28,7 @@ import { LoadingComponent } from '../loading/loading.component';
   standalone: true,
   imports: [
     LucideAngularModule,
+    NgClass,
     TranslocoPipe,
     CurrencyPipe,
     RouterLink,
@@ -36,14 +40,23 @@ export class ProductCardComponent implements OnDestroy {
   readonly Star = Star;
   readonly ShoppingCart = ShoppingCart;
   readonly HeartPlus = HeartPlus;
+  readonly HeartMinus = HeartMinus;
   readonly Eye = Eye;
   readonly ROUTES = APP_ROUTES;
 
+  private navbarRoutingService = inject(NavbarRoutingService);
   private _cartService = inject(CartService);
   private _messageService = inject(MessageService);
-
+  
   product = input.required<Product>();
+
+  addToCart = output<Product>();
+  wishlist = output<Product>();
+  quickView = output<Product>();
+
+  private _isInWishlist = signal(false);  
   isCartLoading = signal(false);
+  isInWishlist = this._isInWishlist.asReadonly();
 
   maxQuantity = computed(() => {
     const cartProduct = this._cartService
@@ -52,12 +65,21 @@ export class ProductCardComponent implements OnDestroy {
     return cartProduct?.quantity || 0;
   });
 
-  addToCart = output<Product>();
-  wishlist = output<Product>();
-  quickView = output<Product>();
-
   subscription = new Subscription();
 
+  constructor() {
+    effect(() => {
+      this._isInWishlist.set(this.product().isInWishlist ?? false);
+    });
+  }
+
+  toggleWishlist(id: string) {
+    if (this.isInWishlist()) {
+      this.deleteWishListItem(id);
+    } else {
+      this.addItemInWishList(id);
+    }
+  }
   get ratingArray() {
     return Array(5)
       .fill(0)
@@ -92,5 +114,21 @@ export class ProductCardComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  addItemInWishList(id?: string) {
+    this.navbarRoutingService
+      ?.addItemInWishList(id)
+      .subscribe((res?: WishListResponse) => {
+        if (res) this._isInWishlist.set(true);
+      });
+  }
+
+  deleteWishListItem(id: string) {
+    this.navbarRoutingService
+      .deleteWishListItem(id)
+      .subscribe((res?: WishListResponse) => {
+        if (res) this._isInWishlist.set(false);
+      });
   }
 }

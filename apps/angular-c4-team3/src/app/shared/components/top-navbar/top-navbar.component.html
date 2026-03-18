@@ -51,7 +51,10 @@
 
       <!-- Icons -->
       <div class="flex items-center gap-2 sm:gap-3 md:gap-5">
-        <app-navbar-action-button [icon]="Heart" />
+        <app-navbar-action-button
+          [icon]="Heart"
+          type="link"
+          [link]="wishlistLink()" />
 
         <app-navbar-action-button
           [icon]="ShoppingCart"

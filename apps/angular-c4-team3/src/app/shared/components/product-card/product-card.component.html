@@ -9,9 +9,14 @@
 
     <!-- Favorite Button -->
     <button
-      (click)="onWishlist($event)"
-      class="absolute top-3 start-3 size-10 rounded-full bg-white text-maroon-600 flex items-center justify-center hover:bg-maroon-600 hover:text-white transition-colors shadow-md z-2">
-      <lucide-icon [img]="HeartPlus" [size]="18"></lucide-icon>
+      type="button"
+      (click)="toggleWishlist(product()._id)"
+      class="absolute top-3 start-3 size-10 rounded-full transition-colors shadow-md z-2 flex items-center justify-center hover:bg-maroon-600 hover:text-white"
+      [ngClass]="
+        !isInWishlist() ? 'bg-black text-white' : 'bg-white text-maroon-600'
+      ">
+      <lucide-icon [img]="!isInWishlist() ? HeartMinus : HeartPlus" [size]="18">
+      </lucide-icon>
     </button>
 
     <!-- Badges -->
