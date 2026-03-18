@@ -124,7 +124,7 @@
   "wishList": "عربة التسوق",
   "clear_wishList": "مسح العربة",
   "remove": "حذف",
-  "no_data_to_display": "لا يوجد بيانات للعرض",
+  "empty_wishlist": "لا يوجد بيانات للعرض",
   "egp":"جنيه مصري",
   "add_cart":"اضف للعربهة"
 }

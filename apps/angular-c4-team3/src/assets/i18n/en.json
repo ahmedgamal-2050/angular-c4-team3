@@ -132,7 +132,7 @@
   "wishList":"WishList",
   "clear_wishList":"Clear WishList",
   "remove":"Remove",
-  "no_data_to_display": "No data to display",
+  "empty_wishlist": "قائمة رغباتك فارغة، هل تود تجربة التسوق؟",
   "egp":"EGP",
   "add_cart":"add to cart"
 
