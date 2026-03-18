@@ -2,7 +2,6 @@ import { NgTemplateOutlet } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideAngularModule, LucideIconData } from 'lucide-angular';
-import { APP_ROUTES } from '../../../constants/app-routes';
 
 @Component({
   selector: 'app-navbar-action-button',
@@ -11,8 +10,6 @@ import { APP_ROUTES } from '../../../constants/app-routes';
   templateUrl: './navbar-action-button.component.html',
 })
 export class NavbarActionButtonComponent {
-  readonly APP_ROUTES = APP_ROUTES;
-
   icon = input.required<LucideIconData>();
   type = input<'link' | 'action'>('action');
   count = input<number>(0);

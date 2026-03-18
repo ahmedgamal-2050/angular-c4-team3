@@ -49,6 +49,9 @@ export class TopNavbarComponent {
   cartLink = signal<string[] | string>(
     `/${APP_ROUTES.LANDING.ROOT}/${APP_ROUTES.LANDING.CART}`
   );
+  wishlistLink = signal<string[] | string>(
+    `/${APP_ROUTES.LANDING.ROOT}/${APP_ROUTES.LANDING.WISHLIST}`
+  );
 
   isLoggedIn = this._LoggedInService.isLoggedIn;
   user = this._LoggedInService.user;
