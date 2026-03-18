@@ -8,6 +8,7 @@ export const APP_ROUTES = {
         OCCASIONS: 'occasions',
         CONTACT: 'contact',
         ABOUT: 'about',
+        CART: 'cart',
     },
     AUTH: {
         ROOT: 'auth',

@@ -128,5 +128,22 @@
   "explore_gifts":"Explore gifts",
   "descriptionbest": "Not sure what to choose? Start with our best sellers, these are the gifts our customers keep coming back for. Whether you're celebrating a birthday, anniversary or wedding, our top picks are guaranteed to leave a lasting impression.",
   "testimonials_title":"testimonials",
-  "description_testimonials":"Real opinions from happy customers"
+  "description_testimonials":"Real opinions from happy customers",
+  "cart_title": "Cart",
+  "cart_products_count": "{{count}} products",
+  "clear": "Clear",
+  "cart_remove": "Remove",
+  "cart_summary_title": "Summary",
+  "cart_coupon_placeholder": "Coupon Code",
+  "cart_apply_coupon": "Apply Coupon",
+  "cart_no_coupons": "No coupons applied",
+  "cart_subtotal": "Subtotal",
+  "cart_discount": "{{discount}}% Discount",
+  "cart_total": "Total",
+  "cart_checkout": "Checkout",
+  "cart_continue_shopping": "Continue Shopping",
+  "cart_currency": "EGP",
+  "cart_rating": "Rating",
+  "cart_rating_count": "ratings",
+  "add_to_cart": "Add to Cart"
 }

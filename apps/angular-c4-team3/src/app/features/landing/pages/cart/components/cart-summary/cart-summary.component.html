@@ -1,0 +1,85 @@
+<h2
+  class="text-2xl lg:text-3xl font-semibold mb-6 text-zinc-800 dark:text-white">
+  {{ 'cart_summary_title' | transloco }}
+</h2>
+
+<div class="bg-zinc-50 dark:bg-zinc-800/50 rounded-lg p-4">
+  <!-- Coupon section -->
+  <form
+    [formGroup]="couponForm"
+    (ngSubmit)="handleApplyCoupon()"
+    class="flex gap-2 mb-6">
+    <div class="flex-1">
+      <app-input
+        id="couponCode"
+        fieldControlName="couponCode"
+        [placeholder]="'cart_coupon_placeholder' | transloco" />
+    </div>
+
+    <shared-ui-button
+      [label]="'cart_apply_coupon' | transloco"
+      [icon]="Ticket"
+      iconPosition="left"
+      [hideLabelOnMobile]="true"
+      gap="gap-2"
+      type="submit"
+      buttonClass="bg-maroon-600 dark:bg-soft-pink-200 hover:bg-maroon-700 dark:hover:bg-soft-pink-300 text-white dark:text-zinc-800 whitespace-nowrap h-full px-4 py-3 rounded-md" />
+  </form>
+
+  <!-- Placeholder for applied coupons area -->
+  <div
+    class="mb-6 h-32 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-700 rounded flex items-center justify-center text-zinc-400 dark:text-zinc-500 italic text-sm">
+    {{ 'cart_no_coupons' | transloco }}
+  </div>
+
+  <!-- Calculations -->
+  <div
+    class="space-y-3 font-medium text-sm border-t border-zinc-200 dark:border-zinc-700 pt-4">
+    <div
+      class="flex justify-between items-center text-zinc-600 dark:text-zinc-300">
+      <span>{{ 'cart_subtotal' | transloco }}</span>
+
+      <span class="font-bold text-zinc-900 dark:text-white text-base"
+        >{{ subtotal() }} {{ 'cart_currency' | transloco }}</span
+      >
+    </div>
+
+    <!-- Optional Discount Line (matching Figma design '50% Discount') -->
+    @if (discountPercentage() > 0) {
+      <div class="flex items-center relative py-2">
+        <div
+          class="w-full border-t border-zinc-200 dark:border-zinc-700 absolute inset-y-1/2"></div>
+
+        <div
+          class="mx-auto px-2 relative bg-zinc-50 dark:bg-zinc-800/50 text-xs font-bold text-zinc-900 dark:text-white">
+          {{
+            'cart_discount'
+              | transloco: { discount: discountPercentage() * 100 }
+          }}
+        </div>
+      </div>
+    }
+
+    <div class="flex justify-between items-center text-lg mt-2">
+      <span class="font-bold text-zinc-900 dark:text-white">
+        {{ 'cart_total' | transloco }}
+      </span>
+
+      <span class="font-bold text-zinc-900 dark:text-white"
+        >{{ total() }} {{ 'cart_currency' | transloco }}</span
+      >
+    </div>
+  </div>
+</div>
+
+<!-- Checkout Button -->
+<div class="mt-4">
+  <shared-ui-button
+    class="w-full"
+    [label]="'cart_checkout' | transloco"
+    [icon]="MoveRight"
+    iconPosition="right"
+    gap="gap-2"
+    buttonClass="bg-maroon-600 dark:bg-soft-pink-200 hover:bg-maroon-700 dark:hover:bg-soft-pink-300 text-white dark:text-zinc-800 py-6 text-lg font-medium"
+    (clicked)="handleCheckout()" />
+</div>

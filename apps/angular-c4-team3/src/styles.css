@@ -141,4 +141,5 @@ input:-webkit-autofill:focus {
 
 button {
   cursor: pointer;
+  vertical-align: middle;
 }

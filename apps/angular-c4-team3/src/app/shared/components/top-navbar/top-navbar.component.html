@@ -1,19 +1,16 @@
 <nav
-  class="bg-white dark:bg-zinc-800 border-b border-zinc-100 dark:border-zinc-700 py-3 shadow-sm"
->
+  class="bg-white dark:bg-zinc-800 border-b border-zinc-100 dark:border-zinc-700 py-3 shadow-sm">
   <div
-    class="container mx-auto px-4 flex flex-wrap lg:flex-nowrap items-center justify-between gap-4 lg:gap-6"
-  >
+    class="container mx-auto px-4 flex flex-wrap lg:flex-nowrap items-center justify-between gap-4 lg:gap-6">
     <!-- Logo -->
-    <div class="flex items-center">
-      <div class="flex flex-col items-center">
-        <img
-          src="assets/images/rose-app-logo.webp"
-          alt="logo"
-          class="h-20 w-22"
-        />
-      </div>
-    </div>
+    <a
+      [routerLink]="['/', APP_ROUTES.LANDING.ROOT, APP_ROUTES.LANDING.HOME]"
+      class="flex items-center">
+      <img
+        src="assets/images/rose-app-logo.webp"
+        alt="logo"
+        class="h-16 w-18 lg:h-20 lg:w-22" />
+    </a>
 
     <!-- Location -->
     @if (isLoggedIn()) {
@@ -22,8 +19,7 @@
           {{ 'landing_top_navbar_section_deliver_to' | transloco }}:
         </div>
         <div
-          class="flex items-center gap-1 font-semibold text-maroon-700 dark:text-soft-pink-200"
-        >
+          class="flex items-center gap-1 font-semibold text-maroon-700 dark:text-soft-pink-200">
           <lucide-icon [name]="MapPin" size="18" />
           <span>{{ location() }}</span>
         </div>
@@ -32,21 +28,18 @@
 
     <!-- Search Bar -->
     <div
-      class="order-last w-full lg:order-0 lg:flex-1 max-w-2xl mt-2 lg:mt-0 relative hidden lg:block"
-    >
+      class="order-last w-full lg:order-0 lg:flex-1 max-w-2xl mt-2 lg:mt-0 relative hidden lg:block">
       <input
         type="text"
         [placeholder]="
           'landing_top_navbar_section_search_placeholder' | transloco
         "
         class="w-full ps-12 pe-4 py-2 bg-zinc-50 border border-zinc-200 dark:border-zinc-600 rounded-lg focus:border-maroon-300 transition-colors dark:placeholder:text-zinc-500 dark:bg-zinc-700"
-        (input)="updateSearch($event)"
-      />
+        (input)="updateSearch($event)" />
       <lucide-icon
         [name]="Search"
         size="20"
-        class="absolute inset-s-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500"
-      />
+        class="absolute start-3 top-1/2 -translate-y-1/2 text-zinc-400 dark:text-zinc-500" />
     </div>
 
     <!-- Right Side Actions -->
@@ -60,7 +53,11 @@
       <div class="flex items-center gap-2 sm:gap-3 md:gap-5">
         <app-navbar-action-button [icon]="Heart" />
 
-        <app-navbar-action-button [icon]="ShoppingCart" [count]="cartCount()" />
+        <app-navbar-action-button
+          [icon]="ShoppingCart"
+          [count]="cartCount()"
+          type="link"
+          [link]="cartLink()" />
 
         <app-navbar-action-button [icon]="Bell" [count]="notificationCount()" />
       </div>
