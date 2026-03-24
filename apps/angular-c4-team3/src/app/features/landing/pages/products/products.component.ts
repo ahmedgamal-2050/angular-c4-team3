@@ -82,16 +82,53 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
+  // getAllProducts() {
+  //   const sub = this._productService
+  //     .getAllProducts(this.metaData().currentPage)
+  //     .subscribe(res => {
+  //       this.products.set(res.products.filter(p => p.quantity > 0));
+  //       this.metaData.set(res.metadata);
+  //       this.first.set((this.metaData().currentPage - 1) * this.metaData().limit);
+  //     });
+  //   this.subscription.add(sub);
+  // }
+  getFilters() {
+  return {
+    category: this.categories().find(c => c.selected)?._id,
+    occasion: this.occasions().find(o => o.selected)?._id,
+    priceFrom: this.priceFrom(),
+    priceTo: this.priceTo(),
+    rating: this.ratingValue(),
+  };
+}
+onFilterChange() {
+  // نرجع لأول صفحة
+  this.metaData.set({
+    ...this.metaData(),
+    currentPage: 1
+  });
+
+  this.getAllProducts();
+}
   getAllProducts() {
-    const sub = this._productService
-      .getAllProducts(this.metaData().currentPage)
-      .subscribe(res => {
-        this.products.set(res.products.filter(p => p.quantity > 0));
-        this.metaData.set(res.metadata);
-        this.first.set((this.metaData().currentPage - 1) * this.metaData().limit);
-      });
-    this.subscription.add(sub);
-  }
+  const filters = this.getFilters();
+
+  const sub = this._productService
+    .getAllProducts(
+      this.metaData().currentPage,
+      this.metaData().limit,
+      filters
+    )
+    .subscribe(res => {
+      console.log('Applied Filters:', filters);
+      this.products.set(res.products.filter(p => p.quantity > 0));
+      console.log('Received Metadata:', res.metadata);
+      this.metaData.set(res.metadata);
+      this.first.set((this.metaData().currentPage - 1) * this.metaData().limit);
+    });
+
+  this.subscription.add(sub);
+}
 
   onPageChange(event: PaginatorState) {
     if (event) {
