@@ -126,7 +126,7 @@
   "remove": "حذف",
   "empty_wishlist": "قائمة رغباتك فارغة، هل تود تجربة التسوق؟",
   "egp":"جنيه مصري",
-  "add_cart":"اضف للعربهة"
+  "add_cart":"اضف للعربهة",
   "your_rating":"رايك",
   "testimonials_title":"اراء العملاء",
   "description_testimonials":"اراء حقيقية من عملاء سعداء",
@@ -146,5 +146,13 @@
   "cart_currency": "جنيه مصري",
   "cart_rating": "التقييم",
   "cart_rating_count": "تقييمات",
-  "add_to_cart": "أضف إلى السلة"
+  "add_to_cart": "أضف إلى السلة",
+  "Category": "الفئة",
+  "Occasion": "المناسبة",
+  "Reset_All": "إعادة تعيين الجميع",
+  "Reset": "إعادة تعيين",
+  "Price_only": "السعر",
+  "Rating_only": "التقييم",
+  "from": "من",
+  "to": "إلى"
 }
