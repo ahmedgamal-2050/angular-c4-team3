@@ -10,6 +10,7 @@ import { PaginatorModule, PaginatorPassThrough, PaginatorState } from 'primeng/p
 import { ApiMetaData } from '../../../../core/models/general.model';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
 import { CategoryWithIcon, OccasionWithSelected } from './services/product-filters.model';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-products',
@@ -20,6 +21,7 @@ import { CategoryWithIcon, OccasionWithSelected } from './services/product-filte
     FormsModule,
     PaginatorModule,
     ProductFiltersComponent,
+    TranslocoPipe
   ],
   templateUrl: './products.component.html',
 })

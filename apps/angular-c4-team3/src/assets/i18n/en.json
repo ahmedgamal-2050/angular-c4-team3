@@ -152,12 +152,13 @@
   "cart_rating": "Rating",
   "cart_rating_count": "ratings",
   "add_to_cart": "Add to Cart",
-  "Category": "Category",
-  "Occasion": "Occasion",
-  "Reset_All": "Reset All",
-  "Reset": "Reset",
-  "Price_only": "Price",
-  "Rating_only": "Rating",
+  "category": "Category",
+  "occasion_filter": "Occasion",
+  "reset_all": "Reset All",
+  "reset": "Reset",
+  "price_only": "Price",
+  "rating_only": "Rating",
   "from": "From",
-  "to": "To"
+  "to": "To",
+  "no_products_found": "No products found"
 }

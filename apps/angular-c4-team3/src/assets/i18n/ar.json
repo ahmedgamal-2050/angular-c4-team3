@@ -147,12 +147,13 @@
   "cart_rating": "التقييم",
   "cart_rating_count": "تقييمات",
   "add_to_cart": "أضف إلى السلة",
-  "Category": "الفئة",
-  "Occasion": "المناسبة",
-  "Reset_All": "إعادة تعيين الجميع",
-  "Reset": "إعادة تعيين",
-  "Price_only": "السعر",
-  "Rating_only": "التقييم",
+  "category": "الفئة",
+  "occasion_filter": "المناسبة",
+  "reset_all": "إعادة تعيين الجميع",
+  "reset": "إعادة تعيين",
+  "price_only": "السعر",
+  "rating_only": "التقييم",
   "from": "من",
-  "to": "إلى"
+  "to": "إلى",
+  "no_products_found": "لم يتم العثور على منتجات"
 }
