@@ -15,4 +15,7 @@ export const ENDPOINTS = {
   DELETE_CART: `${BASE_URL}/cart/{cartItemId}`,
   CLEAR_CART: `${BASE_URL}/cart`,
   GET_RELATED_PRODUCTS_BY_USER_ID: `${BASE_URL}/related/recommendations/{userId}`,
+  GET_ALL_CATEGORIES: `${BASE_URL}/categories`,
+  GET_ALL_OCCASIONS: `${BASE_URL}/occasions`
+
 } as const;

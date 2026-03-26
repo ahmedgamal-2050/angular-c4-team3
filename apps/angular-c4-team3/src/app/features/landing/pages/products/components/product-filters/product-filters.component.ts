@@ -1,48 +1,99 @@
-import { Component, input, signal } from '@angular/core';
-import { LucideAngularModule, X, RefreshCcw, Image as ImageIcon, Gift, Flower2, Star } from 'lucide-angular';
+import { Component, Input, Output, EventEmitter, signal, OnInit, WritableSignal } from '@angular/core';
 import { RatingModule, RatingPassThrough } from 'primeng/rating';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
+import { CategoryWithIcon, OccasionWithSelected } from '../../services/product-filters.model';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { Product } from '../../../home/home.model';
+import { ProductCardComponent } from "apps/angular-c4-team3/src/app/shared/components/product-card/product-card.component";
 
 @Component({
   selector: 'app-product-filters',
-  imports: [LucideAngularModule, RatingModule, InputTextModule, FormsModule],
+  standalone: true,
+  imports: [RatingModule, InputTextModule, FormsModule, TranslocoPipe, ProductCardComponent],
   templateUrl: './product-filters.component.html',
-  styleUrl: './product-filters.component.css',
+  styleUrls: ['./product-filters.component.css'],
 })
-export class ProductFiltersComponent {
-  readonly X = X;
-  readonly RefreshCcw = RefreshCcw;
-  readonly ImageIcon = ImageIcon;
-  readonly Gift = Gift;
-  readonly Flower2 = Flower2;
-  readonly Star = Star;
+export class ProductFiltersComponent implements OnInit {
 
-  categories = input([
-    { id: 1, name: 'Cards', icon: this.ImageIcon, selected: true },
-    { id: 2, name: 'Chocolate', icon: this.Gift, selected: false },
-    { id: 3, name: 'Flowers', icon: this.Flower2, selected: false },
-    { id: 4, name: 'Cards', icon: this.ImageIcon, selected: false },
-    { id: 5, name: 'Chocolate', icon: this.Gift, selected: false },
-    { id: 6, name: 'Cards', icon: this.ImageIcon, selected: false },
-  ]);
+  @Input() categories!: WritableSignal<CategoryWithIcon[]>;
+  @Input() occasions!: WritableSignal<OccasionWithSelected[]>;
+  @Input() ratingValue!: WritableSignal<number>;
+  @Input() priceFrom!: WritableSignal<number | null>;
+  @Input() priceTo!: WritableSignal<number | null>;
 
-  occasions = input([
-    { id: 1, name: 'Wedding', image: 'assets/images/wedding.jpg', selected: false },
-    { id: 2, name: 'Apology', image: 'assets/images/apology.jpg', selected: false },
-    { id: 3, name: 'Graduation', image: 'assets/images/graduation.jpg', selected: false },
-    { id: 4, name: 'Wedding', image: 'assets/images/wedding2.jpg', selected: false },
-    { id: 5, name: "Father's Day", image: 'assets/images/fathers-day.jpg', selected: false },
-    { id: 6, name: 'Graduation', image: 'assets/images/graduation2.jpg', selected: false },
-  ]);
-
-  ratingValue = input(0);
-  priceFrom = input<number | null>(null);
-  priceTo = input<number | null>(null);
-
+  @Output() filterChange = new EventEmitter<void>();
+  
   ratingPassThrough = signal<RatingPassThrough>({
-    root: {
-      class: 'gap-1!'
-    },
-  })
+    root: { class: 'gap-1!' },
+  });
+
+  ngOnInit() {}
+
+  // ✅ Category (Immutable update)
+  selectCategory(cat: CategoryWithIcon) {
+    this.categories.set(
+      this.categories().map(c => ({
+        ...c,
+        selected: c._id === cat._id
+      }))
+    );
+
+    this.filterChange.emit();
+  }
+
+  // ✅ Occasion (Immutable update)
+  selectOccasion(occ: OccasionWithSelected) {
+    this.occasions.set(
+      this.occasions().map(o => ({
+        ...o,
+        selected: o._id === occ._id
+      }))
+    );
+
+    this.filterChange.emit();
+  }
+
+  // ✅ Rating
+  onRatingChange() {
+    this.filterChange.emit();
+  }
+
+  // ✅ Price
+  onPriceChange() {
+    this.filterChange.emit();
+  }
+
+  // ✅ Reset Categories فقط
+  resetCategories() {
+    this.categories.set(
+      this.categories().map(c => ({ ...c, selected: false }))
+    );
+    this.filterChange.emit();
+  }
+
+  // ✅ Reset Occasions فقط
+  resetOccasions() {
+    this.occasions.set(
+      this.occasions().map(o => ({ ...o, selected: false }))
+    );
+    this.filterChange.emit();
+  }
+
+  // ✅ Reset All
+  resetAll() {
+    this.categories.set(
+      this.categories().map(c => ({ ...c, selected: false }))
+    );
+
+    this.occasions.set(
+      this.occasions().map(o => ({ ...o, selected: false }))
+    );
+
+    this.ratingValue.set(0);
+    this.priceFrom.set(null);
+    this.priceTo.set(null);
+
+    this.filterChange.emit();
+  }
 }

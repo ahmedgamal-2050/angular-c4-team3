@@ -151,5 +151,14 @@
   "cart_currency": "EGP",
   "cart_rating": "Rating",
   "cart_rating_count": "ratings",
-  "add_to_cart": "Add to Cart"
+  "add_to_cart": "Add to Cart",
+  "category": "Category",
+  "occasion_filter": "Occasion",
+  "reset_all": "Reset All",
+  "reset": "Reset",
+  "price_only": "Price",
+  "rating_only": "Rating",
+  "from": "From",
+  "to": "To",
+  "no_products_found": "No products found"
 }
