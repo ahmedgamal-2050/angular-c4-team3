@@ -8,6 +8,8 @@ import { MessageService } from 'primeng/api';
 import { ProductItemsSectionComponent } from './components/product-items-section/product-items-section.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { ProductRelatedComponent } from '../product-details/components/product-related/product-related.component';
+import { CouponService } from './services/copuon.service';
+
 
 @Component({
   selector: 'app-cart',
@@ -23,6 +25,7 @@ export class CartComponent implements OnInit, OnDestroy {
   private _cartService = inject(CartService);
   private _loggedInService = inject(LoggedInService);
   private _messageService = inject(MessageService);
+  private _couponService = inject(CouponService); 
 
   isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
   userId = computed(() => this._loggedInService.user()?._id || '');
@@ -127,7 +130,11 @@ export class CartComponent implements OnInit, OnDestroy {
 
   handleCartSuccess(response: CartResponse) {
     this._cartService.cartItems.set(response.cart.cartItems);
-    this._cartService.discountPercentage.set(response.cart.discount || 0);
+
+    // ⚠️ مهم: خليها amount مش percentage لو backend بيرجع رقم ثابت
+    this._cartService.discountPercentage.set(
+      response.cart.discount || 0
+    );
   }
 
   handleCartError(err: { originalError: { error: { error: string } } }) {
@@ -138,9 +145,31 @@ export class CartComponent implements OnInit, OnDestroy {
     });
   }
 
+
   applyCoupon(couponCode: string) {
-    console.log('Apply coupon:', couponCode);
-    // Logic to apply coupon would go here
+    if (!couponCode) return;
+
+    const sub = this._couponService.applyCoupon(couponCode).subscribe({
+      next: (res) => {
+       
+        this._cartService.cartItems.set(res.cart.cartItems);
+
+      
+        this._cartService.discountPercentage.set(res.discountAmount);
+
+      
+        this._messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: res.message,
+        });
+      },
+      error: err => {
+        this.handleCartError(err);
+      },
+    });
+
+    this.subscription.add(sub);
   }
 
   checkout() {

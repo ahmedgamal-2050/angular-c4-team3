@@ -45,7 +45,7 @@
     </div>
 
     <!-- Optional Discount Line (matching Figma design '50% Discount') -->
-    @if (discountPercentage() > 0) {
+    @if (discountAmount() > 0) {
       <div class="flex items-center relative py-2">
         <div
           class="w-full border-t border-zinc-200 dark:border-zinc-700 absolute inset-y-1/2"></div>
@@ -54,7 +54,7 @@
           class="mx-auto px-2 relative bg-zinc-50 dark:bg-zinc-800/50 text-xs font-bold text-zinc-900 dark:text-white">
           {{
             'cart_discount'
-              | transloco: { discount: discountPercentage() * 100 }
+              | transloco: { discount: discountAmount() * 100 }
           }}
         </div>
       </div>

@@ -23,7 +23,9 @@ export class CartSummaryComponent {
 
   subtotal = input<number>(0);
   total = input<number>(0);
-  discountPercentage = input<number>(0);
+
+  discountAmount = input<number>(0);
+
   applyCoupon = output<string>();
   checkout = output<void>();
 
@@ -33,8 +35,14 @@ export class CartSummaryComponent {
 
   handleApplyCoupon() {
     if (this.couponForm.valid) {
-      console.log('Apply coupon:', this.couponForm.value.couponCode);
-      this.applyCoupon.emit(this.couponForm.value.couponCode);
+      const code = this.couponForm.value.couponCode?.trim();
+
+      if (!code) return; // ✅ منع الإرسال لو فاضي
+
+      this.applyCoupon.emit(code);
+
+      // ✅ اختيارية: تفريغ الانبوت بعد التطبيق
+      this.couponForm.reset();
     }
   }
 
