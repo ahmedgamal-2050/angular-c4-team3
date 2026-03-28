@@ -67,7 +67,7 @@
                 </p>
               </div>
 
-              <div class="flex gap-2">
+              <div class="flex gap-2 flex-wrap">
                 <!-- Remove Button -->
                 <shared-ui-button
                   [label]="'add_cart' | transloco"
@@ -95,12 +95,6 @@
                 class="font-medium text-sm sm:text-base text-zinc-800 dark:text-white flex-shrink-0">
                 {{ item.price }} {{ 'egp' | transloco }}
               </p>
-
-              <input
-                type="text"
-                value="1"
-                disabled
-                class="w-16 sm:w-20 h-8 sm:h-10 text-center border border-zinc-300 rounded-lg py-1 text-zinc-400 text-xs sm:text-sm font-medium" />
             </div>
           </div>
         </div>

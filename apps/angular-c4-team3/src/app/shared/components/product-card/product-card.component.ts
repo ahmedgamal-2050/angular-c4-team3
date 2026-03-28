@@ -47,16 +47,20 @@ export class ProductCardComponent implements OnDestroy {
   private navbarRoutingService = inject(NavbarRoutingService);
   private _cartService = inject(CartService);
   private _messageService = inject(MessageService);
-  
+
   product = input.required<Product>();
 
   addToCart = output<Product>();
   wishlist = output<Product>();
   quickView = output<Product>();
 
-  private _isInWishlist = signal(false);  
+  private _isInWishlist = signal(false);
   isCartLoading = signal(false);
-  isInWishlist = this._isInWishlist.asReadonly();
+  isInWishlist = computed(() => {
+  return this._cartService.wishListItems().some(
+    item => item._id === this.product()._id
+  );
+});
 
   maxQuantity = computed(() => {
     const cartProduct = this._cartService
@@ -122,6 +126,10 @@ export class ProductCardComponent implements OnDestroy {
       .subscribe((res?: WishListResponse) => {
         if (res) this._isInWishlist.set(true);
       });
+    this._cartService.addToWishlist({
+      ...this.product(),
+      quantity: 1,
+    });
   }
 
   deleteWishListItem(id: string) {
@@ -130,5 +138,6 @@ export class ProductCardComponent implements OnDestroy {
       .subscribe((res?: WishListResponse) => {
         if (res) this._isInWishlist.set(false);
       });
+    this._cartService.removeFromWishlist(id);
   }
 }

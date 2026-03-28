@@ -75,19 +75,25 @@ export class WishlistComponent implements OnInit {
 
   // ================= Actions =================
 
-  deleteWishListItem(id: string): void {
-    this.navbarRoutingService
-      .deleteWishListItem(id)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.refresh$.next());
-  }
+deleteWishListItem(id: string): void {
+  this.navbarRoutingService
+    .deleteWishListItem(id)
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(() => {
+      this.cartService.removeFromWishlist(id);
+      this.refresh$.next();
+    });
+}
 
-  clearAllWishListItem(): void {
-    this.navbarRoutingService
-      .clearAllWishListItem()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(() => this.refresh$.next());
-  }
+clearAllWishListItem(): void {
+  this.navbarRoutingService
+    .clearAllWishListItem()
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(() => {
+      this.cartService.wishListItems.set([]);
+      this.refresh$.next();
+    });
+}
 
   addToCart(id: string): void {
     this.isCartLoading.set(true);

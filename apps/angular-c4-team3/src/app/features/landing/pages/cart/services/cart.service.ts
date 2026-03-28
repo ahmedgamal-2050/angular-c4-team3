@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject } from '@angular/core';
+import { Injectable, signal, computed, inject, effect } from '@angular/core';
 import { CartItem, CartResponse } from '../cart.model';
 import { HttpClient } from '@angular/common/http';
 import { ENDPOINTS } from '../../../../../shared/constants/endpoints';
@@ -10,9 +10,10 @@ export class CartService {
   private _http = inject(HttpClient);
 
   cartItems = signal<CartItem[]>([]);
-
+  wishListItems = signal<CartItem[]>([]);
   // Computed values
   cartCount = computed(() => this.cartItems().length);
+  wishListCount = computed(() => this.wishListItems().length);
   subtotal = computed<number>(() =>
     this.cartItems().reduce((sum, item) => sum + item.price * item.quantity, 0)
   );
@@ -24,6 +25,11 @@ export class CartService {
     return sub - sub * this.discountPercentage();
   });
 
+  constructor() {
+    effect(() => {
+      localStorage.setItem('wishlist', JSON.stringify(this.wishListItems()));
+    });
+  }
   updateQuantity(id: string, newQuantity: number) {
     if (newQuantity < 1) return;
     this.cartItems.update(items =>
@@ -56,5 +62,18 @@ export class CartService {
   clearCart() {
     const url = ENDPOINTS.CLEAR_CART;
     return this._http.delete(url);
+  }
+
+  addToWishlist(item: any) {
+    this.wishListItems.update(items => {
+      const exists = items.find(i => i._id === item._id);
+      if (exists) return items;
+
+      return [...items, item];
+    });
+  }
+
+  removeFromWishlist(id: string) {
+    this.wishListItems.update(items => items.filter(item => item._id !== id));
   }
 }
