@@ -56,7 +56,7 @@ export class TopNavbarComponent {
   isLoggedIn = this._LoggedInService.isLoggedIn;
   user = this._LoggedInService.user;
   cartCount = computed(() => this._cartService.cartCount());
-
+  wishListCount=computed(() => this._cartService.wishListCount());
   updateSearch(event: Event) {
     const input = event.target as HTMLInputElement;
     this.searchQuery.set(input.value);
