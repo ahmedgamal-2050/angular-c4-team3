@@ -155,5 +155,8 @@
   "rating_only": "التقييم",
   "from": "من",
   "to": "إلى",
-  "no_products_found": "لم يتم العثور على منتجات"
+    "products_like": "المنتجات التي قد تعجبك",
+  "shipping_address": "عنوان الشحن",
+    "next": "التالي",
+  "add_address": "إضافة عنوان جديد"
 }

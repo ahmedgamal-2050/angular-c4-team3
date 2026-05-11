@@ -160,5 +160,9 @@
   "rating_only": "Rating",
   "from": "From",
   "to": "To",
-  "no_products_found": "No products found"
+  "products_like" :"Products You May Like",
+  "shipping_address":"Shipping Address",
+  "next":"Next",
+  "add_address" :"Add a New Address"
+
 }

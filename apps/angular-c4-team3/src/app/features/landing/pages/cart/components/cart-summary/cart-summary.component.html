@@ -73,6 +73,7 @@
 </div>
 
 <!-- Checkout Button -->
+ @if(showButton()){
 <div class="mt-4">
   <shared-ui-button
     class="w-full"
@@ -83,3 +84,4 @@
     buttonClass="bg-maroon-600 dark:bg-soft-pink-200 hover:bg-maroon-700 dark:hover:bg-soft-pink-300 text-white dark:text-zinc-800 py-6 text-lg font-medium"
     (clicked)="handleCheckout()" />
 </div>
+ }
