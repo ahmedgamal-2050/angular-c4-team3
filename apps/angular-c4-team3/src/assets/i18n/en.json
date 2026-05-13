@@ -161,8 +161,13 @@
   "from": "From",
   "to": "To",
   "products_like" :"Products You May Like",
-  "shipping_address":"Shipping Address",
-  "next":"Next",
-  "add_address" :"Add a New Address"
+  "or": "OR",
+  "back": "Back",
+  "payment_method": "Payment Method",
+  "cash_on_delivery": "Cash on Delivery",
+  "cash_on_delivery_desc": "You'll pay in cash when your order is delivered.",
+  "credit_card": "Credit Card",
+  "credit_card_desc": "You'll be securely redirected to Stripe to complete your payment.",
+  "checkout": "Checkout"
 
 }

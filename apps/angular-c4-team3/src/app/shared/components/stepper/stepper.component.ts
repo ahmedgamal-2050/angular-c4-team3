@@ -1,21 +1,22 @@
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslocoModule } from '@jsverse/transloco';
 import {  ArrowRight } from 'lucide-angular';
 
 @Component({
   selector: 'app-stepper',
-  imports: [ButtonComponent,TranslocoModule],
+  imports: [ButtonComponent,TranslocoModule,CommonModule],
   templateUrl: './stepper.component.html',
   styleUrl: './stepper.component.css',
 })
 export class StepperComponent {
 
   readonly Ticket =ArrowRight ;
-  submit(){
-    console.log("submit");
-
-  }
+  currentStep=1
+  submit() {
+  this.currentStep = 2;
+}
   // shipping-address.component.ts
 
 addresses = [
