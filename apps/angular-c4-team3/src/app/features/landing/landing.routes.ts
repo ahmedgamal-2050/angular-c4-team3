@@ -8,4 +8,6 @@ export const landingRoutes: Route[] = [
   { path: `${APP_ROUTES.LANDING.PRODUCT_DETAILS}/:id`, loadComponent: () => import('./pages/product-details/product-details.component').then((m) => m.ProductDetailsComponent) },
   { path: `${APP_ROUTES.LANDING.WISHLIST}`, loadComponent: () => import('./pages/wishlist/wishlist/wishlist.component').then((m) => m.WishlistComponent) },
   { path: APP_ROUTES.LANDING.CART, loadComponent: () => import('./pages/cart/cart.component').then((m) => m.CartComponent) },
+  { path: APP_ROUTES.LANDING.SHIPPING, loadComponent: () => import('./pages/shipping-page/components/shipping/shipping.component').then((m) => m.ShippingComponent) },
+
 ];

@@ -1,9 +1,12 @@
-import { Component, inject, input, output } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { InputComponent } from '../../../../../../shared/components/form-components/input/input.component';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { TicketPercent, MoveRight } from 'lucide-angular';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { APP_ROUTES } from 'apps/angular-c4-team3/src/app/shared/constants/app-routes';
 
 @Component({
   selector: 'app-cart-summary',
@@ -20,10 +23,10 @@ export class CartSummaryComponent {
   readonly MoveRight = MoveRight;
 
   fb = inject(FormBuilder);
-
+  private router =inject(Router)
   subtotal = input<number>(0);
   total = input<number>(0);
-
+  showButton = input<boolean>(true);
   discountAmount = input<number>(0);
 
   applyCoupon = output<string>();
@@ -48,5 +51,7 @@ export class CartSummaryComponent {
 
   handleCheckout() {
     this.checkout.emit();
+    this.router.navigate([ `/${APP_ROUTES.LANDING.ROOT}/${APP_ROUTES.LANDING.SHIPPING}`])
+
   }
 }

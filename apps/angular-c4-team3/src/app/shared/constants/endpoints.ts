@@ -1,5 +1,5 @@
 export const BASE_URL = 'https://flower.elevateegy.com/api/v1';
-
+export const NEW_BASE_URL = 'https://rose-app.elevate-bootcamp.cloud/api';
 export const ENDPOINTS = {
   HOME: `${BASE_URL}/home`,
   REVIEWS: `${BASE_URL}/reviews`,
@@ -17,6 +17,7 @@ export const ENDPOINTS = {
   GET_RELATED_PRODUCTS_BY_USER_ID: `${BASE_URL}/related/recommendations/{userId}`,
   GET_ALL_CATEGORIES: `${BASE_URL}/categories`,
   GET_ALL_OCCASIONS: `${BASE_URL}/occasions`,
-  APPLY_COUPON: `${BASE_URL}/coupons/apply`
+  APPLY_COUPON: `${BASE_URL}/coupons/apply`,
+  MAY_LIKE_PRODACTS:`${NEW_BASE_URL}/products`
 
 } as const;

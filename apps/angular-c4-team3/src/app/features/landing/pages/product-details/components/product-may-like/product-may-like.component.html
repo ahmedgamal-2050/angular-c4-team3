@@ -1,0 +1,15 @@
+<section class="py-10">
+  <div class="my-4">
+    <div class="mb-2.5">
+      <app-styled-home-title [title]="'products_like' | transloco" />
+    </div>
+  </div>
+
+  @if (products() && products().length) {
+    <div class="slider">
+      <app-slider [products]="products()" />
+    </div>
+  } @else {
+    <p>{{ 'no_products_found' | transloco }}</p>
+  }
+</section>

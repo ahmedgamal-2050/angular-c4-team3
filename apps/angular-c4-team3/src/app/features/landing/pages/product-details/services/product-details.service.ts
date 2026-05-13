@@ -44,4 +44,9 @@ export class ProductDetailsService {
     );
     return this._http.get(url);
   }
+
+    getMayLikeProducts(page?: number,limit ?:number) {
+    return this._http.get(`${ENDPOINTS.MAY_LIKE_PRODACTS}/?page=${page}&limit=${limit}`);
+  }
+
 }

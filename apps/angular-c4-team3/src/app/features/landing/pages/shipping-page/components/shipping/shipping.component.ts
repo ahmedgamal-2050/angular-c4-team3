@@ -1,27 +1,28 @@
 import { Component, inject, OnInit, OnDestroy, computed } from '@angular/core';
-import { CartService } from './services/cart.service';
-import { CartSummaryComponent } from './components/cart-summary/cart-summary.component';
-import { Subscription } from 'rxjs';
-import { LoggedInService } from '../../../../shared/services/logged-in.service';
-import { CartResponse } from './cart.model';
-import { MessageService } from 'primeng/api';
-import { ProductItemsSectionComponent } from './components/product-items-section/product-items-section.component';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { CouponService } from './services/copuon.service';
-import { ProductMayLikeComponent } from '../product-details/components/product-may-like/product-may-like.component';
-
-
+import { CartSummaryComponent } from '../../../cart/components/cart-summary/cart-summary.component';
+import { ProductItemsSectionComponent } from '../../../cart/components/product-items-section/product-items-section.component';
+import { ProductMayLikeComponent } from '../../../product-details/components/product-may-like/product-may-like.component';
+import { CartService } from '../../../cart/services/cart.service';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { LoggedInService } from 'apps/angular-c4-team3/src/app/shared/services/logged-in.service';
+import { MessageService } from 'primeng/api';
+import { CouponService } from '../../../cart/services/copuon.service';
+import { Subscription } from 'rxjs';
+import { CartResponse } from '../../../cart/cart.model';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import { StepperComponent } from 'apps/angular-c4-team3/src/app/shared/components/stepper/stepper.component';
 @Component({
-  selector: 'app-cart',
-  imports: [
-    TranslocoPipe,
+  selector: 'app-shipping',
+  imports: [   TranslocoPipe,
     CartSummaryComponent,
     ProductItemsSectionComponent,
-    ProductMayLikeComponent
-  ],
-  templateUrl: './cart.component.html',
+    ProductMayLikeComponent,
+  StepperComponent],
+  templateUrl: './shipping.component.html',
+  styleUrl: './shipping.component.css',
 })
-export class CartComponent implements OnInit, OnDestroy {
+export class ShippingComponent implements OnInit, OnDestroy {
   private _cartService = inject(CartService);
   private _loggedInService = inject(LoggedInService);
   private _messageService = inject(MessageService);

@@ -10,6 +10,7 @@ export const APP_ROUTES = {
         ABOUT: 'about',
         WISHLIST:'Wishlist',
         CART: 'cart',
+        SHIPPING:'shipping'
     },
     AUTH: {
         ROOT: 'auth',
