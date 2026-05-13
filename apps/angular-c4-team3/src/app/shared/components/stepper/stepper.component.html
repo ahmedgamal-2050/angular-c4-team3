@@ -133,7 +133,7 @@
 
   </div>
 
-  <button class="w-full py-5 rounded-2xl bg-rose-50 text-maroon-600 font-semibold hover:bg-rose-100 transition">
+  <button (click)="isAddressModalOpen=true" class="w-full py-5 rounded-2xl bg-rose-50 text-maroon-600 font-semibold hover:bg-rose-100 transition">
     {{ 'add_address' | transloco }}
   </button>
 
@@ -219,5 +219,14 @@
   </div>
 
   }
+  <!-- ⭐ Add Address Modal -->
+<app-add-address-dialog
+  [isOpen]="isAddressModalOpen"
+  [addresses]="addresses"
+  (closed)="closeAddressModal()"
+  (addressAdded)="handleAddressAdded($event)"
+  (addressUpdated)="handleAddressUpdated($event)"
+  (addressDeleted)="handleAddressDeleted($event)">
+</app-add-address-dialog>
 
 </div>

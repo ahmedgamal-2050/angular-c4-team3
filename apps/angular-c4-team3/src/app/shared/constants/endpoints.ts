@@ -18,6 +18,7 @@ export const ENDPOINTS = {
   GET_ALL_CATEGORIES: `${BASE_URL}/categories`,
   GET_ALL_OCCASIONS: `${BASE_URL}/occasions`,
   APPLY_COUPON: `${BASE_URL}/coupons/apply`,
-  MAY_LIKE_PRODACTS:`${NEW_BASE_URL}/products`
+  MAY_LIKE_PRODACTS:`${NEW_BASE_URL}/products`,
+  ADDRESS:`${NEW_BASE_URL}/addresses`,
 
 } as const;
