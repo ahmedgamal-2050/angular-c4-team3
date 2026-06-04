@@ -1,7 +1,5 @@
 import { Component, inject, OnInit, OnDestroy, computed } from '@angular/core';
-import { TranslocoPipe } from '@jsverse/transloco';
 import { CartSummaryComponent } from '../../../cart/components/cart-summary/cart-summary.component';
-import { ProductItemsSectionComponent } from '../../../cart/components/product-items-section/product-items-section.component';
 import { ProductMayLikeComponent } from '../../../product-details/components/product-may-like/product-may-like.component';
 import { CartService } from '../../../cart/services/cart.service';
 // eslint-disable-next-line @nx/enforce-module-boundaries
@@ -14,11 +12,11 @@ import { CartResponse } from '../../../cart/cart.model';
 import { StepperComponent } from 'apps/angular-c4-team3/src/app/shared/components/stepper/stepper.component';
 @Component({
   selector: 'app-shipping',
-  imports: [   TranslocoPipe,
+  imports: [
     CartSummaryComponent,
-    ProductItemsSectionComponent,
     ProductMayLikeComponent,
-  StepperComponent],
+    StepperComponent
+  ],
   templateUrl: './shipping.component.html',
   styleUrl: './shipping.component.css',
 })
