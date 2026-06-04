@@ -1,42 +1,24 @@
-import { ButtonComponent } from '@angular-c4-team3/shared-design';
-import { Component, signal } from '@angular/core';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { ArrowRight } from 'lucide-angular';
-import { AddressCardComponent } from '../address-card/address-card.component';
-import { ADDRESSES_DUMMY_DATA } from '../address-card/address.constants';
-import { Address } from '../address-card/address.model';
-import { AddressModalComponent } from '../address-modal/address-modal.component';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-stepper',
-  imports: [
-    ButtonComponent,
-    TranslocoPipe,
-    AddressCardComponent,
-    AddressModalComponent,
-  ],
+  imports: [],
   templateUrl: './stepper.component.html',
 })
 export class StepperComponent {
-  readonly ArrowRight = ArrowRight;
+  totalSteps = input<number>(2);
+  currentActiveStep = input<number>(1);
 
-  isAddAddressModalOpened = signal<boolean>(false);
-  addresses = signal<Address[]>([]);
+  steps = computed(() => {
+    const total = this.totalSteps();
+    return Array.from({ length: total }, (_, i) => i + 1);
+  });
 
-  submit() {
-    console.log('submit');
-  }
-
-  selectAddress(id: number) {
-    this.addresses.update(prev =>
-      prev.map(item => ({
-        ...item,
-        selected: item.id === id,
-      }))
-    );
-  }
-
-  openAddAddressModal() {
-    this.isAddAddressModalOpened.set(true);
-  }
+  activeLineWidth = computed(() => {
+    const total = this.totalSteps();
+    const current = this.currentActiveStep();
+    if (total <= 1) return 0;
+    const activeCount = Math.min(Math.max(1, current), total);
+    return (activeCount / (total + 1)) * 100;
+  });
 }

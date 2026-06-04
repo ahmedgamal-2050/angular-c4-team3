@@ -1,4 +1,11 @@
-import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { CartSummaryComponent } from '../cart/components/cart-summary/cart-summary.component';
 import { ProductMayLikeComponent } from '../product-details/components/product-may-like/product-may-like.component';
 import { StepperComponent } from '../../../../shared/components/stepper/stepper.component';
@@ -8,10 +15,16 @@ import { MessageService } from 'primeng/api';
 import { CouponService } from '../cart/services/copuon.service';
 import { Subscription } from 'rxjs';
 import { CartResponse } from '../cart/cart.model';
+import { ShippingAddressComponent } from './components/shipping-address/shipping-address.component';
 
 @Component({
   selector: 'app-checkout',
-  imports: [CartSummaryComponent, ProductMayLikeComponent, StepperComponent],
+  imports: [
+    CartSummaryComponent,
+    ProductMayLikeComponent,
+    StepperComponent,
+    ShippingAddressComponent,
+  ],
   templateUrl: './checkout.component.html',
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
@@ -20,6 +33,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   private _messageService = inject(MessageService);
   private _couponService = inject(CouponService);
 
+  currentActiveStep = signal<number>(1);
+
   isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
   userId = computed(() => this._loggedInService.user()?._id || '');
   cartItems = computed(() => this._cartService.cartItems());
@@ -27,7 +42,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   subtotal = computed(() => this._cartService.subtotal());
   total = computed(() => this._cartService.total());
   discountPercentage = computed(() => this._cartService.discountPercentage());
-
   subscription = new Subscription();
 
   ngOnInit(): void {

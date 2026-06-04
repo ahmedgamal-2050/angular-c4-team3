@@ -1,81 +1,32 @@
-<div class="mx-auto p-6 min-h-screen">
-  <!-- Progress -->
-  <div class="mb-5">
-    <div class="relative flex items-center justify-between">
-      <!-- line -->
-      <div
-        class="absolute top-1/2 left-0 w-full h-1 bg-zinc-200 -translate-y-1/2"></div>
+<!-- Progress -->
+<div class="mb-5">
+  <div class="relative flex items-center justify-between">
+    <!-- line -->
+    <div
+      class="absolute top-1/2 left-0 w-full h-1 bg-zinc-200 -translate-y-1/2"></div>
 
-      <!-- active line -->
-      <div
-        class="absolute top-1/2 left-0 w-[33%] h-1 bg-maroon-600 -translate-y-1/2"></div>
+    <div
+      class="relative text-zinc-500 text-sm flex items-center justify-center"></div>
 
+    <!-- active line -->
+    <div
+      class="absolute top-1/2 left-0 h-1 bg-maroon-600 -translate-y-1/2 transition-all duration-300"
+      [style.width.%]="activeLineWidth()"></div>
+
+    @for (step of steps(); track step) {
+      <!-- step circle -->
       <div
-        class="relative z-10 text-zinc-500 text-sm flex items-center justify-center"></div>
-      <!-- step 1 -->
-      <div
-        class="relative z-10 w-7 h-7 rounded-full bg-maroon-600 text-white text-sm flex items-center justify-center">
-        1
+        class="relative z-10 w-7 h-7 rounded-full text-sm flex items-center justify-center transition-all duration-300"
+        [class.bg-maroon-600]="step <= currentActiveStep()"
+        [class.text-white]="step <= currentActiveStep()"
+        [class.font-bold]="step <= currentActiveStep()"
+        [class.bg-zinc-200]="step > currentActiveStep()"
+        [class.text-zinc-500]="step > currentActiveStep()">
+        {{ step }}
       </div>
-
-      <!-- step 2 -->
-      <div
-        class="relative z-10 w-7 h-7 rounded-full bg-zinc-200 text-zinc-500 text-sm flex items-center justify-center">
-        2
-      </div>
-
-      <div
-        class="relative z-10 text-zinc-500 text-sm flex items-center justify-center"></div>
-    </div>
-  </div>
-
-  <!-- title -->
-  <h2 class="text-3xl font-semibold text-zinc-800 dark:text-zinc-100 mb-8">
-    {{ 'shipping_address' | transloco }}
-  </h2>
-
-  <!-- Address Card -->
-  <div class="flex flex-col gap-4">
-    @for (address of addresses(); track address.id) {
-      <app-address-card
-        [address]="address"
-        [selected]="address.selected || false"
-        (cardClick)="selectAddress($event.id)">
-      </app-address-card>
     }
-  </div>
 
-  <!-- OR -->
-  @if (addresses().length) {
-    <div class="flex items-center gap-4 my-8">
-      <div class="flex-1 h-px bg-zinc-200"></div>
-
-      <span class="text-zinc-500 font-semibold">OR</span>
-
-      <div class="flex-1 h-px bg-zinc-200"></div>
-    </div>
-  }
-
-  <!-- Add Address -->
-  <button
-    type="button"
-    class="w-full py-5 rounded-2xl bg-rose-50 text-maroon-600 font-semibold hover:bg-rose-100 transition"
-    (click)="openAddAddressModal()">
-    {{ 'add_address' | transloco }}
-  </button>
-
-  <!-- Next Button -->
-  <div class="flex justify-end mt-14">
-    <shared-ui-button
-      [label]="'next' | transloco"
-      [type]="'submit'"
-      (clicked)="submit()"
-      [icon]="ArrowRight"
-      iconPosition="right" />
+    <div
+      class="relative z-10 text-zinc-500 text-sm flex items-center justify-center"></div>
   </div>
 </div>
-
-<app-address-modal
-  [addresses]="addresses()"
-  [isAddAddressModalOpened]="isAddAddressModalOpened()"
-  (selectAddress)="selectAddress($event)" />

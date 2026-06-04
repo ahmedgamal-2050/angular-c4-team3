@@ -2,7 +2,15 @@
   <div class="flex flex-col lg:flex-row gap-8">
     <!-- Left Side: Cart Items -->
     <div class="flex-1">
-      <app-stepper />
+      <div class="mx-auto p-6 min-h-screen">
+        <app-stepper [currentActiveStep]="currentActiveStep()" />
+
+        @if (currentActiveStep() === 1) {
+          <app-shipping-address (nextStep)="currentActiveStep.set(2)" />
+        } @else if (currentActiveStep() === 2) {
+          <p>Payment Method</p>
+        }
+      </div>
     </div>
 
     <!-- Right Side: Summary -->
