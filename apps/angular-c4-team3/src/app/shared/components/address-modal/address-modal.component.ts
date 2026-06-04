@@ -39,4 +39,8 @@ export class AddressModalComponent {
   onSelectAddress(id: number) {
     this.selectAddress.emit(id);
   }
+
+  switchMode(mode: AddressModalMode) {
+    this.addressMode.set(mode);
+  }
 }

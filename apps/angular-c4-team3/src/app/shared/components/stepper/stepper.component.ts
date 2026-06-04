@@ -16,10 +16,9 @@ import { AddressModalComponent } from '../address-modal/address-modal.component'
     AddressModalComponent,
   ],
   templateUrl: './stepper.component.html',
-  styleUrl: './stepper.component.css',
 })
 export class StepperComponent {
-  readonly Ticket = ArrowRight;
+  readonly ArrowRight = ArrowRight;
 
   isAddAddressModalOpened = signal<boolean>(false);
   addresses = signal<Address[]>([]);

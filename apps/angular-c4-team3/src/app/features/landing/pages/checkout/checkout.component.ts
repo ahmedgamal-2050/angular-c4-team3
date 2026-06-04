@@ -1,26 +1,20 @@
-import { Component, inject, OnInit, OnDestroy, computed } from '@angular/core';
-import { CartSummaryComponent } from '../../../cart/components/cart-summary/cart-summary.component';
-import { ProductMayLikeComponent } from '../../../product-details/components/product-may-like/product-may-like.component';
-import { CartService } from '../../../cart/services/cart.service';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { LoggedInService } from 'apps/angular-c4-team3/src/app/shared/services/logged-in.service';
+import { Component, computed, inject, OnDestroy, OnInit } from '@angular/core';
+import { CartSummaryComponent } from '../cart/components/cart-summary/cart-summary.component';
+import { ProductMayLikeComponent } from '../product-details/components/product-may-like/product-may-like.component';
+import { StepperComponent } from '../../../../shared/components/stepper/stepper.component';
+import { CartService } from '../cart/services/cart.service';
+import { LoggedInService } from '../../../../shared/services/logged-in.service';
 import { MessageService } from 'primeng/api';
-import { CouponService } from '../../../cart/services/copuon.service';
+import { CouponService } from '../cart/services/copuon.service';
 import { Subscription } from 'rxjs';
-import { CartResponse } from '../../../cart/cart.model';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { StepperComponent } from 'apps/angular-c4-team3/src/app/shared/components/stepper/stepper.component';
+import { CartResponse } from '../cart/cart.model';
+
 @Component({
-  selector: 'app-shipping',
-  imports: [
-    CartSummaryComponent,
-    ProductMayLikeComponent,
-    StepperComponent
-  ],
-  templateUrl: './shipping.component.html',
-  styleUrl: './shipping.component.css',
+  selector: 'app-checkout',
+  imports: [CartSummaryComponent, ProductMayLikeComponent, StepperComponent],
+  templateUrl: './checkout.component.html',
 })
-export class ShippingComponent implements OnInit, OnDestroy {
+export class CheckoutComponent implements OnInit, OnDestroy {
   private _cartService = inject(CartService);
   private _loggedInService = inject(LoggedInService);
   private _messageService = inject(MessageService);
@@ -131,9 +125,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     this._cartService.cartItems.set(response.cart.cartItems);
 
     // ⚠️ مهم: خليها amount مش percentage لو backend بيرجع رقم ثابت
-    this._cartService.discountPercentage.set(
-      response.cart.discount || 0
-    );
+    this._cartService.discountPercentage.set(response.cart.discount || 0);
   }
 
   handleCartError(err: { originalError: { error: { error: string } } }) {
@@ -144,18 +136,14 @@ export class ShippingComponent implements OnInit, OnDestroy {
     });
   }
 
-
   applyCoupon(couponCode: string) {
     if (!couponCode) return;
 
     const sub = this._couponService.applyCoupon(couponCode).subscribe({
-      next: (res) => {
-
+      next: res => {
         this._cartService.cartItems.set(res.cart.cartItems);
 
-
         this._cartService.discountPercentage.set(res.discountAmount);
-
 
         this._messageService.add({
           severity: 'success',
