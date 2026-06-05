@@ -1,0 +1,32 @@
+<header
+  class="flex items-center justify-between pb-4 border-b border-zinc-200 mb-9">
+  <h2 class="text-3xl font-bold text-zinc-800">
+    {{ 'address_modal_my_addresses' | transloco }}
+  </h2>
+
+  @if (addresses().length) {
+    <ng-container [ngTemplateOutlet]="addAddressBtn" />
+  }
+</header>
+
+<div class="flex flex-col gap-9">
+  @for (address of addresses(); track address.id) {
+    <app-address-card
+      [address]="address"
+      [selected]="address.selected || false"
+      [isAddressModal]="true"
+      (cardClick)="onSelectAddress($event.id)">
+    </app-address-card>
+  } @empty {
+    <ng-container [ngTemplateOutlet]="addAddressBtn" />
+  }
+</div>
+
+<ng-template #addAddressBtn>
+  <button
+    type="button"
+    class="px-4 py-3 rounded-2xl bg-rose-50 text-maroon-600 font-semibold hover:bg-rose-100 transition"
+    (click)="onSwitchMode(ADDRESS_MODAL_MODE.ADDRESS_DETAILS)">
+    {{ 'add_address' | transloco }}
+  </button>
+</ng-template>

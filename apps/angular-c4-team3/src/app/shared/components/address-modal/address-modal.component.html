@@ -6,53 +6,32 @@
   [style]="{ width: '54rem' }">
   <ng-template #headless>
     @if (addressMode() !== ADDRESS_MODAL_MODE.ADDRESS_VIEW) {
-      <header
-        class="flex items-center justify-between pb-4 border-b border-zinc-200 mb-9">
+      <header class="flex items-center justify-between mb-6">
         <h2 class="text-3xl font-bold text-zinc-800">
           {{ 'add_address' | transloco }}
         </h2>
       </header>
+
+      <app-stepper [currentActiveStep]="currentActiveStep()" />
     }
 
     @switch (addressMode()) {
       @case (ADDRESS_MODAL_MODE.ADDRESS_VIEW) {
-        <header
-          class="flex items-center justify-between pb-4 border-b border-zinc-200 mb-9">
-          <h2 class="text-3xl font-bold text-zinc-800">
-            {{ 'address_modal_my_addresses' | transloco }}
-          </h2>
-
-          @if (addresses().length) {
-            <ng-container [ngTemplateOutlet]="addAddressBtn" />
-          }
-        </header>
-
-        <div class="flex flex-col gap-9">
-          @for (address of addresses(); track address.id) {
-            <app-address-card
-              [address]="address"
-              [selected]="address.selected || false"
-              [isAddressModal]="true"
-              (cardClick)="onSelectAddress($event.id)">
-            </app-address-card>
-          } @empty {
-            <ng-container [ngTemplateOutlet]="addAddressBtn" />
-          }
-        </div>
+        <app-address-view
+          [addresses]="addresses()"
+          (selectAddress)="onSelectAddress($event)"
+          (switchMode)="switchMode($event)" />
       }
 
-      @case (ADDRESS_MODAL_MODE.ADDRESS_DETAILS) {}
+      @case (ADDRESS_MODAL_MODE.ADDRESS_DETAILS) {
+        <app-address-details-form (next)="onNext($event)" />
+      }
 
-      @case (ADDRESS_MODAL_MODE.ADDRESS_LOCATION) {}
+      @case (ADDRESS_MODAL_MODE.ADDRESS_LOCATION) {
+        <app-address-location-form
+          (switchMode)="switchMode($event)"
+          (saveAddress)="onSave()" />
+      }
     }
   </ng-template>
 </p-dialog>
-
-<ng-template #addAddressBtn>
-  <button
-    type="button"
-    class="px-4 py-3 rounded-2xl bg-rose-50 text-maroon-600 font-semibold hover:bg-rose-100 transition"
-    (click)="switchMode(ADDRESS_MODAL_MODE.ADDRESS_DETAILS)">
-    {{ 'add_address' | transloco }}
-  </button>
-</ng-template>

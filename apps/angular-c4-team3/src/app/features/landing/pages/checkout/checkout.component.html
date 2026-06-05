@@ -6,7 +6,10 @@
         <app-stepper [currentActiveStep]="currentActiveStep()" />
 
         @if (currentActiveStep() === 1) {
-          <app-shipping-address (nextStep)="currentActiveStep.set(2)" />
+          <app-shipping-address
+            [addresses]="addresses()"
+            (nextStep)="currentActiveStep.set(2)"
+            (addAddress)="addAddress($event)" />
         } @else if (currentActiveStep() === 2) {
           <p>Payment Method</p>
         }

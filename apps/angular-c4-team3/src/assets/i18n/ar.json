@@ -156,5 +156,14 @@
   "shipping_address": "عنوان الشحن",
   "next": "التالي",
   "add_address": "إضافة عنوان جديد",
-  "address_modal_my_addresses": "عناويني"
+  "address_modal_my_addresses": "عناويني",
+  "city": "المدينة",
+  "enter_city_name": "أدخل اسم المدينة",
+  "address": "العنوان",
+  "enter_your_full_address": "أدخل عنوانك الكامل",
+  "enter_address_details": "أدخل تفاصيل العنوان",
+  "select_location": "تحديد الموقع",
+  "pin_address_on_map": "حدد العنوان على الخريطة",
+  "back": "الرجوع",
+  "save": "حفظ"
 }

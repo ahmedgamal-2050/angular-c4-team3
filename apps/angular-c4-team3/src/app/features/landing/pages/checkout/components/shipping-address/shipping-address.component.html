@@ -46,4 +46,5 @@
 <app-address-modal
   [addresses]="addresses()"
   [isAddAddressModalOpened]="isAddAddressModalOpened()"
-  (selectAddress)="selectAddress($event)" />
+  (selectAddress)="selectAddress($event)"
+  (saveAddress)="onAddressSaved($event)" />

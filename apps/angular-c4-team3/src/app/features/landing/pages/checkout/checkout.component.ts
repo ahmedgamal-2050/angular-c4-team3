@@ -16,6 +16,7 @@ import { CouponService } from '../cart/services/copuon.service';
 import { Subscription } from 'rxjs';
 import { CartResponse } from '../cart/cart.model';
 import { ShippingAddressComponent } from './components/shipping-address/shipping-address.component';
+import { AddressService } from '../../../../core/services/address/address.service';
 
 @Component({
   selector: 'app-checkout',
@@ -32,8 +33,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   private _loggedInService = inject(LoggedInService);
   private _messageService = inject(MessageService);
   private _couponService = inject(CouponService);
+  readonly _addressService = inject(AddressService);
 
   currentActiveStep = signal<number>(1);
+  addresses = signal<any[]>([]);
 
   isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
   userId = computed(() => this._loggedInService.user()?._id || '');
@@ -47,6 +50,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.isLoggedIn()) {
       this.getCart();
+      this.getAllAddresses();
     }
   }
 
@@ -167,6 +171,31 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.handleCartError(err);
+      },
+    });
+
+    this.subscription.add(sub);
+  }
+
+  getAllAddresses() {
+    const sub = this._addressService.getAllAddresses().subscribe({
+      next: (res: { addresses: any[]; message: string }) => {
+        console.log(res.addresses);
+      },
+    });
+
+    this.subscription.add(sub);
+  }
+
+  addAddress(address: any) {
+    const sub = this._addressService.addAddress(address).subscribe({
+      next: () => {
+        this._messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Address added successfully',
+        });
+        this.getAllAddresses();
       },
     });
 

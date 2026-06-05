@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { AddressCardComponent } from '../../../../../../shared/components/address-card/address-card.component';
@@ -19,25 +19,29 @@ import { Address } from '../../../../../../shared/components/address-card/addres
 export class ShippingAddressComponent {
   readonly ArrowRight = ArrowRight;
 
+  addresses = input<Address[]>([]);
   nextStep = output<void>();
+  addAddress = output<Address>();
 
   isAddAddressModalOpened = signal<boolean>(false);
-  addresses = signal<Address[]>([]);
+  selectedAddress = signal<Address | null>(null);
 
   next() {
     this.nextStep.emit();
   }
 
   selectAddress(id: number) {
-    this.addresses.update(prev =>
-      prev.map(item => ({
-        ...item,
-        selected: item.id === id,
-      }))
+    this.selectedAddress.set(
+      this.addresses().find(addr => addr.id === id) || null
     );
   }
 
   openAddAddressModal() {
     this.isAddAddressModalOpened.set(true);
+  }
+
+  onAddressSaved(newAddress: Address) {
+    this.addAddress.emit(newAddress);
+    this.isAddAddressModalOpened.set(false);
   }
 }

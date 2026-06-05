@@ -164,5 +164,14 @@
   "shipping_address": "Shipping Address",
   "next": "Next",
   "add_address": "Add a New Address",
-  "address_modal_my_addresses": "My Addresses"
+  "address_modal_my_addresses": "My Addresses",
+  "city": "City",
+  "enter_city_name": "Enter city name",
+  "address": "Address",
+  "enter_your_full_address": "Enter your full address",
+  "enter_address_details": "Enter address details",
+  "select_location": "Select location",
+  "pin_address_on_map": "Pin address on map",
+  "back": "Back",
+  "save": "Save"
 }
