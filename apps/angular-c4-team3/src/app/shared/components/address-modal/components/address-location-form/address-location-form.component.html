@@ -1,32 +1,29 @@
 <div class="flex flex-col gap-6">
-  <h3 class="text-2xl font-semibold text-maroon-600">
-    {{ 'select_location' | transloco }}
-  </h3>
-
-  <div
-    class="w-full h-64 rounded-2xl bg-zinc-100 flex flex-col items-center justify-center border border-zinc-200 gap-3">
-    <lucide-icon
-      [name]="MapPin"
-      class="w-12 h-12 text-maroon-600 animate-bounce"></lucide-icon>
-
-    <span class="text-zinc-500 font-medium">{{
-      'pin_address_on_map' | transloco
-    }}</span>
-  </div>
-
-  <div class="flex gap-4 mt-6">
+  <div class="flex items-center gap-4">
     <button
       type="button"
-      class="flex-1 py-4 rounded-2xl bg-zinc-200 hover:bg-zinc-300 text-zinc-700 font-semibold transition duration-300"
-      (click)="onSwitchMode(ADDRESS_MODAL_MODE.ADDRESS_DETAILS)">
-      {{ 'back' | transloco }}
+      class="bg-maroon-600 flex items-center justify-center rounded-full size-9"
+      (click)="onBack()">
+      <lucide-icon [img]="ArrowLeft" class="size-5 text-white" />
     </button>
 
+    <h3 class="text-2xl font-semibold text-maroon-600">
+      {{ 'select_location' | transloco }}
+    </h3>
+  </div>
+
+  <div class="w-full h-64 rounded-2xl border border-zinc-200 overflow-hidden">
+    <google-map height="100%" width="100%" [center]="center()" [zoom]="zoom()">
+      <map-marker [position]="markerPosition()" />
+    </google-map>
+  </div>
+
+  <div class="flex mt-6">
     <button
       type="button"
       class="flex-1 py-4 rounded-2xl bg-maroon-600 hover:bg-maroon-700 text-white font-semibold transition duration-300"
       (click)="onSave()">
-      {{ 'save' | transloco }}
+      {{ 'address_location_section_add_address_button' | transloco }}
     </button>
   </div>
 </div>

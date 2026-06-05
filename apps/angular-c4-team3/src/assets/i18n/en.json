@@ -170,8 +170,7 @@
   "address": "Address",
   "enter_your_full_address": "Enter your full address",
   "enter_address_details": "Enter address details",
-  "select_location": "Select location",
+  "select_location": "Find Your Location",
   "pin_address_on_map": "Pin address on map",
-  "back": "Back",
-  "save": "Save"
+  "address_location_section_add_address_button": "Add Address"
 }

@@ -162,8 +162,7 @@
   "address": "العنوان",
   "enter_your_full_address": "أدخل عنوانك الكامل",
   "enter_address_details": "أدخل تفاصيل العنوان",
-  "select_location": "تحديد الموقع",
+  "select_location": "حدد موقعك",
   "pin_address_on_map": "حدد العنوان على الخريطة",
-  "back": "الرجوع",
-  "save": "حفظ"
+  "address_location_section_add_address_button": "إضافة عنوان"
 }

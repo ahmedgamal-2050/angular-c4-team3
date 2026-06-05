@@ -43,7 +43,7 @@ export class AddressModalComponent {
       class: '!bg-black/50',
     },
   });
-  addressMode = signal<AddressModalMode>(ADDRESS_MODAL_MODE.ADDRESS_VIEW);
+  addressMode = signal<AddressModalMode>(ADDRESS_MODAL_MODE.ADDRESS_LOCATION);
   addressDetails = signal<AddressDetailsForm | null>(null);
 
   currentActiveStep = computed(() => {
