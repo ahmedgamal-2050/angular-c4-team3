@@ -20,4 +20,8 @@ export const APP_ROUTES = {
     SET_PASSWORD: 'set-password',
     RESET_PASSWORD: 'reset-password',
   },
+  DASHBOARD: {
+    ROOT: 'dashboard',
+    OVERVIEW: 'overview',
+  },
 };
