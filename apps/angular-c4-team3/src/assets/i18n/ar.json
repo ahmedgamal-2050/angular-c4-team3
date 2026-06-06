@@ -174,5 +174,13 @@
   "enter_address_details": "أدخل تفاصيل العنوان",
   "address_location_section_title": "حدد موقعك",
   "address_location_section_find_my_location_button": "حدد موقعي",
-  "address_location_section_add_address_button": "إضافة عنوان"
+  "address_location_section_add_address_button": "إضافة عنوان",
+  "or": "أو",
+  "back": "رجوع",
+  "payment_method": "طريقة الدفع",
+  "cash_on_delivery": "الدفع عند الاستلام",
+  "cash_on_delivery_desc": "سوف تقوم بالدفع نقدًا عند استلام الطلب.",
+  "credit_card": "بطاقة ائتمان",
+  "credit_card_desc": "سيتم تحويلك بأمان إلى Stripe لإتمام عملية الدفع.",
+  "checkout": "إتمام الطلب"
 }

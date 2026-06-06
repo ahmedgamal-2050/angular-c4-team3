@@ -174,5 +174,13 @@
   "enter_address_details": "Enter address details",
   "address_location_section_title": "Find Your Location",
   "address_location_section_find_my_location_button": "Find My Location",
-  "address_location_section_add_address_button": "Add Address"
+  "address_location_section_add_address_button": "Add Address",
+  "or": "OR",
+  "back": "Back",
+  "payment_method": "Payment Method",
+  "cash_on_delivery": "Cash on Delivery",
+  "cash_on_delivery_desc": "You'll pay in cash when your order is delivered.",
+  "credit_card": "Credit Card",
+  "credit_card_desc": "You'll be securely redirected to Stripe to complete your payment.",
+  "checkout": "Checkout"
 }
