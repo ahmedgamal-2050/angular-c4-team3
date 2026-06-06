@@ -1,11 +1,4 @@
-import {
-  afterNextRender,
-  Component,
-  computed,
-  effect,
-  input,
-  signal,
-} from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { OrdersByStatus } from '../../overview.model';
 import { ChartModule } from 'primeng/chart';
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -14,6 +7,9 @@ import { TranslocoPipe } from '@jsverse/transloco';
   selector: 'app-overview-order-status-section',
   imports: [ChartModule, TranslocoPipe],
   templateUrl: './overview-order-status-section.component.html',
+  host: {
+    class: 'block lg:col-span-2',
+  },
 })
 export class OverviewOrderStatusSectionComponent {
   ordersByStatus = input.required<OrdersByStatus[]>();

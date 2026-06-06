@@ -179,5 +179,8 @@
   "overview_overall_section_total_orders": "Total orders",
   "overview_overall_section_total_categories": "Total categories",
   "overview_overall_section_total_revenue": "Total revenue",
-  "overview_order_status_section_title": "Order Status"
+  "overview_order_status_section_title": "Order Status",
+  "overview_revenue_section_title": "Revenue",
+  "overview_revenue_section_monthly": "Monthly",
+  "overview_revenue_section_last_week": "Last Week"
 }

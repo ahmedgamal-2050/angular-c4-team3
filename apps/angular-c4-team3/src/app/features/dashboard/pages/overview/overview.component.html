@@ -13,5 +13,11 @@
     @if (ordersByStatus()) {
       <app-overview-order-status-section [ordersByStatus]="ordersByStatus()" />
     }
+
+    @if (dailyRevenue() || monthlyRevenue()) {
+      <app-overview-revenue-section
+        [dailyRevenue]="dailyRevenue()"
+        [monthlyRevenue]="monthlyRevenue()" />
+    }
   </section>
 </section>

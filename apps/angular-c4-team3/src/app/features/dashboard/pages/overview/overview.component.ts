@@ -12,6 +12,7 @@ import {
 import { OverviewOverallSectionComponent } from './components/overview-overall-section/overview-overall-section.component';
 import { OverviewCategoriesSectionComponent } from './components/overview-categories-section/overview-categories-section.component';
 import { OverviewOrderStatusSectionComponent } from './components/overview-order-status-section/overview-order-status-section.component';
+import { OverviewRevenueSectionComponent } from './components/overview-revenue-section/overview-revenue-section.component';
 
 @Component({
   selector: 'app-overview',
@@ -19,6 +20,7 @@ import { OverviewOrderStatusSectionComponent } from './components/overview-order
     OverviewOverallSectionComponent,
     OverviewCategoriesSectionComponent,
     OverviewOrderStatusSectionComponent,
+    OverviewRevenueSectionComponent,
   ],
   templateUrl: './overview.component.html',
 })
