@@ -1,0 +1,22 @@
+<section class="bg-white rounded-lg p-4 lg:p-6">
+  <h4 class="font-bold lg:font-semibold text-lg lg:text-xl mb-4">
+    All Categories
+  </h4>
+
+  <div class="lg:max-h-53.5 overflow-hidden">
+    @for (category of categories(); track category._id) {
+      <div
+        class="flex items-center justify-between mb-2 border-b border-zinc-200 pb-2">
+        <span
+          class="text-zinc-800 font-medium lg:font-noraml text-sm lg:text-base"
+          >{{ category.name }}</span
+        >
+
+        <span
+          class="text-zinc-800 bg-zinc-50 px-2 py-1 rounded-full font-medium text-xs lg:text-sm">
+          {{ category.totalProducts }}
+        </span>
+      </div>
+    }
+  </div>
+</section>
