@@ -166,5 +166,9 @@
   "enter_address_details": "أدخل تفاصيل العنوان",
   "address_location_section_title": "حدد موقعك",
   "address_location_section_find_my_location_button": "حدد موقعي",
-  "address_location_section_add_address_button": "إضافة عنوان"
+  "address_location_section_add_address_button": "إضافة عنوان",
+  "overview_overall_section_total_products": "إجمالي المنتجات",
+  "overview_overall_section_total_orders": "إجمالي الطلبات",
+  "overview_overall_section_total_categories": "إجمالي الفئات",
+  "overview_overall_section_total_revenue": "إجمالي الإيرادات"
 }
