@@ -1,53 +1,24 @@
-import { ButtonComponent } from '@angular-c4-team3/shared-design';
-import { Component } from '@angular/core';
-import { TranslocoModule } from '@jsverse/transloco';
-import {  ArrowRight } from 'lucide-angular';
+import { Component, computed, input } from '@angular/core';
 
 @Component({
   selector: 'app-stepper',
-  imports: [ButtonComponent,TranslocoModule],
+  imports: [],
   templateUrl: './stepper.component.html',
-  styleUrl: './stepper.component.css',
 })
 export class StepperComponent {
+  totalSteps = input<number>(2);
+  currentActiveStep = input<number>(1);
 
-  readonly Ticket =ArrowRight ;
-  submit(){
-    console.log("submit");
+  steps = computed(() => {
+    const total = this.totalSteps();
+    return Array.from({ length: total }, (_, i) => i + 1);
+  });
 
-  }
-  // shipping-address.component.ts
-
-addresses = [
-  {
-    id: 1,
-    city: 'Giza',
-    address: '21 Ahmed Mohamed St., King Faisal St., Giza',
-    phone: '+201012346578',
-    selected: false,
-  },
-  {
-    id: 2,
-    city: 'Cairo',
-    address: '14 Omar Ibn Akhatab St., Ramsis St., Cairo',
-    phone: '+201112345678',
-    selected: true,
-    badge: 'A',
-  },
-  {
-    id: 3,
-    city: 'Alexandria',
-    address: '16 El-Gaish Rd, San Stefano, El-Raml 2, Alexandria',
-    phone: '+201512345678',
-    selected: false,
-  },
-];
-
-selectAddress(id: number) {
-  this.addresses = this.addresses.map((item) => ({
-    ...item,
-    selected: item.id === id,
-  }));
-}
-
+  activeLineWidth = computed(() => {
+    const total = this.totalSteps();
+    const current = this.currentActiveStep();
+    if (total <= 1) return 0;
+    const activeCount = Math.min(Math.max(1, current), total);
+    return (activeCount / (total + 1)) * 100;
+  });
 }

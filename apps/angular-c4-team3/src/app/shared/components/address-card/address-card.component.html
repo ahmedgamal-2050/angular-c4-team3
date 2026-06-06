@@ -1,0 +1,85 @@
+<div
+  (click)="onCardClick()"
+  [class.border-zinc-300]="!isSelected()"
+  [class.bg-white]="!isSelected()"
+  [class.dark:bg-zinc-900]="!isSelected()"
+  [class.bg-maroon-600]="isSelected() && !isAddressModal()"
+  [class.border-maroon-600]="isSelected() && isAddressModal()"
+  [class.py-6]="isAddressModal()"
+  [class.me-4]="isAddressModal()"
+  class="border rounded-2xl p-4 flex items-start justify-between cursor-pointer transition-colors duration-300 relative">
+  @if (isAddressModal()) {
+    <div
+      class="absolute bg-white p-1.5 font-semibold text-2xl text-maroon-600 -top-6">
+      {{ address().name }}
+    </div>
+  }
+
+  <div>
+    <h3
+      [class.text-zinc-800]="!isSelected()"
+      [class.dark:text-zinc-100]="!isSelected()"
+      [class.text-zinc-50]="isSelected() && !isAddressModal()"
+      [class.mb-2]="!isAddressModal()"
+      [class.mb-4]="isAddressModal()"
+      class="text-2xl font-semibold flex items-center gap-2">
+      @if (isAddressModal()) {
+        <span
+          class="w-10 h-10 rounded-full flex items-center justify-center bg-emerald-500 text-white">
+          <lucide-icon [img]="MapPin" [size]="20" class="text-white" />
+        </span>
+      }
+
+      {{ address().city }}
+    </h3>
+
+    <span
+      [class.bg-zinc-100]="!isSelected() || isAddressModal()"
+      [class.text-zinc-800]="!isSelected() || isAddressModal()"
+      [class.bg-zinc-800]="isSelected() && !isAddressModal()"
+      [class.text-zinc-100]="isSelected() && !isAddressModal()"
+      class="inline-block text-base font-medium px-4 py-1 rounded-full">
+      {{ address().address }}
+    </span>
+  </div>
+
+  <div
+    [class.text-zinc-500]="!isSelected() && !isAddressModal()"
+    [class.text-zinc-50]="isSelected() && !isAddressModal()"
+    [class.me-5]="isAddressModal()"
+    class="flex items-center gap-2">
+    <div
+      [class.text-maroon-600]="isSelected() && !isAddressModal()"
+      [class.text-white]="!isSelected() && !isAddressModal()"
+      [class.bg-maroon-600]="!isSelected() && !isAddressModal()"
+      [class.bg-white]="isSelected() && !isAddressModal()"
+      [class.size-10]="!isAddressModal()"
+      class="rounded-full flex items-center justify-center">
+      <lucide-icon
+        [img]="Phone"
+        [size]="20"
+        [class.text-maroon-600]="isSelected() && !isAddressModal()"
+        [class.text-zinc-800]="isAddressModal()"
+        [class.text-white]="!isSelected()" />
+    </div>
+
+    <span class="text-lg font-medium">{{ address().phone }}</span>
+  </div>
+
+  @if (isAddressModal()) {
+    <div
+      class="absolute p-1.5 font-semibold text-2xl text-maroon-600 -inset-e-6 flex flex-col gap-2">
+      <button
+        type="button"
+        class="size-9 border border-zinc-200 rounded-full flex items-center justify-center bg-white">
+        <lucide-icon [img]="PenLine" [size]="18" class="text-zinc-800" />
+      </button>
+
+      <button
+        type="button"
+        class="size-9 rounded-full flex items-center justify-center bg-red-600 text-white">
+        <lucide-icon [img]="Trash2" [size]="18" class="text-white" />
+      </button>
+    </div>
+  }
+</div>

@@ -1,32 +1,43 @@
-import { Component, inject, OnInit, OnDestroy, computed } from '@angular/core';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { CartSummaryComponent } from '../../../cart/components/cart-summary/cart-summary.component';
-import { ProductItemsSectionComponent } from '../../../cart/components/product-items-section/product-items-section.component';
-import { ProductMayLikeComponent } from '../../../product-details/components/product-may-like/product-may-like.component';
-import { CartService } from '../../../cart/services/cart.service';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { LoggedInService } from 'apps/angular-c4-team3/src/app/shared/services/logged-in.service';
+import {
+  Component,
+  computed,
+  inject,
+  OnDestroy,
+  OnInit,
+  signal,
+} from '@angular/core';
+import { CartSummaryComponent } from '../cart/components/cart-summary/cart-summary.component';
+import { ProductMayLikeComponent } from '../product-details/components/product-may-like/product-may-like.component';
+import { StepperComponent } from '../../../../shared/components/stepper/stepper.component';
+import { CartService } from '../cart/services/cart.service';
+import { LoggedInService } from '../../../../shared/services/logged-in.service';
 import { MessageService } from 'primeng/api';
-import { CouponService } from '../../../cart/services/copuon.service';
+import { CouponService } from '../cart/services/copuon.service';
 import { Subscription } from 'rxjs';
-import { CartResponse } from '../../../cart/cart.model';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { StepperComponent } from 'apps/angular-c4-team3/src/app/shared/components/stepper/stepper.component';
+import { CartResponse } from '../cart/cart.model';
+import { ShippingAddressComponent } from './components/shipping-address/shipping-address.component';
+import { AddressService } from '../../../../core/services/address/address.service';
+import { NewAddress } from 'apps/angular-c4-team3/src/app/shared/components/address-modal/address-modal.model';
+
 @Component({
-  selector: 'app-shipping',
-  imports: [   TranslocoPipe,
+  selector: 'app-checkout',
+  imports: [
     CartSummaryComponent,
-    ProductItemsSectionComponent,
     ProductMayLikeComponent,
-  StepperComponent],
-  templateUrl: './shipping.component.html',
-  styleUrl: './shipping.component.css',
+    StepperComponent,
+    ShippingAddressComponent,
+  ],
+  templateUrl: './checkout.component.html',
 })
-export class ShippingComponent implements OnInit, OnDestroy {
+export class CheckoutComponent implements OnInit, OnDestroy {
   private _cartService = inject(CartService);
   private _loggedInService = inject(LoggedInService);
   private _messageService = inject(MessageService);
   private _couponService = inject(CouponService);
+  readonly _addressService = inject(AddressService);
+
+  currentActiveStep = signal<number>(1);
+  addresses = signal<any[]>([]);
 
   isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
   userId = computed(() => this._loggedInService.user()?._id || '');
@@ -35,12 +46,12 @@ export class ShippingComponent implements OnInit, OnDestroy {
   subtotal = computed(() => this._cartService.subtotal());
   total = computed(() => this._cartService.total());
   discountPercentage = computed(() => this._cartService.discountPercentage());
-
   subscription = new Subscription();
 
   ngOnInit(): void {
     if (this.isLoggedIn()) {
       this.getCart();
+      this.getAllAddresses();
     }
   }
 
@@ -133,9 +144,7 @@ export class ShippingComponent implements OnInit, OnDestroy {
     this._cartService.cartItems.set(response.cart.cartItems);
 
     // ⚠️ مهم: خليها amount مش percentage لو backend بيرجع رقم ثابت
-    this._cartService.discountPercentage.set(
-      response.cart.discount || 0
-    );
+    this._cartService.discountPercentage.set(response.cart.discount || 0);
   }
 
   handleCartError(err: { originalError: { error: { error: string } } }) {
@@ -146,18 +155,14 @@ export class ShippingComponent implements OnInit, OnDestroy {
     });
   }
 
-
   applyCoupon(couponCode: string) {
     if (!couponCode) return;
 
     const sub = this._couponService.applyCoupon(couponCode).subscribe({
-      next: (res) => {
-
+      next: res => {
         this._cartService.cartItems.set(res.cart.cartItems);
 
-
         this._cartService.discountPercentage.set(res.discountAmount);
-
 
         this._messageService.add({
           severity: 'success',
@@ -167,6 +172,31 @@ export class ShippingComponent implements OnInit, OnDestroy {
       },
       error: err => {
         this.handleCartError(err);
+      },
+    });
+
+    this.subscription.add(sub);
+  }
+
+  getAllAddresses() {
+    const sub = this._addressService.getAllAddresses().subscribe({
+      next: (res: { addresses: any[]; message: string }) => {
+        console.log(res.addresses);
+      },
+    });
+
+    this.subscription.add(sub);
+  }
+
+  addAddress(address: NewAddress) {
+    const sub = this._addressService.addAddress(address).subscribe({
+      next: () => {
+        this._messageService.add({
+          severity: 'success',
+          summary: 'Success',
+          detail: 'Address added successfully',
+        });
+        this.getAllAddresses();
       },
     });
 
