@@ -15,10 +15,9 @@ export interface AddressData {
   providedIn: 'root',
 })
 export class ShippingService {
-    private _http = inject(HttpClient);
+  private _http = inject(HttpClient);
 
   getAddress(): Observable<AddressData> {
-    return this._http.get<AddressData>(`${ENDPOINTS.ADDRESS}`);
+    return this._http.get<AddressData>(`${ENDPOINTS.GET_ADDRESSES}`);
   }
-
 }
