@@ -30,7 +30,7 @@
       @case (ADDRESS_MODAL_MODE.ADDRESS_LOCATION) {
         <app-address-location-form
           (switchMode)="switchMode($event)"
-          (saveAddress)="onSave()" />
+          (saveAddress)="onSave($event)" />
       }
     }
   </ng-template>

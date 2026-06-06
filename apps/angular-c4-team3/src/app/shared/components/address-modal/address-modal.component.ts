@@ -9,7 +9,7 @@ import {
 } from './address-modal.constants';
 import { StepperComponent } from '../stepper/stepper.component';
 import { AddressViewComponent } from './components/address-view/address-view.component';
-import { AddressDetailsForm } from './address-modal.model';
+import { AddressDetailsForm, NewAddress } from './address-modal.model';
 import { AddressDetailsFormComponent } from './components/address-details-form/address-details-form.component';
 import { AddressLocationFormComponent } from './components/address-location-form/address-location-form.component';
 
@@ -33,7 +33,7 @@ export class AddressModalComponent {
   addresses = input.required<Address[]>();
   isAddAddressModalOpened = input<boolean>(false);
   selectAddress = output<number>();
-  saveAddress = output<Address>();
+  saveAddress = output<NewAddress>();
 
   dialogPt = signal<DialogPassThrough>({
     root: {
@@ -43,7 +43,7 @@ export class AddressModalComponent {
       class: '!bg-black/50',
     },
   });
-  addressMode = signal<AddressModalMode>(ADDRESS_MODAL_MODE.ADDRESS_LOCATION);
+  addressMode = signal<AddressModalMode>(ADDRESS_MODAL_MODE.ADDRESS_VIEW);
   addressDetails = signal<AddressDetailsForm | null>(null);
 
   currentActiveStep = computed(() => {
@@ -70,19 +70,15 @@ export class AddressModalComponent {
     this.switchMode(ADDRESS_MODAL_MODE.ADDRESS_LOCATION);
   }
 
-  onSave() {
-    const newId =
-      this.addresses().length > 0
-        ? Math.max(...this.addresses().map(a => a.id)) + 1
-        : 1;
-
-    const newAddress: Address = {
-      id: newId,
+  onSave(coordinates: google.maps.LatLngLiteral) {
+    const newAddress = {
+      title: this.addressDetails()?.title || '',
       city: this.addressDetails()?.city || '',
-      address: this.addressDetails()?.address || '',
+      street: this.addressDetails()?.street || '',
       phone: this.addressDetails()?.phone || '',
-      name: 'Home',
-      selected: true,
+      latitude: coordinates.lat,
+      longitude: coordinates.lng,
+      isPrimary: this.addresses().length === 0,
     };
 
     this.saveAddress.emit(newAddress);

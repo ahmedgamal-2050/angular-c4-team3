@@ -7,6 +7,7 @@ import { InputComponent } from '../../../form-components/input/input.component';
 import { TextareaComponent } from '../../../form-components/textarea/textarea.component';
 import { PhoneComponent } from '../../../form-components/phone/phone.component';
 import { AddressDetailsForm } from '../../address-modal.model';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-address-details-form',
@@ -26,10 +27,17 @@ export class AddressDetailsFormComponent {
 
   // Reactive Address Form
   addressForm = new FormGroup({
+    title: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
-    address: new FormControl('', [Validators.required]),
+    street: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
   });
+
+  titleErrors = computed(() =>
+    this._FormValidationService.getErrors(this.addressForm.controls.title, {
+      required: 'Title is required.',
+    })
+  );
 
   cityErrors = computed(() =>
     this._FormValidationService.getErrors(this.addressForm.controls.city, {
@@ -38,7 +46,7 @@ export class AddressDetailsFormComponent {
   );
 
   addressErrors = computed(() =>
-    this._FormValidationService.getErrors(this.addressForm.controls.address, {
+    this._FormValidationService.getErrors(this.addressForm.controls.street, {
       required: 'Address is required.',
     })
   );

@@ -5,6 +5,7 @@ import { AddressCardComponent } from '../../../../../../shared/components/addres
 import { AddressModalComponent } from '../../../../../../shared/components/address-modal/address-modal.component';
 import { ArrowRight } from 'lucide-angular';
 import { Address } from '../../../../../../shared/components/address-card/address.model';
+import { NewAddress } from '../../../../../../shared/components/address-modal/address-modal.model';
 
 @Component({
   selector: 'app-shipping-address',
@@ -21,7 +22,7 @@ export class ShippingAddressComponent {
 
   addresses = input<Address[]>([]);
   nextStep = output<void>();
-  addAddress = output<Address>();
+  addAddress = output<NewAddress>();
 
   isAddAddressModalOpened = signal<boolean>(false);
   selectedAddress = signal<Address | null>(null);
@@ -40,7 +41,7 @@ export class ShippingAddressComponent {
     this.isAddAddressModalOpened.set(true);
   }
 
-  onAddressSaved(newAddress: Address) {
+  onAddressSaved(newAddress: NewAddress) {
     this.addAddress.emit(newAddress);
     this.isAddAddressModalOpened.set(false);
   }

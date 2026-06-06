@@ -157,12 +157,14 @@
   "next": "التالي",
   "add_address": "إضافة عنوان جديد",
   "address_modal_my_addresses": "عناويني",
+  "add_address_form_title_label": "العنوان",
+  "add_address_form_title_placeholder": "أدخل عنوان المراجعة",
   "city": "المدينة",
   "enter_city_name": "أدخل اسم المدينة",
   "address": "العنوان",
   "enter_your_full_address": "أدخل عنوانك الكامل",
   "enter_address_details": "أدخل تفاصيل العنوان",
-  "select_location": "حدد موقعك",
-  "pin_address_on_map": "حدد العنوان على الخريطة",
+  "address_location_section_title": "حدد موقعك",
+  "address_location_section_find_my_location_button": "حدد موقعي",
   "address_location_section_add_address_button": "إضافة عنوان"
 }

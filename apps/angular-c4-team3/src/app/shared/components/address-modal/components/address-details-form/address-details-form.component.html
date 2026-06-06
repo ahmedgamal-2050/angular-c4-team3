@@ -9,6 +9,14 @@
     (ngSubmit)="onNext()"
     class="flex flex-col gap-4">
     <app-input
+      id="title"
+      fieldControlName="title"
+      [label]="'add_address_form_title_label' | transloco"
+      [placeholder]="'add_address_form_title_placeholder' | transloco"
+      [errorMessages]="titleErrors()"
+      [required]="true" />
+
+    <app-input
       id="city"
       fieldControlName="city"
       [label]="'city' | transloco"
@@ -17,8 +25,8 @@
       [required]="true" />
 
     <app-textarea
-      id="address"
-      fieldControlName="address"
+      id="street"
+      fieldControlName="street"
       [label]="'address' | transloco"
       [placeholder]="'enter_your_full_address' | transloco"
       [errorMessages]="addressErrors()"

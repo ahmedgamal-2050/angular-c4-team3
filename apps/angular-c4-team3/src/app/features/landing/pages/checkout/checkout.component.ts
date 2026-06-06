@@ -17,6 +17,7 @@ import { Subscription } from 'rxjs';
 import { CartResponse } from '../cart/cart.model';
 import { ShippingAddressComponent } from './components/shipping-address/shipping-address.component';
 import { AddressService } from '../../../../core/services/address/address.service';
+import { NewAddress } from 'apps/angular-c4-team3/src/app/shared/components/address-modal/address-modal.model';
 
 @Component({
   selector: 'app-checkout',
@@ -187,7 +188,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.subscription.add(sub);
   }
 
-  addAddress(address: any) {
+  addAddress(address: NewAddress) {
     const sub = this._addressService.addAddress(address).subscribe({
       next: () => {
         this._messageService.add({

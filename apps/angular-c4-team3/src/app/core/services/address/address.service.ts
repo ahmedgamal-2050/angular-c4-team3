@@ -15,11 +15,11 @@ export class AddressService {
   }
 
   addAddress(address: any) {
-    return this.http.post(ENDPOINTS.ADD_ADDRESS, address);
+    return this.http.patch(ENDPOINTS.ADD_ADDRESS, address);
   }
 
   updateAddress(address: any, addressId: number) {
-    return this.http.put(
+    return this.http.patch(
       ENDPOINTS.UPDATE_ADDRESS.replace('{addressId}', addressId.toString()),
       address
     );
