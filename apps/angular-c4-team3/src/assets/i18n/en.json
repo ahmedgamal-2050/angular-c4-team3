@@ -182,5 +182,9 @@
   "overview_order_status_section_title": "Order Status",
   "overview_revenue_section_title": "Revenue",
   "overview_revenue_section_monthly": "Monthly",
-  "overview_revenue_section_last_week": "Last Week"
+  "overview_revenue_section_last_week": "Last Week",
+  "overview_top_selling_products_title": "Top Selling Products",
+  "overview_low_stock_products_title": "Low Stock Products",
+  "overview_sales": "Sales",
+  "overview_products": "Products"
 }

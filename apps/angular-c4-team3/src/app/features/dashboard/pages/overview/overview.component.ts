@@ -13,6 +13,8 @@ import { OverviewOverallSectionComponent } from './components/overview-overall-s
 import { OverviewCategoriesSectionComponent } from './components/overview-categories-section/overview-categories-section.component';
 import { OverviewOrderStatusSectionComponent } from './components/overview-order-status-section/overview-order-status-section.component';
 import { OverviewRevenueSectionComponent } from './components/overview-revenue-section/overview-revenue-section.component';
+import { OverviewTopSellingProductsSectionComponent } from './components/overview-top-selling-products-section/overview-top-selling-products-section.component';
+import { OverviewLowStockProductsSectionComponent } from './components/overview-low-stock-products-section/overview-low-stock-products-section.component';
 
 @Component({
   selector: 'app-overview',
@@ -21,6 +23,8 @@ import { OverviewRevenueSectionComponent } from './components/overview-revenue-s
     OverviewCategoriesSectionComponent,
     OverviewOrderStatusSectionComponent,
     OverviewRevenueSectionComponent,
+    OverviewTopSellingProductsSectionComponent,
+    OverviewLowStockProductsSectionComponent,
   ],
   templateUrl: './overview.component.html',
 })
@@ -48,7 +52,11 @@ export class OverviewComponent implements OnInit {
         this.dailyRevenue.set(res.statistics.orders.dailyRevenue);
         this.monthlyRevenue.set(res.statistics.orders.monthlyRevenue);
         this.topSellingProducts.set(res.statistics.products.topSellingProducts);
-        this.lowStockProducts.set(res.statistics.products.lowStockProducts);
+        this.lowStockProducts.set(
+          res.statistics.products.lowStockProducts.sort(
+            (a, b) => a.quantity! - b.quantity!
+          )
+        );
       },
     });
   }

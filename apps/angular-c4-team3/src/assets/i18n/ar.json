@@ -174,5 +174,9 @@
   "overview_order_status_section_title": "حالة الطلبات",
   "overview_revenue_section_title": "الإيرادات",
   "overview_revenue_section_monthly": "شهري",
-  "overview_revenue_section_last_week": "الأسبوع الماضي"
+  "overview_revenue_section_last_week": "الأسبوع الماضي",
+  "overview_top_selling_products_title": "المنتجات الأكثر مبيعاً",
+  "overview_low_stock_products_title": "المنتجات منخفضة المخزون",
+  "overview_sales": "مبيعات",
+  "overview_products": "منتج"
 }
