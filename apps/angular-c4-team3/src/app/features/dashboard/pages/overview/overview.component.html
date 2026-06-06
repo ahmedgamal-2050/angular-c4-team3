@@ -1,4 +1,4 @@
-<section class="flex flex-col lg:flex-row lg:items-start w-full gap-6">
+<section class="flex flex-col w-full gap-6">
   <section class="grid grid-cols-1 lg:grid-cols-2 w-full gap-6">
     @if (overall()) {
       <app-overview-overall-section [overall]="overall()" />
@@ -9,5 +9,9 @@
     }
   </section>
 
-  <section></section>
+  <section class="grid grid-cols-1 lg:grid-cols-5 w-full gap-6">
+    @if (ordersByStatus()) {
+      <app-overview-order-status-section [ordersByStatus]="ordersByStatus()" />
+    }
+  </section>
 </section>

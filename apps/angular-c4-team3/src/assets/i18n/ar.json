@@ -170,5 +170,6 @@
   "overview_overall_section_total_products": "إجمالي المنتجات",
   "overview_overall_section_total_orders": "إجمالي الطلبات",
   "overview_overall_section_total_categories": "إجمالي الفئات",
-  "overview_overall_section_total_revenue": "إجمالي الإيرادات"
+  "overview_overall_section_total_revenue": "إجمالي الإيرادات",
+  "overview_order_status_section_title": "حالة الطلبات"
 }

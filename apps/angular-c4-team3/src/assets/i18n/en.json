@@ -178,5 +178,6 @@
   "overview_overall_section_total_products": "Total products",
   "overview_overall_section_total_orders": "Total orders",
   "overview_overall_section_total_categories": "Total categories",
-  "overview_overall_section_total_revenue": "Total revenue"
+  "overview_overall_section_total_revenue": "Total revenue",
+  "overview_order_status_section_title": "Order Status"
 }
