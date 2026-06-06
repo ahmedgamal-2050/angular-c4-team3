@@ -1,0 +1,44 @@
+<div class="flex flex-col gap-6">
+  <div class="flex items-center gap-4">
+    <button
+      type="button"
+      class="bg-maroon-600 flex items-center justify-center rounded-full size-9"
+      (click)="onBack()">
+      <lucide-icon [img]="ArrowLeft" class="size-5 text-white" />
+    </button>
+
+    <h3 class="text-2xl font-semibold text-maroon-600">
+      {{ 'address_location_section_title' | transloco }}
+    </h3>
+  </div>
+
+  <div
+    class="w-full h-86 rounded-2xl border border-zinc-200 overflow-hidden relative">
+    <button
+      type="button"
+      class="absolute top-3 end-3 z-1 bg-white border border-maroon-600 rounded-lg text-maroon-600 text-sm font-semibold flex items-center gap-2 px-3 py-2"
+      (click)="findMyLocation()">
+      <lucide-icon [img]="MapPinHouse" class="size-5 text-maroon-600" />
+
+      {{ 'address_location_section_find_my_location_button' | transloco }}
+    </button>
+
+    <google-map
+      height="100%"
+      width="100%"
+      [center]="center()"
+      [zoom]="zoom()"
+      (mapClick)="onMapClick($event)">
+      <map-marker [position]="markerPosition()" />
+    </google-map>
+  </div>
+
+  <div class="flex mt-6">
+    <button
+      type="button"
+      class="flex-1 py-4 rounded-2xl bg-maroon-600 hover:bg-maroon-700 text-white font-semibold transition duration-300"
+      (click)="onSave()">
+      {{ 'address_location_section_add_address_button' | transloco }}
+    </button>
+  </div>
+</div>

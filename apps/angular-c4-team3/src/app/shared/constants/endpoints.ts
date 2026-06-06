@@ -8,7 +8,7 @@ export const ENDPOINTS = {
   GET_REVIEW_BY_ID: `${BASE_URL}/products/{productId}/reviews`,
   CATEGORY_PRODUCT: `${BASE_URL}/related/category`,
   Get_All_Testimonials: `${BASE_URL}/testimonials`,
-  WISHLIST:`${BASE_URL}/wishlist`,
+  WISHLIST: `${BASE_URL}/wishlist`,
   ADD_TO_CART: `${BASE_URL}/cart`,
   GET_CART: `${BASE_URL}/cart`,
   UPDATE_CART: `${BASE_URL}/cart/{cartItemId}`,
@@ -18,7 +18,9 @@ export const ENDPOINTS = {
   GET_ALL_CATEGORIES: `${BASE_URL}/categories`,
   GET_ALL_OCCASIONS: `${BASE_URL}/occasions`,
   APPLY_COUPON: `${BASE_URL}/coupons/apply`,
-  MAY_LIKE_PRODACTS:`${NEW_BASE_URL}/products`,
-  ADDRESS:`${NEW_BASE_URL}/addresses`,
-
+  MAY_LIKE_PRODACTS: `${NEW_BASE_URL}/products`,
+  GET_ADDRESSES: `${BASE_URL}/addresses`,
+  ADD_ADDRESS: `${BASE_URL}/addresses`,
+  UPDATE_ADDRESS: `${BASE_URL}/addresses/{addressId}`,
+  DELETE_ADDRESS: `${BASE_URL}/addresses/{addressId}`,
 } as const;

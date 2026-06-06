@@ -1,221 +1,33 @@
-<div class="mx-auto p-6 min-h-screen">
+<!-- Progress -->
+<div class="mb-4">
+  <div class="relative flex items-center justify-between">
+    <!-- line -->
+    <div
+      class="absolute top-1/2 left-0 w-full h-1 bg-zinc-200 -translate-y-1/2"></div>
 
-  <div class="mb-5">
-    <div class="relative flex items-center justify-between">
+    <div
+      class="relative text-zinc-500 text-sm flex items-center justify-center"></div>
 
-      <div class="absolute top-1/2 left-0 w-full h-1 bg-zinc-200 -translate-y-1/2"></div>
+    <!-- active line -->
+    <div
+      class="absolute top-1/2 left-0 h-1 bg-maroon-600 -translate-y-1/2 transition-all duration-300"
+      [style.width.%]="activeLineWidth()"></div>
 
-      <div class="absolute top-1/2 left-0 h-1 bg-maroon-600 -translate-y-1/2 transition-all duration-300"
-        [ngClass]="currentStep === 1 ? 'w-[33%]' : 'w-full'">
+    @for (step of steps(); track step) {
+      <!-- step circle -->
+      <div
+        class="relative z-10 w-7 h-7 rounded-full text-sm flex items-center justify-center transition-all duration-300"
+        [class.bg-maroon-600]="step <= currentActiveStep()"
+        [class.text-white]="step <= currentActiveStep()"
+        [class.font-bold]="step <= currentActiveStep()"
+        [class.bg-zinc-200]="step > currentActiveStep()"
+        [class.text-zinc-500]="step > currentActiveStep()">
+        {{ step }}
       </div>
+    }
 
-      <div class="relative z-10 text-zinc-500 text-sm flex items-center justify-center"></div>
-
-      <div class="relative z-10 w-7 h-7 rounded-full text-sm flex items-center justify-center"
-        [ngClass]="currentStep >= 1 ? 'bg-maroon-600 text-white' : 'bg-zinc-200 text-zinc-500'">
-        1
-      </div>
-
-      <div class="relative z-10 w-7 h-7 rounded-full text-sm flex items-center justify-center"
-        [ngClass]="currentStep >= 2 ? 'bg-maroon-600 text-white' : 'bg-zinc-200 text-zinc-500'">
-        2
-      </div>
-
-      <div class="relative z-10 text-zinc-500 text-sm flex items-center justify-center"></div>
-
-    </div>
-  </div>
-
-  @if(currentStep === 1){
-
-  <h2 class="text-3xl font-semibold text-zinc-800 dark:text-zinc-100 mb-8">
-    {{ 'shipping_address' | transloco }}
-  </h2>
-
-  <div class="space-y-4">
-
-    <div class="border border-zinc-300 rounded-2xl p-4 flex items-start justify-between">
-      <div>
-        <h3 class="text-2xl font-semibold text-zinc-800 dark:text-zinc-100 mb-2">
-          Giza
-        </h3>
-
-        <span class="inline-block bg-zinc-100 text-zinc-800 text-base font-medium px-4 py-1 rounded-full">
-          21 Ahmed Mohamed St., King Faisal St., Giza
-        </span>
-      </div>
-
-      <div class="flex items-center gap-2 text-zinc-500">
-
-        <div class="w-10 h-10 rounded-full bg-maroon-600 text-white flex items-center justify-center">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path
-              d="M11.527 13.807C11.6991 13.886 11.893 13.9041 12.0767 13.8582C12.2605 13.8123 12.4231 13.7052 12.5378 13.5545L12.8337 13.167C12.9889 12.96 13.1902 12.792 13.4216 12.6763C13.6531 12.5606 13.9083 12.5003 14.167 12.5003H16.667C17.109 12.5003 17.5329 12.6759 17.8455 12.9885C18.1581 13.301 18.3337 13.725 18.3337 14.167V16.667C18.3337 17.109 18.1581 17.5329 17.8455 17.8455C17.5329 18.1581 17.109 18.3337 16.667 18.3337C12.6887 18.3337 8.87344 16.7533 6.06039 13.9403C3.24734 11.1272 1.66699 7.31191 1.66699 3.33366C1.66699 2.89163 1.84259 2.46771 2.15515 2.15515C2.46771 1.84259 2.89163 1.66699 3.33366 1.66699H5.83366C6.27569 1.66699 6.69961 1.84259 7.01217 2.15515C7.32473 2.46771 7.50033 2.89163 7.50033 3.33366V5.83366C7.50033 6.0924 7.44008 6.34759 7.32437 6.57901C7.20866 6.81044 7.04065 7.01175 6.83366 7.16699L6.44366 7.45949C6.29067 7.57631 6.18284 7.74248 6.13848 7.92978C6.09413 8.11709 6.11598 8.31397 6.20033 8.48699C7.33923 10.8002 9.21235 12.671 11.527 13.807Z"
-              stroke="white" stroke-width="1.45833" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-
-        <span class="text-lg font-medium">
-          +201012346578
-        </span>
-
-      </div>
-    </div>
-
-    <div class="border bg-maroon-600 rounded-2xl p-4 flex items-start justify-between">
-
-      <div>
-        <h3 class="text-2xl font-semibold text-zinc-50 mb-2">
-          Cairo
-        </h3>
-
-        <span class="inline-block text-zinc-100 bg-zinc-800 text-base font-medium px-4 py-1 rounded-full">
-          14 Omar Ibn Akhatab St., Ramsis St., Cairo
-        </span>
-      </div>
-
-      <div class="flex items-center gap-2 text-zinc-50">
-
-        <div class="w-10 h-10 rounded-full text-maroon-600 bg-white flex items-center justify-center">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path
-              d="M11.527 13.807C11.6991 13.886 11.893 13.9041 12.0767 13.8582C12.2605 13.8123 12.4231 13.7052 12.5378 13.5545L12.8337 13.167C12.9889 12.96 13.1902 12.792 13.4216 12.6763C13.6531 12.5606 13.9083 12.5003 14.167 12.5003H16.667C17.109 12.5003 17.5329 12.6759 17.8455 12.9885C18.1581 13.301 18.3337 13.725 18.3337 14.167V16.667C18.3337 17.109 18.1581 17.5329 17.8455 17.8455C17.5329 18.1581 17.109 18.3337 16.667 18.3337C12.6887 18.3337 8.87344 16.7533 6.06039 13.9403C3.24734 11.1272 1.66699 7.31191 1.66699 3.33366C1.66699 2.89163 1.84259 2.46771 2.15515 2.15515C2.46771 1.84259 2.89163 1.66699 3.33366 1.66699H5.83366C6.27569 1.66699 6.69961 1.84259 7.01217 2.15515C7.32473 2.46771 7.50033 2.89163 7.50033 3.33366V5.83366C7.50033 6.0924 7.44008 6.34759 7.32437 6.57901C7.20866 6.81044 7.04065 7.01175 6.83366 7.16699L6.44366 7.45949C6.29067 7.57631 6.18284 7.74248 6.13848 7.92978C6.09413 8.11709 6.11598 8.31397 6.20033 8.48699C7.33923 10.8002 9.21235 12.671 11.527 13.807Z"
-              stroke="#A6252A" stroke-width="1.45833" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-
-        <span class="text-lg font-medium">
-          +201012346578
-        </span>
-
-      </div>
-    </div>
-
-    <div class="border border-zinc-300 rounded-2xl p-4 flex items-start justify-between">
-      <div>
-        <h3 class="text-2xl font-semibold text-zinc-800 dark:text-zinc-100 mb-2">
-          Alexandria
-        </h3>
-
-        <span class="inline-block bg-zinc-100 text-zinc-800 text-base font-medium px-4 py-1 rounded-full">
-          16 El-Gaish Rd, San Stefano, El-Raml 2, Alexandria
-        </span>
-      </div>
-
-      <div class="flex items-center gap-2 text-zinc-500">
-
-        <div class="w-10 h-10 rounded-full bg-maroon-600 text-white flex items-center justify-center">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path
-              d="M11.527 13.807C11.6991 13.886 11.893 13.9041 12.0767 13.8582C12.2605 13.8123 12.4231 13.7052 12.5378 13.5545L12.8337 13.167C12.9889 12.96 13.1902 12.792 13.4216 12.6763C13.6531 12.5606 13.9083 12.5003 14.167 12.5003H16.667C17.109 12.5003 17.5329 12.6759 17.8455 12.9885C18.1581 13.301 18.3337 13.725 18.3337 14.167V16.667C18.3337 17.109 18.1581 17.5329 17.8455 17.8455C17.5329 18.1581 17.109 18.3337 16.667 18.3337C12.6887 18.3337 8.87344 16.7533 6.06039 13.9403C3.24734 11.1272 1.66699 7.31191 1.66699 3.33366C1.66699 2.89163 1.84259 2.46771 2.15515 2.15515C2.46771 1.84259 2.89163 1.66699 3.33366 1.66699H5.83366C6.27569 1.66699 6.69961 1.84259 7.01217 2.15515C7.32473 2.46771 7.50033 2.89163 7.50033 3.33366V5.83366C7.50033 6.0924 7.44008 6.34759 7.32437 6.57901C7.20866 6.81044 7.04065 7.01175 6.83366 7.16699L6.44366 7.45949C6.29067 7.57631 6.18284 7.74248 6.13848 7.92978C6.09413 8.11709 6.11598 8.31397 6.20033 8.48699C7.33923 10.8002 9.21235 12.671 11.527 13.807Z"
-              stroke="white" stroke-width="1.45833" stroke-linecap="round" stroke-linejoin="round" />
-          </svg>
-        </div>
-
-        <span class="text-lg font-medium">
-          +201012346578
-        </span>
-
-      </div>
-    </div>
-
-  </div>
-
-  <div class="flex items-center gap-4 my-8">
-
-    <div class="flex-1 h-px bg-zinc-200"></div>
-
-    <span class="text-zinc-500 font-semibold">
-      {{ 'or' | transloco }}
-    </span>
-
-    <div class="flex-1 h-px bg-zinc-200"></div>
-
-  </div>
-
-  <button (click)="isAddressModalOpen=true" class="w-full py-5 rounded-2xl bg-rose-50 text-maroon-600 font-semibold hover:bg-rose-100 transition">
-    {{ 'add_address' | transloco }}
-  </button>
-
-  <div class="flex justify-end mt-14">
-    <shared-ui-button [label]="'next' | transloco" [type]="'submit'" (clicked)="currentStep = 2" [icon]="Ticket"
-      iconPosition="right">
-    </shared-ui-button>
-  </div>
-
-  }
-
-  @if(currentStep === 2){
-
-  <div class="flex gap-2">
-    <button
-      class="flex items-center gap-2 bg-zinc-100 rounded-xl text-zinc-800 text-sm h-10 font-semibold p-2.5 cursor-pointer"
-      (click)="currentStep = 1">
-
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M10.0003 4.16699L4.16699 10.0003L10.0003 15.8337M4.16699 10.0003H15.8337" stroke="#27272A"
-          stroke-width="1.45833" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-
-
-      <span class="text-sm font-medium">
-        {{ 'back' | transloco }}
-      </span>
-
-    </button>
-
-    <h2 class="text-3xl font-semibold text-zinc-800 dark:text-zinc-100 mb-8">
-      {{ 'payment_method' | transloco }}
-    </h2>
-  </div>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-    <div class="border border-zinc-300 rounded-2xl p-6 cursor-pointer transition hover:border-maroon-600">
-
-      <div class="flex justify-center mb-6">
-
-
-        <img src="assets/images/icon_2.png" alt="">
-
-
-      </div>
-
-      <h3 class="text-center text-2xl font-semibold text-zinc-800 mb-2">
-        {{ 'cash_on_delivery' | transloco }}
-      </h3>
-
-      <p class="text-center text-zinc-500 font-semibold text-sm">
-        {{ 'cash_on_delivery_desc' | transloco }}
-      </p>
-
-    </div>
-
-    <div class="border bg-zinc-200 rounded-2xl p-6 cursor-pointer transition">
-
-      <div class="flex justify-center mb-6">
-
-        <img src="assets/images/Icon_1.png" alt="">
-
-
-
-      </div>
-
-      <h3 class="text-center text-2xl font-semibold text-maroon-600 mb-2">
-        {{ 'credit_card' | transloco }}
-      </h3>
-
-      <p class="text-center text-zinc-500 font-semibold text-sm">
-        {{ 'credit_card_desc' | transloco }}
-      </p>
-
-    </div>
-
-  </div>
-
-  <div class="flex justify-end mt-14">
-    <shared-ui-button [label]="'checkout' | transloco" [type]="'submit'" [icon]="Ticket" iconPosition="right">
-    </shared-ui-button>
+    <div
+      class="relative z-10 text-zinc-500 text-sm flex items-center justify-center"></div>
   </div>
 
   }

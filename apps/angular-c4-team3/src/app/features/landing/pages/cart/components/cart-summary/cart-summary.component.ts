@@ -23,7 +23,7 @@ export class CartSummaryComponent {
   readonly MoveRight = MoveRight;
 
   fb = inject(FormBuilder);
-  private router =inject(Router)
+  private router = inject(Router);
   subtotal = input<number>(0);
   total = input<number>(0);
   showButton = input<boolean>(true);
@@ -51,7 +51,8 @@ export class CartSummaryComponent {
 
   handleCheckout() {
     this.checkout.emit();
-    this.router.navigate([ `/${APP_ROUTES.LANDING.ROOT}/${APP_ROUTES.LANDING.SHIPPING}`])
-
+    this.router.navigate([
+      `/${APP_ROUTES.LANDING.ROOT}/${APP_ROUTES.LANDING.CHECKOUT}`,
+    ]);
   }
 }

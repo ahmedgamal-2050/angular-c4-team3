@@ -4,13 +4,11 @@ import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
 import { CategoryWithIcon, OccasionWithSelected } from '../../services/product-filters.model';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { Product } from '../../../home/home.model';
-import { ProductCardComponent } from "apps/angular-c4-team3/src/app/shared/components/product-card/product-card.component";
 
 @Component({
   selector: 'app-product-filters',
   standalone: true,
-  imports: [RatingModule, InputTextModule, FormsModule, TranslocoPipe, ProductCardComponent],
+  imports: [RatingModule, InputTextModule, FormsModule, TranslocoPipe],
   templateUrl: './product-filters.component.html',
   styleUrls: ['./product-filters.component.css'],
 })
@@ -23,7 +21,7 @@ export class ProductFiltersComponent implements OnInit {
   @Input() priceTo!: WritableSignal<number | null>;
 
   @Output() filterChange = new EventEmitter<void>();
-  
+
   ratingPassThrough = signal<RatingPassThrough>({
     root: { class: 'gap-1!' },
   });

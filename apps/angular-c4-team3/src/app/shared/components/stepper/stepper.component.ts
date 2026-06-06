@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
@@ -15,10 +16,17 @@ import { ShippingService } from '../../../features/landing/pages/shipping-page/s
     CommonModule,
     AddAddressDialogComponent,
   ],
+=======
+import { Component, computed, input } from '@angular/core';
+
+@Component({
+  selector: 'app-stepper',
+  imports: [],
+>>>>>>> master
   templateUrl: './stepper.component.html',
-  styleUrl: './stepper.component.css',
 })
 export class StepperComponent {
+<<<<<<< HEAD
   readonly Ticket = ArrowRight;
 
   currentStep = 1;
@@ -104,3 +112,21 @@ export class StepperComponent {
     this.addresses = this.addresses.filter(a => a.id !== id);
   }
 }
+=======
+  totalSteps = input<number>(2);
+  currentActiveStep = input<number>(1);
+
+  steps = computed(() => {
+    const total = this.totalSteps();
+    return Array.from({ length: total }, (_, i) => i + 1);
+  });
+
+  activeLineWidth = computed(() => {
+    const total = this.totalSteps();
+    const current = this.currentActiveStep();
+    if (total <= 1) return 0;
+    const activeCount = Math.min(Math.max(1, current), total);
+    return (activeCount / (total + 1)) * 100;
+  });
+}
+>>>>>>> master
