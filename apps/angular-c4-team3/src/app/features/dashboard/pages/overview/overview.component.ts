@@ -7,7 +7,6 @@ import {
   OrdersByStatus,
   Overall,
   Product,
-  ProductsByCategory,
 } from './overview.model';
 import { OverviewOverallSectionComponent } from './components/overview-overall-section/overview-overall-section.component';
 import { OverviewCategoriesSectionComponent } from './components/overview-categories-section/overview-categories-section.component';
@@ -15,6 +14,7 @@ import { OverviewOrderStatusSectionComponent } from './components/overview-order
 import { OverviewRevenueSectionComponent } from './components/overview-revenue-section/overview-revenue-section.component';
 import { OverviewTopSellingProductsSectionComponent } from './components/overview-top-selling-products-section/overview-top-selling-products-section.component';
 import { OverviewLowStockProductsSectionComponent } from './components/overview-low-stock-products-section/overview-low-stock-products-section.component';
+import { TableComponent } from '../../../../shared/components/table/table.component';
 
 @Component({
   selector: 'app-overview',
@@ -25,6 +25,7 @@ import { OverviewLowStockProductsSectionComponent } from './components/overview-
     OverviewRevenueSectionComponent,
     OverviewTopSellingProductsSectionComponent,
     OverviewLowStockProductsSectionComponent,
+    TableComponent,
   ],
   templateUrl: './overview.component.html',
 })

@@ -6,11 +6,19 @@ import { Subscription } from 'rxjs';
 import { RatingModule } from 'primeng/rating';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
-import { PaginatorModule, PaginatorPassThrough, PaginatorState } from 'primeng/paginator';
+import {
+  PaginatorModule,
+  PaginatorPassThrough,
+  PaginatorState,
+} from 'primeng/paginator';
 import { ApiMetaData } from '../../../../core/models/general.model';
 import { ProductFiltersComponent } from './components/product-filters/product-filters.component';
-import { CategoryWithIcon, OccasionWithSelected } from './services/product-filters.model';
+import {
+  CategoryWithIcon,
+  OccasionWithSelected,
+} from './services/product-filters.model';
 import { TranslocoPipe } from '@jsverse/transloco';
+import { PAGINATOR_PT } from 'apps/angular-c4-team3/src/app/shared/constants/pass-through';
 
 @Component({
   selector: 'app-products',
@@ -21,7 +29,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
     FormsModule,
     PaginatorModule,
     ProductFiltersComponent,
-    TranslocoPipe
+    TranslocoPipe,
   ],
   templateUrl: './products.component.html',
 })
@@ -44,17 +52,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     totalPages: 0,
   });
   first = signal<number>(0);
-
-  // Paginator PassThrough
-  pt = signal<PaginatorPassThrough>({
-    root: { class: 'gap-1!' },
-    pages: { class: 'gap-1!' },
-    first: { class: 'p-2!' },
-    prev: { class: 'p-2!' },
-    page: { class: 'p-2!' },
-    next: { class: 'p-2!' },
-    last: { class: 'p-2!' },
-  });
+  paginatorPt = signal<PaginatorPassThrough>(PAGINATOR_PT);
 
   subscription = new Subscription();
 
@@ -84,61 +82,58 @@ export class ProductsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // getAllProducts() {
-  //   const sub = this._productService
-  //     .getAllProducts(this.metaData().currentPage)
-  //     .subscribe(res => {
-  //       this.products.set(res.products.filter(p => p.quantity > 0));
-  //       this.metaData.set(res.metadata);
-  //       this.first.set((this.metaData().currentPage - 1) * this.metaData().limit);
-  //     });
-  //   this.subscription.add(sub);
-  // }
   getFilters() {
-  return {
-    category: this.categories().find(c => c.selected)?._id,
-    occasion: this.occasions().find(o => o.selected)?._id,
-    priceFrom: this.priceFrom(),
-    priceTo: this.priceTo(),
-    rating: this.ratingValue(),
-  };
-}
-onFilterChange() {
-  // نرجع لأول صفحة
-  this.metaData.set({
-    ...this.metaData(),
-    currentPage: 1
-  });
+    return {
+      category: this.categories().find(c => c.selected)?._id,
+      occasion: this.occasions().find(o => o.selected)?._id,
+      priceFrom: this.priceFrom(),
+      priceTo: this.priceTo(),
+      rating: this.ratingValue(),
+    };
+  }
 
-  this.getAllProducts();
-}
-  getAllProducts() {
-  const filters = this.getFilters();
-
-  const sub = this._productService
-    .getAllProducts(
-      this.metaData().currentPage,
-      this.metaData().limit,
-      filters
-    )
-    .subscribe(res => {
-      console.log('Applied Filters:', filters);
-      this.products.set(res.products.filter(p => p.quantity > 0));
-      console.log('Received Metadata:', res.metadata);
-      this.metaData.set(res.metadata);
-      this.first.set((this.metaData().currentPage - 1) * this.metaData().limit);
+  onFilterChange() {
+    // نرجع لأول صفحة
+    this.metaData.set({
+      ...this.metaData(),
+      currentPage: 1,
     });
 
-  this.subscription.add(sub);
-}
+    this.getAllProducts();
+  }
+  getAllProducts() {
+    const filters = this.getFilters();
+
+    const sub = this._productService
+      .getAllProducts(
+        this.metaData().currentPage,
+        this.metaData().limit,
+        filters
+      )
+      .subscribe(res => {
+        console.log('Applied Filters:', filters);
+        this.products.set(res.products.filter(p => p.quantity > 0));
+        console.log('Received Metadata:', res.metadata);
+        this.metaData.set(res.metadata);
+        this.first.set(
+          (this.metaData().currentPage - 1) * this.metaData().limit
+        );
+      });
+
+    this.subscription.add(sub);
+  }
 
   onPageChange(event: PaginatorState) {
     if (event) {
       this.metaData.set({
         ...this.metaData(),
-        currentPage: event.page != null ? event.page + 1 : this.metaData().currentPage,
+        currentPage:
+          event.page != null ? event.page + 1 : this.metaData().currentPage,
         limit: event.rows != null ? event.rows : this.metaData().limit,
-        totalItems: event.totalRecords != null ? event.totalRecords : this.metaData().totalItems,
+        totalItems:
+          event.totalRecords != null
+            ? event.totalRecords
+            : this.metaData().totalItems,
       });
       this.first.set((this.metaData().currentPage - 1) * this.metaData().limit);
       this.getAllProducts();
