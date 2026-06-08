@@ -37,11 +37,20 @@ export const appRoutes: Route[] = [
       ),
     canActivate: [dashboardGuard],
   },
+
   {
     path: 'unauthorized',
     loadComponent: () =>
       import(
         './shared/components/authorized-page/authorized-page.component'
       ).then(m => m.AuthorizedPageComponent),
+  },
+
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./shared/components/notfound-page/notfound-page.component').then(
+        m => m.NotfoundPageComponent
+      ),
   },
 ];

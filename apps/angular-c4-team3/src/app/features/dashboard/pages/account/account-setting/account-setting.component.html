@@ -1,21 +1,26 @@
-<section class="min-h-screen bg-gray-50 dark:bg-zinc-900 p-4 lg:flex lg:items-center lg:justify-center lg:p-6">
+<section
+  class="min-h-screen bg-gray-50 dark:bg-zinc-900 p-4 lg:flex lg:items-center lg:justify-center lg:p-6">
   <div class="w-full lg:max-w-3xl">
-
     <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-6">
       {{ 'account_settings' | transloco }}
     </h2>
 
     <div
       class="bg-white dark:bg-zinc-800 lg:rounded-2xl lg:shadow-sm lg:border lg:border-zinc-200 lg:dark:border-zinc-700 p-6 lg:p-8">
-
       <!-- Photo Upload -->
       <div class="flex items-center gap-5 mb-8">
-        <div class="relative w-20 h-20 shrink-0">
+        <div class="relative shrink-0">
           <label for="photoInput" class="cursor-pointer">
-            <img [src]="previewUrl() ?? 'assets/images/default-avatar.svg'" alt="Profile photo"
-              class="w-20 h-20 object-cover rounded-full hover:opacity-80 transition" />
+            <img
+              [src]="previewUrl() ?? 'assets/images/default-avatar.svg'"
+              alt="Profile photo"
+              class="hover:opacity-80" />
           </label>
-          <input id="photoInput" type="file" accept=".jpg,.jpeg,.png,.gif" class="hidden"
+          <input
+            id="photoInput"
+            type="file"
+            accept=".jpg,.jpeg,.png,.gif"
+            class="hidden"
             (change)="onPhotoSelected($event)" />
         </div>
         <div>
@@ -29,48 +34,88 @@
       </div>
 
       <!-- Edit Profile Form -->
-      <form [formGroup]="form" (ngSubmit)="submit()" class="flex flex-col gap-4">
+      <form
+        [formGroup]="form"
+        (ngSubmit)="submit()"
+        class="flex flex-col gap-4">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          <app-input id="firstName" type="text" label="{{ 'first_name' | transloco }}" placeholder="Jonathan"
-            [required]="true" fieldControlName="firstName" [errorMessages]="firstNameErrors()" />
-          <app-input id="lastName" type="text" label="{{ 'last_name' | transloco }}" placeholder="Adrian"
-            [required]="true" fieldControlName="lastName" [errorMessages]="lastNameErrors()" />
+          <app-input
+            id="firstName"
+            type="text"
+            label="{{ 'first_name' | transloco }}"
+            placeholder="Jonathan"
+            [required]="true"
+            fieldControlName="firstName"
+            [errorMessages]="firstNameErrors()" />
+          <app-input
+            id="lastName"
+            type="text"
+            label="{{ 'last_name' | transloco }}"
+            placeholder="Adrian"
+            [required]="true"
+            fieldControlName="lastName"
+            [errorMessages]="lastNameErrors()" />
         </div>
 
-        <app-input id="email" type="email" label="{{ 'email' | transloco }}" placeholder="jonathan@gmail.com"
-          [required]="true" fieldControlName="email" [errorMessages]="emailErrors()" />
+        <app-input
+          id="email"
+          type="email"
+          label="{{ 'email' | transloco }}"
+          placeholder="jonathan@gmail.com"
+          [required]="true"
+          fieldControlName="email"
+          [errorMessages]="emailErrors()" />
 
-        <app-phone id="phone" label="{{ 'phone' | transloco }}" placeholder="1012345678" [required]="true"
-          fieldControlName="phone" defaultCountry="EG" [errorMessages]="phoneErrors()" />
+        <app-phone
+          id="phone"
+          label="{{ 'phone' | transloco }}"
+          placeholder="1012345678"
+          [required]="true"
+          fieldControlName="phone"
+          defaultCountry="EG"
+          [errorMessages]="phoneErrors()" />
 
-        <app-select id="gender" label="{{ 'gender' | transloco }}" [options]="genderOptions()" optionLabel="label"
-          optionValue="value" placeholder="{{ 'select_gender' | transloco }}" [required]="true"
-          fieldControlName="gender" [errorMessages]="genderErrors()" />
+        <app-select
+          id="gender"
+          label="{{ 'gender' | transloco }}"
+          [options]="genderOptions()"
+          optionLabel="label"
+          optionValue="value"
+          placeholder="{{ 'select_gender' | transloco }}"
+          [required]="true"
+          fieldControlName="gender"
+          [errorMessages]="genderErrors()" />
 
-        <div class="flex flex-col gap-3 mt-4 lg:flex-row lg:items-center lg:justify-between">
+        <div
+          class="flex flex-col gap-3 mt-4 lg:flex-row lg:items-center lg:justify-between">
           <div class="flex items-center gap-4">
-            <button type="button"
+            <button
+              type="button"
               class="text-sm font-semibold text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition"
               (click)="onDeleteAccount()">
               {{ 'delete_account' | transloco }}
             </button>
-            <button type="button"
+            <button
+              type="button"
               class="text-sm font-semibold text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-zinc-100 transition"
               (click)="onChangePassword()">
               {{ 'change_password' | transloco }}
             </button>
           </div>
 
-          <shared-ui-button class="w-full lg:w-auto" [label]="'save_changes' | transloco" [type]="'submit'"
+          <shared-ui-button
+            class="w-full lg:w-auto"
+            [label]="'save_changes' | transloco"
+            [type]="'submit'"
             [disabled]="form.invalid" />
         </div>
       </form>
-
     </div>
 
     @if (showDeleteModal()) {
-    <app-confirm-delete-modal (confirmed)="confirmDelete()" (cancelled)="showDeleteModal.set(false)" />
+      <app-confirm-delete-modal
+        (confirmed)="confirmDelete()"
+        (cancelled)="showDeleteModal.set(false)" />
     }
-
   </div>
 </section>
