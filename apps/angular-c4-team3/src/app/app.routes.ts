@@ -37,4 +37,11 @@ export const appRoutes: Route[] = [
       ),
     canActivate: [dashboardGuard],
   },
+  {
+    path: 'unauthorized',
+    loadComponent: () =>
+      import(
+        './shared/components/authorized-page/authorized-page.component'
+      ).then(m => m.AuthorizedPageComponent),
+  },
 ];
