@@ -23,5 +23,6 @@ export const APP_ROUTES = {
   DASHBOARD: {
     ROOT: 'dashboard',
     OVERVIEW: 'overview',
+    PRODUCTS: 'products',
   },
 };

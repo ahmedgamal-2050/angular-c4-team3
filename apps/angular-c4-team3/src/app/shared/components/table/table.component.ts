@@ -1,4 +1,5 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, Directive, TemplateRef, contentChildren, input, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -7,9 +8,35 @@ import { InputTextModule } from 'primeng/inputtext';
 import { LucideAngularModule, Search } from 'lucide-angular';
 import { PAGINATOR_PT } from '../../constants/pass-through';
 
+export interface StatusStyle {
+  class: string;
+  dotClass: string;
+  label?: string;
+}
+
+export interface TableColumn {
+  field: string;
+  header: string;
+  type?: 'text' | 'avatar' | 'status' | 'boolean';
+  width?: string;
+  avatarImageField?: string;
+  avatarNameField?: string;
+  avatarImageBaseUrl?: string;
+  statusConfig?: Record<string, StatusStyle>;
+}
+
+@Directive({
+  selector: '[appTableCell]',
+})
+export class TableCellDirective {
+  appTableCell = input.required<string>();
+  constructor(public templateRef: TemplateRef<unknown>) {}
+}
+
 @Component({
   selector: 'app-table',
   imports: [
+    CommonModule,
     IconFieldModule,
     InputIconModule,
     TableModule,
@@ -20,11 +47,19 @@ import { PAGINATOR_PT } from '../../constants/pass-through';
   templateUrl: './table.component.html',
   styleUrl: './table.component.css',
 })
-export class TableComponent implements OnInit {
+export class TableComponent {
   readonly Search = Search;
 
-  customers!: any[];
-  loading = signal<boolean>(true);
+  // Signal Inputs
+  data = input<unknown[]>([]);
+  columns = input<TableColumn[]>([]);
+  globalFilterFields = input<string[]>([]);
+  loading = input<boolean>(false);
+  rows = input<number>(10);
+
+  // Content children signal query for cell templates
+  cellTemplates = contentChildren(TableCellDirective);
+
   tablePt = signal<TablePassThrough>({
     root: {
       class: 'overflow-hidden flex flex-col',
@@ -51,143 +86,33 @@ export class TableComponent implements OnInit {
     pcPaginator: PAGINATOR_PT,
   });
 
-  ngOnInit() {
-    // Populate mock customer dataset for realistic preview
-    this.customers = [
-      {
-        id: 1000,
-        name: 'James Butt',
-        country: { name: 'Algeria', code: 'dz' },
-        status: 'unqualified',
-        verified: true,
-        representative: { name: 'Ioni Bowcher', image: 'ionibowcher.png' },
-      },
-      {
-        id: 1001,
-        name: 'Josephine Darakjy',
-        country: { name: 'Egypt', code: 'eg' },
-        status: 'proposal',
-        verified: true,
-        representative: { name: 'Amy Elsner', image: 'amyelsner.png' },
-      },
-      {
-        id: 1002,
-        name: 'Art Venere',
-        country: { name: 'Panama', code: 'pa' },
-        status: 'qualified',
-        verified: false,
-        representative: { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-      },
-      {
-        id: 1003,
-        name: 'Lenna Paprocki',
-        country: { name: 'Slovenia', code: 'si' },
-        status: 'new',
-        verified: true,
-        representative: { name: 'Xuxue Feng', image: 'xuxuefeng.png' },
-      },
-      {
-        id: 1004,
-        name: 'Donette Foller',
-        country: { name: 'South Africa', code: 'za' },
-        status: 'negotiation',
-        verified: true,
-        representative: { name: 'Asiya Javayant', image: 'asiyajavayant.png' },
-      },
-      {
-        id: 1005,
-        name: 'Simona Morasca',
-        country: { name: 'Egypt', code: 'eg' },
-        status: 'qualified',
-        verified: false,
-        representative: { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-      },
-      {
-        id: 1006,
-        name: 'Mitsue Tollner',
-        country: { name: 'Paraguay', code: 'py' },
-        status: 'renewal',
-        verified: true,
-        representative: { name: 'Ivan Magalhaes', image: 'ivanmagalhaes.png' },
-      },
-      {
-        id: 1007,
-        name: 'Leota Diahann',
-        country: { name: 'Serbia', code: 'rs' },
-        status: 'proposal',
-        verified: true,
-        representative: { name: 'Onyama Limba', image: 'onyamalimba.png' },
-      },
-      {
-        id: 1008,
-        name: 'Sage Wieser',
-        country: { name: 'Egypt', code: 'eg' },
-        status: 'unqualified',
-        verified: true,
-        representative: { name: 'Amy Elsner', image: 'amyelsner.png' },
-      },
-      {
-        id: 1009,
-        name: 'Kris Marple',
-        country: { name: 'Italy', code: 'it' },
-        status: 'negotiation',
-        verified: false,
-        representative: {
-          name: 'Bernardo Dominic',
-          image: 'bernardodominic.png',
-        },
-      },
-      {
-        id: 1010,
-        name: 'Minna Amour',
-        country: { name: 'Romania', code: 'ro' },
-        status: 'qualified',
-        verified: true,
-        representative: { name: 'Onyama Limba', image: 'onyamalimba.png' },
-      },
-      {
-        id: 1011,
-        name: 'Abel Maclead',
-        country: { name: 'Singapore', code: 'sg' },
-        status: 'new',
-        verified: true,
-        representative: { name: 'Stephen Shaw', image: 'stephenshaw.png' },
-      },
-      {
-        id: 1012,
-        name: 'Kiley Caldarera',
-        country: { name: 'Japan', code: 'jp' },
-        status: 'unqualified',
-        verified: false,
-        representative: { name: 'Xuxue Feng', image: 'xuxuefeng.png' },
-      },
-      {
-        id: 1013,
-        name: 'Graciela Lario',
-        country: { name: 'Spain', code: 'es' },
-        status: 'renewal',
-        verified: true,
-        representative: { name: 'Amy Elsner', image: 'amyelsner.png' },
-      },
-      {
-        id: 1014,
-        name: 'Cammy Rachal',
-        country: { name: 'France', code: 'fr' },
-        status: 'proposal',
-        verified: true,
-        representative: {
-          name: 'Bernardo Dominic',
-          image: 'bernardodominic.png',
-        },
-      },
-      {
-        id: 1015,
-        name: 'Mattie Poquette',
-        country: { name: 'Germany', code: 'de' },
-        status: 'negotiation',
-        verified: false,
-        representative: { name: 'Elwin Sharvill', image: 'elwinsharvill.png' },
-      },
-    ];
+  resolveFieldData(rowData: unknown, field: string): unknown {
+    if (!rowData || !field) return undefined;
+    return field.split('.').reduce<unknown>((acc, part) => (acc as Record<string, unknown>)?.[part], rowData);
+  }
+
+  getStatusConfig(rowData: unknown, col: TableColumn): StatusStyle {
+    const status = String(this.resolveFieldData(rowData, col.field) || '');
+    const key = status.toLowerCase();
+    if (col.statusConfig && col.statusConfig[key]) {
+      return col.statusConfig[key];
+    }
+    return {
+      class: 'bg-zinc-50 text-zinc-600 dark:bg-zinc-900 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-800',
+      dotClass: 'bg-zinc-500 dark:bg-zinc-400',
+      label: status,
+    };
+  }
+
+  getStatusLabel(rowData: unknown, col: TableColumn): string {
+    const status = String(this.resolveFieldData(rowData, col.field) || '');
+    const config = this.getStatusConfig(rowData, col);
+    return config.label || status.charAt(0).toUpperCase() + status.slice(1);
+  }
+
+  getTemplateForColumn(field: string): TemplateRef<unknown> | null {
+    const cellDirective = this.cellTemplates().find((t) => t.appTableCell() === field);
+    return cellDirective ? cellDirective.templateRef : null;
   }
 }
+

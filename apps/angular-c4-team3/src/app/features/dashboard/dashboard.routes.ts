@@ -10,4 +10,11 @@ export const dashboardRoutes: Route[] = [
         m => m.OverviewComponent
       ),
   },
+  {
+    path: APP_ROUTES.DASHBOARD.PRODUCTS,
+    loadComponent: () =>
+      import('./pages/products/products.component').then(
+        m => m.ProductsComponent
+      ),
+  },
 ];
