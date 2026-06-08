@@ -17,4 +17,18 @@ export const dashboardRoutes: Route[] = [
         m => m.ProductsComponent
       ),
   },
+  {
+    path: APP_ROUTES.DASHBOARD.ADD_PRODUCT,
+    loadComponent: () =>
+      import('./pages/products/pages/product-form/product-form.component').then(
+        m => m.ProductFormComponent
+      ),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.EDIT_PRODUCT,
+    loadComponent: () =>
+      import('./pages/products/pages/product-form/product-form.component').then(
+        m => m.ProductFormComponent
+      ),
+  },
 ];

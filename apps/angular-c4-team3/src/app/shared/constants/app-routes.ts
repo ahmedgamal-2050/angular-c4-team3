@@ -24,5 +24,7 @@ export const APP_ROUTES = {
     ROOT: 'dashboard',
     OVERVIEW: 'overview',
     PRODUCTS: 'products',
+    ADD_PRODUCT: 'products/form',
+    EDIT_PRODUCT: 'products/form/:id',
   },
 };
