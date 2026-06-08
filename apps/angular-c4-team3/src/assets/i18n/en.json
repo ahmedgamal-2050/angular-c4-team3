@@ -182,7 +182,7 @@
   "cash_on_delivery_desc": "You'll pay in cash when your order is delivered.",
   "credit_card": "Credit Card",
   "credit_card_desc": "You'll be securely redirected to Stripe to complete your payment.",
-  "checkout": "Checkout"
+  "checkout": "Checkout",
   "overview_overall_section_total_products": "Total products",
   "overview_overall_section_total_orders": "Total orders",
   "overview_overall_section_total_categories": "Total categories",
