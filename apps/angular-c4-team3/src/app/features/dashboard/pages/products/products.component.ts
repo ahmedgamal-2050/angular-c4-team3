@@ -1,21 +1,25 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { DecimalPipe } from '@angular/common';
+import { RouterModule, RouterLink } from '@angular/router';
 import { LucideAngularModule, Plus, Pencil, Trash2 } from 'lucide-angular';
 import {
   TableComponent,
   TableCellDirective,
-  TableColumn,
 } from '../../../../shared/components/table/table.component';
 import { ProductService } from '../../../landing/pages/products/services/product.service';
 import { Product } from '../../../landing/pages/home/home.model';
+import { APP_ROUTES } from '../../../../shared/constants/app-routes';
+import { TableColumn } from '../../../../shared/components/table/table.modal';
+import { PRODUCT_TABLE_COLUMN } from './products.constants';
 
 @Component({
   selector: 'app-dashboard-products',
   imports: [
-    CommonModule,
+    DecimalPipe,
     TableComponent,
     TableCellDirective,
     LucideAngularModule,
+    RouterLink,
   ],
   templateUrl: './products.component.html',
 })
@@ -25,25 +29,14 @@ export class ProductsComponent implements OnInit {
   readonly Plus = Plus;
   readonly Pencil = Pencil;
   readonly Trash2 = Trash2;
+  readonly AddProduct = `/${APP_ROUTES.DASHBOARD.ROOT}/${APP_ROUTES.DASHBOARD.ADD_PRODUCT}`;
 
   products = signal<Product[]>([]);
-  tableColumns = signal<TableColumn[]>([]);
+  tableColumns = signal<TableColumn[]>(PRODUCT_TABLE_COLUMN);
   loading = signal<boolean>(true);
 
   ngOnInit(): void {
-    this.initTableColumns();
     this.loadProducts();
-  }
-
-  initTableColumns(): void {
-    this.tableColumns.set([
-      { field: 'title', header: 'Name', type: 'text', width: '22%' },
-      { field: 'price', header: 'Price', type: 'text', width: '18%' },
-      { field: 'quantity', header: 'Stock', type: 'text', width: '15%' },
-      { field: 'sold', header: 'Sales', type: 'text', width: '15%' },
-      { field: 'rateAvg', header: 'Ratings', type: 'text', width: '20%' },
-      { field: 'actions', header: '', type: 'text', width: '10%' },
-    ]);
   }
 
   loadProducts(): void {
@@ -58,5 +51,20 @@ export class ProductsComponent implements OnInit {
         this.loading.set(false);
       },
     });
+  }
+
+  deleteProduct(productId: string): void {
+    if (confirm('Are you sure you want to delete this product?')) {
+      this.loading.set(true);
+      this.productService.deleteProduct(productId).subscribe({
+        next: () => {
+          this.loadProducts();
+        },
+        error: err => {
+          console.error('Error deleting product:', err);
+          this.loading.set(false);
+        },
+      });
+    }
   }
 }
