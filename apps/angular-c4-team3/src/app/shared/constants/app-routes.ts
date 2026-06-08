@@ -25,5 +25,8 @@ export const APP_ROUTES = {
     OVERVIEW: 'overview',
     ACCOUNT: 'account',
     CHANGE_PASSWORD: 'changePassword',
+    CATEGORIES: 'categories',
+    ADD_CATEGORY: 'categories/add',
+    UPDATE_CATEGORY: 'categories/update/:id',
   },
 };

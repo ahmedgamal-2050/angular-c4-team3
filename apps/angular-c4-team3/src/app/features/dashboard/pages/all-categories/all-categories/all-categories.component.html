@@ -1,0 +1,54 @@
+<section class="min-h-screen bg-gray-50 dark:bg-zinc-900 p-6">
+  <div class="w-full max-w-5xl mx-auto">
+    <!-- Header -->
+    <div class="flex items-center justify-between mb-6">
+      <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+        All Categories
+      </h2>
+      <shared-ui-button
+        [label]="'+ Add a new category'"
+        [type]="'button'"
+        (click)="navigateToAdd()" />
+    </div>
+
+    <!-- Search -->
+    <div class="relative mb-4">
+      <svg
+        class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        stroke-width="2">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+      </svg>
+      <input
+        type="text"
+        placeholder="Search..."
+        class="w-full pl-9 pr-4 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 text-sm text-zinc-800 dark:text-zinc-100 focus:outline-none"
+        [value]="searchQuery()"
+        (input)="searchQuery.set($any($event.target).value)" />
+    </div>
+
+    <!-- Table -->
+    <app-data-table
+      [columns]="columns"
+      [rows]="filteredCategories()"
+      (editClick)="onEdit($event)"
+      (deleteClick)="onDelete($event)" />
+
+    <!-- Pagination -->
+    <app-pagination
+      [currentPage]="currentPage()"
+      [totalPages]="totalPages()"
+      (pageChange)="onPageChange($event)" />
+  </div>
+
+  @if (showDeleteModal()) {
+    <app-confirm-delete-modal
+      (confirmed)="onDeleteConfirmed()"
+      (cancelled)="showDeleteModal.set(false)" />
+  }
+</section>

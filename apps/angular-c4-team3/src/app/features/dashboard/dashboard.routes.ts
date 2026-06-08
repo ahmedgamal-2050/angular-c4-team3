@@ -39,4 +39,25 @@ export const dashboardRoutes: Route[] = [
         '../../shared/components/notfound-page/notfound-page.component'
       ).then(m => m.NotfoundPageComponent),
   },
+  {
+    path: 'categories',
+    loadComponent: () =>
+      import(
+        './pages/all-categories/all-categories/all-categories.component'
+      ).then(m => m.AllCategoriesComponent),
+  },
+  {
+    path: 'categories/add',
+    loadComponent: () =>
+      import('./pages/all-categories/add-category/add-category.component').then(
+        m => m.AddCategoryComponent
+      ),
+  },
+  {
+    path: 'categories/update/:id',
+    loadComponent: () =>
+      import(
+        './pages/all-categories/update-category/update-category.component'
+      ).then(m => m.UpdateCategoryComponent),
+  },
 ];
