@@ -1,37 +1,45 @@
-<div class="flex flex-col gap-6 w-full max-w-7xl mx-auto p-4 md:p-6">
-  <!-- Header Section -->
+<div class="flex flex-col gap-6 w-full max-w-7xl mx-auto p-0 lg:p-6">
   <div
-    class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-    <h1 class="text-2xl lg:text-3xl font-bold text-zinc-900 dark:text-white">
-      All Products
-    </h1>
+    class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 lg:px-6 py-6 px-4 shadow-sm">
+    <!-- Header Section -->
+    <div class="flex flex-row items-center justify-between gap-4 mb-6">
+      <h1 class="text-2xl lg:text-3xl font-bold text-zinc-900 dark:text-white">
+        All Products
+      </h1>
 
-    <button
-      [routerLink]="AddProduct"
-      class="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-sm font-bold text-white bg-maroon-700 hover:bg-maroon-800 transition-colors shadow-md cursor-pointer">
-      <lucide-icon [img]="Plus" size="18" />
-      Add a new product
-    </button>
-  </div>
+      <button
+        [routerLink]="AddProduct"
+        class="inline-flex items-center gap-2 px-3 lg:px-5 py-2 lg:py-3 rounded-lg text-sm font-bold text-white bg-maroon-600 hover:bg-maroon-700 transition-colors shadow-md cursor-pointer">
+        <lucide-icon [img]="Plus" size="18" />
+        <span class="hidden lg:block">Add a new product</span>
+      </button>
+    </div>
 
-  <!-- Table Section -->
-  <div
-    class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 p-6 shadow-sm">
+    <!-- Table Section -->
     <app-table
       [data]="products()"
       [columns]="tableColumns()"
       [loading]="loading()"
       [globalFilterFields]="['title', 'price', 'quantity', 'sold', 'rateAvg']"
+      [cellTemplates]="[title, price, quantity, sold, rateAvg, actions]"
       [rows]="10">
+      <!-- Custom Title Template -->
+      <ng-template #title let-row>
+        <div
+          class="font-semibold text-zinc-800 dark:text-white w-12 lg:w-fit text-pretty line-clamp-2 text-md">
+          {{ row.title }}
+        </div>
+      </ng-template>
+
       <!-- Custom Price Template -->
-      <ng-template [appTableCell]="'price'" let-row>
-        <span class="font-medium text-zinc-700 dark:text-zinc-300">
+      <ng-template #price let-row>
+        <span class="font-medium text-zinc-800 dark:text-white">
           {{ row.price | number }} EGP
         </span>
       </ng-template>
 
       <!-- Custom Stock (Quantity) Template -->
-      <ng-template [appTableCell]="'quantity'" let-row>
+      <ng-template #quantity let-row>
         @if (row.quantity <= 5) {
           <span class="text-red-600 dark:text-red-400 font-bold">
             {{ row.quantity }}
@@ -44,41 +52,76 @@
       </ng-template>
 
       <!-- Custom Sales (Sold) Template -->
-      <ng-template [appTableCell]="'sold'" let-row>
-        <span class="text-zinc-600 dark:text-zinc-400">
+      <ng-template #sold let-row>
+        <span class="text-zinc-800 dark:text-white">
           {{ row.sold | number }}
         </span>
       </ng-template>
 
       <!-- Custom Ratings Template -->
-      <ng-template [appTableCell]="'rateAvg'" let-row>
+      <ng-template #rateAvg let-row>
         <div class="flex items-center gap-1.5">
-          <span class="font-bold text-zinc-800 dark:text-zinc-200">
+          <span class="font-bold text-zinc-800 dark:text-white">
             {{ row.rateAvg | number: '1.1-1' }}/5
           </span>
 
-          <span class="text-zinc-400 dark:text-zinc-500 text-xs">
+          <span class="text-zinc-800 dark:text-white text-xs">
             ({{ row.rateCount }})
           </span>
         </div>
       </ng-template>
 
       <!-- Custom Actions Template -->
-      <ng-template [appTableCell]="'actions'" let-row>
+      <ng-template #actions let-row>
         <div class="lg:flex items-center gap-2.5 hidden">
           <button
-            [routerLink]="['/dashboard/products/edit', row._id]"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 text-blue-700 hover:bg-blue-100/80 dark:bg-blue-950/30 dark:text-blue-400 dark:hover:bg-blue-900/30 border border-blue-200/40 dark:border-blue-800/30 transition-colors duration-150 cursor-pointer">
+            type="button"
+            [routerLink]="['/dashboard/products/form', row._id]"
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-50 text-blue-600 hover:bg-blue-100/80 dark:bg-blue-950/30 dark:text-blue-400 dark:hover:bg-blue-900/30 border border-blue-200/40 dark:border-blue-800/30 transition-colors duration-150 cursor-pointer">
             <lucide-icon [img]="Pencil" size="14" />
             Edit
           </button>
 
           <button
+            type="button"
             (click)="deleteProduct(row._id)"
-            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-50 text-red-700 hover:bg-red-100/80 dark:bg-red-950/30 dark:text-red-400 dark:hover:bg-red-900/30 border border-red-200/40 dark:border-red-800/30 transition-colors duration-150 cursor-pointer">
+            class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-red-50 text-red-600 hover:bg-red-100/80 dark:bg-red-950/30 dark:text-red-400 dark:hover:bg-red-900/30 border border-red-200/40 dark:border-red-800/30 transition-colors duration-150 cursor-pointer">
             <lucide-icon [img]="Trash2" size="14" />
             Delete
           </button>
+        </div>
+
+        <div class="flex justify-center lg:hidden">
+          <button
+            type="button"
+            class="border border-zinc-300 dark:border-zinc-600 text-zinc-600 dark:text-zinc-400 rounded-md px-1 py-1.5 hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors duration-150"
+            (click)="menu.toggle($event)">
+            <lucide-icon [img]="EllipsisVertical" size="14" />
+          </button>
+
+          <p-menu #menu [model]="actionItems()" [popup]="true" [pt]="menuPt()">
+            <ng-template #item let-item>
+              <button
+                type="button"
+                [routerLink]="
+                  item.label == 'Edit'
+                    ? ['/dashboard/products/form', row._id]
+                    : ''
+                "
+                (click)="item.label == 'Delete' ? deleteProduct(row._id) : ''"
+                class="inline-flex items-center gap-1.5 p-3 rounded-lg text-xs font-semibold w-full hover:bg-zinc-100"
+                [class]="
+                  item.label == 'Edit'
+                    ? 'text-blue-600 dark:text-blue-400'
+                    : 'text-red-600 dark:text-red-400'
+                ">
+                <lucide-icon
+                  [img]="item.label === 'Edit' ? Pencil : Trash2"
+                  size="14" />
+                {{ item.label }}
+              </button>
+            </ng-template>
+          </p-menu>
         </div>
       </ng-template>
     </app-table>

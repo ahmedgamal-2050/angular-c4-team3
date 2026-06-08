@@ -46,21 +46,19 @@
     <ng-template #body let-rowData>
       <tr
         class="hover:bg-zinc-50! dark:hover:bg-zinc-800! transition-colors duration-150">
-        @for (col of columns(); track col.field) {
+        @for (col of columns(); track col.field; let i = $index) {
           <td
             [class]="'lg:w-[' + col.width + ']'"
             class="px-2! py-4! border-zinc-200! dark:border-zinc-600! whitespace-nowrap text-sm text-zinc-800! dark:text-white! align-middle"
             [class.hidden]="col.hideOnMobile"
             [class.lg:table-cell]="col.hideOnMobile">
-            @if (getTemplateForColumn(col.field)) {
+            @if (cellTemplates()[i]) {
               <ng-container
-                [ngTemplateOutlet]="getTemplateForColumn(col.field)"
+                [ngTemplateOutlet]="cellTemplates()[i]"
                 [ngTemplateOutletContext]="{
                   $implicit: rowData,
                   row: rowData,
                 }" />
-            } @else {
-              {{ resolveFieldData(rowData, col.field) }}
             }
           </td>
         }

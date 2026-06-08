@@ -16,14 +16,6 @@ import { LucideAngularModule, Search } from 'lucide-angular';
 import { PAGINATOR_PT } from '../../constants/pass-through';
 import { TableColumn } from './table.modal';
 
-@Directive({
-  selector: '[appTableCell]',
-})
-export class TableCellDirective {
-  appTableCell = input.required<string>();
-  constructor(public templateRef: TemplateRef<unknown>) {}
-}
-
 @Component({
   selector: 'app-table',
   imports: [
@@ -45,9 +37,7 @@ export class TableComponent {
   globalFilterFields = input<string[]>([]);
   loading = input<boolean>(false);
   rows = input<number>(10);
-
-  // Content children signal query for cell templates
-  cellTemplates = contentChildren(TableCellDirective);
+  cellTemplates = input.required<TemplateRef<unknown>[]>();
 
   tablePt = signal<TablePassThrough>({
     root: {
@@ -74,21 +64,4 @@ export class TableComponent {
     },
     pcPaginator: PAGINATOR_PT,
   });
-
-  resolveFieldData(rowData: unknown, field: string): unknown {
-    if (!rowData || !field) return undefined;
-    return field
-      .split('.')
-      .reduce<unknown>(
-        (acc, part) => (acc as Record<string, unknown>)?.[part],
-        rowData
-      );
-  }
-
-  getTemplateForColumn(field: string): TemplateRef<unknown> | null {
-    const cellDirective = this.cellTemplates().find(
-      t => t.appTableCell() === field
-    );
-    return cellDirective ? cellDirective.templateRef : null;
-  }
 }
