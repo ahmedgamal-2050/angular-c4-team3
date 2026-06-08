@@ -194,5 +194,19 @@
   "overview_top_selling_products_title": "المنتجات الأكثر مبيعاً",
   "overview_low_stock_products_title": "المنتجات منخفضة المخزون",
   "overview_sales": "مبيعات",
-  "overview_products": "منتج"
+  "overview_products": "منتج",
+  "account_settings": "إعدادات الحساب",
+  "upload_photo": "رفع صورة",
+  "upload_photo_hint": "يمكنك رفع صورة بصيغة .jpg أو .png أو .gif بحجم أقصاه 5 ميجابايت",
+  "save_changes": "حفظ التغييرات",
+  "delete_account": "حذف حسابي",
+  "change_password": "تغيير كلمة المرور",
+  "delete_account_confirm_title": "هل أنت متأكد أنك تريد حذف حسابك؟",
+  "delete_account_confirm_subtitle": "هذا الإجراء دائم ولا يمكن التراجع عنه.",
+  "delete_account_cancel": "لا، تراجع",
+  "delete_account_confirm": "نعم، احذف",
+  "old_password": "كلمة المرور القديمة",
+  "old_password_placeholder": "أدخل كلمة المرور القديمة",
+  "confirm_new_password": "تأكيد كلمة المرور الجديدة",
+  "confirm_new_password_placeholder": "أعد إدخال كلمة المرور الجديدة"
 }

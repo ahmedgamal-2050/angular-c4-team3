@@ -26,5 +26,7 @@ export const APP_ROUTES = {
     PRODUCTS: 'products',
     ADD_PRODUCT: 'products/form',
     EDIT_PRODUCT: 'products/form/:id',
+    ACCOUNT: 'account',
+    CHANGE_PASSWORD: 'changePassword',
   },
 };

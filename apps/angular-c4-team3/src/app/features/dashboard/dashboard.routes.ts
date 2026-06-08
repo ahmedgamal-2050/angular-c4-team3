@@ -30,5 +30,31 @@ export const dashboardRoutes: Route[] = [
       import('./pages/products/pages/product-form/product-form.component').then(
         m => m.ProductFormComponent
       ),
+    path: APP_ROUTES.DASHBOARD.ACCOUNT,
+    loadComponent: () =>
+      import('./pages/account/account-setting/account-setting.component').then(
+        m => m.AccountSettingComponent
+      ),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.CHANGE_PASSWORD,
+    loadComponent: () =>
+      import('./pages/account/change-password/change-password.component').then(
+        m => m.ChangePasswordComponent
+      ),
+  },
+  {
+    path: 'server-error',
+    loadComponent: () =>
+      import(
+        '../../shared/components/server-error/server-error.component'
+      ).then(m => m.ServerErrorComponent),
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import(
+        '../../shared/components/notfound-page/notfound-page.component'
+      ).then(m => m.NotfoundPageComponent),
   },
 ];
