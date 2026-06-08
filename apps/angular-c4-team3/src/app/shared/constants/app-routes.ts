@@ -23,5 +23,7 @@ export const APP_ROUTES = {
   DASHBOARD: {
     ROOT: 'dashboard',
     OVERVIEW: 'overview',
+    ACCOUNT: 'account',
+    CHANGE_PASSWORD: 'changePassword',
   },
 };

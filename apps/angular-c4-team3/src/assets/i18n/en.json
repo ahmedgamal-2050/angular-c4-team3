@@ -182,7 +182,7 @@
   "cash_on_delivery_desc": "You'll pay in cash when your order is delivered.",
   "credit_card": "Credit Card",
   "credit_card_desc": "You'll be securely redirected to Stripe to complete your payment.",
-  "checkout": "Checkout"
+  "checkout": "Checkout",
   "overview_overall_section_total_products": "Total products",
   "overview_overall_section_total_orders": "Total orders",
   "overview_overall_section_total_categories": "Total categories",
@@ -194,5 +194,19 @@
   "overview_top_selling_products_title": "Top Selling Products",
   "overview_low_stock_products_title": "Low Stock Products",
   "overview_sales": "Sales",
-  "overview_products": "Products"
+  "overview_products": "Products",
+  "account_settings": "Account Settings",
+  "upload_photo": "Upload Photo",
+  "upload_photo_hint": "You can upload a .jpg, .png, or .gif photo with max size of 5MB",
+  "save_changes": "Save Changes",
+  "delete_account": "Delete My Account",
+  "change_password": "Change Password",
+  "delete_account_confirm_title": "Are you sure you want to delete your account?",
+  "delete_account_confirm_subtitle": "This action is permanent and cannot be undone.",
+  "delete_account_cancel": "Nope, not doing it",
+  "delete_account_confirm": "Yes, delete",
+  "old_password": "Old Password",
+  "old_password_placeholder": "Enter old password",
+  "confirm_new_password": "Confirm New Password",
+  "confirm_new_password_placeholder": "Re-enter new password"
 }

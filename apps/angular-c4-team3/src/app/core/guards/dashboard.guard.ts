@@ -10,7 +10,8 @@ export const dashboardGuard: CanActivateFn = (route, state) => {
   if (token) {
     return true;
   } else {
-    router.navigate([`/${APP_ROUTES.AUTH.ROOT}/${APP_ROUTES.AUTH.LOGIN}`]);
+    // router.navigate([`/${APP_ROUTES.AUTH.ROOT}/${APP_ROUTES.AUTH.LOGIN}`]);
+    router.navigate(['/unauthorized']);
     return false;
   }
 };
