@@ -30,6 +30,8 @@ export const dashboardRoutes: Route[] = [
       import('./pages/products/pages/product-form/product-form.component').then(
         m => m.ProductFormComponent
       ),
+  },
+  {
     path: APP_ROUTES.DASHBOARD.ACCOUNT,
     loadComponent: () =>
       import('./pages/account/account-setting/account-setting.component').then(
