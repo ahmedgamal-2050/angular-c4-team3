@@ -166,5 +166,17 @@
   "enter_address_details": "أدخل تفاصيل العنوان",
   "address_location_section_title": "حدد موقعك",
   "address_location_section_find_my_location_button": "حدد موقعي",
-  "address_location_section_add_address_button": "إضافة عنوان"
+  "address_location_section_add_address_button": "إضافة عنوان",
+  "overview_overall_section_total_products": "إجمالي المنتجات",
+  "overview_overall_section_total_orders": "إجمالي الطلبات",
+  "overview_overall_section_total_categories": "إجمالي الفئات",
+  "overview_overall_section_total_revenue": "إجمالي الإيرادات",
+  "overview_order_status_section_title": "حالة الطلبات",
+  "overview_revenue_section_title": "الإيرادات",
+  "overview_revenue_section_monthly": "شهري",
+  "overview_revenue_section_last_week": "الأسبوع الماضي",
+  "overview_top_selling_products_title": "المنتجات الأكثر مبيعاً",
+  "overview_low_stock_products_title": "المنتجات منخفضة المخزون",
+  "overview_sales": "مبيعات",
+  "overview_products": "منتج"
 }

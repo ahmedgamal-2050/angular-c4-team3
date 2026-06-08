@@ -174,5 +174,17 @@
   "enter_address_details": "Enter address details",
   "address_location_section_title": "Find Your Location",
   "address_location_section_find_my_location_button": "Find My Location",
-  "address_location_section_add_address_button": "Add Address"
+  "address_location_section_add_address_button": "Add Address",
+  "overview_overall_section_total_products": "Total products",
+  "overview_overall_section_total_orders": "Total orders",
+  "overview_overall_section_total_categories": "Total categories",
+  "overview_overall_section_total_revenue": "Total revenue",
+  "overview_order_status_section_title": "Order Status",
+  "overview_revenue_section_title": "Revenue",
+  "overview_revenue_section_monthly": "Monthly",
+  "overview_revenue_section_last_week": "Last Week",
+  "overview_top_selling_products_title": "Top Selling Products",
+  "overview_low_stock_products_title": "Low Stock Products",
+  "overview_sales": "Sales",
+  "overview_products": "Products"
 }

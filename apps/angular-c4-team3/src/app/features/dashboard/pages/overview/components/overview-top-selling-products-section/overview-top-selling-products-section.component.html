@@ -1,0 +1,37 @@
+<section class="bg-white rounded-lg p-4 lg:p-6 border border-zinc-100 flex flex-col h-full shadow-[0_4px_30px_rgba(0,0,0,0.03)]">
+  <h4 class="font-bold text-zinc-900 text-lg lg:text-xl mb-6">
+    {{ 'overview_top_selling_products_title' | transloco }}
+  </h4>
+
+  <div class="flex flex-col gap-3 overflow-y-auto max-h-105 pr-1 scrollbar-thin">
+    @for (product of topSellingProducts(); track product._id; let idx = $index) {
+      <div
+        class="flex items-center justify-between px-2.5 py-1.5 rounded-lg"
+        [class.bg-linear-to-r]="idx <= 2"
+        [class.from-yellow-500/25]="idx === 0"
+        [class.to-yellow-100]="idx === 0"
+        [class.from-zinc-500/25]="idx === 1"
+        [class.to-zinc-100]="idx === 1"
+        [class.from-yellow-900/25]="idx === 2"
+        [class.from-yellow-900/10]="idx === 2"
+        [class.bg-zinc-100]="idx > 2">
+        <div class="flex items-center lg-w-full w-[85%]">
+          <div class="text-zinc-800 text-sm lg:text-base font-semibold truncate max-w-[calc(100%-10rem)]">
+            {{ product.title }}
+          </div>
+
+          <span class="text-zinc-800 font-normal text-xs ml-1">
+            ({{ product.price }} {{ 'egp' | transloco }})
+          </span>
+        </div>
+
+        <div class="whitespace-nowrap">
+          <span class="font-bold text-zinc-800 text-xs lg:text-sm">{{ product.sold || 0 }}</span>
+          <span class="text-zinc-800 text-xs lg:text-sm font-semibold ms-0.5">
+            {{ 'overview_sales' | transloco }}
+          </span>
+        </div>
+      </div>
+    }
+  </div>
+</section>

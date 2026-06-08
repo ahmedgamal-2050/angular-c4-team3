@@ -23,4 +23,5 @@ export const ENDPOINTS = {
   ADD_ADDRESS: `${BASE_URL}/addresses`,
   UPDATE_ADDRESS: `${BASE_URL}/addresses/{addressId}`,
   DELETE_ADDRESS: `${BASE_URL}/addresses/{addressId}`,
+  GET_ALL_STATISTICS: `${BASE_URL}/statistics`,
 } as const;
