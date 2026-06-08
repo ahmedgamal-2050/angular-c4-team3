@@ -1,0 +1,184 @@
+@if (isOpen) {
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-fade-in"
+  role="dialog"  clo (click)="close()" (keydown.escape)="close()">
+
+  <div
+    class="bg-white dark:bg-zinc-900 rounded-2xl w-full max-w-2xl p-8 shadow-2xl relative animate-slide-up max-h-[90vh] overflow-y-auto"
+    role="document" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+
+    <!-- ============================================ -->
+    <!-- VIEW 1: My Addresses List                    -->
+    <!-- ============================================ -->
+    @if (view === 'list') {
+
+    <div class="flex items-center justify-between mb-6 ">
+      <h2 class="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">
+        {{ 'my_addresses' | transloco }}
+      </h2>
+
+      <button type="button" (click)="switchToForm()"
+        class="px-4 py-2 rounded-xl bg-rose-50 text-maroon-600 font-semibold text-sm hover:bg-rose-100 transition">
+        {{ 'add_new_address' | transloco }}
+      </button>
+    </div>
+
+    <!-- Addresses List -->
+    <div class="space-y-5">
+      @for (addr of addresses; track addr.id) {
+      <div class="relative">
+
+        <!-- Label (Home / Work / Family) -->
+        <div class="absolute -top-2 left-4 bg-white dark:bg-zinc-900 px-2 z-10">
+          <span class="text-maroon-600 font-semibold text-sm">
+            {{ addr.label }}
+          </span>
+        </div>
+
+        <!-- Card -->
+        <div class="border rounded-2xl p-4 pt-5 flex items-start justify-between transition" [ngClass]="addr.selected
+                ? 'border-maroon-600 border-2'
+                : 'border-zinc-200'">
+
+          <!-- Left: Selected Badge + Info -->
+          <div class="flex items-start gap-3 flex-1">
+            <div class="w-10 h-10 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M12 21s-7-6.5-7-12a7 7 0 1 1 14 0c0 5.5-7 12-7 12z" stroke="white" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round" />
+                <circle cx="12" cy="9" r="2.5" stroke="white" stroke-width="2" />
+              </svg>
+            </div>
+
+            <div class="flex-1">
+              <h3 class="text-xl font-semibold text-zinc-800 dark:text-zinc-100 mb-1">
+                {{ addr.city }}
+              </h3>
+              <p class="text-sm text-zinc-600 dark:text-zinc-400">
+                {{ addr.address }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Right: Phone + Actions -->
+          <div class="flex flex-col items-end gap-2 ml-4">
+
+            <div class="flex items-center gap-2 text-zinc-700 text-sm">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                <path
+                  d="M11.527 13.807C11.6991 13.886 11.893 13.9041 12.0767 13.8582C12.2605 13.8123 12.4231 13.7052 12.5378 13.5545L12.8337 13.167C12.9889 12.96 13.1902 12.792 13.4216 12.6763C13.6531 12.5606 13.9083 12.5003 14.167 12.5003H16.667C17.109 12.5003 17.5329 12.6759 17.8455 12.9885C18.1581 13.301 18.3337 13.725 18.3337 14.167V16.667C18.3337 17.109 18.1581 17.5329 17.8455 17.8455C17.5329 18.1581 17.109 18.3337 16.667 18.3337C12.6887 18.3337 8.87344 16.7533 6.06039 13.9403C3.24734 11.1272 1.66699 7.31191 1.66699 3.33366C1.66699 2.89163 1.84259 2.46771 2.15515 2.15515C2.46771 1.84259 2.89163 1.66699 3.33366 1.66699H5.83366C6.27569 1.66699 6.69961 1.84259 7.01217 2.15515C7.32473 2.46771 7.50033 2.89163 7.50033 3.33366V5.83366C7.50033 6.0924 7.44008 6.34759 7.32437 6.57901C7.20866 6.81044 7.04065 7.01175 6.83366 7.16699L6.44366 7.45949C6.29067 7.57631 6.18284 7.74248 6.13848 7.92978C6.09413 8.11709 6.11598 8.31397 6.20033 8.48699C7.33923 10.8002 9.21235 12.671 11.527 13.807Z"
+                  stroke="#27272A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              <span class="font-medium">{{ addr.phone }}</span>
+
+              <button type="button" (click)="editAddress(addr.id)"
+                class="w-8 h-8 rounded-full border border-zinc-300 flex items-center justify-center hover:bg-zinc-50 transition">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                  <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" stroke="#27272A" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" stroke="#27272A" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+
+            <button type="button" (click)="deleteAddress(addr.id)"
+              class="w-9 h-9 rounded-full bg-red-500 hover:bg-red-600 flex items-center justify-center transition">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                <path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6h14z"
+                  stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      }
+    </div>
+
+    <!-- Empty State -->
+    @if (addresses.length === 0) {
+    <div class="text-center py-12 text-zinc-500">
+      <p>{{ 'no_addresses_yet' | transloco }}</p>
+    </div>
+    }
+    }
+
+    <!-- ============================================ -->
+    <!-- VIEW 2: Add / Edit Address Form              -->
+    <!-- ============================================ -->
+    @if (view === 'form') {
+
+    <div class="flex items-center gap-3 mb-6 pr-12">
+      <button type="button" (click)="switchToList()"
+        class="w-9 h-9 rounded-full bg-zinc-100 hover:bg-zinc-200 flex items-center justify-center transition">
+        <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+          <path d="M10.0003 4.16699L4.16699 10.0003L10.0003 15.8337M4.16699 10.0003H15.8337" stroke="#27272A"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </button>
+
+      <h2 class="text-2xl font-semibold text-zinc-800 dark:text-zinc-100">
+        {{ (editingId ? 'edit_address' : 'add_new_address') | transloco }}
+      </h2>
+    </div>
+
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+      <!-- City -->
+      <div>
+        <label for="cityField" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+          {{ 'city' | transloco }}
+        </label>
+        <input id="cityField" type="text" formControlName="city" placeholder="{{ 'enter_city' | transloco }}"
+          class="w-full px-4 py-3 border border-zinc-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-maroon-600 focus:border-transparent transition"
+          [class.border-red-500]="hasError('city', 'required') || hasError('city', 'minlength')" />
+
+        @if (hasError('city', 'required')) {
+        <p class="text-red-500 text-xs mt-1">{{ 'city_required' | transloco }}</p>
+        }
+        @if (hasError('city', 'minlength')) {
+        <p class="text-red-500 text-xs mt-1">{{ 'city_min_length' | transloco }}</p>
+        }
+      </div>
+
+      <!-- Address -->
+      <div>
+        <label for="addressField" class="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+          {{ 'address' | transloco }}
+        </label>
+        <textarea id="addressField" formControlName="address" rows="3" placeholder="{{ 'enter_address' | transloco }}"
+          class="w-full px-4 py-3 border border-zinc-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-maroon-600 focus:border-transparent transition resize-none"
+          [class.border-red-500]="hasError('address', 'required') || hasError('address', 'minlength')">
+          </textarea>
+
+        @if (hasError('address', 'required')) {
+        <p class="text-red-500 text-xs mt-1">{{ 'address_required' | transloco }}</p>
+        }
+        @if (hasError('address', 'minlength')) {
+        <p class="text-red-500 text-xs mt-1">{{ 'address_min_length' | transloco }}</p>
+        }
+      </div>
+
+      <!-- Phone -->
+      <app-phone id="phone" label="{{ 'phone' | transloco }}" placeholder="{{ 'phone_placeholder' | transloco }}"
+        [required]="true" fieldControlName="phone" defaultCountry="EG" [errorMessages]="phoneErrors()" />
+
+
+      <!-- Actions -->
+      <div class="flex gap-3 pt-4">
+        <button type="button" (click)="switchToList()"
+          class="flex-1 py-3 rounded-xl border border-zinc-300 text-zinc-700 font-semibold hover:bg-zinc-50 transition">
+          {{ 'cancel' | transloco }}
+        </button>
+
+        <button type="submit" [disabled]="addressForm.invalid"
+          class="flex-1 py-3 rounded-xl bg-maroon-600 text-white font-semibold hover:bg-maroon-700 transition disabled:opacity-50 disabled:cursor-not-allowed">
+          {{ (editingId ? 'update_address' : 'next') | transloco }}
+        </button>
+      </div>
+
+    </form>
+    }
+
+  </div>
+</div>
+}
