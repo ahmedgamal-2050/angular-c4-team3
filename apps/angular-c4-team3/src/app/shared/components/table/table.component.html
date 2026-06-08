@@ -7,7 +7,6 @@
     [rows]="rows()"
     [loading]="loading()"
     [paginator]="true"
-    [tableStyle]="{ 'min-width': '75rem' }"
     [globalFilterFields]="globalFilterFields()">
     <ng-template #caption>
       <div class="flex justify-end w-full">
@@ -34,9 +33,10 @@
       <tr>
         @for (col of columns(); track col.field) {
           <th
-            [style.width]="col.width"
+            [class]="'lg:w-[' + col.width + ']'"
             class="px-2! py-3! font-medium! text-xs capitalize tracking-wider border-b border-zinc-200! dark:border-zinc-600! text-zinc-800! dark:text-white! align-middle"
-            [class.text-center]="col.type === 'boolean'">
+            [class.hidden]="col.hideOnMobile"
+            [class.lg:table-cell]="col.hideOnMobile">
             {{ col.header }}
           </th>
         }
@@ -48,52 +48,19 @@
         class="hover:bg-zinc-50! dark:hover:bg-zinc-800! transition-colors duration-150">
         @for (col of columns(); track col.field) {
           <td
-            [style.width]="col.width"
+            [class]="'lg:w-[' + col.width + ']'"
             class="px-2! py-4! border-zinc-200! dark:border-zinc-600! whitespace-nowrap text-sm text-zinc-800! dark:text-white! align-middle"
-            [class.text-center]="col.type === 'boolean'">
+            [class.hidden]="col.hideOnMobile"
+            [class.lg:table-cell]="col.hideOnMobile">
             @if (getTemplateForColumn(col.field)) {
               <ng-container
                 [ngTemplateOutlet]="getTemplateForColumn(col.field)"
-                [ngTemplateOutletContext]="{ $implicit: rowData, row: rowData }">
-              </ng-container>
+                [ngTemplateOutletContext]="{
+                  $implicit: rowData,
+                  row: rowData,
+                }" />
             } @else {
-              @switch (col.type) {
-                @case ('avatar') {
-                  <div class="flex items-center gap-3">
-                    @if (resolveFieldData(rowData, col.avatarImageField || '')) {
-                      <img
-                        [alt]="resolveFieldData(rowData, col.avatarNameField || '')"
-                        src="{{ col.avatarImageBaseUrl || '' }}{{ resolveFieldData(rowData, col.avatarImageField || '') }}"
-                        class="w-7 h-7 rounded-full object-cover ring-2 ring-zinc-100 dark:ring-zinc-800 shadow-2xs" />
-                    }
-                    <span class="font-semibold text-zinc-750 dark:text-zinc-200">
-                      {{ resolveFieldData(rowData, col.avatarNameField || col.field) }}
-                    </span>
-                  </div>
-                }
-                @case ('status') {
-                  @let statusConfig = getStatusConfig(rowData, col);
-                  <span
-                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold"
-                    [class]="statusConfig.class">
-                    <span
-                      class="w-1.5 h-1.5 rounded-full"
-                      [class]="statusConfig.dotClass"></span>
-                    {{ getStatusLabel(rowData, col) }}
-                  </span>
-                }
-                @case ('boolean') {
-                  <i
-                    class="pi text-lg"
-                    [class]="{
-                      'text-emerald-500 dark:text-emerald-400 pi-check-circle': resolveFieldData(rowData, col.field),
-                      'text-red-400 dark:text-red-500/80 pi-times-circle': !resolveFieldData(rowData, col.field)
-                    }"></i>
-                }
-                @default {
-                  {{ resolveFieldData(rowData, col.field) }}
-                }
-              }
+              {{ resolveFieldData(rowData, col.field) }}
             }
           </td>
         }
@@ -117,4 +84,3 @@
     </ng-template>
   </p-table>
 </div>
-
