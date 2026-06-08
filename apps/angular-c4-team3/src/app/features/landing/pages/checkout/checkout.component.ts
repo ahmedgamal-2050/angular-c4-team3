@@ -18,7 +18,9 @@ import { CartResponse } from '../cart/cart.model';
 import { ShippingAddressComponent } from './components/shipping-address/shipping-address.component';
 import { AddressService } from '../../../../core/services/address/address.service';
 import { NewAddress } from 'apps/angular-c4-team3/src/app/shared/components/address-modal/address-modal.model';
-
+import { ButtonComponent } from '@angular-c4-team3/shared-design';
+import { TranslocoModule } from '@jsverse/transloco';
+import { ArrowRight } from 'lucide-angular';
 @Component({
   selector: 'app-checkout',
   imports: [
@@ -26,6 +28,8 @@ import { NewAddress } from 'apps/angular-c4-team3/src/app/shared/components/addr
     ProductMayLikeComponent,
     StepperComponent,
     ShippingAddressComponent,
+    ButtonComponent,
+    TranslocoModule,
   ],
   templateUrl: './checkout.component.html',
 })
@@ -35,7 +39,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   private _messageService = inject(MessageService);
   private _couponService = inject(CouponService);
   readonly _addressService = inject(AddressService);
-
+  readonly Ticket = ArrowRight;
   currentActiveStep = signal<number>(1);
   addresses = signal<any[]>([]);
 

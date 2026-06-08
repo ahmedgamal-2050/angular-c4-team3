@@ -11,7 +11,76 @@
             (nextStep)="currentActiveStep.set(2)"
             (addAddress)="addAddress($event)" />
         } @else if (currentActiveStep() === 2) {
-          <p>Payment Method</p>
+          <div class="flex gap-2">
+            <button
+              class="flex items-center gap-2 bg-zinc-100 rounded-xl text-zinc-800 text-sm h-10 font-semibold p-2.5 cursor-pointer"
+              (click)="currentActiveStep.set(1)">
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M10.0003 4.16699L4.16699 10.0003L10.0003 15.8337M4.16699 10.0003H15.8337"
+                  stroke="#27272A"
+                  stroke-width="1.45833"
+                  stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+
+              <span class="text-sm font-medium">
+                {{ 'back' | transloco }}
+              </span>
+            </button>
+
+            <h2
+              class="text-3xl font-semibold text-zinc-800 dark:text-zinc-100 mb-8">
+              {{ 'payment_method' | transloco }}
+            </h2>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div
+              class="border border-zinc-300 rounded-2xl p-6 cursor-pointer transition hover:border-maroon-600">
+              <div class="flex justify-center mb-6">
+                <img src="assets/images/icon_2.png" alt="" />
+              </div>
+
+              <h3 class="text-center text-2xl font-semibold text-zinc-800 mb-2">
+                {{ 'cash_on_delivery' | transloco }}
+              </h3>
+
+              <p class="text-center text-zinc-500 font-semibold text-sm">
+                {{ 'cash_on_delivery_desc' | transloco }}
+              </p>
+            </div>
+
+            <div
+              class="border bg-zinc-200 rounded-2xl p-6 cursor-pointer transition">
+              <div class="flex justify-center mb-6">
+                <img src="assets/images/Icon_1.png" alt="" />
+              </div>
+
+              <h3
+                class="text-center text-2xl font-semibold text-maroon-600 mb-2">
+                {{ 'credit_card' | transloco }}
+              </h3>
+
+              <p class="text-center text-zinc-500 font-semibold text-sm">
+                {{ 'credit_card_desc' | transloco }}
+              </p>
+            </div>
+          </div>
+
+          <div class="flex justify-end mt-14">
+            <shared-ui-button
+              [label]="'checkout' | transloco"
+              [type]="'submit'"
+              [icon]="Ticket"
+              iconPosition="right">
+            </shared-ui-button>
+          </div>
         }
       </div>
     </div>

@@ -1,8 +1,16 @@
 {
   "cSpell.words": [
+<<<<<<< HEAD
     "GETREVIEWID",
     "inputtext",
     "jsverse",
+=======
+    "descriptionbest",
+    "GETREVIEWID",
+    "inputtext",
+    "jsverse",
+    "partbest",
+>>>>>>> master
     "primeng",
     "prodacts",
     "Transloco",
@@ -11,7 +19,11 @@
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "[html]": {
+<<<<<<< HEAD
     "editor.defaultFormatter": "vscode.html-language-features"
+=======
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+>>>>>>> master
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
