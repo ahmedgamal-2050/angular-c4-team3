@@ -7,7 +7,6 @@ import {
   OrdersByStatus,
   Overall,
   Product,
-  ProductsByCategory,
 } from './overview.model';
 import { OverviewOverallSectionComponent } from './components/overview-overall-section/overview-overall-section.component';
 import { OverviewCategoriesSectionComponent } from './components/overview-categories-section/overview-categories-section.component';

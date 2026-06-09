@@ -1,0 +1,174 @@
+<div class="flex flex-col gap-6 w-full max-w-4xl mx-auto p-4 md:p-6">
+  <!-- Title section -->
+  <div>
+    <h1 class="text-2xl lg:text-3xl font-bold text-zinc-900 dark:text-white">
+      {{ isEditMode() ? 'Edit Product' : 'Add a New Product' }}
+    </h1>
+  </div>
+
+  <!-- Form card container -->
+  <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 p-6 md:p-8 shadow-sm">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
+      
+      <!-- Title Input -->
+      <app-input
+        id="title"
+        fieldControlName="title"
+        label="Title"
+        placeholder="Enter product title"
+        [required]="true"
+        [errorMessages]="titleErrors()" />
+
+      <!-- Description Input -->
+      <app-textarea
+        id="description"
+        fieldControlName="description"
+        label="Description"
+        placeholder="Enter product description"
+        [required]="true"
+        [errorMessages]="descriptionErrors()"
+        [rows]="5" />
+
+      <!-- Financial Metrics Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <app-input
+          id="price"
+          fieldControlName="price"
+          label="Price"
+          placeholder="Example: 5000"
+          type="number"
+          [required]="true"
+          [errorMessages]="priceErrors()" />
+
+        <app-input
+          id="discount"
+          fieldControlName="discount"
+          label="Discount"
+          placeholder="Example: 5"
+          type="number"
+          [errorMessages]="discountErrors()" />
+
+        <app-input
+          id="priceAfterDiscount"
+          fieldControlName="priceAfterDiscount"
+          label="Price after discount"
+          placeholder="Example: 5"
+          type="number" />
+      </div>
+
+      <!-- Quantity Input -->
+      <app-input
+        id="quantity"
+        fieldControlName="quantity"
+        label="Quantity"
+        placeholder="Example: 200"
+        type="number"
+        [required]="true"
+        [errorMessages]="quantityErrors()" />
+
+      <!-- Image Upload Section Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Cover Image Upload -->
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+            Product cover image <span class="text-red-500">*</span>
+          </label>
+          <div
+            (click)="coverInput.click()"
+            class="border border-dashed border-zinc-200 dark:border-zinc-700 rounded-lg p-6 flex flex-col items-center justify-center gap-2 cursor-pointer bg-zinc-50 dark:bg-zinc-800 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/80 transition-colors h-40">
+            <input
+              #coverInput
+              type="file"
+              accept="image/*"
+              class="hidden"
+              (change)="onCoverSelect($event)" />
+            
+            @if (coverPreviewUrl()) {
+              <img [src]="coverPreviewUrl()" class="max-h-24 object-contain rounded-md" />
+              <span class="text-xs text-zinc-500 truncate max-w-full">
+                {{ coverFile() ? coverFile()?.name : 'Current Cover Image' }}
+              </span>
+            } @else {
+              <lucide-icon [img]="Upload" size="24" class="text-red-700 dark:text-red-400" />
+              <span class="text-sm font-semibold text-red-700 dark:text-red-400">Upload file</span>
+            }
+          </div>
+          @if (coverImageErrors().length > 0) {
+            <span class="text-red-500 text-xs mt-1">Cover image is required.</span>
+          }
+        </div>
+
+        <!-- Gallery Images Upload -->
+        <div class="flex flex-col gap-2">
+          <label class="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+            Product gallery <span class="text-red-500">*</span>
+          </label>
+          <div
+            (click)="galleryInput.click()"
+            class="border border-dashed border-zinc-200 dark:border-zinc-700 rounded-lg p-6 flex flex-col items-center justify-center gap-2 cursor-pointer bg-zinc-50 dark:bg-zinc-800 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/80 transition-colors h-40 overflow-y-auto">
+            <input
+              #galleryInput
+              type="file"
+              accept="image/*"
+              multiple
+              class="hidden"
+              (change)="onGallerySelect($event)" />
+            
+            @if (galleryPreviewUrls().length > 0) {
+              <div class="flex flex-wrap gap-2 justify-center">
+                @for (url of galleryPreviewUrls(); track url) {
+                  <img [src]="url" class="h-10 w-10 object-cover rounded-md" />
+                }
+              </div>
+              <span class="text-xs text-zinc-500 truncate max-w-full">
+                {{ galleryFiles().length > 0 ? galleryFiles().length + ' files selected' : 'Current Gallery Images' }}
+              </span>
+            } @else {
+              <lucide-icon [img]="Upload" size="24" class="text-red-700 dark:text-red-400" />
+              <span class="text-sm font-semibold text-red-700 dark:text-red-400">Upload file</span>
+            }
+          </div>
+          @if (galleryErrors().length > 0) {
+            <span class="text-red-500 text-xs mt-1">At least one gallery image is required.</span>
+          }
+        </div>
+
+      </div>
+
+      <!-- Categories & Occasions Select Dropdowns -->
+      <app-select
+        id="category"
+        fieldControlName="category"
+        label="Category"
+        placeholder="Select an option"
+        [options]="categories()"
+        optionLabel="name"
+        optionValue="_id"
+        [required]="true"
+        [errorMessages]="categoryErrors()" />
+
+      <app-select
+        id="occasion"
+        fieldControlName="occasion"
+        label="Occasion"
+        placeholder="Select an option"
+        [options]="occasions()"
+        optionLabel="name"
+        optionValue="_id"
+        [required]="true"
+        [errorMessages]="occasionErrors()" />
+
+      <!-- Action Button -->
+      <div class="mt-4">
+        <button
+          type="submit"
+          [disabled]="loading()"
+          class="w-full py-4 rounded-lg bg-maroon-700 hover:bg-maroon-800 text-white font-bold transition duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
+          <span>{{ isEditMode() ? 'Update Product' : 'Add Product' }}</span>
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
