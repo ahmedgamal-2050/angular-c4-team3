@@ -53,6 +53,27 @@ export const dashboardRoutes: Route[] = [
       ).then(m => m.ServerErrorComponent),
   },
   {
+    path: 'categories',
+    loadComponent: () =>
+      import(
+        './pages/all-categories/all-categories/all-categories.component'
+      ).then(m => m.AllCategoriesComponent),
+  },
+  {
+    path: 'categories/add',
+    loadComponent: () =>
+      import('./pages/all-categories/add-category/add-category.component').then(
+        m => m.AddCategoryComponent
+      ),
+  },
+  {
+    path: 'categories/update/:id',
+    loadComponent: () =>
+      import('./pages/all-categories/add-category/add-category.component').then(
+        m => m.AddCategoryComponent
+      ),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import(

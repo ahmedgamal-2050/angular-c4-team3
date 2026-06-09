@@ -28,5 +28,8 @@ export const APP_ROUTES = {
     EDIT_PRODUCT: 'products/form/:id',
     ACCOUNT: 'account',
     CHANGE_PASSWORD: 'changePassword',
+    CATEGORIES: 'categories',
+    ADD_CATEGORY: 'categories/add',
+    UPDATE_CATEGORY: 'categories/update/:id',
   },
 };

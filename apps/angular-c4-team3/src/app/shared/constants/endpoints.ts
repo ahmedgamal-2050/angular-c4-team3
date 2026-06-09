@@ -24,4 +24,8 @@ export const ENDPOINTS = {
   UPDATE_ADDRESS: `${BASE_URL}/addresses/{addressId}`,
   DELETE_ADDRESS: `${BASE_URL}/addresses/{addressId}`,
   GET_ALL_STATISTICS: `${BASE_URL}/statistics`,
+  ADD_CATEGORY: `${BASE_URL}/categories`,
+  UPDATE_CATEGORY: `${BASE_URL}/categories/{categoryId}`,
+  DELETE_CATEGORY: `${BASE_URL}/categories/{categoryId}`,
+  GET_CATEGORY_BY_ID: `${BASE_URL}/categories/{categoryId}`,
 } as const;
