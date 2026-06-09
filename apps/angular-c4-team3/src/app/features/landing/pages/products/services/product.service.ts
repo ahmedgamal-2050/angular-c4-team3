@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ENDPOINTS } from '../../../../../shared/constants/endpoints';
+import { BASE_URL, ENDPOINTS } from '../../../../../shared/constants/endpoints';
 import { Observable } from 'rxjs';
 import { ProductDetailsResponse, ProductListResponse } from '../product.model';
 import { CategoriesResponse } from './category.model';
@@ -12,50 +12,56 @@ import { OccasionsResponse } from './occasions.model';
 export class ProductService {
   private http = inject(HttpClient);
 
-  // getAllProducts(page = 1, limit = 12): Observable<ProductListResponse> {
-  //   const params = new HttpParams().append('page' , page).append('limit', limit)
+  getAllProducts(page = 1, limit = 12, filters?: any) {
+    let params = new HttpParams().append('page', page).append('limit', limit);
 
-  //   const url = ENDPOINTS.GET_ALL_PRODUCTS;
-  //   return this.http.get<ProductListResponse>(url, { params });
-  // }
+    if (filters?.category) {
+      params = params.append('category', filters.category);
+    }
 
-getAllProducts(page = 1, limit = 12, filters?: any) {
-  let params = new HttpParams()
-    .append('page', page)
-    .append('limit', limit);
+    if (filters?.occasion) {
+      params = params.append('occasion', filters.occasion);
+    }
 
-  if (filters?.category) {
-    params = params.append('category', filters.category);
+    if (filters?.priceFrom) {
+      params = params.append('price[gte]', filters.priceFrom);
+    }
+
+    if (filters?.priceTo) {
+      params = params.append('price[lte]', filters.priceTo);
+    }
+
+    if (filters?.rating) {
+      params = params.append('rateAvg[gte]', filters.rating);
+    }
+
+    return this.http.get<ProductListResponse>(ENDPOINTS.GET_ALL_PRODUCTS, {
+      params,
+    });
   }
 
-  if (filters?.occasion) {
-    params = params.append('occasion', filters.occasion);
+  getProductById(productId: string): Observable<ProductDetailsResponse> {
+    const url = ENDPOINTS.GET_PRODUCT_BY_ID.replace('{productId}', productId);
+    return this.http.get<ProductDetailsResponse>(url);
   }
 
-  if (filters?.priceFrom) {
-    params = params.append('price[gte]', filters.priceFrom);
+  addProduct(productData: FormData): Observable<any> {
+    return this.http.post<any>(`${BASE_URL}/products`, productData);
   }
 
-  if (filters?.priceTo) {
-    params = params.append('price[lte]', filters.priceTo);
+  updateProduct(productId: string, productData: FormData): Observable<any> {
+    return this.http.put<any>(`${BASE_URL}/products/${productId}`, productData);
   }
 
-  if (filters?.rating) {
-    params = params.append('rateAvg[gte]', filters.rating);
+  deleteProduct(productId: string): Observable<any> {
+    return this.http.delete<any>(`${BASE_URL}/products/${productId}`);
   }
-
-  return this.http.get<ProductListResponse>(
-    ENDPOINTS.GET_ALL_PRODUCTS,
-    { params }
-  );
-}
 
   getCategories(): Observable<CategoriesResponse> {
-  return this.http.get<CategoriesResponse>(ENDPOINTS.GET_ALL_CATEGORIES);
-}
+    return this.http.get<CategoriesResponse>(ENDPOINTS.GET_ALL_CATEGORIES);
+  }
 
-getOccasions(): Observable<OccasionsResponse> {
-  return this.http.get<OccasionsResponse>(ENDPOINTS.GET_ALL_OCCASIONS);
-}
-
+  getOccasions(): Observable<OccasionsResponse> {
+    return this.http.get<OccasionsResponse>(ENDPOINTS.GET_ALL_OCCASIONS);
+  }
 }

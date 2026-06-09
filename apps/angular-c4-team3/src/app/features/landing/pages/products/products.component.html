@@ -1,6 +1,5 @@
 <div
-  class="main-layout max-w-[1400px] mx-auto px-4 py-8 flex flex-col md:flex-row gap-8"
->
+  class="main-layout max-w-350 mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
   <!-- Product Filters -->
   <app-product-filters
     [categories]="categories"
@@ -8,45 +7,47 @@
     [ratingValue]="ratingValue"
     [priceFrom]="priceFrom"
     [priceTo]="priceTo"
-    (filterChange)="onFilterChange()"
-  ></app-product-filters>
+    (filterChange)="onFilterChange()"></app-product-filters>
 
   <!-- Products List -->
   <main class="flex-1">
     <div class="mb-4">
-      @if(products().length > 0) {
+      @if (products().length > 0) {
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          @for(product of products(); track product._id) {
+          @for (product of products(); track product._id) {
             <app-product-card [product]="product" />
           }
         </div>
 
         <!-- Paginator -->
         <div
-          class="card flex justify-center py-4 border-t border-zinc-100 dark:border-zinc-700"
-        >
+          class="card flex justify-center py-4 border-t border-zinc-100 dark:border-zinc-700">
           <p-paginator
             (onPageChange)="onPageChange($event)"
             [first]="first()"
             [rows]="metaData().limit"
             [totalRecords]="metaData().totalItems"
             [showJumpToPageDropdown]="false"
-            [pt]="pt()"
-          ></p-paginator>
+            [pt]="paginatorPt()"></p-paginator>
         </div>
       } @else {
-        <div class="flex flex-col items-center justify-center py-16 text-zinc-500 dark:text-zinc-300">
+        <div
+          class="flex flex-col items-center justify-center py-16 text-zinc-500 dark:text-zinc-300">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             class="w-24 h-24 mb-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            stroke-width="2"
-          >
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6h6v6m-6-6V9h6v2m-6-2V7h6v2m-6 0V5h6v2M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            stroke-width="2">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M9 17v-6h6v6m-6-6V9h6v2m-6-2V7h6v2m-6 0V5h6v2M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
-          <p class="text-lg font-medium">{{ 'no_products_found' | transloco }}</p>
+          <p class="text-lg font-medium">
+            {{ 'no_products_found' | transloco }}
+          </p>
         </div>
       }
     </div>

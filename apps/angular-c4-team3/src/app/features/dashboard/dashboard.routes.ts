@@ -11,6 +11,27 @@ export const dashboardRoutes: Route[] = [
       ),
   },
   {
+    path: APP_ROUTES.DASHBOARD.PRODUCTS,
+    loadComponent: () =>
+      import('./pages/products/products.component').then(
+        m => m.ProductsComponent
+      ),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.ADD_PRODUCT,
+    loadComponent: () =>
+      import('./pages/products/pages/product-form/product-form.component').then(
+        m => m.ProductFormComponent
+      ),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.EDIT_PRODUCT,
+    loadComponent: () =>
+      import('./pages/products/pages/product-form/product-form.component').then(
+        m => m.ProductFormComponent
+      ),
+  },
+  {
     path: APP_ROUTES.DASHBOARD.ACCOUNT,
     loadComponent: () =>
       import('./pages/account/account-setting/account-setting.component').then(
@@ -24,7 +45,6 @@ export const dashboardRoutes: Route[] = [
         m => m.ChangePasswordComponent
       ),
   },
-
   {
     path: 'server-error',
     loadComponent: () =>

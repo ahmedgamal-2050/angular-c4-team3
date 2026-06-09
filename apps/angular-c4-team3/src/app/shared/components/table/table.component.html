@@ -1,0 +1,84 @@
+<div class="w-full">
+  <p-table
+    #dt2
+    [pt]="tablePt()"
+    [value]="data()"
+    dataKey="id"
+    [rows]="rows()"
+    [loading]="loading()"
+    [paginator]="true"
+    [globalFilterFields]="globalFilterFields()">
+    <ng-template #caption>
+      <div class="flex justify-end w-full">
+        <div class="relative w-full">
+          <div
+            class="absolute inset-y-0 start-0 ps-3 flex items-center pointer-events-none">
+            <lucide-icon
+              [img]="Search"
+              size="18"
+              class="size-4.5 text-zinc-400 dark:text-zinc-500" />
+          </div>
+
+          <input
+            #searchInput
+            type="text"
+            (input)="dt2.filterGlobal(searchInput.value, 'contains')"
+            placeholder="Search..."
+            class="w-full ps-9 p-4 rounded-lg text-xs font-semibold text-zinc-800 dark:text-zinc-200 bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700" />
+        </div>
+      </div>
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        @for (col of columns(); track col.field) {
+          <th
+            [class]="'lg:w-[' + col.width + ']'"
+            class="px-2! py-3! font-medium! text-xs capitalize tracking-wider border-b border-zinc-200! dark:border-zinc-600! text-zinc-800! dark:text-white! align-middle"
+            [class.hidden]="col.hideOnMobile"
+            [class.lg:table-cell]="col.hideOnMobile">
+            {{ col.header }}
+          </th>
+        }
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-rowData>
+      <tr
+        class="hover:bg-zinc-50! dark:hover:bg-zinc-800! transition-colors duration-150">
+        @for (col of columns(); track col.field; let i = $index) {
+          <td
+            [class]="'lg:w-[' + col.width + ']'"
+            class="px-2! py-4! border-zinc-200! dark:border-zinc-600! whitespace-nowrap text-sm text-zinc-800! dark:text-white! align-middle"
+            [class.hidden]="col.hideOnMobile"
+            [class.lg:table-cell]="col.hideOnMobile">
+            @if (cellTemplates()[i]) {
+              <ng-container
+                [ngTemplateOutlet]="cellTemplates()[i]"
+                [ngTemplateOutletContext]="{
+                  $implicit: rowData,
+                  row: rowData,
+                }" />
+            }
+          </td>
+        }
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td [attr.colspan]="columns().length" class="px-6! py-16! text-center">
+          <div class="flex flex-col gap-1">
+            <span
+              class="text-sm font-semibold text-zinc-800! dark:text-zinc-200!">
+              No records found
+            </span>
+            <span class="text-xs text-zinc-500! dark:text-zinc-400!">
+              Try adjusting your search query.
+            </span>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
