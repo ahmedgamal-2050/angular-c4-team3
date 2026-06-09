@@ -53,13 +53,6 @@ export const dashboardRoutes: Route[] = [
       ).then(m => m.ServerErrorComponent),
   },
   {
-    path: '**',
-    loadComponent: () =>
-      import(
-        '../../shared/components/notfound-page/notfound-page.component'
-      ).then(m => m.NotfoundPageComponent),
-  },
-  {
     path: 'categories',
     loadComponent: () =>
       import(
@@ -76,8 +69,15 @@ export const dashboardRoutes: Route[] = [
   {
     path: 'categories/update/:id',
     loadComponent: () =>
+      import('./pages/all-categories/add-category/add-category.component').then(
+        m => m.AddCategoryComponent
+      ),
+  },
+  {
+    path: '**',
+    loadComponent: () =>
       import(
-        './pages/all-categories/update-category/update-category.component'
-      ).then(m => m.UpdateCategoryComponent),
+        '../../shared/components/notfound-page/notfound-page.component'
+      ).then(m => m.NotfoundPageComponent),
   },
 ];
