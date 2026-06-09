@@ -1,6 +1,11 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormGroup,
+  FormControl,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { LucideAngularModule, Upload } from 'lucide-angular';
 import { InputComponent } from '../../../../../../shared/components/form-components/input/input.component';
@@ -49,10 +54,22 @@ export class ProductFormComponent implements OnInit {
   productForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    price: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
-    discount: new FormControl<number | null>(null, [Validators.min(0), Validators.max(100)]),
-    priceAfterDiscount: new FormControl<number | null>({ value: null, disabled: true }),
-    quantity: new FormControl<number | null>(null, [Validators.required, Validators.min(0)]),
+    price: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.min(0),
+    ]),
+    discount: new FormControl<number | null>(null, [
+      Validators.min(0),
+      Validators.max(70),
+    ]),
+    priceAfterDiscount: new FormControl<number | null>({
+      value: null,
+      disabled: true,
+    }),
+    quantity: new FormControl<number | null>(null, [
+      Validators.required,
+      Validators.min(0),
+    ]),
     category: new FormControl('', [Validators.required]),
     occasion: new FormControl('', [Validators.required]),
     imageCover: new FormControl<File | null>(null),
@@ -67,9 +84,12 @@ export class ProductFormComponent implements OnInit {
   );
 
   descriptionErrors = computed(() =>
-    this.formValidationService.getErrors(this.productForm.controls.description, {
-      required: 'Description is required.',
-    })
+    this.formValidationService.getErrors(
+      this.productForm.controls.description,
+      {
+        required: 'Description is required.',
+      }
+    )
   );
 
   priceErrors = computed(() =>
@@ -107,12 +127,16 @@ export class ProductFormComponent implements OnInit {
 
   coverImageErrors = computed(() => {
     const control = this.productForm.controls.imageCover;
-    return control.touched && control.hasError('required') ? ['Cover image is required.'] : [];
+    return control.touched && control.hasError('required')
+      ? ['Cover image is required.']
+      : [];
   });
 
   galleryErrors = computed(() => {
     const control = this.productForm.controls.images;
-    return control.touched && control.hasError('required') ? ['At least one gallery image is required.'] : [];
+    return control.touched && control.hasError('required')
+      ? ['At least one gallery image is required.']
+      : [];
   });
 
   ngOnInit(): void {
@@ -134,7 +158,8 @@ export class ProductFormComponent implements OnInit {
 
   loadDropdownData(): void {
     this.productService.getCategories().subscribe({
-      next: (res: CategoriesResponse) => this.categories.set(res.categories || []),
+      next: (res: CategoriesResponse) =>
+        this.categories.set(res.categories || []),
       error: (err: unknown) => console.error('Error loading categories:', err),
     });
 
@@ -149,7 +174,9 @@ export class ProductFormComponent implements OnInit {
       const price = this.productForm.get('price')?.value || 0;
       const discount = this.productForm.get('discount')?.value || 0;
       const priceAfterDiscount = price - (price * discount) / 100;
-      this.productForm.get('priceAfterDiscount')?.setValue(priceAfterDiscount, { emitEvent: false });
+      this.productForm
+        .get('priceAfterDiscount')
+        ?.setValue(priceAfterDiscount, { emitEvent: false });
     });
   }
 
@@ -193,7 +220,7 @@ export class ProductFormComponent implements OnInit {
       this.productForm.controls.imageCover.markAsTouched();
 
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = e => {
         this.coverPreviewUrl.set(e.target?.result as string);
       };
       reader.readAsDataURL(file);
@@ -210,9 +237,9 @@ export class ProductFormComponent implements OnInit {
 
       const newUrls: string[] = [];
       let loadedCount = 0;
-      filesArray.forEach((file) => {
+      filesArray.forEach(file => {
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = e => {
           newUrls.push(e.target?.result as string);
           loadedCount++;
           if (loadedCount === filesArray.length) {
@@ -241,13 +268,14 @@ export class ProductFormComponent implements OnInit {
     if (formValue.discount !== null && formValue.discount !== undefined) {
       formData.append('discount', String(formValue.discount));
     }
+    formData.append('priceAfterDiscount', String(formValue.priceAfterDiscount));
     formData.append('category', formValue.category || '');
     formData.append('occasion', formValue.occasion || '');
 
     if (this.coverFile()) {
-      formData.append('imageCover', this.coverFile()!);
+      formData.append('imgCover', this.coverFile()!);
     }
-    this.galleryFiles().forEach((file) => {
+    this.galleryFiles().forEach(file => {
       formData.append('images', file);
     });
 
