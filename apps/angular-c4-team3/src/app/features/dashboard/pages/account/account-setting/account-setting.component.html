@@ -12,9 +12,9 @@
         <div class="relative shrink-0">
           <label for="photoInput" class="cursor-pointer">
             <img
-              [src]="previewUrl() ?? 'assets/images/default-avatar.svg'"
+              [src]="previewUrl() ?? ''"
               alt="Profile photo"
-              class="hover:opacity-80" />
+              class="hover:opacity-80 w-30 h-30 rounded-full object-cover" />
           </label>
           <input
             id="photoInput"
@@ -75,7 +75,7 @@
           defaultCountry="EG"
           [errorMessages]="phoneErrors()" />
 
-        <app-select
+        <!-- <app-select
           id="gender"
           label="{{ 'gender' | transloco }}"
           [options]="genderOptions()"
@@ -84,7 +84,7 @@
           placeholder="{{ 'select_gender' | transloco }}"
           [required]="true"
           fieldControlName="gender"
-          [errorMessages]="genderErrors()" />
+          [errorMessages]="genderErrors()" /> -->
 
         <div
           class="flex flex-col gap-3 mt-4 lg:flex-row lg:items-center lg:justify-between">

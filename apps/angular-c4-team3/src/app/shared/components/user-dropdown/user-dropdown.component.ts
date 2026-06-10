@@ -1,6 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { LucideAngularModule, ChevronDown, User, MapPin, ClipboardList, Settings, LogOut } from 'lucide-angular';
+import {
+  LucideAngularModule,
+  ChevronDown,
+  User,
+  MapPin,
+  ClipboardList,
+  Settings,
+  LogOut,
+} from 'lucide-angular';
 import { LoggedInService } from '../../services/logged-in.service';
 import { RouterLink } from '@angular/router';
 import { MenuItem } from 'primeng/api';
@@ -20,7 +28,7 @@ export class UserDropdownComponent {
   readonly ClipboardList = ClipboardList;
   readonly Settings = Settings;
   readonly LogOut = LogOut;
-    
+
   protected readonly APP_ROUTES = APP_ROUTES;
 
   private _LoggedInService = inject(LoggedInService);
@@ -33,7 +41,7 @@ export class UserDropdownComponent {
       label: 'user_dropdown_my_profile_label',
       icon: 'User',
       data: { icon: this.User },
-      routerLink: '/profile',
+      routerLink: '/dashboard/account',
     },
     {
       label: 'user_dropdown_my_addresses_label',
