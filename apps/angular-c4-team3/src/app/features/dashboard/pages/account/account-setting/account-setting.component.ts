@@ -63,11 +63,11 @@ export class AccountSettingComponent implements OnInit, OnDestroy {
   showChangePassword = signal(false);
   showDeleteModal = signal(false);
 
-  genderOptions = signal([
-    { label: 'Male', value: 'male' },
-    { label: 'Female', value: 'female' },
-    { label: 'Other', value: 'other' },
-  ]);
+  // genderOptions = signal([
+  //   { label: 'Male', value: 'male' },
+  //   { label: 'Female', value: 'female' },
+  //   { label: 'Other', value: 'other' },
+  // ]);
 
   firstNameErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['firstName'], {
@@ -95,15 +95,15 @@ export class AccountSettingComponent implements OnInit, OnDestroy {
     })
   );
 
-  genderErrors = computed(() =>
-    this._FormValidationService.getErrors(this.form.controls['gender'], {
-      required: 'Gender is required.',
-    })
-  );
+  // genderErrors = computed(() =>
+  //   this._FormValidationService.getErrors(this.form.controls['gender'], {
+  //     required: 'Gender is required.',
+  //   })
+  // );
 
   currentPasswordErrors = computed(() =>
     this._FormValidationService.getErrors(
-      this.changePasswordForm.controls['currentPassword'],
+      this.changePasswordForm.controls['password'],
       { required: 'Current password is required.' }
     )
   );
@@ -121,7 +121,7 @@ export class AccountSettingComponent implements OnInit, OnDestroy {
 
   rePasswordErrors = computed(() =>
     this._FormValidationService.getErrors(
-      this.changePasswordForm.controls['rePassword'],
+      this.changePasswordForm.controls['newPassword'],
       { required: 'Confirm password is required.' }
     )
   );
@@ -129,6 +129,8 @@ export class AccountSettingComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.initializeForm();
     this.initializeChangePasswordForm();
+
+    this.getProfileData();
   }
 
   ngOnDestroy(): void {
@@ -144,18 +146,17 @@ export class AccountSettingComponent implements OnInit, OnDestroy {
         Validators.required,
         Validators.pattern(REGEX_PATTERNS.PHONE),
       ]),
-      gender: new FormControl('', [Validators.required]),
+      // gender: new FormControl('', [Validators.required]),
     });
   }
 
   initializeChangePasswordForm(): void {
     this.changePasswordForm = new FormGroup({
-      currentPassword: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
         Validators.pattern(REGEX_PATTERNS.PASSWORD),
       ]),
-      rePassword: new FormControl('', [Validators.required]),
+      newPassword: new FormControl('', [Validators.required]),
     });
   }
 
@@ -220,32 +221,66 @@ export class AccountSettingComponent implements OnInit, OnDestroy {
     this.subscriptions.add(sub);
   }
 
+  getProfileData(): void {
+    const sub = this._AuthService.profileData().subscribe({
+      next: (res: any) => {
+        const user = res.user || res.data || res;
+
+        const phone = user.phone?.replace('+200', '+20');
+
+        this.form.patchValue({
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phone,
+        });
+
+        console.log(this.form.value);
+        console.log(this.form.get('phone')?.value);
+        if (user.photo) {
+          this.previewUrl.set(user.photo);
+        }
+      },
+      error: err => {
+        console.error('Get Profile Data Error', err);
+      },
+    });
+
+    this.subscriptions.add(sub);
+  }
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const profileUpdate$ = this._AuthService.editProfile(this.form.value).pipe(
-      catchError(err => {
-        console.error('Profile update failed:', err);
-        return of(null);
-      })
-    );
+    const sub = this._AuthService.editProfile(this.form.value).subscribe({
+      next: res => {
+        const photoData = this.pendingPhotoFormData();
 
-    const photoFormData = this.pendingPhotoFormData();
-    const photoUpdate$ = photoFormData
-      ? this._AuthService.uploadProfilePhoto(photoFormData).pipe(
-          catchError(err => {
-            console.error('Photo upload failed:', err);
-            return of(null);
-          })
-        )
-      : of(null);
+        if (photoData) {
+          this.uploadPhoto(photoData);
+          this._Router.navigate(['/landing/home']);
+        } else {
+          this.getProfileData();
+          this._Router.navigate(['/landing/home']);
+        }
+      },
+      error: err => {
+        console.error('Update Profile Error', err);
+      },
+    });
 
-    const sub = forkJoin([profileUpdate$, photoUpdate$]).subscribe({
+    this.subscriptions.add(sub);
+  }
+  uploadPhoto(formData: FormData): void {
+    const sub = this._AuthService.uploadProfilePhoto(formData).subscribe({
       next: () => {
         this.pendingPhotoFormData.set(null);
+        this.getProfileData();
+      },
+      error: err => {
+        console.error('Upload Photo Error', err);
       },
     });
 
