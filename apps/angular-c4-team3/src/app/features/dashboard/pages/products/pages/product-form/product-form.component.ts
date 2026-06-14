@@ -7,15 +7,20 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { LucideAngularModule, Upload } from 'lucide-angular';
+import { LucideAngularModule } from 'lucide-angular';
 import { InputComponent } from '../../../../../../shared/components/form-components/input/input.component';
 import { SelectComponent } from '../../../../../../shared/components/form-components/select/select.component';
 import { TextareaComponent } from '../../../../../../shared/components/form-components/textarea/textarea.component';
+import { FileUploadComponent } from '../../../../../../shared/components/form-components/file-upload/file-upload.component';
 import { ProductService } from '../../../../../landing/pages/products/services/product.service';
 import { FormValidationService } from '../../../../../auth/services/FormValidationService';
 import { CategoriesResponse } from '../../../../../landing/pages/products/services/category.model';
 import { OccasionsResponse } from '../../../../../landing/pages/products/services/occasions.model';
 import { ProductDetailsResponse } from '../../../../../landing/pages/products/product.model';
+import { Image, Images } from 'lucide-angular';
+import { Dialog } from 'primeng/dialog';
+import { DIALOG_PT } from '../../../../../../shared/constants/pass-through';
+import { CarouselModule, CarouselPassThrough } from 'primeng/carousel';
 
 @Component({
   selector: 'app-product-form',
@@ -27,16 +32,20 @@ import { ProductDetailsResponse } from '../../../../../landing/pages/products/pr
     InputComponent,
     SelectComponent,
     TextareaComponent,
+    FileUploadComponent,
+    Dialog,
+    CarouselModule,
   ],
   templateUrl: './product-form.component.html',
 })
 export class ProductFormComponent implements OnInit {
+  readonly Image = Image;
+  readonly Images = Images;
+
   private productService = inject(ProductService);
   private formValidationService = inject(FormValidationService);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-
-  readonly Upload = Upload;
 
   productId = signal<string | null>(null);
   isEditMode = computed(() => !!this.productId());
@@ -45,11 +54,49 @@ export class ProductFormComponent implements OnInit {
   categories = signal<any[]>([]);
   occasions = signal<any[]>([]);
 
-  // Preview Signals
+  isGalleryModalOpened = signal<boolean>(false);
+  dialogPt = signal(DIALOG_PT);
+  carouselPt = signal<CarouselPassThrough>({
+    contentContainer: {
+      class: 'h-full relative',
+    },
+    content: {
+      class: 'h-full',
+    },
+    viewport: {
+      class: 'h-full',
+    },
+    itemList: {
+      class: 'h-full',
+    },
+    indicatorList: {
+      class: 'gap-2! mt-6! justify-start! py-3!',
+    },
+    indicator: {
+      class: 'group',
+    },
+    indicatorButton: {
+      class:
+        'size-3! rounded-full! bg-maroon-50! group-[.p-carousel-indicator-active]:bg-maroon-700!',
+    },
+    pcPrevButton: {
+      root: {
+        class:
+          'border! border-maroon-200! text-maroon-700! absolute! bottom-0 end-11 size-8! z-1 rtl:end-1',
+      },
+    },
+    pcNextButton: {
+      root: {
+        class:
+          'border! border-maroon-200! text-maroon-700! absolute! bottom-0 end-1 size-8! z-1 rtl:end-11',
+      },
+    },
+  });
+  carouselData = signal<{ id: number; imageUrl: string | null }[]>([]);
+
+  // Preview Signals (to bind to [initialPreviews])
   coverPreviewUrl = signal<string | null>(null);
-  coverFile = signal<File | null>(null);
   galleryPreviewUrls = signal<string[]>([]);
-  galleryFiles = signal<File[]>([]);
 
   productForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
@@ -211,46 +258,6 @@ export class ProductFormComponent implements OnInit {
     });
   }
 
-  onCoverSelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
-      const file = input.files[0];
-      this.coverFile.set(file);
-      this.productForm.patchValue({ imageCover: file });
-      this.productForm.controls.imageCover.markAsTouched();
-
-      const reader = new FileReader();
-      reader.onload = e => {
-        this.coverPreviewUrl.set(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  }
-
-  onGallerySelect(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const filesArray = Array.from(input.files);
-      this.galleryFiles.set(filesArray);
-      this.productForm.patchValue({ images: filesArray });
-      this.productForm.controls.images.markAsTouched();
-
-      const newUrls: string[] = [];
-      let loadedCount = 0;
-      filesArray.forEach(file => {
-        const reader = new FileReader();
-        reader.onload = e => {
-          newUrls.push(e.target?.result as string);
-          loadedCount++;
-          if (loadedCount === filesArray.length) {
-            this.galleryPreviewUrls.set(newUrls);
-          }
-        };
-        reader.readAsDataURL(file);
-      });
-    }
-  }
-
   onSubmit(): void {
     if (this.productForm.invalid) {
       this.productForm.markAllAsTouched();
@@ -272,12 +279,18 @@ export class ProductFormComponent implements OnInit {
     formData.append('category', formValue.category || '');
     formData.append('occasion', formValue.occasion || '');
 
-    if (this.coverFile()) {
-      formData.append('imgCover', this.coverFile()!);
+    const coverFile = formValue.imageCover;
+    if (coverFile instanceof File) {
+      formData.append('imgCover', coverFile);
     }
-    this.galleryFiles().forEach(file => {
-      formData.append('images', file);
-    });
+    const galleryFiles = formValue.images;
+    if (Array.isArray(galleryFiles)) {
+      galleryFiles.forEach(file => {
+        if (file instanceof File) {
+          formData.append('images', file);
+        }
+      });
+    }
 
     if (this.isEditMode()) {
       this.productService.updateProduct(this.productId()!, formData).subscribe({
@@ -299,6 +312,27 @@ export class ProductFormComponent implements OnInit {
           this.loading.set(false);
         },
       });
+    }
+  }
+
+  openProductCover(): void {
+    this.isGalleryModalOpened.set(true);
+    const carouselObj = {
+      id: 1,
+      imageUrl: this.coverPreviewUrl(),
+    };
+    this.carouselData.set([carouselObj]);
+  }
+
+  openProductGallery(): void {
+    if (this.galleryPreviewUrls().length) {
+      this.isGalleryModalOpened.set(true);
+      this.carouselData.set(
+        this.galleryPreviewUrls().map((url, index) => ({
+          id: index + 1,
+          imageUrl: url,
+        }))
+      );
     }
   }
 }

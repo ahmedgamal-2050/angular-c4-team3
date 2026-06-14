@@ -47,4 +47,5 @@
   [addresses]="addresses()"
   [isAddAddressModalOpened]="isAddAddressModalOpened()"
   (selectAddress)="selectAddress($event)"
-  (saveAddress)="onAddressSaved($event)" />
+  (saveAddress)="onAddressSaved($event)"
+  (closeAddressModal)="isAddAddressModalOpened.set(false)" />

@@ -1,3 +1,12 @@
+export const DIALOG_PT = {
+  root: {
+    class: '!bg-white !p-6 !rounded-2xl',
+  },
+  mask: {
+    class: '!bg-black/50',
+  },
+};
+
 export const PAGINATOR_CLASS =
   'p-2! border! dark:border-none! border-zinc-100! rounded-lg! size-8! bg-white! dark:bg-zinc-700!';
 export const PAGINATOR_PT = {
