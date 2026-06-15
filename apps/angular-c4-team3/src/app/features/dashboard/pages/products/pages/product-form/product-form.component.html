@@ -1,15 +1,17 @@
-<div class="flex flex-col gap-6 w-full max-w-4xl mx-auto p-4 md:p-6">
+<div class="flex flex-col gap-6 w-full mx-auto">
   <!-- Title section -->
   <div>
-    <h1 class="text-2xl lg:text-3xl font-bold text-zinc-900 dark:text-white">
+    <h1 class="text-2xl lg:text-3xl font-bold text-zinc-800 dark:text-white">
       {{ isEditMode() ? 'Edit Product' : 'Add a New Product' }}
     </h1>
   </div>
 
   <!-- Form card container -->
-  <div class="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-100 dark:border-zinc-800 p-6 md:p-8 shadow-sm">
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
-      
+  <div class="bg-white dark:bg-zinc-800 rounded-2xl p-6">
+    <form
+      [formGroup]="productForm"
+      (ngSubmit)="onSubmit()"
+      class="flex flex-col gap-6 max-w-186.5">
       <!-- Title Input -->
       <app-input
         id="title"
@@ -67,74 +69,26 @@
         [errorMessages]="quantityErrors()" />
 
       <!-- Image Upload Section Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- Cover Image Upload -->
-        <div class="flex flex-col gap-2">
-          <label class="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-            Product cover image <span class="text-red-500">*</span>
-          </label>
-          <div
-            (click)="coverInput.click()"
-            class="border border-dashed border-zinc-200 dark:border-zinc-700 rounded-lg p-6 flex flex-col items-center justify-center gap-2 cursor-pointer bg-zinc-50 dark:bg-zinc-800 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/80 transition-colors h-40">
-            <input
-              #coverInput
-              type="file"
-              accept="image/*"
-              class="hidden"
-              (change)="onCoverSelect($event)" />
-            
-            @if (coverPreviewUrl()) {
-              <img [src]="coverPreviewUrl()" class="max-h-24 object-contain rounded-md" />
-              <span class="text-xs text-zinc-500 truncate max-w-full">
-                {{ coverFile() ? coverFile()?.name : 'Current Cover Image' }}
-              </span>
-            } @else {
-              <lucide-icon [img]="Upload" size="24" class="text-red-700 dark:text-red-400" />
-              <span class="text-sm font-semibold text-red-700 dark:text-red-400">Upload file</span>
-            }
-          </div>
-          @if (coverImageErrors().length > 0) {
-            <span class="text-red-500 text-xs mt-1">Cover image is required.</span>
-          }
-        </div>
+      @if (!isEditMode()) {
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <app-file-upload
+            id="imageCover"
+            fieldControlName="imageCover"
+            label="Product cover image"
+            [required]="!isEditMode()"
+            [initialPreviews]="coverPreviewUrl() ? [coverPreviewUrl()!] : []"
+            [errorMessages]="coverImageErrors()" />
 
-        <!-- Gallery Images Upload -->
-        <div class="flex flex-col gap-2">
-          <label class="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
-            Product gallery <span class="text-red-500">*</span>
-          </label>
-          <div
-            (click)="galleryInput.click()"
-            class="border border-dashed border-zinc-200 dark:border-zinc-700 rounded-lg p-6 flex flex-col items-center justify-center gap-2 cursor-pointer bg-zinc-50 dark:bg-zinc-800 hover:bg-zinc-100/50 dark:hover:bg-zinc-800/80 transition-colors h-40 overflow-y-auto">
-            <input
-              #galleryInput
-              type="file"
-              accept="image/*"
-              multiple
-              class="hidden"
-              (change)="onGallerySelect($event)" />
-            
-            @if (galleryPreviewUrls().length > 0) {
-              <div class="flex flex-wrap gap-2 justify-center">
-                @for (url of galleryPreviewUrls(); track url) {
-                  <img [src]="url" class="h-10 w-10 object-cover rounded-md" />
-                }
-              </div>
-              <span class="text-xs text-zinc-500 truncate max-w-full">
-                {{ galleryFiles().length > 0 ? galleryFiles().length + ' files selected' : 'Current Gallery Images' }}
-              </span>
-            } @else {
-              <lucide-icon [img]="Upload" size="24" class="text-red-700 dark:text-red-400" />
-              <span class="text-sm font-semibold text-red-700 dark:text-red-400">Upload file</span>
-            }
-          </div>
-          @if (galleryErrors().length > 0) {
-            <span class="text-red-500 text-xs mt-1">At least one gallery image is required.</span>
-          }
+          <app-file-upload
+            id="images"
+            fieldControlName="images"
+            label="Product gallery"
+            [required]="!isEditMode()"
+            [multiple]="true"
+            [initialPreviews]="galleryPreviewUrls()"
+            [errorMessages]="galleryErrors()" />
         </div>
-
-      </div>
+      }
 
       <!-- Categories & Occasions Select Dropdowns -->
       <app-select
@@ -159,6 +113,29 @@
         [required]="true"
         [errorMessages]="occasionErrors()" />
 
+      @if (isEditMode()) {
+        <section
+          class="flex flex-col lg:flex-row items-center lg:justify-end gap-2.5">
+          <button
+            type="button"
+            (click)="openProductCover()"
+            class="rounded-xl border border-zinc-200 text-blue-600 p-2.5 flex items-center gap-1.5 w-full lg:w-fit">
+            <lucide-icon [img]="Image" size="18"></lucide-icon>
+            <span>View product cover</span>
+          </button>
+
+          @if (galleryPreviewUrls().length) {
+            <button
+              type="button"
+              (click)="openProductGallery()"
+              class="rounded-xl border border-zinc-200 text-blue-600 p-2.5 flex items-center gap-1.5 w-full lg:w-fit">
+              <lucide-icon [img]="Images" size="18"></lucide-icon>
+              <span>View product gallery</span>
+            </button>
+          }
+        </section>
+      }
+
       <!-- Action Button -->
       <div class="mt-4">
         <button
@@ -168,7 +145,27 @@
           <span>{{ isEditMode() ? 'Update Product' : 'Add Product' }}</span>
         </button>
       </div>
-
     </form>
   </div>
 </div>
+
+<p-dialog
+  [modal]="true"
+  [closeOnEscape]="true"
+  [visible]="isGalleryModalOpened()"
+  (visibleChange)="isGalleryModalOpened.set($event)"
+  [pt]="dialogPt()"
+  [style]="{ width: '54rem' }">
+  <p-carousel
+    [value]="carouselData()"
+    [numVisible]="1"
+    [numScroll]="1"
+    [circular]="true"
+    [pt]="carouselPt()">
+    <ng-template pTemplate="item" let-data>
+      <div
+        class="bg-contain bg-no-repeat bg-center rounded-2xl relative h-120 border border-zinc-200 mt-12"
+        [style.backgroundImage]="'url(' + data.imageUrl + ')'"></div>
+    </ng-template>
+  </p-carousel>
+</p-dialog>
