@@ -50,12 +50,9 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   form!: FormGroup;
 
   currentPasswordErrors = computed(() =>
-    this._FormValidationService.getErrors(
-      this.form.controls['currentPassword'],
-      {
-        required: 'Current password is required.',
-      }
-    )
+    this._FormValidationService.getErrors(this.form.controls['password'], {
+      required: 'Current password is required.',
+    })
   );
 
   newPasswordErrors = computed(() =>
@@ -67,19 +64,18 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   );
 
   rePasswordErrors = computed(() =>
-    this._FormValidationService.getErrors(this.form.controls['rePassword'], {
+    this._FormValidationService.getErrors(this.form.controls['newPassword'], {
       required: 'Confirm new password is required.',
     })
   );
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      currentPassword: new FormControl('', [Validators.required]),
       password: new FormControl('', [
         Validators.required,
         Validators.pattern(REGEX_PATTERNS.PASSWORD),
       ]),
-      rePassword: new FormControl('', [Validators.required]),
+      newPassword: new FormControl('', [Validators.required]),
     });
   }
 

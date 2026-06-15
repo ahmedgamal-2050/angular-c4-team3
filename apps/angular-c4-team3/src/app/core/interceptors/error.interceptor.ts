@@ -1,17 +1,11 @@
 import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { catchError, throwError } from 'rxjs';
-import { inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { APP_STORAGE } from '../../shared/constants/app-storage';
-import { APP_ROUTES } from '../../shared/constants/app-routes';
 
 /**
  * Error Interceptor
  * Globally handles HTTP errors and provides consistent error handling
  */
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
-  const _router = inject(Router);
-
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       let errorMessage = 'An unexpected error occurred';
@@ -26,14 +20,6 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
           case 400:
             errorMessage = error.error?.message || 'Bad Request';
             console.error('Bad Request (400):', errorMessage);
-            break;
-
-          case 401:
-            errorMessage = 'Unauthorized. Please log in again.';
-            console.error('Unauthorized (401):', errorMessage);
-            // Clear token and redirect to login
-            localStorage.removeItem(APP_STORAGE.token);
-            _router.navigate([`/${APP_ROUTES.AUTH.ROOT}/${APP_ROUTES.AUTH.LOGIN}`]);
             break;
 
           case 403:

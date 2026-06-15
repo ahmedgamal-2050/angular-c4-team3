@@ -56,8 +56,8 @@ export class PhoneComponent {
   countries = signal(COUNTRIES);
   selectedCountry = linkedSignal(
     () =>
-      this.countries().find((c) => c.code === this.defaultCountry()) ??
-      this.countries()[0],
+      this.countries().find(c => c.code === this.defaultCountry()) ??
+      this.countries()[0]
   );
   pt = signal<SelectPassThrough>(PhonePT);
   phoneNumber = signal<string>('');
