@@ -47,6 +47,13 @@ export const appRoutes: Route[] = [
   },
 
   {
+    path: APP_ROUTES.AUTH.PROFILE,
+    loadComponent: () =>
+      import(
+        './features/dashboard/pages/account/account-setting/account-setting.component'
+      ).then(m => m.AccountSettingComponent),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./shared/components/notfound-page/notfound-page.component').then(

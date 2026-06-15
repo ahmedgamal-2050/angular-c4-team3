@@ -80,7 +80,7 @@ export class AllCategoriesComponent implements OnInit, OnDestroy {
 
   loadItems(): void {
     this.loading.set(true);
-    const sub = this.getService().getAll(1, 1000).subscribe({
+    const sub = (this.getService().getAll(1, 1000) as any).subscribe({
       next: (res: any) => {
         this.items.set(res.categories ?? res.occasions ?? []);
         this.loading.set(false);
