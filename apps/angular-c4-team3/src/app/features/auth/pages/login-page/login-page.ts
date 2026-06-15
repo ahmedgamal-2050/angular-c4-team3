@@ -48,7 +48,7 @@ export class LoginPage implements OnInit, OnDestroy {
   private _AuthService = inject(AuthService);
   private _FormValidationService = inject(FormValidationService);
   private _Router = inject(Router);
-  
+
   protected readonly APP_ROUTES = APP_ROUTES;
 
   // Reactive form
@@ -62,14 +62,14 @@ export class LoginPage implements OnInit, OnDestroy {
     this._FormValidationService.getErrors(this.form.controls['email'], {
       required: 'Email is required.',
       email: 'Enter a valid email address.',
-    }),
+    })
   );
 
   passwordErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['password'], {
       required: 'Password is required.',
       minlength: 'Password must be at least 8 characters.',
-    }),
+    })
   );
 
   ngOnInit() {
@@ -105,9 +105,22 @@ export class LoginPage implements OnInit, OnDestroy {
       next: (res: AuthResponse) => {
         localStorage.setItem(APP_STORAGE.token, res.token);
         localStorage.setItem(APP_STORAGE.user, JSON.stringify(res.user));
-        this._Router.navigate(['/', APP_ROUTES.LANDING.ROOT, APP_ROUTES.LANDING.HOME]);
+
+        if (res.user.role === 'user') {
+          this._Router.navigate([
+            '/',
+            APP_ROUTES.LANDING.ROOT,
+            APP_ROUTES.LANDING.HOME,
+          ]);
+        } else {
+          this._Router.navigate([
+            '/',
+            APP_ROUTES.DASHBOARD.ROOT,
+            APP_ROUTES.DASHBOARD.OVERVIEW,
+          ]);
+        }
       },
-      error: (err) => {
+      error: err => {
         console.error('Login failed:', err);
       },
     });
