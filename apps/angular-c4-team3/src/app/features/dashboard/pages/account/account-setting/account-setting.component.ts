@@ -14,8 +14,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { forkJoin, of, Subscription } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@angular-c4-team3/auth';
@@ -24,7 +23,6 @@ import { APP_ROUTES } from 'apps/angular-c4-team3/src/app/shared/constants/app-r
 
 import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
 import { InputComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/input/input.component';
-import { SelectComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/select/select.component';
 import { PhoneComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/phone/phone.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { FormValidationService } from '../../../../auth/services/FormValidationService';
@@ -39,7 +37,6 @@ import { ConfirmDeleteModalComponent } from '../confirm-delete-modal/confirm-del
     ReactiveFormsModule,
     FormsModule,
     InputComponent,
-    SelectComponent,
     PhoneComponent,
     ButtonComponent,
     TranslocoPipe,

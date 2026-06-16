@@ -26,7 +26,7 @@ export class SpecialGiftCarouselComponent {
   carouselData = signal([
     {
       id: 1,
-      containerClass: "bg-[url('assets/images/special-gift-2.png')]",
+      containerClass: "bg-[url('/assets/images/special-gift-2.png')]",
       title: 'special_gift_carousel_title_1',
       description: 'special_gift_carousel_description_1',
       buttonLabel: 'special_gift_carousel_button_1',
@@ -34,7 +34,7 @@ export class SpecialGiftCarouselComponent {
     },
     {
       id: 2,
-      containerClass: "bg-[url('assets/images/special-gift-3.png')]",
+      containerClass: "bg-[url('/assets/images/special-gift-3.png')]",
       title: 'special_gift_carousel_title_2',
       description: 'special_gift_carousel_description_2',
       buttonLabel: 'special_gift_carousel_button_2',
@@ -42,7 +42,7 @@ export class SpecialGiftCarouselComponent {
     },
     {
       id: 3,
-      containerClass: "bg-[url('assets/images/special-gift-4.png')]",
+      containerClass: "bg-[url('/assets/images/special-gift-4.png')]",
       title: 'special_gift_carousel_title_3',
       description: 'special_gift_carousel_description_3',
       buttonLabel: 'special_gift_carousel_button_3',
@@ -50,7 +50,7 @@ export class SpecialGiftCarouselComponent {
     },
     {
       id: 4,
-      containerClass: "bg-[url('assets/images/special-gift-5.png')]",
+      containerClass: "bg-[url('/assets/images/special-gift-5.png')]",
       title: 'special_gift_carousel_title_4',
       description: 'special_gift_carousel_description_4',
       buttonLabel: 'special_gift_carousel_button_4',
