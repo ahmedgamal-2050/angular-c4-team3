@@ -1,7 +1,9 @@
 <label
   [class]="labelClass() ?? defaultLabelClass()"
   [for]="for()"
-  [attr.disabled]="disabled()"
->
+  [attr.disabled]="disabled()">
   {{ text() }}
+  @if (required()) {
+    <span class="text-red-600">*</span>
+  }
 </label>

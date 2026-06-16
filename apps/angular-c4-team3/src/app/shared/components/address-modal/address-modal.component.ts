@@ -12,6 +12,7 @@ import { AddressViewComponent } from './components/address-view/address-view.com
 import { AddressDetailsForm, NewAddress } from './address-modal.model';
 import { AddressDetailsFormComponent } from './components/address-details-form/address-details-form.component';
 import { AddressLocationFormComponent } from './components/address-location-form/address-location-form.component';
+import { DIALOG_PT } from '../../constants/pass-through';
 
 @Component({
   selector: 'app-address-modal',
@@ -34,15 +35,9 @@ export class AddressModalComponent {
   isAddAddressModalOpened = input<boolean>(false);
   selectAddress = output<number>();
   saveAddress = output<NewAddress>();
+  closeAddressModal = output<void>();
 
-  dialogPt = signal<DialogPassThrough>({
-    root: {
-      class: '!bg-white !p-6 !rounded-2xl',
-    },
-    mask: {
-      class: '!bg-black/50',
-    },
-  });
+  dialogPt = signal<DialogPassThrough>(DIALOG_PT);
   addressMode = signal<AddressModalMode>(ADDRESS_MODAL_MODE.ADDRESS_VIEW);
   addressDetails = signal<AddressDetailsForm | null>(null);
 

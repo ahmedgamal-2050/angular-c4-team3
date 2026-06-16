@@ -13,11 +13,12 @@ export class LabelComponent {
   labelClass = input<string>();
   error = input<boolean>(false);
   disabled = input<boolean>(false);
+  required = input<boolean>(false);
 
   defaultClass = signal<string>(FormDefaultClasses.label.default);
   errorClass = signal<string>(FormDefaultClasses.label.error);
 
   defaultLabelClass = computed(() =>
-    this.error() ? this.errorClass() : this.defaultClass(),
+    this.error() ? this.errorClass() : this.defaultClass()
   );
 }
