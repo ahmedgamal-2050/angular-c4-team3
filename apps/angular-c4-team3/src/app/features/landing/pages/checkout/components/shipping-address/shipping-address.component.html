@@ -49,4 +49,6 @@
   [selectedAddress]="selectedAddress()"
   (selectAddress)="selectAddress($event)"
   (saveAddress)="onAddressSaved($event)"
-  (closeAddressModal)="isAddAddressModalOpened.set(false)" />
+  (closeAddressModal)="isAddAddressModalOpened.set(false)"
+  (editAddress)="handleEditAddress($event)"
+  (deleteAddress)="handleDeleteAddress($event)" />

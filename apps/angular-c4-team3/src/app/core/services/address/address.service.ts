@@ -17,14 +17,14 @@ export class AddressService {
     return this.http.patch(ENDPOINTS.ADD_ADDRESS, address);
   }
 
-  updateAddress(address: any, addressId: number) {
+  updateAddress(address: any, addressId: string) {
     return this.http.patch(
-      ENDPOINTS.UPDATE_ADDRESS.replace('{addressId}', addressId.toString()),
+      ENDPOINTS.UPDATE_ADDRESS.replace('{addressId}', addressId),
       address
     );
   }
 
-  deleteAddress(addressId: number) {
+  deleteAddress(addressId: string) {
     return this.http.delete(
       ENDPOINTS.DELETE_ADDRESS.replace('{addressId}', addressId.toString())
     );

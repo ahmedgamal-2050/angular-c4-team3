@@ -16,6 +16,8 @@ export class AddressViewComponent {
   addresses = input<AddressItem[]>([]);
   selectedAddress = input<AddressItem | null>(null);
   selectAddress = output<string>();
+  editAddress = output<AddressItem>();
+  deleteAddress = output<AddressItem>();
   switchMode = output<string>();
 
   onSelectAddress(id: string) {

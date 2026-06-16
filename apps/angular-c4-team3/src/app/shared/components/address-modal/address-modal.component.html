@@ -21,18 +21,32 @@
         <app-address-view
           [addresses]="addresses()"
           (selectAddress)="onSelectAddress($event)"
-          (switchMode)="switchMode($event)" />
+          (editAddress)="handleEditAddress($event)"
+          (deleteAddress)="handleDeleteAddress($event)"
+          (switchMode)="switchMode($event); formMode.set('add')" />
       }
 
       @case (ADDRESS_MODAL_MODE.ADDRESS_DETAILS) {
-        <app-address-details-form (next)="onNext($event)" />
+        <app-address-details-form
+          [address]="addressEditing()"
+          (next)="onNext($event)" />
       }
 
       @case (ADDRESS_MODAL_MODE.ADDRESS_LOCATION) {
         <app-address-location-form
+          [editLatLong]="
+            addressEditing()
+              ? {
+                  lat: +addressEditing()!.lat,
+                  lng: +addressEditing()!.long,
+                }
+              : null
+          "
           (switchMode)="switchMode($event)"
           (saveAddress)="onSave($event)" />
       }
     }
   </ng-template>
 </p-dialog>
+
+<p-confirmdialog [pt]="confirmDialogPt()" />

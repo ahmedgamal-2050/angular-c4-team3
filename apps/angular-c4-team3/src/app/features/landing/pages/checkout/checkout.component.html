@@ -9,7 +9,8 @@
           <app-shipping-address
             [addresses]="addresses()"
             (nextStep)="currentActiveStep.set(2)"
-            (addAddress)="addAddress($event)" />
+            (addAddress)="addAddress($event)"
+            (updateAddressList)="getAllAddresses()" />
         } @else if (currentActiveStep() === 2) {
           <div class="flex gap-2">
             <button

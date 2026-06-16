@@ -25,8 +25,10 @@ export class AddressCardComponent {
   isAddressModal = input<boolean>(false);
 
   cardClick = output<AddressItem>();
+  editAddress = output<AddressItem>();
+  deleteAddress = output<AddressItem>();
 
-  isSelected = computed(() => this.selectedId());
+  isSelected = computed(() => this.selectedId() === this.address()?._id);
 
   onCardClick() {
     this.cardClick.emit(this.address());

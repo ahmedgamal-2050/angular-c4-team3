@@ -49,6 +49,7 @@ export class PhoneComponent {
   label = input<string>('');
   required = input<boolean>(false);
   errorMessages = input<string[]>();
+  number = input<string>('');
 
   defaultClass = signal<string>(FormDefaultClasses.input.default);
   errorClass = signal<string>(FormDefaultClasses.input.error);
@@ -64,6 +65,9 @@ export class PhoneComponent {
 
   constructor() {
     effect(() => {
+      if (this.number()) {
+        this.phoneNumber.set(this.number().replace('+20', ''));
+      }
       const country = this.selectedCountry();
       const number = this.phoneNumber();
       if (this.control) {

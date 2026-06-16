@@ -15,8 +15,9 @@
       [address]="address"
       [selectedId]="selectedAddress()?._id || ''"
       [isAddressModal]="true"
-      (cardClick)="onSelectAddress($event._id)">
-    </app-address-card>
+      (cardClick)="onSelectAddress($event._id)"
+      (editAddress)="editAddress.emit($event)"
+      (deleteAddress)="deleteAddress.emit($event)" />
   } @empty {
     <ng-container [ngTemplateOutlet]="addAddressBtn" />
   }

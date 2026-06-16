@@ -1,4 +1,4 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, effect, input, output, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LucideAngularModule, ArrowLeft, MapPinHouse } from 'lucide-angular';
 import {
@@ -18,12 +18,21 @@ export class AddressLocationFormComponent {
   readonly MapPinHouse = MapPinHouse;
   readonly ADDRESS_MODAL_MODE = ADDRESS_MODAL_MODE;
 
+  editLatLong = input<google.maps.LatLngLiteral | null>(null);
   switchMode = output<AddressModalMode>();
   saveAddress = output<google.maps.LatLngLiteral>();
 
   center = signal<google.maps.LatLngLiteral>(EGYPT_CAIRO_COORDINATES);
   markerPosition = signal<google.maps.LatLngLiteral>(EGYPT_CAIRO_COORDINATES);
   zoom = signal(12);
+
+  updateLatLong = effect(() => {
+    const latLong = this.editLatLong();
+    if (latLong) {
+      this.center.set(latLong);
+      this.markerPosition.set(latLong);
+    }
+  });
 
   onBack() {
     this.switchMode.emit(ADDRESS_MODAL_MODE.ADDRESS_DETAILS);
