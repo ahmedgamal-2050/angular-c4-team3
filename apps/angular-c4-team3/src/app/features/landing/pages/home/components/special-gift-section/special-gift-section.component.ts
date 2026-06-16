@@ -28,7 +28,7 @@ export class SpecialGiftSectionComponent {
     tagLabel: 'special_gift_top_card_tag',
     title: 'special_gift_top_card_title',
     titleClass: 'h-20',
-    containerClass: 'col-span-1 bg-[url("assets/images/special-gift-1.png")]',
+    containerClass: 'col-span-1 bg-[url("/assets/images/special-gift-1.png")]',
     buttonLabel: 'special_gift_top_card_button',
     url: 'products',
   });
@@ -39,21 +39,21 @@ export class SpecialGiftSectionComponent {
       tagLabel: 'special_gift_bottom_card_tag_1',
       title: 'special_gift_bottom_card_title_1',
       titleClass: 'h-12',
-      containerClass: 'col-span-1 bg-[url("assets/images/special-gift-3.png")]',
+      containerClass: 'col-span-1 bg-[url("/assets/images/special-gift-3.png")]',
     },
     {
       id: 2,
       tagLabel: 'special_gift_bottom_card_tag_2',
       title: 'special_gift_bottom_card_title_2',
       titleClass: 'h-12',
-      containerClass: 'col-span-1 bg-[url("assets/images/special-gift-4.png")]',
+      containerClass: 'col-span-1 bg-[url("/assets/images/special-gift-4.png")]',
     },
     {
       id: 3,
       tagLabel: 'special_gift_bottom_card_tag_3',
       title: 'special_gift_bottom_card_title_3',
       titleClass: 'h-12',
-      containerClass: 'col-span-1 bg-[url("assets/images/special-gift-5.png")]',
+      containerClass: 'col-span-1 bg-[url("/assets/images/special-gift-5.png")]',
     },
   ]);
 }

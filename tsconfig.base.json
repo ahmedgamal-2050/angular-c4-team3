@@ -16,7 +16,16 @@
     "baseUrl": ".",
     "paths": {
       "@angular-c4-team3/shared-design": ["shared-design/src/index.ts"],
-      "@angular-c4-team3/auth": ["auth/src/index.ts"]
+      "@angular-c4-team3/auth": ["auth/src/index.ts"],
+      "dashboard/routes": [
+        "apps/dashboard/src/app/features/dashboard/dashboard.routes.ts"
+      ],
+      "dashboard/wrapper": [
+        "apps/dashboard/src/app/layout/dashboard-wrapper/dashboard-wrapper.component.ts"
+      ],
+      "dashboard/guard": [
+        "apps/dashboard/src/app/core/guards/dashboard.guard.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

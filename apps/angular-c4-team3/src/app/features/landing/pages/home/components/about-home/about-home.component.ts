@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslocoModule } from '@jsverse/transloco';
 import { LucideAngularModule, ArrowRight, Check } from 'lucide-angular';
-import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
+import { ButtonComponent } from '@angular-c4-team3/shared-design';
 
 @Component({
   selector: 'app-about-home',

@@ -17,7 +17,7 @@ import { FormValidationService } from '../../services/FormValidationService';
 import { AuthService } from '@angular-c4-team3/auth';
 
 // Shared UI Components
-import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
+import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { InputComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/input/input.component';
 import { PasswordComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/password/password.component';
 import { SelectComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/select/select.component';

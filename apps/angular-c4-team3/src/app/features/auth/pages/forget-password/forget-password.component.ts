@@ -15,7 +15,7 @@ import { AuthResponse } from '../../auth.modal';
 import { FormValidationService } from '../../services/FormValidationService';
 
 // Shared UI Components
-import { ButtonComponent } from './../../../../../../../../shared-design/src/lib/button/button.component';
+import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { InputComponent } from 'apps/angular-c4-team3/src/app/shared/components/form-components/input/input.component';
 
 // Pipes
