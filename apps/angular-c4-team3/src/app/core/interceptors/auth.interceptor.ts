@@ -9,9 +9,9 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (token) {
     const userRoleToken =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNmEyMDllZDNhMWUyOThmNTU2MjRiZTk4Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3ODE1NTI5NTF9._UnRfI20h83YVahARCDHaC_saHTcpCF4AjOvawzuxy8';
-    const updatedToken = !(req.url.indexOf(ENDPOINTS.GET_ALL_STATISTICS) > -1)
-      ? token
-      : userRoleToken;
+  const updatedToken = req.url.includes(ENDPOINTS.GET_ALL_STATISTICS)
+    ? userRoleToken
+    : token;
     const cloned = req.clone({
       setHeaders: {
         Authorization: `Bearer ${updatedToken}`,
