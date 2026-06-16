@@ -18,7 +18,8 @@
           {
             "glob": "**/*",
             "input": "apps/dashboard/public"
-          }
+          },
+          "apps/dashboard/src/assets"
         ],
         "styles": ["apps/dashboard/src/styles.css"],
         "customWebpackConfig": {
@@ -45,12 +46,9 @@
           }
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          "sourceMap": true
         }
       },
       "defaultConfiguration": "production"
@@ -59,8 +57,8 @@
       "continuous": true,
       "executor": "@nx/angular:dev-server",
       "options": {
-        "port": 4201,
-        "publicHost": "http://localhost:4201"
+        "port": 4202,
+        "publicHost": "http://localhost:4202"
       },
       "configurations": {
         "production": {
@@ -94,7 +92,7 @@
       "defaultConfiguration": "production",
       "options": {
         "buildTarget": "dashboard:build",
-        "port": 4201,
+        "port": 4202,
         "watch": false
       },
       "configurations": {

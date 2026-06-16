@@ -47,6 +47,11 @@ export const appRoutes: Route[] = [
   },
 
   {
+    path: 'dashboard-remote',
+    loadChildren: () => import('dashboard/routes').then(m => m.remoteRoutes),
+  },
+
+  {
     path: '**',
     loadComponent: () =>
       import('./shared/components/notfound-page/notfound-page.component').then(

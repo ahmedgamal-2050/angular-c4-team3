@@ -11,6 +11,8 @@
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/angular-c4-team3",
+        "index": "apps/angular-c4-team3/src/index.html",
+        "main": "apps/angular-c4-team3/src/main.ts",
         "tsConfig": "apps/angular-c4-team3/tsconfig.app.json",
         "assets": [
           {
@@ -22,9 +24,7 @@
         "styles": ["apps/angular-c4-team3/src/styles.css"],
         "customWebpackConfig": {
           "path": "apps/angular-c4-team3/webpack.config.ts"
-        },
-        "index": "apps/angular-c4-team3/src/index.html",
-        "main": "apps/angular-c4-team3/src/main.ts"
+        }
       },
       "configurations": {
         "production": {
@@ -56,6 +56,10 @@
     "serve": {
       "continuous": true,
       "executor": "@nx/angular:module-federation-dev-server",
+      "options": {
+        "port": 4201,
+        "publicHost": "http://localhost:4201"
+      },
       "configurations": {
         "production": {
           "buildTarget": "angular-c4-team3:build:production"
@@ -64,10 +68,7 @@
           "buildTarget": "angular-c4-team3:build:development"
         }
       },
-      "defaultConfiguration": "development",
-      "options": {
-        "publicHost": "http://localhost:4201"
-      }
+      "defaultConfiguration": "development"
     },
     "lint": {
       "executor": "@nx/eslint:lint"
@@ -82,7 +83,8 @@
       "options": {
         "buildTarget": "angular-c4-team3:build",
         "staticFilePath": "dist/apps/angular-c4-team3/browser",
-        "spa": true
+        "spa": true,
+        "port": 4201
       }
     }
   }
