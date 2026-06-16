@@ -4,8 +4,10 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { AddressCardComponent } from '../../../../../../shared/components/address-card/address-card.component';
 import { AddressModalComponent } from '../../../../../../shared/components/address-modal/address-modal.component';
 import { ArrowRight } from 'lucide-angular';
-import { Address } from '../../../../../../shared/components/address-card/address.model';
-import { NewAddress } from '../../../../../../shared/components/address-modal/address-modal.model';
+import {
+  AddressItem,
+  NewAddress,
+} from '../../../../../../shared/components/address-modal/address-modal.model';
 
 @Component({
   selector: 'app-shipping-address',
@@ -20,20 +22,20 @@ import { NewAddress } from '../../../../../../shared/components/address-modal/ad
 export class ShippingAddressComponent {
   readonly ArrowRight = ArrowRight;
 
-  addresses = input<Address[]>([]);
+  addresses = input<AddressItem[]>([]);
   nextStep = output<void>();
   addAddress = output<NewAddress>();
 
   isAddAddressModalOpened = signal<boolean>(false);
-  selectedAddress = signal<Address | null>(null);
+  selectedAddress = signal<AddressItem | null>(null);
 
   next() {
     this.nextStep.emit();
   }
 
-  selectAddress(id: number) {
+  selectAddress(id: string) {
     this.selectedAddress.set(
-      this.addresses().find(addr => addr.id === id) || null
+      this.addresses().find(addr => addr._id === id) || null
     );
   }
 

@@ -6,11 +6,25 @@ export interface AddressDetailsForm {
 }
 
 export interface NewAddress {
-  title: string;
   city: string;
   street: string;
   phone: string;
-  latitude: number;
-  longitude: number;
-  isPrimary: boolean;
+  lat: string;
+  long: string;
+  username: string;
+}
+
+export interface AddressResponse {
+  addresses: AddressItem[];
+  message: string;
+}
+
+export interface AddressItem {
+  _id: string;
+  street: string;
+  phone: string;
+  city: string;
+  lat: string;
+  long: string;
+  username: string;
 }

@@ -8,13 +8,6 @@
   [class.py-6]="isAddressModal()"
   [class.me-4]="isAddressModal()"
   class="border rounded-2xl p-4 flex items-start justify-between cursor-pointer transition-colors duration-300 relative">
-  @if (isAddressModal()) {
-    <div
-      class="absolute bg-white p-1.5 font-semibold text-2xl text-maroon-600 -top-6">
-      {{ address().name }}
-    </div>
-  }
-
   <div>
     <h3
       [class.text-zinc-800]="!isSelected()"
@@ -39,7 +32,7 @@
       [class.bg-zinc-800]="isSelected() && !isAddressModal()"
       [class.text-zinc-100]="isSelected() && !isAddressModal()"
       class="inline-block text-base font-medium px-4 py-1 rounded-full">
-      {{ address().address }}
+      {{ address().street }}
     </span>
   </div>
 

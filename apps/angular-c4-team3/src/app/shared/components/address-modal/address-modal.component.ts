@@ -9,10 +9,15 @@ import {
 } from './address-modal.constants';
 import { StepperComponent } from '../stepper/stepper.component';
 import { AddressViewComponent } from './components/address-view/address-view.component';
-import { AddressDetailsForm, NewAddress } from './address-modal.model';
+import {
+  AddressDetailsForm,
+  AddressItem,
+  NewAddress,
+} from './address-modal.model';
 import { AddressDetailsFormComponent } from './components/address-details-form/address-details-form.component';
 import { AddressLocationFormComponent } from './components/address-location-form/address-location-form.component';
 import { DIALOG_PT } from '../../constants/pass-through';
+import { APP_STORAGE } from '../../constants/app-storage';
 
 @Component({
   selector: 'app-address-modal',
@@ -31,9 +36,11 @@ export class AddressModalComponent {
   readonly ADDRESS_MODAL_MODE = ADDRESS_MODAL_MODE;
   readonly MapPin = MapPin;
 
-  addresses = input.required<Address[]>();
+  addresses = input.required<AddressItem[]>();
   isAddAddressModalOpened = input<boolean>(false);
-  selectAddress = output<number>();
+  selectedAddress = input<AddressItem | null>(null);
+
+  selectAddress = output<string>();
   saveAddress = output<NewAddress>();
   closeAddressModal = output<void>();
 
@@ -52,7 +59,7 @@ export class AddressModalComponent {
     }
   });
 
-  onSelectAddress(id: number) {
+  onSelectAddress(id: string) {
     this.selectAddress.emit(id);
   }
 
@@ -66,14 +73,14 @@ export class AddressModalComponent {
   }
 
   onSave(coordinates: google.maps.LatLngLiteral) {
+    const user = JSON.parse(localStorage.getItem(APP_STORAGE.user) || 'null');
     const newAddress = {
-      title: this.addressDetails()?.title || '',
       city: this.addressDetails()?.city || '',
       street: this.addressDetails()?.street || '',
       phone: this.addressDetails()?.phone || '',
-      latitude: coordinates.lat,
-      longitude: coordinates.lng,
-      isPrimary: this.addresses().length === 0,
+      lat: coordinates.lat.toString(),
+      long: coordinates.lng.toString(),
+      username: user?.firstName + ' ' + user?.lastName,
     };
 
     this.saveAddress.emit(newAddress);

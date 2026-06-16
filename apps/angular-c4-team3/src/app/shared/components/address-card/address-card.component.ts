@@ -1,5 +1,4 @@
 import { Component, computed, input, output } from '@angular/core';
-import { Address } from './address.model';
 import {
   LucideAngularModule,
   Phone,
@@ -7,6 +6,7 @@ import {
   PenLine,
   Trash2,
 } from 'lucide-angular';
+import { AddressItem } from '../address-modal/address-modal.model';
 
 @Component({
   selector: 'app-address-card',
@@ -20,13 +20,13 @@ export class AddressCardComponent {
   readonly PenLine = PenLine;
   readonly Trash2 = Trash2;
 
-  address = input.required<Address>();
-  selected = input<boolean>(false);
+  address = input.required<AddressItem>();
+  selectedId = input<string>('');
   isAddressModal = input<boolean>(false);
 
-  cardClick = output<Address>();
+  cardClick = output<AddressItem>();
 
-  isSelected = computed(() => this.selected() || !!this.address().selected);
+  isSelected = computed(() => this.selectedId());
 
   onCardClick() {
     this.cardClick.emit(this.address());
