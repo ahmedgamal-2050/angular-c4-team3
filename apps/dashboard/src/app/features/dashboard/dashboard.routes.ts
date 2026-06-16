@@ -46,25 +46,52 @@ export const dashboardRoutes: Route[] = [
       ),
   },
   {
-    path: 'categories',
+    path: APP_ROUTES.DASHBOARD.CATEGORIES,
+    data: { entityType: 'category' },
     loadComponent: () =>
       import(
         './pages/all-categories/all-categories/all-categories.component'
       ).then(m => m.AllCategoriesComponent),
   },
   {
-    path: 'categories/add',
+    path: APP_ROUTES.DASHBOARD.ADD_CATEGORY,
+    data: { entityType: 'category' },
     loadComponent: () =>
-      import('./pages/all-categories/add-category/add-category.component').then(
-        m => m.AddCategoryComponent
-      ),
+      import(
+        '../../shared/components/add-edit-item/add-edit-item.component'
+      ).then(m => m.AddEditItemComponent),
   },
   {
-    path: 'categories/update/:id',
+    path: APP_ROUTES.DASHBOARD.UPDATE_CATEGORY,
+    data: { entityType: 'category' },
     loadComponent: () =>
-      import('./pages/all-categories/add-category/add-category.component').then(
-        m => m.AddCategoryComponent
-      ),
+      import(
+        '../../shared/components/add-edit-item/add-edit-item.component'
+      ).then(m => m.AddEditItemComponent),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.OCCASIONS,
+    data: { entityType: 'occasion' },
+    loadComponent: () =>
+      import(
+        './pages/all-categories/all-categories/all-categories.component'
+      ).then(m => m.AllCategoriesComponent),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.ADD_OCCASION,
+    data: { entityType: 'occasion' },
+    loadComponent: () =>
+      import(
+        '../../shared/components/add-edit-item/add-edit-item.component'
+      ).then(m => m.AddEditItemComponent),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.UPDATE_OCCASION,
+    data: { entityType: 'occasion' },
+    loadComponent: () =>
+      import(
+        '../../shared/components/add-edit-item/add-edit-item.component'
+      ).then(m => m.AddEditItemComponent),
   },
   {
     path: 'server-error',
@@ -72,6 +99,20 @@ export const dashboardRoutes: Route[] = [
       import(
         '../../shared/components/server-error/server-error.component'
       ).then(m => m.ServerErrorComponent),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.UNAUTHORIZED,
+    loadComponent: () =>
+      import(
+        '../../shared/components/authorized-page/authorized-page.component'
+      ).then(m => m.AuthorizedPageComponent),
+  },
+  {
+    path: APP_ROUTES.DASHBOARD.PROFILE,
+    loadComponent: () =>
+      import('./pages/account/account-setting/account-setting.component').then(
+        m => m.AccountSettingComponent
+      ),
   },
   {
     path: '**',

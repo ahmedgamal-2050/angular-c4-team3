@@ -15,34 +15,39 @@ import {
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { APP_ROUTES } from '../../../../../shared/constants/app-routes';
+import { APP_ROUTES } from '../../constants/app-routes';
 import { CategoriesService } from 'apps/dashboard/src/app/shared/services/categories.service';
 import { InputComponent } from 'apps/dashboard/src/app/shared/components/form-components/input/input.component';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
-import { FormValidationService } from '../../../../../shared/services/form-validation.service';
+import { FormValidationService } from 'apps/dashboard/src/app/shared/services/form-validation.service';
+import { occasionsService } from 'apps/dashboard/src/app/shared/services/occasions.services';
+
+type EntityType = 'category' | 'occasion';
 
 @Component({
-  selector: 'app-add-category',
+  selector: 'app-add-edit-item',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, InputComponent, ButtonComponent],
-  templateUrl: './add-category.component.html',
+  templateUrl: './add-edit-item.component.html',
 })
-export class AddCategoryComponent implements OnInit, OnDestroy {
+export class AddEditItemComponent implements OnInit, OnDestroy {
   private _CategoriesService = inject(CategoriesService);
+  private _OccasionsService = inject(occasionsService);
   private _FormValidationService = inject(FormValidationService);
   private _Router = inject(Router);
   private _Route = inject(ActivatedRoute);
   private subscriptions = new Subscription();
 
-  protected readonly APP_ROUTES = APP_ROUTES;
+  entityType = signal<EntityType>('category');
+  entityId = signal<string | null>(null);
 
-  // ── Mode ──
-  categoryId = signal<string | null>(null);
-  readonly isEditMode = computed(() => !!this.categoryId());
+  readonly isEditMode = computed(() => !!this.entityId());
+  readonly entityLabel = computed(() =>
+    this.entityType() === 'category' ? 'Category' : 'Occasion'
+  );
 
-  // ── State ──
-  categoryName = signal<string>('');
+  entityName = signal<string>('');
   existingImageUrl = signal<string | null>(null);
   selectedFile = signal<File | null>(null);
 
@@ -53,19 +58,19 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
 
   nameErrors = computed(() =>
     this._FormValidationService.getErrors(this.form.controls['name'], {
-      required: 'Category name is required.',
+      required: `${this.entityLabel()} name is required.`,
     })
   );
 
   ngOnInit(): void {
+    this.entityType.set(this._Route.snapshot.data['entityType'] ?? 'category');
+
     const id = this._Route.snapshot.paramMap.get('id');
-    this.categoryId.set(id);
+    this.entityId.set(id);
 
     if (id) {
-      // Edit mode: image optional (keep existing if not changed)
-      this.loadCategory(id);
+      this.loadEntity(id);
     } else {
-      // Add mode: image required
       this.form.controls.image.setValidators([Validators.required]);
       this.form.controls.image.updateValueAndValidity();
     }
@@ -75,16 +80,24 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
-  private loadCategory(id: string): void {
-    const sub = this._CategoriesService.getById(id).subscribe({
-      next: res => {
-        const category = res.category ?? res.data ?? res;
-        this.categoryName.set(category.name);
-        this.form.controls.name.setValue(category.name);
-        this.existingImageUrl.set(category.image ?? null);
-      },
-      error: err => console.error(err),
-    });
+  private getService(): CategoriesService | occasionsService {
+    return this.entityType() === 'category'
+      ? this._CategoriesService
+      : this._OccasionsService;
+  }
+
+  private loadEntity(id: string): void {
+    const sub = this.getService()
+      .getById(id)
+      .subscribe({
+        next: res => {
+          const entity = res.category ?? res.occasion ?? res.data ?? res;
+          this.entityName.set(entity.name);
+          this.form.controls.name.setValue(entity.name);
+          this.existingImageUrl.set(entity.image ?? null);
+        },
+        error: err => console.error(err),
+      });
     this.subscriptions.add(sub);
   }
 
@@ -107,13 +120,17 @@ export class AddCategoryComponent implements OnInit, OnDestroy {
       formData.append('image', this.selectedFile()!);
     }
 
+    const listPath =
+      this.entityType() === 'category' ? 'categories' : 'occasions';
+
+    const service = this.getService();
     const request$ = this.isEditMode()
-      ? this._CategoriesService.update(this.categoryId()!, formData)
-      : this._CategoriesService.add(formData);
+      ? service.update(this.entityId()!, formData)
+      : service.add(formData);
 
     const sub = request$.subscribe({
       next: () => {
-        this._Router.navigate(['/', APP_ROUTES.DASHBOARD.ROOT, 'categories']);
+        this._Router.navigate(['/', APP_ROUTES.DASHBOARD.ROOT, listPath]);
       },
       error: err => console.error(err),
     });

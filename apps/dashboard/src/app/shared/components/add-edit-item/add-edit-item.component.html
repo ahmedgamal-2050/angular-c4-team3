@@ -4,8 +4,8 @@
     <h2 class="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-6">
       {{
         isEditMode()
-          ? 'Update Category: ' + categoryName()
-          : 'Add a New Category'
+          ? 'Update ' + entityLabel() + ': ' + entityName()
+          : 'Add a New ' + entityLabel()
       }}
     </h2>
 
@@ -14,22 +14,21 @@
         id="name"
         type="text"
         label="Name"
-        placeholder="Enter category name"
+        [placeholder]="'Enter ' + entityLabel().toLowerCase() + ' name'"
         [required]="true"
         fieldControlName="name"
         [errorMessages]="nameErrors()" />
 
-      <!-- Image upload -->
+      <!-- Image upload (add mode only) -->
       <div [hidden]="isEditMode()" class="flex flex-col gap-1">
         <label class="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-          Category image
+          {{ entityLabel() }} image
           <span class="text-red-600">*</span>
         </label>
         <label
-          for="categoryImage"
+          for="entityImage"
           class="flex items-center justify-end gap-2 px-4 py-2.5 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 cursor-pointer hover:border-red-400 transition">
-          <span
-            class="text-sm text-zinc-400 dark:text-zinc-500 flex-1 truncate">
+          <span class="text-sm text-zinc-400 dark:text-zinc-500 flex-1 truncate">
             {{ selectedFile()?.name ?? '' }}
           </span>
           <span
@@ -49,7 +48,7 @@
           </span>
         </label>
         <input
-          id="categoryImage"
+          id="entityImage"
           type="file"
           accept="image/*"
           class="hidden"
@@ -80,7 +79,7 @@
       }
 
       <shared-ui-button
-        [label]="isEditMode() ? 'Update Category' : 'Add Category'"
+        [label]="isEditMode() ? 'Update ' + entityLabel() : 'Add ' + entityLabel()"
         [type]="'submit'"
         [disabled]="form.invalid" />
     </form>

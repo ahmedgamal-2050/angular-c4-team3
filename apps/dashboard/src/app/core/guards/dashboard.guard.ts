@@ -6,9 +6,10 @@ export const dashboardGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   const token = localStorage.getItem(APP_STORAGE.token);
-  const user = JSON.parse(localStorage.getItem(APP_STORAGE.user) || 'null');
+  const userRaw = localStorage.getItem(APP_STORAGE.user);
+  const user = userRaw ? JSON.parse(userRaw) : null;
 
-  if (token && user.role === 'admin') {
+  if (token && user?.role === 'admin') {
     return true;
   } else {
     router.navigate(['/unauthorized']);

@@ -31,5 +31,10 @@ export const APP_ROUTES = {
     CATEGORIES: 'categories',
     ADD_CATEGORY: 'categories/add',
     UPDATE_CATEGORY: 'categories/update/:id',
+    OCCASIONS: 'occasions',
+    ADD_OCCASION: 'occasions/add',
+    UPDATE_OCCASION: 'occasions/update/:id',
+    UNAUTHORIZED: 'unauthorized',
+    PROFILE: 'profile',
   },
 };

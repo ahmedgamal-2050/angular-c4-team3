@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import {
   LucideAngularModule,
@@ -35,36 +35,44 @@ export class UserDropdownComponent {
 
   isLoggedIn = this._LoggedInService.isLoggedIn;
   user = this._LoggedInService.user;
+  isAdmin = computed(() => this.user()?.role === 'admin');
 
-  items: MenuItem[] = [
-    {
-      label: 'user_dropdown_my_profile_label',
-      icon: 'User',
-      data: { icon: this.User },
-      routerLink: '/dashboard/account',
-    },
-    {
-      label: 'user_dropdown_my_addresses_label',
-      icon: 'MapPin',
-      data: { icon: this.MapPin },
-      routerLink: '/addresses',
-    },
-    {
-      label: 'user_dropdown_my_orders_label',
-      icon: 'ClipboardList',
-      data: { icon: this.ClipboardList },
-      routerLink: '/orders',
-    },
-    {
-      separator: true,
-    },
-    {
-      label: 'user_dropdown_dashboard_label',
-      icon: 'Settings',
-      data: { icon: this.Settings },
-      routerLink: '/dashboard',
-    },
-  ];
+  get items(): MenuItem[] {
+    const shared: MenuItem[] = [
+      {
+        label: 'user_dropdown_my_profile_label',
+        icon: 'User',
+        data: { icon: this.User },
+        routerLink: '/profile',
+      },
+      {
+        label: 'user_dropdown_my_addresses_label',
+        icon: 'MapPin',
+        data: { icon: this.MapPin },
+        routerLink: '/addresses',
+      },
+      {
+        label: 'user_dropdown_my_orders_label',
+        icon: 'ClipboardList',
+        data: { icon: this.ClipboardList },
+        routerLink: '/orders',
+      },
+    ];
+
+    if (this.isAdmin()) {
+      shared.push(
+        { separator: true },
+        {
+          label: 'user_dropdown_dashboard_label',
+          icon: 'Settings',
+          data: { icon: this.Settings },
+          routerLink: '/dashboard',
+        }
+      );
+    }
+
+    return shared;
+  }
 
   logout() {
     this._LoggedInService.logout();
