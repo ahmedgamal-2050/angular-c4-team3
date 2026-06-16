@@ -16,7 +16,10 @@
     "baseUrl": ".",
     "paths": {
       "@angular-c4-team3/shared-design": ["shared-design/src/index.ts"],
-      "@angular-c4-team3/auth": ["auth/src/index.ts"]
+      "@angular-c4-team3/auth": ["auth/src/index.ts"],
+      "dashboard/Routes": [
+        "apps/dashboard/src/app/remote-entry/entry.routes.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
