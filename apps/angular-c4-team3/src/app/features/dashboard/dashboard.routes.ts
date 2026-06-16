@@ -54,6 +54,7 @@ export const dashboardRoutes: Route[] = [
   },
   {
     path: 'categories',
+    data: { entityType: 'category' },
     loadComponent: () =>
       import(
         './pages/all-categories/all-categories/all-categories.component'
@@ -61,17 +62,43 @@ export const dashboardRoutes: Route[] = [
   },
   {
     path: 'categories/add',
+    data: { entityType: 'category' },
     loadComponent: () =>
-      import('./pages/all-categories/add-category/add-category.component').then(
-        m => m.AddCategoryComponent
-      ),
+      import(
+        '../../shared/components/add-edit-item/add-edit-item.component'
+      ).then(m => m.AddEditItemComponent),
   },
   {
     path: 'categories/update/:id',
+    data: { entityType: 'category' },
     loadComponent: () =>
-      import('./pages/all-categories/add-category/add-category.component').then(
-        m => m.AddCategoryComponent
-      ),
+      import(
+        '../../shared/components/add-edit-item/add-edit-item.component'
+      ).then(m => m.AddEditItemComponent),
+  },
+  {
+    path: 'occasions',
+    data: { entityType: 'occasion' },
+    loadComponent: () =>
+      import(
+        './pages/all-categories/all-categories/all-categories.component'
+      ).then(m => m.AllCategoriesComponent),
+  },
+  {
+    path: 'occasions/add',
+    data: { entityType: 'occasion' },
+    loadComponent: () =>
+      import(
+        '../../shared/components/add-edit-item/add-edit-item.component'
+      ).then(m => m.AddEditItemComponent),
+  },
+  {
+    path: 'occasions/update/:id',
+    data: { entityType: 'occasion' },
+    loadComponent: () =>
+      import(
+        '../../shared/components/add-edit-item/add-edit-item.component'
+      ).then(m => m.AddEditItemComponent),
   },
   {
     path: '**',

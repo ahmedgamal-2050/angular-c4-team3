@@ -19,6 +19,7 @@ export const APP_ROUTES = {
     FORGET_PASSWORD: 'forget-password',
     SET_PASSWORD: 'set-password',
     RESET_PASSWORD: 'reset-password',
+    PROFILE: 'profile',
   },
   DASHBOARD: {
     ROOT: 'dashboard',
