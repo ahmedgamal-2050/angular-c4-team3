@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { APP_ROUTES } from './shared/constants/app-routes';
-import { dashboardGuard } from './core/guards/dashboard.guard';
+import { dashboardGuard } from 'dashboard/guard';
 
 export const appRoutes: Route[] = [
   { path: '', redirectTo: APP_ROUTES.AUTH.ROOT, pathMatch: 'full' },
@@ -28,34 +28,16 @@ export const appRoutes: Route[] = [
   {
     path: APP_ROUTES.DASHBOARD.ROOT,
     loadComponent: () =>
-      import('./layout/dashboard-wrapper/dashboard-wrapper.component').then(
-        m => m.DashboardWrapperComponent
-      ),
-    loadChildren: () =>
-      import('./features/dashboard/dashboard.routes').then(
-        m => m.dashboardRoutes
-      ),
+      import('dashboard/wrapper').then(m => m.DashboardWrapperComponent),
+    loadChildren: () => import('dashboard/routes').then(m => m.dashboardRoutes),
     canActivate: [dashboardGuard],
-  },
-
-  {
-    path: 'unauthorized',
-    loadComponent: () =>
-      import(
-        './shared/components/authorized-page/authorized-page.component'
-      ).then(m => m.AuthorizedPageComponent),
-  },
-
-  {
-    path: 'dashboard-remote',
-    loadChildren: () => import('dashboard/routes').then(m => m.remoteRoutes),
   },
 
   {
     path: '**',
     loadComponent: () =>
-      import('./shared/components/notfound-page/notfound-page.component').then(
-        m => m.NotfoundPageComponent
-      ),
+      import(
+        'apps/dashboard/src/app/shared/components/notfound-page/notfound-page.component'
+      ).then(m => m.NotfoundPageComponent),
   },
 ];

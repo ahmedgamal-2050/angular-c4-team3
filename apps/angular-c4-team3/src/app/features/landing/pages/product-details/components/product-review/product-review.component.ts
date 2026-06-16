@@ -13,7 +13,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ButtonComponent } from 'shared-design/src/lib/button/button.component';
+import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { TextareaComponent } from '../../../../../../shared/components/form-components/textarea/textarea.component';
 import { ProductDetailsService } from '../../services/product-details.service';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';

@@ -3,7 +3,10 @@ import { ModuleFederationConfig } from '@nx/module-federation';
 const config: ModuleFederationConfig = {
   name: 'dashboard',
   exposes: {
-    './Routes': 'apps/dashboard/src/app/remote-entry/entry.routes.ts',
+    './routes': 'apps/dashboard/src/app/features/dashboard/dashboard.routes.ts',
+    './wrapper':
+      'apps/dashboard/src/app/layout/dashboard-wrapper/dashboard-wrapper.component.ts',
+    './guard': 'apps/dashboard/src/app/core/guards/dashboard.guard.ts',
   },
 };
 

@@ -1,0 +1,101 @@
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  linkedSignal,
+  signal,
+} from '@angular/core';
+import {
+  ControlContainer,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  FormsModule,
+} from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
+import { LabelComponent } from '../label/label.component';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { SelectModule, SelectPassThrough } from 'primeng/select';
+import { FormDefaultClasses, PhonePT } from '../form-default-classes';
+import { COUNTRIES, CountryCode } from '../../../constants/countries';
+
+@Component({
+  selector: 'app-phone',
+  imports: [
+    InputTextModule,
+    SelectModule,
+    LabelComponent,
+    ReactiveFormsModule,
+    KeyFilterModule,
+    FormsModule,
+  ],
+  templateUrl: './phone.component.html',
+  styleUrl: './phone.component.css',
+  viewProviders: [
+    {
+      provide: ControlContainer,
+      useFactory: () => inject(ControlContainer, { skipSelf: true }),
+    },
+  ],
+})
+export class PhoneComponent {
+  private readonly controlContainer = inject(ControlContainer);
+
+  id = input.required<string>();
+  fieldControlName = input.required<string>();
+  placeholder = input<string>('');
+  label = input<string>('');
+  required = input<boolean>(false);
+  errorMessages = input<string[]>();
+
+  defaultClass = signal<string>(FormDefaultClasses.input.default);
+  errorClass = signal<string>(FormDefaultClasses.input.error);
+  defaultCountry = input<CountryCode>();
+  countries = signal(COUNTRIES);
+  selectedCountry = linkedSignal(
+    () =>
+      this.countries().find(c => c.code === this.defaultCountry()) ??
+      this.countries()[0]
+  );
+  pt = signal<SelectPassThrough>(PhonePT);
+  phoneNumber = signal<string>('');
+
+  constructor() {
+    effect(() => {
+      const country = this.selectedCountry();
+      const number = this.phoneNumber();
+      if (this.control) {
+        this.control.setValue(`${country.phone}${number}`, { emitEvent: true });
+        this.control.markAsDirty();
+      }
+    });
+  }
+
+  get parentFormGroup() {
+    return this.controlContainer.control as FormGroup;
+  }
+
+  get control() {
+    return this.parentFormGroup.get(this.fieldControlName()) as FormControl;
+  }
+
+  name = computed(() => this.fieldControlName() || this.id());
+  disabled = computed(() => this.control.disabled ?? false);
+
+  // Custom class to merge with dropdown
+  inputClass = computed(() => {
+    const base = this.errorMessages()?.length
+      ? this.errorClass()
+      : this.defaultClass();
+    return `${base.replace('rounded-lg!', 'rounded-s-lg!')} w-[calc(100%-8.75rem)] border-e-0 rounded-e-none!`;
+  });
+
+  dropdownClass = computed(() => {
+    const base = this.errorMessages()?.length
+      ? this.errorClass()
+      : this.defaultClass();
+    return `${base.replace('rounded-lg!', 'rounded-s-lg!').replace('w-full!', 'w-[8.75rem]!')} border-e-0! rounded-e-none! focus:ring-0`;
+  });
+}

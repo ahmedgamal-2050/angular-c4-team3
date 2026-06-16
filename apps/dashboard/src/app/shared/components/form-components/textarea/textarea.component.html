@@ -1,0 +1,36 @@
+<div class="flex flex-col gap-1.5 w-full">
+  <!-- Label -->
+  @if (label()) {
+    <app-label
+      [text]="label()"
+      [for]="id()"
+      [disabled]="disabled()"
+      [error]="!!errorMessages()?.length"
+      [required]="true" />
+  }
+
+  <!-- Textarea -->
+  <div class="relative">
+    <textarea
+      [id]="id()"
+      [name]="name()"
+      [placeholder]="placeholder()"
+      [disabled]="disabled()"
+      [required]="required()"
+      [formControlName]="fieldControlName()"
+      [class]="inputClass() ?? defaultInputClass()"
+      [rows]="rows()"
+      >{{ value() }}</textarea
+    >
+
+    <!-- End Icon Template -->
+    @if (endIconTemplate()) {
+      <ng-container [ngTemplateOutlet]="endIconTemplate()" />
+    }
+  </div>
+
+  <!-- Error Message -->
+  @if (errorMessages()?.length) {
+    <p class="text-red-500 text-xs font-normal">{{ errorMessages()?.[0] }}</p>
+  }
+</div>
