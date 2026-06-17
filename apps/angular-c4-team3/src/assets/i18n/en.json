@@ -53,7 +53,7 @@
   "landing_main_navbar_section_occasions": "Occasions",
   "landing_main_navbar_section_contact": "Contact us",
   "landing_main_navbar_section_about": "About us",
-  "user_dropdown_my_profile_label": "My profile",
+  "user_dropdown_my_profile_label": "Profile",
   "user_dropdown_my_addresses_label": "My addresses",
   "user_dropdown_my_orders_label": "My orders",
   "user_dropdown_dashboard_label": "Dashboard",
@@ -207,6 +207,8 @@
   "delete_account_confirm": "Yes, delete",
   "old_password": "Old Password",
   "old_password_placeholder": "Enter old password",
+  "new_password": "New Password",
+  "new_password_placeholder": "Enter new password",
   "confirm_new_password": "Confirm New Password",
   "confirm_new_password_placeholder": "Re-enter new password"
 }
