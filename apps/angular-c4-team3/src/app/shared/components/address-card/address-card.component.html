@@ -8,13 +8,6 @@
   [class.py-6]="isAddressModal()"
   [class.me-4]="isAddressModal()"
   class="border rounded-2xl p-4 flex items-start justify-between cursor-pointer transition-colors duration-300 relative">
-  @if (isAddressModal()) {
-    <div
-      class="absolute bg-white p-1.5 font-semibold text-2xl text-maroon-600 -top-6">
-      {{ address().name }}
-    </div>
-  }
-
   <div>
     <h3
       [class.text-zinc-800]="!isSelected()"
@@ -39,7 +32,7 @@
       [class.bg-zinc-800]="isSelected() && !isAddressModal()"
       [class.text-zinc-100]="isSelected() && !isAddressModal()"
       class="inline-block text-base font-medium px-4 py-1 rounded-full">
-      {{ address().address }}
+      {{ address().street }}
     </span>
   </div>
 
@@ -71,13 +64,15 @@
       class="absolute p-1.5 font-semibold text-2xl text-maroon-600 -inset-e-6 flex flex-col gap-2">
       <button
         type="button"
-        class="size-9 border border-zinc-200 rounded-full flex items-center justify-center bg-white">
+        class="size-9 border border-zinc-200 rounded-full flex items-center justify-center bg-white"
+        (click)="editAddress.emit(address())">
         <lucide-icon [img]="PenLine" [size]="18" class="text-zinc-800" />
       </button>
 
       <button
         type="button"
-        class="size-9 rounded-full flex items-center justify-center bg-red-600 text-white">
+        class="size-9 rounded-full flex items-center justify-center bg-red-600 text-white"
+        (click)="deleteAddress.emit(address())">
         <lucide-icon [img]="Trash2" [size]="18" class="text-white" />
       </button>
     </div>

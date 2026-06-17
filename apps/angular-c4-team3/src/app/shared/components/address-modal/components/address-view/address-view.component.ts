@@ -1,9 +1,9 @@
 import { Component, input, output } from '@angular/core';
 import { AddressCardComponent } from '../../../address-card/address-card.component';
-import { Address } from '../../../address-card/address.model';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { NgTemplateOutlet } from '@angular/common';
 import { ADDRESS_MODAL_MODE } from '../../address-modal.constants';
+import { AddressItem } from '../../address-modal.model';
 
 @Component({
   selector: 'app-address-view',
@@ -13,11 +13,14 @@ import { ADDRESS_MODAL_MODE } from '../../address-modal.constants';
 export class AddressViewComponent {
   readonly ADDRESS_MODAL_MODE = ADDRESS_MODAL_MODE;
 
-  addresses = input<Address[]>([]);
-  selectAddress = output<number>();
+  addresses = input<AddressItem[]>([]);
+  selectedAddress = input<AddressItem | null>(null);
+  selectAddress = output<string>();
+  editAddress = output<AddressItem>();
+  deleteAddress = output<AddressItem>();
   switchMode = output<string>();
 
-  onSelectAddress(id: number) {
+  onSelectAddress(id: string) {
     this.selectAddress.emit(id);
   }
 

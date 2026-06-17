@@ -17,7 +17,11 @@ import { Subscription } from 'rxjs';
 import { CartResponse } from '../cart/cart.model';
 import { ShippingAddressComponent } from './components/shipping-address/shipping-address.component';
 import { AddressService } from '../../../../core/services/address/address.service';
-import { NewAddress } from '../../../../shared/components/address-modal/address-modal.model';
+import {
+  AddressItem,
+  AddressResponse,
+  NewAddress,
+} from '../../../../shared/components/address-modal/address-modal.model';
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { TranslocoModule } from '@jsverse/transloco';
 import { ArrowRight } from 'lucide-angular';
@@ -42,7 +46,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   readonly _addressService = inject(AddressService);
   readonly Ticket = ArrowRight;
   currentActiveStep = signal<number>(1);
-  addresses = signal<any[]>([]);
+  addresses = signal<AddressItem[]>([]);
 
   isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
   userId = computed(() => this._loggedInService.user()?._id || '');
@@ -185,8 +189,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   getAllAddresses() {
     const sub = this._addressService.getAllAddresses().subscribe({
-      next: (res: { addresses: any[]; message: string }) => {
-        console.log(res.addresses);
+      next: (res: AddressResponse) => {
+        this.addresses.set(res.addresses);
       },
     });
 

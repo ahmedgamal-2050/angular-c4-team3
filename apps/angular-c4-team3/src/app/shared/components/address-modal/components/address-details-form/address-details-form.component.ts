@@ -1,4 +1,11 @@
-import { Component, computed, inject, output } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { FormValidationService } from '../../../../../features/auth/services/FormValidationService';
 import { TranslocoPipe } from '@jsverse/transloco';
@@ -6,8 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../../../form-components/input/input.component';
 import { TextareaComponent } from '../../../form-components/textarea/textarea.component';
 import { PhoneComponent } from '../../../form-components/phone/phone.component';
-import { AddressDetailsForm } from '../../address-modal.model';
-import { Title } from '@angular/platform-browser';
+import { AddressDetailsForm, AddressItem } from '../../address-modal.model';
 
 @Component({
   selector: 'app-address-details-form',
@@ -23,21 +29,15 @@ import { Title } from '@angular/platform-browser';
 export class AddressDetailsFormComponent {
   private _FormValidationService = inject(FormValidationService);
 
+  address = input<AddressItem | null>(null);
   next = output<AddressDetailsForm>();
 
   // Reactive Address Form
   addressForm = new FormGroup({
-    title: new FormControl('', [Validators.required]),
     city: new FormControl('', [Validators.required]),
     street: new FormControl('', [Validators.required]),
     phone: new FormControl('', [Validators.required]),
   });
-
-  titleErrors = computed(() =>
-    this._FormValidationService.getErrors(this.addressForm.controls.title, {
-      required: 'Title is required.',
-    })
-  );
 
   cityErrors = computed(() =>
     this._FormValidationService.getErrors(this.addressForm.controls.city, {
@@ -56,6 +56,17 @@ export class AddressDetailsFormComponent {
       required: 'Phone number is required.',
     })
   );
+
+  fillAddress = effect(() => {
+    const address = this.address();
+    if (address) {
+      this.addressForm.patchValue({
+        city: address.city,
+        street: address.street,
+        phone: address.phone.replace('+20', ''),
+      });
+    }
+  });
 
   onNext() {
     if (this.addressForm.invalid) {
