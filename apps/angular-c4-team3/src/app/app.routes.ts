@@ -34,6 +34,23 @@ export const appRoutes: Route[] = [
   },
 
   {
+    path: APP_ROUTES.AUTH.PROFILE,
+    loadComponent: () =>
+      import('./layout/landing-wrapper/landing-wrapper.component').then(
+        m => m.LandingWrapperComponent
+      ),
+    children: [
+      {
+        path: '',
+        loadComponent: () =>
+          import(
+            './features/landing/pages/profile/profile.component'
+          ).then(m => m.ProfileComponent),
+      },
+    ],
+  },
+
+  {
     path: '**',
     loadComponent: () =>
       import(

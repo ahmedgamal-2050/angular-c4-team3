@@ -1,0 +1,229 @@
+<section>
+  <h1 class="text-5xl font-bold text-zinc-00 dark:text-zinc-100 mb-9">
+    {{ 'account_settings' | transloco }}
+  </h1>
+
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-9 items-start">
+    <aside
+      class="lg:col-span-3 bg-zinc-50 dark:bg-zinc-800 rounded-xl border border-zinc-100 dark:border-zinc-700 p-4 flex flex-col"
+      style="min-height: 100vh">
+      <button
+        type="button"
+        (click)="setTab('profile')"
+        class="flex items-center gap-3 p-4 rounded-xl w-full text-sm font-medium transition-colors"
+        [ngClass]="
+          activeTab() === 'profile'
+            ? 'bg-zinc-800 text-white dark:bg-zinc-100 dark:text-zinc-800'
+            : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+        ">
+        <lucide-icon [img]="UserIcon" class="size-4 shrink-0" />
+        {{ 'user_dropdown_my_profile_label' | transloco }}
+      </button>
+
+      <button
+        type="button"
+        (click)="setTab('changePassword')"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-xl w-full text-sm font-medium transition-colors mt-1"
+        [ngClass]="
+          activeTab() === 'changePassword'
+            ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900'
+            : 'text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700'
+        ">
+        <lucide-icon [img]="LockIcon" class="size-4 shrink-0" />
+        {{ 'change_password' | transloco }}
+      </button>
+
+      <div class="flex-1"></div>
+
+      <button
+        type="button"
+        (click)="logout()"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-xl w-full text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors">
+        <lucide-icon [img]="LogOutIcon" class="size-4 shrink-0" />
+        {{ 'user_dropdown_logout_label' | transloco }}
+      </button>
+    </aside>
+
+    <div class="lg:col-span-9">
+      @if (activeTab() === 'profile') {
+        <div class="flex flex-col gap-5">
+          <div class="flex items-center gap-4">
+            <label
+              for="photoInput"
+              class="relative cursor-pointer block shrink-0">
+              @if (previewUrl()) {
+                <img
+                  [src]="previewUrl()!"
+                  alt="Profile photo"
+                  class="w-20 h-20 rounded-full object-cover" />
+              } @else {
+                <div
+                  class="w-20 h-20 rounded-full bg-zinc-200 dark:bg-zinc-600 flex items-center justify-center">
+                  <lucide-icon
+                    [img]="UserIcon"
+                    class="size-9 text-zinc-400 dark:text-zinc-300" />
+                </div>
+              }
+              <span
+                class="absolute bottom-0 right-0 bg-white dark:bg-zinc-800 rounded-full p-0.5 border border-zinc-300 dark:border-zinc-600">
+                <lucide-icon
+                  [img]="PlusIcon"
+                  class="size-3 text-zinc-600 dark:text-zinc-300" />
+              </span>
+              <input
+                id="photoInput"
+                type="file"
+                accept=".jpg,.jpeg,.png,.gif"
+                class="hidden"
+                (change)="onPhotoSelected($event)" />
+            </label>
+
+            <div>
+              <p class="font-semibold text-zinc-800 dark:text-zinc-100">
+                {{ 'upload_photo' | transloco }}
+              </p>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">
+                {{ 'upload_photo_hint' | transloco }}
+              </p>
+            </div>
+          </div>
+
+          <form
+            [formGroup]="profileForm"
+            (ngSubmit)="submitProfile()"
+            class="flex flex-col gap-4">
+            <div class="grid grid-cols-2 gap-4">
+              <app-input
+                id="firstName"
+                type="text"
+                [label]="'first_name' | transloco"
+                [placeholder]="'first_name_placeholder' | transloco"
+                [required]="true"
+                fieldControlName="firstName"
+                [errorMessages]="firstNameErrors()" />
+
+              <app-input
+                id="lastName"
+                type="text"
+                [label]="'last_name' | transloco"
+                [placeholder]="'last_name_placeholder' | transloco"
+                [required]="true"
+                fieldControlName="lastName"
+                [errorMessages]="lastNameErrors()" />
+            </div>
+
+            <app-input
+              id="email"
+              type="email"
+              [label]="'email' | transloco"
+              [placeholder]="'email_placeholder' | transloco"
+              [required]="true"
+              fieldControlName="email"
+              [errorMessages]="emailErrors()" />
+
+            <app-phone
+              id="phone"
+              [label]="'phone' | transloco"
+              [placeholder]="'phone_placeholder' | transloco"
+              [required]="true"
+              fieldControlName="phone"
+              defaultCountry="EG"
+              [errorMessages]="phoneErrors()" />
+
+            <!-- <app-select
+              id="gender"
+              [label]="'gender' | transloco"
+              [options]="genderOptions()"
+              optionLabel="label"
+              optionValue="value"
+              [placeholder]="'select_gender' | transloco"
+              fieldControlName="gender" /> -->
+
+            <div class="flex items-center justify-between mt-2">
+              <button
+                type="button"
+                (click)="onDeleteAccount()"
+                class="text-sm font-semibold text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors">
+                {{ 'delete_account' | transloco }}
+              </button>
+
+              <shared-ui-button
+                [label]="'save_changes' | transloco"
+                type="submit"
+                [disabled]="profileForm.invalid" />
+            </div>
+          </form>
+        </div>
+      }
+
+      @if (activeTab() === 'changePassword') {
+        <form
+          class="mt-10 w-full flex flex-col gap-4"
+          [formGroup]="changePasswordForm"
+          (ngSubmit)="submitChangePassword()"
+          novalidate>
+          <!-- Password field -->
+          <app-password
+            id="password"
+            type="password"
+            label="{{ 'password' | transloco }}"
+            placeholder="{{ 'password_placeholder' | transloco }}"
+            [required]="true"
+            fieldControlName="password"
+            [errorMessages]="passwordErrors()" />
+
+          <!-- Confirm Password -->
+          <app-password
+            id="newPassword"
+            type="password"
+            label="{{ 'new_password' | transloco }}"
+            placeholder="{{ 'new_password_placeholder' | transloco }}"
+            [required]="true"
+            fieldControlName="newPassword"
+            [errorMessages]="newPasswordErrors()" />
+
+          <!-- Submit button -->
+          <div class="w-full mt-5">
+            <shared-ui-button
+              [label]="'reset_password' | transloco"
+              [type]="'submit'"
+              [disabled]="!changePasswordForm.valid"></shared-ui-button>
+          </div>
+        </form>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- Delete Account Confirmation Modal -->
+@if (showDeleteModal()) {
+  <div
+    class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div
+      class="bg-white dark:bg-zinc-800 rounded-2xl p-6 max-w-sm w-full shadow-xl">
+      <h3 class="text-lg font-bold text-zinc-900 dark:text-zinc-100 mb-2">
+        {{ 'delete_account' | transloco }}
+      </h3>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-2">
+        {{ 'delete_account_confirm_title' | transloco }}
+      </p>
+      <p class="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
+        {{ 'delete_account_confirm_subtitle' | transloco }}
+      </p>
+      <div class="flex gap-3 justify-end">
+        <button
+          type="button"
+          (click)="showDeleteModal.set(false)"
+          class="px-4 py-2 text-sm font-medium text-zinc-700 dark:text-zinc-300 bg-zinc-100 dark:bg-zinc-700 hover:bg-zinc-200 dark:hover:bg-zinc-600 rounded-lg transition-colors">
+          {{ 'delete_account_cancel' | transloco }}
+        </button>
+        <button
+          type="button"
+          (click)="confirmDelete()"
+          class="px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors">
+          {{ 'delete_account_confirm' | transloco }}
+        </button>
+      </div>
+    </div>
+  </div>
+}
