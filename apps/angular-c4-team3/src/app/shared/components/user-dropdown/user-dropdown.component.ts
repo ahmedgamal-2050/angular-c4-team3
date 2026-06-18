@@ -36,8 +36,7 @@ export class UserDropdownComponent {
   isLoggedIn = this._LoggedInService.isLoggedIn;
   user = this._LoggedInService.user;
   isAdmin = computed(() => this.user()?.role === 'admin');
-
-  get items(): MenuItem[] {
+  items = computed<MenuItem[]>(() => {
     const shared: MenuItem[] = [
       {
         label: 'user_dropdown_my_profile_label',
@@ -72,7 +71,7 @@ export class UserDropdownComponent {
     }
 
     return shared;
-  }
+  });
 
   logout() {
     this._LoggedInService.logout();
