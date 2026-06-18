@@ -12,6 +12,7 @@ import {
   MoreVertical,
   Settings,
   LogOut,
+  Menu,
 } from 'lucide-angular';
 import { TranslocoPipe } from '@jsverse/transloco';
 
@@ -29,6 +30,7 @@ export class SidebarProfileComponent {
   readonly MoreVertical = MoreVertical;
   readonly Settings = Settings;
   readonly LogOut = LogOut;
+  readonly Menu = Menu;
 
   user = this._loggedInService.user;
   isDropdownOpen = signal(false);
