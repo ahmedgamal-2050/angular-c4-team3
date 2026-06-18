@@ -1,0 +1,22 @@
+<p-breadcrumb [model]="items()" [pt]="pt()" class="w-full">
+  <ng-template #item let-item>
+    @if (item.routerLink) {
+      <a
+        [routerLink]="item.routerLink"
+        class="inline-flex text-zinc-500 dark:text-zinc-300 font-normal text-xs lg:text-sm cursor-pointer">
+        <span>{{ item.label }}</span>
+      </a>
+    } @else {
+      <span
+        class="inline-flex text-maroon-600 dark:text-red-500 font-normal text-xs lg:text-sm select-none">
+        <span>{{ item.label }}</span>
+      </span>
+    }
+  </ng-template>
+
+  <ng-template #separator>
+    <span class="mx-3 mt-1 text-zinc-500 dark:text-zinc-300 select-none">
+      <lucide-icon [img]="ChevronRight" size="16" class="size-2.5 lg:size-4" />
+    </span>
+  </ng-template>
+</p-breadcrumb>
