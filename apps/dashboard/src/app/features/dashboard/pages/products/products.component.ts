@@ -1,20 +1,15 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import {
-  LucideAngularModule,
-  Plus,
-  Pencil,
-  Trash2,
-  EllipsisVertical,
-} from 'lucide-angular';
+import { LucideAngularModule, Plus, Pencil } from 'lucide-angular';
 import { TableComponent } from '../../../../shared/components/table/table.component';
 import { ProductService } from '../../../../shared/services/product.service';
 import { Product } from '../../../../shared/models/product';
 import { APP_ROUTES } from '../../../../shared/constants/app-routes';
 import { TableColumn } from '../../../../shared/components/table/table.modal';
 import { PRODUCT_TABLE_COLUMN } from './products.constants';
-import { MenuModule, MenuPassThrough } from 'primeng/menu';
+import { ConfirmDeleteModalComponent } from '../account/confirm-delete-modal/confirm-delete-modal.component';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-dashboard-products',
@@ -23,36 +18,24 @@ import { MenuModule, MenuPassThrough } from 'primeng/menu';
     TableComponent,
     LucideAngularModule,
     RouterLink,
-    MenuModule,
+    ConfirmDeleteModalComponent,
   ],
   templateUrl: './products.component.html',
 })
 export class ProductsComponent implements OnInit {
   readonly productService = inject(ProductService);
   readonly router = inject(Router);
+  readonly destroyRef = inject(DestroyRef);
 
   readonly Plus = Plus;
   readonly Pencil = Pencil;
-  readonly Trash2 = Trash2;
-  readonly EllipsisVertical = EllipsisVertical;
   readonly AddProduct = `/${APP_ROUTES.DASHBOARD.ROOT}/${APP_ROUTES.DASHBOARD.ADD_PRODUCT}`;
 
   products = signal<Product[]>([]);
   tableColumns = signal<TableColumn[]>(PRODUCT_TABLE_COLUMN);
   loading = signal<boolean>(true);
-  actionItems = signal([
-    {
-      label: 'Edit',
-    },
-    {
-      label: 'Delete',
-    },
-  ]);
-  menuPt = signal<MenuPassThrough>({
-    root: {
-      class: 'bg-white! dark:bg-zinc-800! rounded-md! shadow-sm!',
-    },
-  });
+  selectedId = signal<string | null>(null);
+  showDeleteModal = signal(false);
 
   ngOnInit(): void {
     this.loadProducts();
@@ -60,30 +43,48 @@ export class ProductsComponent implements OnInit {
 
   loadProducts(): void {
     this.loading.set(true);
-    this.productService.getAllProducts(1, 1000).subscribe({
-      next: res => {
-        this.products.set(res.products || []);
-        this.loading.set(false);
-      },
-      error: err => {
-        console.error('Error fetching dashboard products:', err);
-        this.loading.set(false);
-      },
-    });
+    this.productService
+      .getAllProducts(1, 1000)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: res => {
+          this.products.set(res.products || []);
+          this.loading.set(false);
+        },
+        error: err => {
+          console.error('Error fetching dashboard products:', err);
+          this.loading.set(false);
+        },
+      });
+  }
+
+  handleDelete(id: string) {
+    this.selectedId.set(id);
+    this.showDeleteModal.set(true);
   }
 
   deleteProduct(productId: string): void {
-    if (confirm('Are you sure you want to delete this product?')) {
-      this.loading.set(true);
-      this.productService.deleteProduct(productId).subscribe({
+    this.loading.set(true);
+    this.productService
+      .deleteProduct(productId)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
         next: () => {
+          this.showDeleteModal.set(false);
+          this.selectedId.set(null);
           this.loadProducts();
+          this.loading.set(false);
         },
         error: err => {
           console.error('Error deleting product:', err);
           this.loading.set(false);
         },
       });
-    }
+  }
+
+  navigateToEdit(productId: string): void {
+    this.router.navigate([
+      `/${APP_ROUTES.DASHBOARD.ROOT}/${APP_ROUTES.DASHBOARD.EDIT_PRODUCT.replace(':id', productId)}`,
+    ]);
   }
 }
