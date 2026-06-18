@@ -99,18 +99,18 @@ export class AllCategoriesComponent implements OnInit, OnDestroy {
     ]);
   }
 
-  onEdit(row: any): void {
+  onEdit(id: any): void {
     this._Router.navigate([
       '/',
       APP_ROUTES.DASHBOARD.ROOT,
       this.entityPath(),
       'update',
-      row._id,
+      id,
     ]);
   }
 
-  onDelete(row: any): void {
-    this.selectedId.set(row._id);
+  onDelete(id: any): void {
+    this.selectedId.set(id);
     this.showDeleteModal.set(true);
   }
 

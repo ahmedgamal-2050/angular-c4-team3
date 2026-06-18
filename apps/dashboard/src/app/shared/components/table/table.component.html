@@ -52,13 +52,17 @@
             class="px-2! py-4! border-zinc-200! dark:border-zinc-600! whitespace-nowrap text-sm text-zinc-800! dark:text-white! align-middle"
             [class.hidden]="col.hideOnMobile"
             [class.lg:table-cell]="col.hideOnMobile">
-            @if (cellTemplates()[i]) {
+            @if (cellTemplates()[i] && col.field !== 'actions') {
               <ng-container
                 [ngTemplateOutlet]="cellTemplates()[i]"
                 [ngTemplateOutletContext]="{
                   $implicit: rowData,
                   row: rowData,
                 }" />
+            } @else {
+              <app-table-actions
+                (delete)="delete.emit(rowData._id)"
+                (navigateToEdit)="navigateToEdit.emit(rowData._id)" />
             }
           </td>
         }

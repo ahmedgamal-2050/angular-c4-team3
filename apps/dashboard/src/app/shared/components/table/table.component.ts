@@ -1,20 +1,20 @@
-import {
-  Component,
-  Directive,
-  TemplateRef,
-  contentChildren,
-  input,
-  signal,
-} from '@angular/core';
+import { Component, TemplateRef, input, output, signal } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { TableModule, TablePassThrough } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
-import { LucideAngularModule, Search } from 'lucide-angular';
+import {
+  EllipsisVertical,
+  LucideAngularModule,
+  Pencil,
+  Search,
+  Trash2,
+} from 'lucide-angular';
 import { PAGINATOR_PT } from '../../constants/pass-through';
 import { TableColumn } from './table.modal';
+import { TableActionsComponent } from './components/table-actions/table-actions.component';
 
 @Component({
   selector: 'app-table',
@@ -26,6 +26,7 @@ import { TableColumn } from './table.modal';
     InputTextModule,
     FormsModule,
     LucideAngularModule,
+    TableActionsComponent,
   ],
   templateUrl: './table.component.html',
 })
@@ -38,6 +39,9 @@ export class TableComponent {
   loading = input<boolean>(false);
   rows = input<number>(10);
   cellTemplates = input.required<TemplateRef<unknown>[]>();
+
+  delete = output<string>();
+  navigateToEdit = output<string>();
 
   tablePt = signal<TablePassThrough>({
     root: {
