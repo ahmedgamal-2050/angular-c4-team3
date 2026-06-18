@@ -6,7 +6,6 @@ import {
   computed,
   DestroyRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   ReactiveFormsModule,
   FormGroup,
@@ -21,17 +20,23 @@ import { TextareaComponent } from '../../../../../../shared/components/form-comp
 import { FileUploadComponent } from '../../../../../../shared/components/form-components/file-upload/file-upload.component';
 import { ProductService } from '../../../../../../shared/services/product.service';
 import { FormValidationService } from '../../../../../../shared/services/form-validation.service';
-import { CategoriesResponse, OccasionsResponse, ProductDetailsResponse } from '../../../../../../shared/models/product';
+import {
+  CategoriesResponse,
+  OccasionsResponse,
+  ProductDetailsResponse,
+} from '../../../../../../shared/models/product';
 import { Image, Images } from 'lucide-angular';
 import { Dialog } from 'primeng/dialog';
-import { DIALOG_PT } from '../../../../../../shared/constants/pass-through';
+import {
+  DASHBOARD_CAROUSEL_PT,
+  DIALOG_PT,
+} from '../../../../../../shared/constants/pass-through';
 import { CarouselModule, CarouselPassThrough } from 'primeng/carousel';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-product-form',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     RouterModule,
     LucideAngularModule,
@@ -63,42 +68,7 @@ export class ProductFormComponent implements OnInit {
 
   isGalleryModalOpened = signal<boolean>(false);
   dialogPt = signal(DIALOG_PT);
-  carouselPt = signal<CarouselPassThrough>({
-    contentContainer: {
-      class: 'h-full relative',
-    },
-    content: {
-      class: 'h-full',
-    },
-    viewport: {
-      class: 'h-full',
-    },
-    itemList: {
-      class: 'h-full',
-    },
-    indicatorList: {
-      class: 'gap-2! mt-6! justify-start! py-3!',
-    },
-    indicator: {
-      class: 'group',
-    },
-    indicatorButton: {
-      class:
-        'size-3! rounded-full! bg-maroon-50! group-[.p-carousel-indicator-active]:bg-maroon-700!',
-    },
-    pcPrevButton: {
-      root: {
-        class:
-          'border! border-maroon-200! text-maroon-700! absolute! bottom-0 end-11 size-8! z-1 rtl:end-1',
-      },
-    },
-    pcNextButton: {
-      root: {
-        class:
-          'border! border-maroon-200! text-maroon-700! absolute! bottom-0 end-1 size-8! z-1 rtl:end-11',
-      },
-    },
-  });
+  carouselPt = signal<CarouselPassThrough>(DASHBOARD_CAROUSEL_PT);
   carouselData = signal<{ id: number; imageUrl: string | null }[]>([]);
 
   // Preview Signals (to bind to [initialPreviews])
@@ -110,7 +80,7 @@ export class ProductFormComponent implements OnInit {
     description: new FormControl('', [Validators.required]),
     price: new FormControl<number | null>(null, [
       Validators.required,
-      Validators.min(0.01),
+      Validators.min(10),
     ]),
     discount: new FormControl<number | null>(null, [
       Validators.min(0),
@@ -131,66 +101,49 @@ export class ProductFormComponent implements OnInit {
   });
 
   // Computed Validation Errors
-  titleErrors = computed(() =>
-    this.formValidationService.getErrors(this.productForm.controls.title, {
-      required: 'Title is required.',
-    })
-  );
+  titleErrors = computed(() => {
+    const control = this.productForm.controls['title'];
+    return this.formValidationService.getFormErrors(control);
+  });
 
-  descriptionErrors = computed(() =>
-    this.formValidationService.getErrors(
-      this.productForm.controls.description,
-      {
-        required: 'Description is required.',
-      }
-    )
-  );
+  descriptionErrors = computed(() => {
+    const control = this.productForm.controls['description'];
+    return this.formValidationService.getFormErrors(control);
+  });
 
-  priceErrors = computed(() =>
-    this.formValidationService.getErrors(this.productForm.controls.price, {
-      required: 'Price is required.',
-      min: 'Price must be a positive number.',
-    })
-  );
+  priceErrors = computed(() => {
+    const control = this.productForm.controls['price'];
+    return this.formValidationService.getFormErrors(control);
+  });
 
-  discountErrors = computed(() =>
-    this.formValidationService.getErrors(this.productForm.controls.discount, {
-      min: 'Discount cannot be negative.',
-      max: 'Discount cannot exceed 100%.',
-    })
-  );
+  discountErrors = computed(() => {
+    const control = this.productForm.controls['discount'];
+    return this.formValidationService.getFormErrors(control);
+  });
 
-  quantityErrors = computed(() =>
-    this.formValidationService.getErrors(this.productForm.controls.quantity, {
-      required: 'Quantity is required.',
-      min: 'Quantity must be a positive number.',
-    })
-  );
+  quantityErrors = computed(() => {
+    const control = this.productForm.controls['quantity'];
+    return this.formValidationService.getFormErrors(control);
+  });
 
-  categoryErrors = computed(() =>
-    this.formValidationService.getErrors(this.productForm.controls.category, {
-      required: 'Category is required.',
-    })
-  );
+  categoryErrors = computed(() => {
+    const control = this.productForm.controls['category'];
+    return this.formValidationService.getFormErrors(control);
+  });
 
-  occasionErrors = computed(() =>
-    this.formValidationService.getErrors(this.productForm.controls.occasion, {
-      required: 'Occasion is required.',
-    })
-  );
+  occasionErrors = computed(() => {
+    const control = this.productForm.controls['occasion'];
+    return this.formValidationService.getFormErrors(control);
+  });
 
   coverImageErrors = computed(() => {
-    const control = this.productForm.controls.imageCover;
-    return control.touched && control.hasError('required')
-      ? ['Cover image is required.']
-      : [];
+    const control = this.productForm.controls['imageCover'];
+    return this.formValidationService.getFormErrors(control);
   });
 
   galleryErrors = computed(() => {
-    const control = this.productForm.controls.images;
-    return control.touched && control.hasError('required')
-      ? ['At least one gallery image is required.']
-      : [];
+    const control = this.productForm.controls['images'];
+    return this.formValidationService.getFormErrors(control);
   });
 
   ngOnInit(): void {
@@ -316,6 +269,9 @@ export class ProductFormComponent implements OnInit {
     }
 
     if (this.isEditMode()) {
+      formData.delete('discount');
+      formData.delete('category');
+      formData.delete('occasion');
       this.productService
         .updateProduct(this.productId()!, formData)
         .pipe(takeUntilDestroyed(this.destroyRef))
@@ -350,6 +306,12 @@ export class ProductFormComponent implements OnInit {
       id: 1,
       imageUrl: this.coverPreviewUrl(),
     };
+    this.carouselPt.set({
+      ...this.carouselPt(),
+      pcPrevButton: { root: { class: 'hidden!' } },
+      pcNextButton: { root: { class: 'hidden!' } },
+      indicatorList: { class: 'hidden!' },
+    });
     this.carouselData.set([carouselObj]);
   }
 
