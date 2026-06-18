@@ -217,5 +217,12 @@
   "sidebar_occasions": "المناسبات",
   "sidebar_products": "المنتجات",
   "sidebar_profile_settings": "إعدادات الملف الشخصي",
-  "sidebar_logout": "تسجيل الخروج"
+  "sidebar_logout": "تسجيل الخروج",
+  "sidebar_dashboard": "لوحة التحكم",
+  "sidebar_products_form_add": "إضافة منتج",
+  "sidebar_products_form_edit": "تعديل المنتج",
+  "sidebar_categories_add": "إضافة فئة",
+  "sidebar_categories_edit": "تعديل الفئة",
+  "sidebar_occasions_add": "إضافة مناسبة",
+  "sidebar_occasions_edit": "تعديل المناسبة"
 }

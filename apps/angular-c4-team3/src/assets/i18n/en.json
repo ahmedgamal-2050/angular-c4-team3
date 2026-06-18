@@ -217,5 +217,12 @@
   "sidebar_occasions": "Occasions",
   "sidebar_products": "Products",
   "sidebar_profile_settings": "Profile Settings",
-  "sidebar_logout": "Logout"
+  "sidebar_logout": "Logout",
+  "sidebar_dashboard": "Dashboard",
+  "sidebar_products_form_add": "Add Product",
+  "sidebar_products_form_edit": "Edit Product",
+  "sidebar_categories_add": "Add Category",
+  "sidebar_categories_edit": "Edit Category",
+  "sidebar_occasions_add": "Add Occasion",
+  "sidebar_occasions_edit": "Edit Occasion"
 }
