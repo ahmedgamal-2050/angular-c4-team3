@@ -140,9 +140,9 @@
       <div class="mt-4">
         <button
           type="submit"
-          [disabled]="loading()"
-          class="w-full py-4 rounded-lg bg-maroon-700 hover:bg-maroon-800 text-white font-bold transition duration-300 shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
-          <span>{{ isEditMode() ? 'Update Product' : 'Add Product' }}</span>
+          [disabled]="loading() || productForm.invalid"
+          class="w-full py-4 rounded-lg bg-maroon-600 hover:bg-maroon-800 text-white font-bold transition duration-300 shadow-md disabled:opacity-50 disabled:cursor-not-allowed!">
+          {{ isEditMode() ? 'Update Product' : 'Add Product' }}
         </button>
       </div>
     </form>
