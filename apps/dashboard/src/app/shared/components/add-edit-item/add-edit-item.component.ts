@@ -21,6 +21,8 @@ import { InputComponent } from 'apps/dashboard/src/app/shared/components/form-co
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { FormValidationService } from 'apps/dashboard/src/app/shared/services/form-validation.service';
 import { occasionsService } from 'apps/dashboard/src/app/shared/services/occasions.services';
+import { Dialog } from 'primeng/dialog';
+import { DIALOG_PT } from 'apps/dashboard/src/app/shared/constants/pass-through';
 
 type EntityType = 'category' | 'occasion';
 
@@ -28,7 +30,7 @@ type EntityType = 'category' | 'occasion';
   selector: 'app-add-edit-item',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, InputComponent, ButtonComponent],
+  imports: [ReactiveFormsModule, InputComponent, ButtonComponent, Dialog],
   templateUrl: './add-edit-item.component.html',
 })
 export class AddEditItemComponent implements OnInit, OnDestroy {
@@ -50,6 +52,8 @@ export class AddEditItemComponent implements OnInit, OnDestroy {
   entityName = signal<string>('');
   existingImageUrl = signal<string | null>(null);
   selectedFile = signal<File | null>(null);
+  isImageModalOpened = signal<boolean>(false);
+  readonly dialogPt = DIALOG_PT;
 
   form = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -101,6 +105,10 @@ export class AddEditItemComponent implements OnInit, OnDestroy {
     this.subscriptions.add(sub);
   }
 
+  openImageModal(): void {
+    this.isImageModalOpened.set(true);
+  }
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0] ?? null;
@@ -125,15 +133,4 @@ export class AddEditItemComponent implements OnInit, OnDestroy {
 
     const service = this.getService();
     const request$ = this.isEditMode()
-      ? service.update(this.entityId()!, formData)
-      : service.add(formData);
-
-    const sub = request$.subscribe({
-      next: () => {
-        this._Router.navigate(['/', APP_ROUTES.DASHBOARD.ROOT, listPath]);
-      },
-      error: err => console.error(err),
-    });
-    this.subscriptions.add(sub);
-  }
-}
+      ? service.update(this.entit
