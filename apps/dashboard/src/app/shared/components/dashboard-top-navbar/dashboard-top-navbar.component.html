@@ -1,0 +1,20 @@
+<header
+  class="flex w-full fixed lg:sticky top-0 inset-x-0 z-50 items-center gap-3 px-4 lg:py-6 py-1.5 bg-white border-b border-zinc-200">
+  <!-- Logo section -->
+  <div class="flex lg:hidden justify-center">
+    <img
+      src="assets/images/rose-app-logo.webp"
+      alt="Rose Logo"
+      class="h-14 w-auto object-contain" />
+  </div>
+
+  <!-- Breadcrumb section -->
+  <div class="hidden min-[28rem]:block">
+    <app-breadcrumb />
+  </div>
+
+  <!-- Profile Section -->
+  <div class="ms-auto block lg:hidden">
+    <app-sidebar-profile />
+  </div>
+</header>
