@@ -306,6 +306,12 @@ export class ProductFormComponent implements OnInit {
       id: 1,
       imageUrl: this.coverPreviewUrl(),
     };
+    this.carouselPt.set({
+      ...this.carouselPt(),
+      pcPrevButton: { root: { class: 'hidden!' } },
+      pcNextButton: { root: { class: 'hidden!' } },
+      indicatorList: { class: 'hidden!' },
+    });
     this.carouselData.set([carouselObj]);
   }
 

@@ -1,0 +1,28 @@
+<div
+  class="fixed bottom-0 inset-x-0 h-23 bg-white flex gap-4 items-center justify-around p-4 z-40 select-none shadow-lg">
+  @for (item of menuItems(); track item.route) {
+    <a
+      [routerLink]="item.route"
+      routerLinkActive="text-maroon-600! bg-maroon-50 font-semibold"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex flex-col items-center justify-center flex-1 gap-1 h-full py-1.5 group rounded-xl">
+      <lucide-icon
+        [img]="item.icon"
+        size="24"
+        class="size-6 transition-colors text-zinc-800 group-[.bg-maroon-50]:text-maroon-600" />
+
+      <span
+        class="text-sm truncate max-w-19 text-center text-zinc-800 group-[.bg-maroon-50]:text-maroon-600 font-bold transition-all">
+        {{ item.labelKey | transloco }}
+      </span>
+    </a>
+  }
+
+  <a
+    [routerLink]="['/landing/home']"
+    routerLinkActive="text-maroon-700!"
+    [routerLinkActiveOptions]="{ exact: true }"
+    class="absolute -top-4 inset-x-0 mx-auto flex items-center justify-center bg-maroon-600 rounded-full size-12 border-2 border-white">
+    <lucide-icon [img]="Flower" size="30" class="size-7.5 text-white" />
+  </a>
+</div>
