@@ -20,10 +20,10 @@ export class OverviewOrderStatusSectionComponent {
     return this.ordersByStatus().map(item => ({
       status: item._id,
       count: item.count,
-      percentage: Math.floor(
+      percentage: +(
         (item.count / this.ordersByStatus().reduce((a, b) => a + b.count, 0)) *
-          100
-      ),
+        100
+      ).toFixed(2),
     }));
   });
   labels = computed(() => this.orderStatusChart().map(item => item.status));
@@ -48,9 +48,9 @@ export class OverviewOrderStatusSectionComponent {
         {
           data: this.percentage(),
           backgroundColor: [
-            documentStyle.getPropertyValue('--color-blue-500'),
-            documentStyle.getPropertyValue('--color-emerald-600'),
             documentStyle.getPropertyValue('--color-red-600'),
+            documentStyle.getPropertyValue('--color-emerald-600'),
+            documentStyle.getPropertyValue('--color-blue-500'),
           ],
         },
       ],
