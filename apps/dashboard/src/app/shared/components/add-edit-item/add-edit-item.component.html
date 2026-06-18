@@ -87,4 +87,14 @@
 </section>
 
 <p-dialog
-  [modal]="tr
+  [modal]="true"
+  [closeOnEscape]="true"
+  [visible]="isImageModalOpened()"
+  (visibleChange)="isImageModalOpened.set($event)"
+  [pt]="dialogPt"
+  [style]="{ width: '40rem' }">
+  <img
+    [src]="existingImageUrl()!"
+    alt="Current image"
+    class="w-full rounded-xl object-contain max-h-96 mt-6" />
+</p-dialog>

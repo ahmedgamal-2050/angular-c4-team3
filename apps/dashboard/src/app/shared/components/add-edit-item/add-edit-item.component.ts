@@ -133,4 +133,15 @@ export class AddEditItemComponent implements OnInit, OnDestroy {
 
     const service = this.getService();
     const request$ = this.isEditMode()
-      ? service.update(this.entit
+      ? service.update(this.entityId()!, formData)
+      : service.add(formData);
+
+    const sub = request$.subscribe({
+      next: () => {
+        this._Router.navigate(['/', APP_ROUTES.DASHBOARD.ROOT, listPath]);
+      },
+      error: err => console.error(err),
+    });
+    this.subscriptions.add(sub);
+  }
+}
