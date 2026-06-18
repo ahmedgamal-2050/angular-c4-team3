@@ -210,5 +210,12 @@
   "new_password": "New Password",
   "new_password_placeholder": "Enter new password",
   "confirm_new_password": "Confirm New Password",
-  "confirm_new_password_placeholder": "Re-enter new password"
+  "confirm_new_password_placeholder": "Re-enter new password",
+  "sidebar_preview_website": "Preview Website",
+  "sidebar_overview": "Overview",
+  "sidebar_categories": "Categories",
+  "sidebar_occasions": "Occasions",
+  "sidebar_products": "Products",
+  "sidebar_profile_settings": "Profile Settings",
+  "sidebar_logout": "Logout"
 }

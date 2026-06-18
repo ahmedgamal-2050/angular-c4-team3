@@ -13,6 +13,7 @@ export interface User {
   isVerified: boolean;
   _id: string;
   createdAt: string;
+  photo: string;
 }
 
 export interface AuthAdaptor extends GeneralSuccessResponse {
