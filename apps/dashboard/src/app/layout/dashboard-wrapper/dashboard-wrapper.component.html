@@ -4,7 +4,10 @@
     class="hidden lg:block w-75 shrink-0 bg-white border-r border-zinc-200 h-screen sticky top-0" />
 
   <!-- Main Content -->
-  <main class="flex-1 px-4 lg:py-6 py-4 min-h-screen min-w-0">
+  <main class="flex-1 px-4 lg:py-6 py-4 pb-32 lg:pb-6 min-h-screen min-w-0">
     <router-outlet />
   </main>
+
+  <!-- Bottom Navbar for Mobile/Tablet -->
+  <app-bottom-navbar class="block lg:hidden" />
 </div>

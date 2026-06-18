@@ -21,7 +21,11 @@ import { TextareaComponent } from '../../../../../../shared/components/form-comp
 import { FileUploadComponent } from '../../../../../../shared/components/form-components/file-upload/file-upload.component';
 import { ProductService } from '../../../../../../shared/services/product.service';
 import { FormValidationService } from '../../../../../../shared/services/form-validation.service';
-import { CategoriesResponse, OccasionsResponse, ProductDetailsResponse } from '../../../../../../shared/models/product';
+import {
+  CategoriesResponse,
+  OccasionsResponse,
+  ProductDetailsResponse,
+} from '../../../../../../shared/models/product';
 import { Image, Images } from 'lucide-angular';
 import { Dialog } from 'primeng/dialog';
 import { DIALOG_PT } from '../../../../../../shared/constants/pass-through';
@@ -350,6 +354,12 @@ export class ProductFormComponent implements OnInit {
       id: 1,
       imageUrl: this.coverPreviewUrl(),
     };
+    this.carouselPt.set({
+      ...this.carouselPt(),
+      pcPrevButton: { root: { class: 'hidden!' } },
+      pcNextButton: { root: { class: 'hidden!' } },
+      indicatorList: { class: 'hidden!' },
+    });
     this.carouselData.set([carouselObj]);
   }
 
