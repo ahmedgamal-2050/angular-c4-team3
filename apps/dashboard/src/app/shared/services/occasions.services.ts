@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ENDPOINTS } from '../../../../../angular-c4-team3/src/app/shared/constants/endpoints';
+import { ENDPOINTS } from '../constants/endpoints';
 
 export interface OCCASIONS {
   _id: string;
