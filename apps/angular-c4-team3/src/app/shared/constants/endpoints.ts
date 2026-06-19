@@ -33,4 +33,6 @@ export const ENDPOINTS = {
   UPDATE_OCCASIONS: `${BASE_URL}/occasions/{occasionsId}`,
   DELETE_OCCASIONS: `${BASE_URL}/occasions/{occasionsId}`,
   GET_OCCASIONS_BY_ID: `${BASE_URL}/occasions/{occasionsId}`,
+
+  GET_ALL_ORDERS: `${BASE_URL}/orders`,
 } as const;

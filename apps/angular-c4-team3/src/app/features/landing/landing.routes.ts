@@ -41,4 +41,14 @@ export const landingRoutes: Route[] = [
         m => m.CheckoutComponent
       ),
   },
+  {
+    path: APP_ROUTES.LANDING.ORDER,
+    loadComponent: () =>
+      import('./pages/order/order.component').then(m => m.OrderComponent),
+  },
+  {
+    path: APP_ROUTES.LANDING.PROFILE,
+    loadComponent: () =>
+      import('./pages/profile/profile.component').then(m => m.ProfileComponent),
+  },
 ];

@@ -11,6 +11,8 @@ export const APP_ROUTES = {
     WISHLIST: 'Wishlist',
     CART: 'cart',
     CHECKOUT: 'checkout',
+    ORDER: 'order',
+    PROFILE: 'profile',
   },
   AUTH: {
     ROOT: 'auth',

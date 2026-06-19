@@ -1,0 +1,60 @@
+<div
+  class="flex flex-col sm:flex-row gap-4 bg-zinc-50 lg:rounded-e-lg flex-1 lg:basis-[calc(50%-0.375rem)] pt-2 lg:pt-0">
+  <!-- Item Image -->
+  <div
+    class="w-29 h-35 bg-zinc-100 dark:bg-zinc-800 lg:rounded-s-lg lg:mx-0 mx-auto overflow-hidden shrink-0 relative">
+    @if (cartItem().product.imgCover) {
+      <img
+        [src]="cartItem().product.imgCover"
+        [alt]="cartItem().product.title"
+        class="w-full h-full object-cover" />
+    }
+  </div>
+
+  <!-- Item Details -->
+  <div class="flex-1 flex flex-col justify-between py-2 px-2 lg:px-0">
+    <div class="flex justify-between items-start gap-4">
+      <div>
+        <h3
+          class="font-semibold text-maroon-700 dark:text-soft-pink-200 text-base lg:text-lg">
+          {{ cartItem().product.title }}
+        </h3>
+
+        <div class="flex items-center gap-1 mt-1 text-sm lg:text-base">
+          <lucide-icon
+            [img]="Star"
+            size="20"
+            class="text-yellow-500 fill-yellow-500 dark:text-yellow-600 dark:fill-yellow-600" />
+
+          <span class="font-normal text-zinc-800 dark:text-white">
+            {{ 'cart_rating' | transloco }}: {{ cartItem().product.rateAvg }}/5
+          </span>
+
+          <span class="font-medium text-blue-600 dark:text-blue-500">
+            ({{ cartItem().product.rateCount }}
+            {{ 'cart_rating_count' | transloco }})</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mt-4">
+      <!-- Price -->
+      <div class="flex items-baseline gap-1">
+        <span
+          class="text-maroon-600 dark:text-soft-pink-200 font-medium text-sm">
+          (x{{ cartItem().quantity }})
+        </span>
+
+        <span
+          class="font-bold text-lg lg:text-2xl text-zinc-800 dark:text-white">
+          {{ cartItem().price }}
+        </span>
+
+        <span class="text-base font-medium text-zinc-800 dark:text-white">
+          {{ 'cart_currency' | transloco }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>

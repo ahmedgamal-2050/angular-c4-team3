@@ -224,5 +224,13 @@
   "sidebar_categories_add": "Add Category",
   "sidebar_categories_edit": "Edit Category",
   "sidebar_occasions_add": "Add Occasion",
-  "sidebar_occasions_edit": "Edit Occasion"
+  "sidebar_occasions_edit": "Edit Occasion",
+  "order_page_title": "Orders",
+  "order_page_order_section_header_title": "Order",
+  "order_page_order_section_header_created_in_label": "Created in",
+  "order_page_order_section_total_price_label": "Total Price",
+  "order_page_order_section_status_label": "Status",
+  "order_page_order_section_payment_method_label": "Payment Method",
+  "order_page_order_section_delivery_status_label": "Delivery Status",
+  "order_page_order_section_order_items_label": "Order Items"
 }
