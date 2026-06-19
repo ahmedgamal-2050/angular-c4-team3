@@ -1,0 +1,1 @@
+(self.webpackChunkangular_c4_team3=self.webpackChunkangular_c4_team3||[]).push([[9748],{9748(k,e,u){u.d(e,{u:()=>c});var a={};function c(_="pui_id_"){return Object.hasOwn(a,_)||(a[_]=0),a[_]++,`${_}${a[_]}`}}}]);
