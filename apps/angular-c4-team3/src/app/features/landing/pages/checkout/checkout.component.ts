@@ -25,6 +25,8 @@ import {
 import { ButtonComponent } from '@angular-c4-team3/shared-design';
 import { TranslocoModule } from '@jsverse/transloco';
 import { ArrowRight } from 'lucide-angular';
+import { OrderService } from '../order/services/order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -44,9 +46,31 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   private _messageService = inject(MessageService);
   private _couponService = inject(CouponService);
   readonly _addressService = inject(AddressService);
+  readonly _orderService = inject(OrderService);
+  readonly _router = inject(Router);
+
   readonly Ticket = ArrowRight;
+
   currentActiveStep = signal<number>(1);
   addresses = signal<AddressItem[]>([]);
+  selectedPayment = signal<string>('');
+  selectedAddress = signal<AddressItem | null>(null);
+  paymentMethodList = signal([
+    {
+      id: '1',
+      name: 'cash_on_delivery',
+      description: 'cash_on_delivery_desc',
+      image: 'assets/images/icon_2.png',
+      value: 'CASH_ON_DELIVERY',
+    },
+    {
+      id: '2',
+      name: 'credit_card',
+      description: 'credit_card_desc',
+      image: 'assets/images/Icon_1.png',
+      value: 'CREDIT_CARD',
+    },
+  ]);
 
   isLoggedIn = computed(() => this._loggedInService.isLoggedIn());
   userId = computed(() => this._loggedInService.user()?._id || '');
@@ -213,6 +237,42 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   checkout() {
-    console.log('Proceeding to checkout...');
+    const newOrder = {
+      paymentMethod: this.selectedPayment(),
+      addressId: this.selectedAddress()!._id,
+    };
+
+    const order = {
+      shippingAddress: {
+        street: this.selectedAddress()!.street,
+        phone: this.selectedAddress()!.phone,
+        city: this.selectedAddress()!.city,
+        lat: this.selectedAddress()!.lat,
+        long: this.selectedAddress()!.long,
+      },
+    };
+    const sub = this._orderService.createOrder(order).subscribe({
+      next: response => {
+        this.handleOrderSuccess(response);
+      },
+      error: err => {
+        this.handleCartError(err);
+      },
+    });
+
+    this.subscription.add(sub);
+  }
+
+  handleOrderSuccess(response: any) {
+    this._messageService.add({
+      severity: 'success',
+      summary: 'Success',
+      detail: response.message,
+    });
+    this._cartService.cartItems.set([]);
+    this._cartService.discountPercentage.set(0);
+    this.selectedPayment.set('');
+    this.currentActiveStep.set(1);
+    this._router.navigate(['/landing/order']);
   }
 }

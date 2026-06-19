@@ -42,7 +42,7 @@ export class UserDropdownComponent {
         label: 'user_dropdown_my_profile_label',
         icon: 'User',
         data: { icon: this.User },
-        routerLink: '/profile',
+        routerLink: '/landing/profile',
       },
       {
         label: 'user_dropdown_my_addresses_label',
@@ -54,7 +54,7 @@ export class UserDropdownComponent {
         label: 'user_dropdown_my_orders_label',
         icon: 'ClipboardList',
         data: { icon: this.ClipboardList },
-        routerLink: '/orders',
+        routerLink: '/landing/order',
       },
     ];
 

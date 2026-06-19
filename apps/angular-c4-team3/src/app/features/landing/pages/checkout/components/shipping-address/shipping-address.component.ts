@@ -38,6 +38,7 @@ export class ShippingAddressComponent {
   nextStep = output<void>();
   addAddress = output<NewAddress>();
   updateAddressList = output<void>();
+  updateSelectedAddress = output<AddressItem>();
 
   isAddAddressModalOpened = signal<boolean>(false);
   selectedAddress = signal<AddressItem | null>(null);
@@ -50,6 +51,9 @@ export class ShippingAddressComponent {
     this.selectedAddress.set(
       this.addresses().find(addr => addr._id === id) || null
     );
+    if (this.selectedAddress()) {
+      this.updateSelectedAddress.emit(this.selectedAddress()!);
+    }
   }
 
   openAddAddressModal() {
