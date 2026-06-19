@@ -6,7 +6,8 @@
     "start": "npx nx serve angular-c4-team3 --devRemotes=dashboard -o",
     "build": "npx nx build angular-c4-team3 --skip-nx-cache",
     "test": "npx nx test angular-c4-team3",
-    "lint": "npx nx lint angular-c4-team3"
+    "lint": "npx nx lint angular-c4-team3",
+    "deploy": "node scripts/deploy.js"
   },
   "private": true,
   "dependencies": {
