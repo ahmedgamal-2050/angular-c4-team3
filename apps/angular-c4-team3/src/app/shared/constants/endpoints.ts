@@ -35,4 +35,5 @@ export const ENDPOINTS = {
   GET_OCCASIONS_BY_ID: `${BASE_URL}/occasions/{occasionsId}`,
 
   GET_ALL_ORDERS: `${BASE_URL}/orders`,
+  CREATE_ORDER: `${BASE_URL}/orders`,
 } as const;

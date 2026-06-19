@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { LucideAngularModule, Star } from 'lucide-angular';
+import { OrderItem } from './../../order.model';
 
 @Component({
   selector: 'app-product-order-item',
@@ -10,14 +11,5 @@ import { LucideAngularModule, Star } from 'lucide-angular';
 export class ProductOrderItemComponent {
   readonly Star = Star;
 
-  cartItem = signal({
-    product: {
-      title: 'Moko Chocolate Set | Esperance Rose',
-      imgCover: '',
-      rateAvg: 5,
-      rateCount: 8,
-    },
-    price: 1800,
-    quantity: 0,
-  });
+  orderItem = input.required<OrderItem>();
 }

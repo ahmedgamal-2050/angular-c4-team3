@@ -232,5 +232,7 @@
   "order_page_order_section_status_label": "Status",
   "order_page_order_section_payment_method_label": "Payment Method",
   "order_page_order_section_delivery_status_label": "Delivery Status",
-  "order_page_order_section_order_items_label": "Order Items"
+  "order_page_order_section_order_items_label": "Order Items",
+  "order_page_no_orders_found_label": "No orders found",
+  "order_page_order_section_show_all_label": "Show All"
 }

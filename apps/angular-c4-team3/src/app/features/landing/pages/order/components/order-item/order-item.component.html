@@ -1,92 +1,153 @@
-<section class="flex flex-col">
-  <header
-    class="bg-maroon-600 text-white rounded-t-md flex lg:flex-row flex-col gap-3 lg:gap-0 justify-between lg:items-center p-4">
-    <h4 class="font-semibold lg:text-2xl text-lg">
-      {{ 'order_page_order_section_header_title' | transloco }} #123456789
-    </h4>
+@if (orderParent()) {
+  <div class="flex flex-col gap-4">
+    @for (order of orderParent(); track order._id) {
+      <section class="flex flex-col">
+        <header
+          class="bg-maroon-600 text-white rounded-t-md flex lg:flex-row flex-col gap-3 lg:gap-0 justify-between lg:items-center p-4">
+          <h4 class="font-semibold lg:text-2xl text-lg">
+            {{ 'order_page_order_section_header_title' | transloco }}
+            {{ order.orderNumber }}
+          </h4>
 
-    <div>
-      <span class="font-normal lg:text-base text-sm">
-        {{ 'order_page_order_section_header_created_in_label' | transloco }}:
-      </span>
+          <div>
+            <span class="font-normal lg:text-base text-sm">
+              {{
+                'order_page_order_section_header_created_in_label' | transloco
+              }}:
+            </span>
 
-      <span class="font-semibold lg:text-base text-sm"
-        >14 July, 2025 at 10:05AM</span
-      >
-    </div>
-  </header>
+            <span class="font-semibold lg:text-base text-sm">
+              {{
+                (order.createdAt | date: 'dd MMM, yyyy') +
+                  ' at ' +
+                  (order.createdAt | date: 'hh:mm A')
+              }}
+            </span>
+          </div>
+        </header>
 
-  <section
-    class="p-4 border border-t-0 border-zinc-200 bg-zinc-100 rounded-b-md">
-    <header
-      class="flex lg:flex-row flex-col justify-between gap-3 lg:gap-0 lg:items-center pb-4 border-b border-zinc-200 mb-4">
-      <div class="flex items-center gap-4">
-        <div class="flex">
-          <span
-            class="font-medium lg:text-2xl text-lg text-zinc-800 dark:text-white">
-            {{ 'order_page_order_section_total_price_label' | transloco }}:
-          </span>
+        <section
+          class="p-2 lg:p-4 border border-t-0 border-zinc-200 bg-zinc-100 dark:border-zinc-600 dark:bg-zinc-700 rounded-b-md">
+          <header
+            class="flex lg:flex-row flex-col justify-between gap-3 lg:gap-0 lg:items-center pb-4 border-b border-zinc-200 dark:border-zinc-600 mb-4">
+            <div class="flex items-center gap-4">
+              <div class="flex">
+                <span
+                  class="font-medium lg:text-2xl text-lg text-zinc-800 dark:text-white">
+                  {{
+                    'order_page_order_section_total_price_label' | transloco
+                  }}:
+                </span>
 
-          <span
-            class="font-semibold lg:text-2xl text-lg text-zinc-800 dark:text-white">
-            1,820 EGP
-          </span>
-        </div>
+                <span
+                  class="font-semibold lg:text-2xl text-lg text-zinc-800 dark:text-white">
+                  {{ order.totalPrice | number }}
+                </span>
+              </div>
 
-        <div
-          class="inline-flex items-center bg-emerald-500 text-white rounded-full gap-2.5 py-1 px-2.5">
-          <lucide-icon [img]="Check" size="20" class="size-4" />
-          <span>Paid</span>
-        </div>
-      </div>
+              @if (order.isPaid) {
+                <div
+                  class="inline-flex items-center bg-emerald-500 text-white rounded-full gap-2.5 py-1 px-2.5">
+                  <lucide-icon [img]="Check" size="20" class="size-4" />
+                  <span>Paid</span>
+                </div>
+              }
+            </div>
 
-      <div>
-        <span
-          class="lg:text-base text-sm text-semibold text-zinc-800 dark:text-white">
-          {{ 'order_page_order_section_status_label' | transloco }}:
-        </span>
+            <div>
+              <span
+                class="lg:text-base text-sm text-semibold text-zinc-800 dark:text-white">
+                {{ 'order_page_order_section_status_label' | transloco }}:
+              </span>
 
-        <span class="bg-blue-500 text-white rounded-full py-1 px-2.5">
-          In Progress
-        </span>
-      </div>
-    </header>
+              <span class="bg-blue-500 text-white rounded-full py-1 px-2.5">
+                {{ order.state }}
+              </span>
+            </div>
+          </header>
 
-    <section class="lg:px-4">
-      <div class="flex flex-col gap-2.5">
-        <div class="flex items-center gap-1">
-          <span>
-            {{ 'order_page_order_section_payment_method_label' | transloco }}:
-          </span>
+          <section class="lg:px-4">
+            <div class="flex flex-col gap-2.5">
+              <div class="flex items-center gap-1">
+                <span>
+                  {{
+                    'order_page_order_section_payment_method_label' | transloco
+                  }}:
+                </span>
 
-          <span class="text-zinc-500 flex items-center gap-1">
-            <lucide-icon [img]="Banknote" class="size-5" />
-            Cash
-          </span>
-        </div>
+                <span
+                  class="text-zinc-500 dark:text-zinc-400 flex items-center gap-1">
+                  <lucide-icon [img]="Banknote" class="size-5" />
+                  {{ order.paymentType }}
+                </span>
+              </div>
 
-        <div class="flex items-center gap-1">
-          <span>
-            {{ 'order_page_order_section_delivery_status_label' | transloco }}:
-          </span>
+              <div class="flex items-center gap-1">
+                <span>
+                  {{
+                    'order_page_order_section_delivery_status_label'
+                      | transloco
+                  }}:
+                </span>
 
-          <span class="text-yellow-600 flex items-center gap-1">
-            <lucide-icon [img]="Truck" class="size-5" />
-            Pending
-          </span>
-        </div>
+                @if (!order.isDelivered) {
+                  <span class="text-yellow-600 flex items-center gap-1">
+                    <lucide-icon [img]="Truck" class="size-5" />
+                    Pending
+                  </span>
+                }
+              </div>
 
-        <div>
-          <span>
-            {{ 'order_page_order_section_order_items_label' | transloco }}:
-          </span>
-        </div>
+              <div>
+                <span>
+                  {{
+                    'order_page_order_section_order_items_label' | transloco
+                  }}:
+                </span>
+              </div>
 
-        <div
-          class="rounded-sm bg-white p-4 flex flex-col lg:flex-row flex-wrap gap-3">
-          <app-product-order-item />
-        </div>
-      </div>
-    </section>
-  </section>
-</section>
+              <div
+                class="rounded-sm bg-white dark:bg-zinc-800 lg:p-4 p-2 grid grid-cols-1 xl:grid-cols-2 gap-3 relative"
+                [class.max-h-75]="
+                  order.orderItems.length > 4 && !showOrderItems()
+                "
+                [class.overflow-hidden]="
+                  order.orderItems.length > 4 && !showOrderItems()
+                ">
+                @for (item of order.orderItems; track item._id) {
+                  <app-product-order-item [orderItem]="item" />
+                }
+
+                @if (order.orderItems.length > 4 && !showOrderItems()) {
+                  <div
+                    class="absolute bottom-0 inset-s-0 w-full h-full bg-linear-to-b from-transparent to-white flex justify-center">
+                    <button
+                      type="button"
+                      (click)="toggleOrderItems()"
+                      class="text-maroon-600 dark:text-red-500 flex flex-col gap-1 self-end items-center pb-4">
+                      <span class="font-medium text-base">
+                        {{
+                          'order_page_order_section_show_all_label' | transloco
+                        }}
+                      </span>
+
+                      <lucide-icon
+                        [img]="ChevronDown"
+                        size="20"
+                        class="size-5" />
+                    </button>
+                  </div>
+                }
+              </div>
+            </div>
+          </section>
+        </section>
+      </section>
+    } @empty {
+      <section
+        class="flex items-center justify-center py-4 min-h-75 text-zinc-800 dark:text-white">
+        {{ 'order_page_no_orders_found_label' | transloco }}
+      </section>
+    }
+  </div>
+}

@@ -224,5 +224,15 @@
   "sidebar_categories_add": "إضافة فئة",
   "sidebar_categories_edit": "تعديل الفئة",
   "sidebar_occasions_add": "إضافة مناسبة",
-  "sidebar_occasions_edit": "تعديل المناسبة"
+  "sidebar_occasions_edit": "تعديل المناسبة",
+  "order_page_title": "الطلبات",
+  "order_page_order_section_header_title": "الطلب",
+  "order_page_order_section_header_created_in_label": "تم الطلب في",
+  "order_page_order_section_total_price_label": "السعر الإجمالي",
+  "order_page_order_section_status_label": "الحالة",
+  "order_page_order_section_payment_method_label": "طريقة الدفع",
+  "order_page_order_section_delivery_status_label": "حالة التوصيل",
+  "order_page_order_section_order_items_label": "منتجات الطلب",
+  "order_page_no_orders_found_label": "لا يوجد طلبات",
+  "order_page_order_section_show_all_label": "عرض الكل"
 }
