@@ -8,6 +8,12 @@ const config: ModuleFederationConfig = {
       'apps/dashboard/src/app/layout/dashboard-wrapper/dashboard-wrapper.component.ts',
     './guard': 'apps/dashboard/src/app/core/guards/dashboard.guard.ts',
   },
+  shared: (libraryName) => {
+    if (libraryName.startsWith('primeng') || libraryName.startsWith('@primeuix')) {
+      return false;
+    }
+    return undefined;
+  },
 };
 
 /**
