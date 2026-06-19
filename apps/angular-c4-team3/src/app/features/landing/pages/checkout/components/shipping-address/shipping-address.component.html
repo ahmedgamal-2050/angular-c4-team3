@@ -40,7 +40,8 @@
     [type]="'button'"
     (clicked)="next()"
     [icon]="ArrowRight"
-    iconPosition="right" />
+    iconPosition="right"
+    [disabled]="!selectedAddress()" />
 </div>
 
 <app-address-modal
